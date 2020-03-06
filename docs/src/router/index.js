@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Seo from '../views/Seo.vue'
 import SG from '../views/SG.vue'
-import BlogSG from '../views/BlogSG.vue'
+import Menu from '../views/Menu.vue'
 
 Vue.use(VueRouter)
 
@@ -24,9 +24,9 @@ const routes = [
     component: SG
   },
   {
-    path: '/BlogSG',
-    name: 'BlogSG',
-    component: BlogSG
+    path: '/Menu',
+    name: 'Menu',
+    component: Menu
   }
 ]
 

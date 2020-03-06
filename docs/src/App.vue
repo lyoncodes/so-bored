@@ -4,7 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/SEO">SEO</router-link> |
       <router-link to="/SG">Style Guide</router-link> |
-      <router-link to="/BlogSG">Blog Style Guide</router-link> |
+      <router-link to="/Menu">Menu</router-link> |
     </div>
     <router-view/>
   </div>
