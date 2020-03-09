@@ -1,5 +1,5 @@
 export default {
   appendCard: (state, card) => {
-    state.push(card)
+    state.Cards.push(card)
   }
 }

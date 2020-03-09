@@ -2,7 +2,7 @@
   <div class="home">
     <h1>Unearth Docs</h1>
     <button @click="toggleCardForm" class="btn btn-primary">Add New Card</button>
-    <b-form @submit="handleSubmit" v-if="showCardForm">
+    <b-form @submit.prevent="handleSubmit" v-if="showCardForm">
       <b-form-group id="input-title" label="Card Title" label-for="input-title">
         <b-form-input
           id="card-title"
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex'
 export default {
   name: 'Home',
   data () {
@@ -40,10 +40,19 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'addCard'
+    ]),
     toggleCardForm () {
       this.showCardForm = !this.showCardForm
     },
     handleSubmit () {
+      const { title, text } = this.formData
+      const card = {
+        title,
+        text
+      }
+      this.addCard(card)
     }
   }
 }
