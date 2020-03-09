@@ -1,6 +1,4 @@
-import SEOcards from '../data/SEOcards'
-import SGcards from '../data/SGcards'
+import Cards from '../data/Cards'
 export default {
-  SEOcards,
-  SGcards
+  Cards
 }
