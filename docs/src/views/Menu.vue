@@ -47,7 +47,6 @@ export default {
   },
   mounted () {
     const card = this.SEOcards
-    console.log(card)
     this.card = card
   }
 }
