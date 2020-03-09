@@ -1,22 +1,25 @@
 export default [
 // Add new cards here
   {
-    title: 'Style Guide',
+    title: 'Card',
     text: 'test1 text',
     href: '#',
-    id: 'seo-1'
+    id: 1,
+    active: true
   },
   {
-    title: 'Style Guide',
+    title: 'Card',
     text: 'test2 text',
     href: '#',
-    id: 'seo-2'
+    id: 2,
+    active: true
   },
   {
-    title: 'Style Guide',
+    title: 'Card',
     text: 'test3 text',
     href: '#',
-    id: 'seo-3'
+    id: 3,
+    active: true
   }
 
 ]
