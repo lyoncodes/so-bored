@@ -2,7 +2,7 @@
     <b-card-group class="card-grid">
         <template v-for="card in SEOcards">
         <!-- card component goes here eventually -->
-          <b-col md="4" class="card-container" :key="card.id">
+          <b-col md="4" class="card-container" :key="card">
             <b-card bg-variant="dark" text-variant="white">
                 <h3>
                   {{card.title}}
