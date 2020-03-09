@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Home',
   data () {
@@ -38,6 +38,11 @@ export default {
         text: ''
       }
     }
+  },
+  computed: {
+    ...mapGetters([
+      'activeCards'
+    ])
   },
   methods: {
     ...mapActions([
@@ -53,6 +58,10 @@ export default {
         text
       }
       this.addCard(card)
+      this.formData = {
+        title: '',
+        text: ''
+      }
     }
   }
 }
