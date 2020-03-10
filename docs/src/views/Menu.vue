@@ -1,38 +1,23 @@
 <template>
-  <b-card-group class="card-grid">
-      <template v-for="card in Cards">
-      <!-- card component goes here eventually -->
-        <b-col md="4" class="card-container" :key="card">
-          <b-card bg-variant="dark" text-variant="white">
-              <h3>
-                {{card.title}}
-              </h3>
-              <b-card-text>
-                {{card.text}}
-              </b-card-text>
-              <b-button href="#" variant="primary">Go somewhere</b-button>
-          </b-card>
-        </b-col>
-      </template>
-  </b-card-group>
+  <div id="menu">
+    <menuGrid />
+    <cardGrid />
+  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import menuGrid from '../components/menuGrid'
+import cardGrid from '../components/cardGrid'
 export default {
   data () {
     return {
+      menu: {},
       card: {}
     }
   },
-  computed: {
-    ...mapState([
-      'Cards'
-    ])
-  },
-  mounted () {
-    const card = this.Cards
-    this.card = card
+  components: {
+    menuGrid,
+    cardGrid
   }
 }
 </script>
