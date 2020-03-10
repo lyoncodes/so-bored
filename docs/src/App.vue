@@ -5,6 +5,7 @@
       <router-link to="/Menu">Menu</router-link>
     </div>
     <router-view/>
+    <router-view name="helper"/>
   </div>
 </template>
 
