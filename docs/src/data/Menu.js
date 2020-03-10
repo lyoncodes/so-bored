@@ -14,5 +14,10 @@ export default [
     text: 'link3',
     id: 3,
     active: false
+  },
+  {
+    text: 'link4',
+    id: 4,
+    active: false
   }
 ]

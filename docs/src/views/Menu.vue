@@ -1,13 +1,11 @@
 <template>
   <div id="menu">
     <menuGrid />
-    <cardGrid />
   </div>
 </template>
 
 <script>
 import menuGrid from '../components/menuGrid'
-import cardGrid from '../components/cardGrid'
 export default {
   data () {
     return {
@@ -16,8 +14,7 @@ export default {
     }
   },
   components: {
-    menuGrid,
-    cardGrid
+    menuGrid
   }
 }
 </script>
