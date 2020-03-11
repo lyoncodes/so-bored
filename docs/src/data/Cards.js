@@ -1,24 +1,24 @@
 export default [
 // Add new cards here
   {
-    title: 'Card',
+    title: ' \'<h>\' tags',
     text: 'test1 text',
     href: '#',
-    id: 1,
+    id: 'SEO',
     active: true
   },
   {
-    title: 'Card',
+    title: 'Fonts',
     text: 'test2 text',
     href: '#',
-    id: 2,
+    id: 'SEO',
     active: true
   },
   {
-    title: 'Card',
+    title: 'CSS Properties',
     text: 'test3 text',
     href: '#',
-    id: 3,
+    id: 'Resources',
     active: true
   }
 
