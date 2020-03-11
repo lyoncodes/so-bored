@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: 'Home',
   data () {
@@ -38,11 +38,6 @@ export default {
         text: ''
       }
     }
-  },
-  computed: {
-    ...mapGetters([
-      'activeCards'
-    ])
   },
   methods: {
     ...mapActions([
