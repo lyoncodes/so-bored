@@ -1,8 +1,9 @@
 export default {
-  addMenu: ({ commit }, menu) => {
-    commit('appendMenu', menu)
-  },
   addCard: ({ commit }, card) => {
     commit('appendCard', card)
+  },
+  deleteCard: ({ commit }, card) => {
+    console.log('action')
+    commit('removeCard', card)
   }
 }

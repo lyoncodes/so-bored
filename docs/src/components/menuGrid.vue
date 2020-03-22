@@ -8,15 +8,14 @@
           v-for="card in Cards"
           :key="card.id"
           :class="{ selected: card === selectedCard }"
-          v-on:click="selectedCard = card"
+          @click="toggleCard(card)"
           variant="primary"
           >
             {{ card.title }}
           </b-button>
         </b-button-group>
       </b-row>
-      <b-card-group class="card-grid" v-if="selectedCard">
-        <!-- card component goes here eventually -->
+      <b-card-group class="card-grid" v-if="selectedCard && showCard">
         <b-col md="6" class="card-container" :key="card">
           <b-card bg-variant="dark" text-variant="white">
               <h3>
@@ -25,7 +24,7 @@
               <b-card-text>
                 {{selectedCard.text}}
               </b-card-text>
-              <b-button href="#" variant="primary">Go somewhere</b-button>
+              <b-button @click="handleDelete(selectedCard.id)" variant="primary">Delete Card</b-button>
           </b-card>
         </b-col>
       </b-card-group>
@@ -50,7 +49,14 @@ export default {
     ])
   },
   methods: {
-    toggleCard () {
+    toggleCard (card) {
+      this.selectedCard = card
+      this.showCard = !this.showCard
+      return this.selectedCard
+    },
+    handleDelete (id) {
+      const cardId = id
+      this.$delete(this.Cards, cardId)
       this.showCard = !this.showCard
     }
   },
