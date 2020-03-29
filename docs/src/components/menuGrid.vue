@@ -2,61 +2,87 @@
   <b-container>
     <b-container class="menu-row">
       <b-row>
-        <h1>Style Rules</h1>
         <b-button-group size="sm">
           <b-button
-          v-for="card in Cards"
-          :key="card.id"
+          v-for="(card, index) in Cards"
+          :key="index"
           :class="{ selected: card === selectedCard }"
-          v-on:click="selectedCard = card"
+          @click="handleSwitch(card, index)"
           variant="primary"
           >
             {{ card.title }}
           </b-button>
         </b-button-group>
       </b-row>
-      <b-card-group class="card-grid" v-if="selectedCard">
-        <!-- card component goes here eventually -->
-        <b-col md="6" class="card-container" :key="card">
-          <b-card bg-variant="dark" text-variant="white">
-              <h3>
-                {{selectedCard.title}}
-              </h3>
-              <b-card-text>
-                {{selectedCard.text}}
-              </b-card-text>
-              <b-button href="#" variant="primary">Go somewhere</b-button>
-          </b-card>
-        </b-col>
+      <b-card-group class="card-grid">
+        <b-container class="card-container">
+          <b-row>
+            <b-col md="4" v-for="card in pinnedCards" :key="card.active">
+              <b-card bg-variant="dark" text-variant="white">
+                <h3>
+                  {{card.title}}
+                </h3>
+                <b-card-text>
+                  {{card.text}}
+                </b-card-text>
+                <b-button @click="handleDelete(card.id)" variant="primary">Unpin Card</b-button>
+              </b-card>
+            </b-col>
+          </b-row>
+        </b-container>
       </b-card-group>
     </b-container>
   </b-container>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'menu-row',
   data () {
     return {
-      showCard: false,
-      selectedCard: null
+      showCards: false
     }
   },
   computed: {
     ...mapState([
       'Cards',
-      'Menu'
+      'allCards',
+      'pinnedCards'
     ])
   },
   methods: {
-    toggleCard () {
-      this.showCard = !this.showCard
+    ...mapActions([
+      'pinCard',
+      'hidePin'
+    ]),
+    handleSwitch (card, index) {
+      const { title, text, id, active, toggled } = card
+      const pinnedCard = {
+        title,
+        text,
+        id,
+        active,
+        toggled
+      }
+      if (!this.pinnedCards.length) {
+        return this.pinCard(pinnedCard)
+      }
+      if (this.Cards[index].active) {
+        return this.hidePin(pinnedCard)
+      }
+      if (this.pinnedCards.length && !this.Cards[index].active) {
+        return this.pinCard(pinnedCard)
+      }
+    },
+    handleDelete (id) {
+      const cardId = id
+      this.$delete(this.Cards, cardId)
+      this.$delete(this.allCards, cardId)
+      this.showCards = !this.showCards
     }
   },
   mounted () {
-    const menu = this.Menu
-    this.menu = menu
     const card = this.Cards
     this.card = card
   }

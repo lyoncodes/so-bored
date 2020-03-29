@@ -1,8 +1,11 @@
 export default {
-  addMenu: ({ commit }, menu) => {
-    commit('appendMenu', menu)
-  },
   addCard: ({ commit }, card) => {
     commit('appendCard', card)
+  },
+  pinCard: ({ commit }, card) => {
+    commit('appendPin', card)
+  },
+  hidePin: ({ commit }, card) => {
+    commit('removeCard', card)
   }
 }

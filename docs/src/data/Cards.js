@@ -1,25 +1,25 @@
 export default [
 // Add new cards here
   {
-    title: ' \'<h>\' tags',
+    title: 'Headings',
     text: 'test1 text',
-    href: '#',
-    id: 'SEO',
-    active: true
+    id: 0,
+    active: false,
+    toggled: false
   },
   {
     title: 'Fonts',
     text: 'test2 text',
-    href: '#',
-    id: 'SEO',
-    active: true
+    id: 1,
+    active: false,
+    toggled: false
   },
   {
     title: 'CSS Properties',
     text: 'test3 text',
-    href: '#',
-    id: 'Resources',
-    active: true
+    id: 2,
+    active: false,
+    toggled: false
   }
 
 ]
