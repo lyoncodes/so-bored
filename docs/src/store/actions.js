@@ -2,8 +2,10 @@ export default {
   addCard: ({ commit }, card) => {
     commit('appendCard', card)
   },
-  deleteCard: ({ commit }, card) => {
-    console.log('action')
+  pinCard: ({ commit }, card) => {
+    commit('appendPin', card)
+  },
+  hidePin: ({ commit }, card) => {
     commit('removeCard', card)
   }
 }
