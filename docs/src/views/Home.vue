@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <h1>Unearth Docs</h1>
+    <img src="../assets/unearth-slate.svg">
+    <h1>Documents</h1>
     <button @click="toggleCardForm" class="btn btn-primary">Add New Card</button>
     <b-form @submit.prevent="handleSubmit" v-if="showCardForm">
       <b-col md="6">
@@ -61,3 +62,6 @@ export default {
   }
 }
 </script>
+<style scoped lang="scss">
+
+</style>
