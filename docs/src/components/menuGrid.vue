@@ -1,38 +1,22 @@
-<template>
-  <b-container>
-    <b-container class="menu-row">
-      <b-row>
-        <b-button-group size="sm">
-          <b-button
+<template lang="pug">
+  b-container
+    b-container(class="menu-row")
+      b-row
+        b-button-group(size="sm")
+          b-button(
           v-for="(card, index) in Cards"
           :key="index"
           :class="{ selected: card === selectedCard }"
           @click="handleSwitch(card, index)"
-          variant="primary"
-          >
-            {{ card.title }}
-          </b-button>
-        </b-button-group>
-      </b-row>
-      <b-card-group class="card-grid">
-        <b-container class="card-container">
-          <b-row>
-            <b-col md="4" v-for="card in pinnedCards" :key="card.active">
-              <b-card bg-variant="dark" text-variant="white">
-                <h3>
-                  {{card.title}}
-                </h3>
-                <b-card-text>
-                  {{card.text}}
-                </b-card-text>
-                <b-button @click="handleDelete(card.id)" variant="primary">Unpin Card</b-button>
-              </b-card>
-            </b-col>
-          </b-row>
-        </b-container>
-      </b-card-group>
-    </b-container>
-  </b-container>
+          variant="primary") {{card.title}}
+      b-card-group(class="card-grid")
+        b-container(class="card-container")
+          b-row
+            b-col(md="4" v-for="card in pinnedCards" :key="card.active")
+              b-card(bg-variant="dark" text-variant="white")
+                h3 {{card.title}}
+                b-card-text {{card.text}}
+                b-button(@click="handleDelete(card.id)" variant="primary") Unpin Card
 </template>
 
 <script>
@@ -57,13 +41,12 @@ export default {
       'hidePin'
     ]),
     handleSwitch (card, index) {
-      const { title, text, id, active, toggled } = card
+      const { title, text, id, active } = card
       const pinnedCard = {
         title,
         text,
         id,
-        active,
-        toggled
+        active
       }
       if (!this.pinnedCards.length) {
         return this.pinCard(pinnedCard)
