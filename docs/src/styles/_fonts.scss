@@ -1,4 +1,18 @@
+// ============= font families ================
 $font-header: "Raleway";
 $font-title: "Playfair Display";
 $font-body: "Raleway";
-$font-caption: "Playfair Display"
+$font-caption: "Playfair Display";
+// ============= font weights ================
+$font-heavy: 800;
+$font-med: 600;
+$font-light: 300;
+
+%body-fonts {
+  font: 100% $font-body;
+  font-weight: $font-med;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
