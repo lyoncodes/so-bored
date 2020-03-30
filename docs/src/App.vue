@@ -1,24 +1,18 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/Menu">Menu</router-link> |
-      <router-link to="/SEO">SEO</router-link> |
-      <router-link to="/Resources">Resources</router-link> |
-      <router-link to="/SG">SG</router-link> |
-    </div>
+<template lang="pug">
+  #app
+    #nav
+      router-link(to="/")  Home |
+      router-link(to="/Menu")  Menu |
+      router-link(to="/SEO")  SEO |
+      router-link(to="/Resources")  Resources |
+      router-link(to="/SG")  SG |
     <router-view/>
-  </div>
 </template>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display|Raleway&display=swap');
 #app {
-  font-family: $font-body;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  @extend %body-fonts
 }
 
 #nav {
