@@ -3,9 +3,6 @@
     #nav
       router-link(to="/")  Home |
       router-link(to="/Menu")  Menu |
-      router-link(to="/SEO")  SEO |
-      router-link(to="/Resources")  Resources |
-      router-link(to="/SG")  SG |
     <router-view/>
 </template>
 
