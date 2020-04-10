@@ -1,7 +1,9 @@
 export default {
+  // add card from add card form
   appendCard: (state, card) => {
     state.Cards.push(card)
   },
+  // "plugIn" card to board after switch is active
   appendPin: (state, card) => {
     card.active = true
     card.toggled = true
@@ -12,6 +14,7 @@ export default {
       }
     })
   },
+  // update card in cards and pinnedcards arrays
   replaceCardText: (state, card) => {
     state.Cards.map(el => {
       if (el.id === card.cardId) {
@@ -26,6 +29,7 @@ export default {
       }
     })
   },
+  // deletes card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
     const filtered = state.pinnedCards.filter((value) => {
       if (value.id !== card.id) {
