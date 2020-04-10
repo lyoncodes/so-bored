@@ -72,8 +72,7 @@ export default {
       // Conditions to handle juggling switches
       if (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[index].active)) {
         return this.pinCard(pinnedCard)
-      }
-      if (this.Cards[index].active) {
+      } else if (this.Cards[index].active) {
         return this.hidePin(pinnedCard)
       }
     },
