@@ -16,7 +16,22 @@
               b-card(bg-variant="dark" text-variant="white")
                 h3 {{card.title}}
                 b-card-text {{card.text}}
-                b-button(@click="handleDelete(card.id)" variant="primary") Unpin Card
+                b-form(@submit.prevent="updateCard(card.id)" v-if="showUpdateField")
+                  b-form-input(
+                    id="card-title"
+                    v-model="cardText.title"
+                    required
+                    placeholder="Enter New Title"
+                  )
+                  b-form-input(
+                    id="card-text"
+                    v-model="cardText.text"
+                    required
+                    placeholder="Enter New Rule"
+                  )
+                  b-button(type="submit" variant="primary") Update!
+                b-button(@click="handleUpdate" variant="primary" v-if="!showUpdateField") Update Rule
+                b-button(@click="handleDelete(card.id)" variant="primary") Delete Card
 </template>
 
 <script>
@@ -25,20 +40,26 @@ export default {
   name: 'menu-row',
   data () {
     return {
-      showCards: false
+      showCards: false,
+      showUpdateField: false,
+      cardText: {
+        title: '',
+        text: ''
+      }
     }
   },
   computed: {
     ...mapState([
       'Cards',
-      'allCards',
       'pinnedCards'
     ])
   },
   methods: {
     ...mapActions([
       'pinCard',
-      'hidePin'
+      'updateCardText',
+      'hidePin',
+      'eraseCard'
     ]),
     handleSwitch (card, index) {
       const { title, text, id, active } = card
@@ -48,20 +69,38 @@ export default {
         id,
         active
       }
-      if (!this.pinnedCards.length) {
+      // Conditions to handle juggling switches
+      if (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[index].active)) {
         return this.pinCard(pinnedCard)
       }
       if (this.Cards[index].active) {
         return this.hidePin(pinnedCard)
       }
-      if (this.pinnedCards.length && !this.Cards[index].active) {
-        return this.pinCard(pinnedCard)
-      }
     },
+    handleUpdate () {
+      this.showUpdateField = !this.showUpdateField
+    },
+    updateCard (id) {
+      const cardId = id
+      const { title, text } = this.cardText
+      const cardText = {
+        title,
+        text,
+        cardId
+      }
+      this.card.title = cardText.title
+      this.updateCardText(cardText)
+      this.cardText = {
+        title: '',
+        text: ''
+      }
+      this.showUpdateField = !this.showUpdateField
+    },
+    // we handle delete card outside the action/mutation system in order to utilize the $delete directive (it's just too easy)
     handleDelete (id) {
       const cardId = id
       this.$delete(this.Cards, cardId)
-      this.$delete(this.allCards, cardId)
+      this.$delete(this.pinnedCards, cardId)
       this.showCards = !this.showCards
     }
   },

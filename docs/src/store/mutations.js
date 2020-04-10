@@ -12,6 +12,20 @@ export default {
       }
     })
   },
+  replaceCardText: (state, card) => {
+    state.Cards.map(el => {
+      if (el.id === card.cardId) {
+        el.title = card.title
+        el.text = card.text
+      }
+    })
+    state.pinnedCards.map(el => {
+      if (el.id === card.cardId) {
+        el.title = card.title
+        el.text = card.text
+      }
+    })
+  },
   removeCard: (state, card) => {
     const filtered = state.pinnedCards.filter((value) => {
       if (value.id !== card.id) {
