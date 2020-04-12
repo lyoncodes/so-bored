@@ -14,19 +14,25 @@
           b-row
             b-col(md="4" v-for="card in pinnedCards" :key="card.active")
               b-card(bg-variant="dark" text-variant="white")
-                h3 {{card.title}}
-                b-card-text {{card.text}}
+                //-   CARD TITLE
+                h3(v-if="!cardText.title.length") {{card.title}}
+                h3(v-if="cardText.title.length") {{cardText.title}}
+                //-
                 b-form(@submit.prevent="updateCard(card.id)" v-if="showUpdateField")
                   b-form-input(
                     id="card-title"
                     v-model="cardText.title"
-                    required
                     placeholder="Enter New Title"
+                    @click="handleTitleEntry"
                   )
+                //- CARD TEXT
+                b-card-text(v-if="!cardText.text.length") {{card.text}}
+                b-card-text(v-if="cardText.text.length") {{cardText.text}}
+                //-
+                b-form(@submit.prevent="updateCard(card.id)" v-if="showUpdateField")
                   b-form-input(
                     id="card-text"
                     v-model="cardText.text"
-                    required
                     placeholder="Enter New Rule"
                   )
                   b-button(type="submit" variant="primary") Update!
@@ -42,6 +48,7 @@ export default {
     return {
       showCards: false,
       showUpdateField: false,
+      titleUpdating: false,
       cardText: {
         title: '',
         text: ''
@@ -76,8 +83,13 @@ export default {
         return this.hidePin(pinnedCard)
       }
     },
+    // Toggles update card form fields
     handleUpdate () {
       this.showUpdateField = !this.showUpdateField
+    },
+    // Removes Title from card when being updated
+    handleTitleEntry () {
+      this.titleUpdating = !this.titleUpdating
     },
     updateCard (id) {
       const cardId = id
@@ -87,13 +99,28 @@ export default {
         text,
         cardId
       }
-      this.card.title = cardText.title
-      this.updateCardText(cardText)
+      // Only title updated
+      if (cardText.title.length && !cardText.text.length) {
+        this.card.title = cardText.title
+        this.updateCardText(cardText)
+      }
+      // Only text updated
+      if (cardText.text.length && !cardText.title.length) {
+        this.card.text = cardText.text
+        this.updateCardText(cardText)
+      }
+      // Both fields updated
+      if (cardText.title.length && cardText.text.length) {
+        this.card.title = cardText.title
+        this.card.text = cardText.text
+        this.updateCardText(cardText)
+      }
       this.cardText = {
         title: '',
         text: ''
       }
       this.showUpdateField = !this.showUpdateField
+      this.titleUpdating = !this.titleUpdating
     },
     // we handle delete card outside the action/mutation system in order to utilize the $delete directive (it's just too easy)
     handleDelete (id) {

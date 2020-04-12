@@ -14,16 +14,18 @@ export default {
       }
     })
   },
-  // update card in cards and pinnedcards arrays
+  // update card in cards and pinnedcards arrays (refactor)
   replaceCardText: (state, card) => {
-    state.Cards.map(el => {
-      if (el.id === card.cardId) {
+    const arr = [...state.Cards, ...state.pinnedCards]
+    console.log(arr)
+    arr.map(el => {
+      if (el.id === card.cardId && card.title.length && !card.text.length) {
         el.title = card.title
+      }
+      if (el.id === card.cardId && card.text.length && !card.title.length) {
         el.text = card.text
       }
-    })
-    state.pinnedCards.map(el => {
-      if (el.id === card.cardId) {
+      if (el.id === card.cardId && card.text.length && card.title.length) {
         el.title = card.title
         el.text = card.text
       }
