@@ -22,7 +22,7 @@
                   b-form-input(
                     id="card-title"
                     v-model="cardText.title"
-                    placeholder="Enter New Title"
+                    :placeholder="card.title"
                     @click="handleTitleEntry"
                   )
                 //- CARD TEXT
@@ -33,10 +33,13 @@
                   b-form-input(
                     id="card-text"
                     v-model="cardText.text"
-                    placeholder="Enter New Rule"
+                    :placeholder="card.text"
                   )
+                  //- UPDATE rule
                   b-button(type="submit" variant="primary") Update!
+                //- Update Rule
                 b-button(@click="handleUpdate" variant="primary" v-if="!showUpdateField") Update Rule
+                //- DELETE rule
                 b-button(@click="handleDelete(card.id)" variant="primary") Delete Card
 </template>
 
