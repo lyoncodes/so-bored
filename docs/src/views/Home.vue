@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'Home',
   data () {
@@ -36,6 +36,12 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState([
+      'Cards',
+      'allCards'
+    ])
+  },
   methods: {
     ...mapActions([
       'addCard'
@@ -45,9 +51,11 @@ export default {
     },
     handleSubmit () {
       const { title, text } = this.formData
+      const id = this.Cards.length
       const card = {
         title,
-        text
+        text,
+        id
       }
       this.addCard(card)
       this.formData = {
