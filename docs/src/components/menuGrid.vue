@@ -14,31 +14,32 @@
           b-row
             b-col(md="4" v-for="card in pinnedCards" :key="card.active")
               b-card(bg-variant="dark" text-variant="white")
-                //-   CARD TITLE
-                h3(v-if="!cardText.title.length") {{card.title}}
-                h3(v-if="cardText.title.length") {{cardText.title}}
-                //-
-                b-form(@submit.prevent="updateCard(card.id)" v-if="showUpdateField")
+                //- card title -------
+                h3(v-if="!updateData.title.length || updateData.title.length && !card.updating") {{card.title}}
+                h3(v-if="updateData.title.length && card.updating") {{updateData.title}}
+                //-------------
+                b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
                   b-form-input(
                     id="card-title"
-                    v-model="cardText.title"
+                    v-model="updateData.title"
                     :placeholder="card.title"
-                    @click="handleTitleEntry"
                   )
-                //- CARD TEXT
-                b-card-text(v-if="!cardText.text.length") {{card.text}}
-                b-card-text(v-if="cardText.text.length") {{cardText.text}}
-                //-
-                b-form(@submit.prevent="updateCard(card.id)" v-if="showUpdateField")
+                //- card text ------
+                b-card-text(v-if="!updateData.text.length || updateData.text.length && !card.updating") {{card.text}}
+                b-card-text(v-if="updateData.text.length && card.updating") {{updateData.text}}
+                //-----------
+                b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
                   b-form-input(
                     id="card-text"
-                    v-model="cardText.text"
+                    v-model="updateData.text"
                     :placeholder="card.text"
                   )
                   //- UPDATE rule
-                  b-button(type="submit" variant="primary") Update!
+                  b-button(type="submit" variant="primary" v-if="updateData.updating") Update!
+                //- Cancel
+                b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") Nvm
                 //- Update Rule
-                b-button(@click="handleUpdate" variant="primary" v-if="!showUpdateField") Update Rule
+                b-button(@click="handleUpdate(card)" variant="primary" v-if="!updating") Update Rule
                 //- DELETE rule
                 b-button(@click="handleDelete(card.id)" variant="primary") Delete Card
 </template>
@@ -50,11 +51,12 @@ export default {
   data () {
     return {
       showCards: false,
-      showUpdateField: false,
-      titleUpdating: false,
-      cardText: {
+      fieldShow: false,
+      updating: false,
+      updateData: {
         title: '',
-        text: ''
+        text: '',
+        updating: false
       }
     }
   },
@@ -67,63 +69,81 @@ export default {
   methods: {
     ...mapActions([
       'pinCard',
-      'updateCardText',
+      'showUpdateField',
+      'updateCard',
       'hidePin',
       'eraseCard'
     ]),
     handleSwitch (card, index) {
-      const { title, text, id, active } = card
-      const pinnedCard = {
-        title,
-        text,
-        id,
-        active
-      }
-      // Conditions to handle juggling switches
-      if (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[index].active)) {
-        return this.pinCard(pinnedCard)
-      } else if (this.Cards[index].active) {
-        return this.hidePin(pinnedCard)
+      if (!this.updating) {
+        const { title, text, id, active } = card
+        const pinnedCard = {
+          title,
+          text,
+          id,
+          active
+        }
+        // Conditions to handle juggling switches
+        if (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[index].active)) {
+          return this.pinCard(pinnedCard)
+        } else if (this.Cards[index].active) {
+          return this.hidePin(pinnedCard)
+        }
       }
     },
     // Toggles update card form fields
-    handleUpdate () {
-      this.showUpdateField = !this.showUpdateField
+    handleUpdate (card) {
+      this.updating = !this.updating
+      this.updateData.updating = true
+      const selected = card.updating
+      const { id, updating } = card
+      const updatePayload = {
+        id,
+        updating,
+        selected
+      }
+      this.showUpdateField(updatePayload)
+      updatePayload.selected = false
     },
-    // Removes Title from card when being updated
-    handleTitleEntry () {
-      this.titleUpdating = !this.titleUpdating
-    },
-    updateCard (id) {
-      const cardId = id
-      const { title, text } = this.cardText
-      const cardText = {
+    submitUpdate (card) {
+      const updating = card.updating
+      const cardId = card.id
+      const { title, text } = this.updateData
+      const updateData = {
         title,
         text,
-        cardId
+        cardId,
+        updating
       }
+      console.log(updateData)
       // Only title updated
-      if (cardText.title.length && !cardText.text.length) {
-        this.card.title = cardText.title
-        this.updateCardText(cardText)
+      if (updateData.title.length && !updateData.text.length) {
+        this.card.title = updateData.title
+        this.updateCard(updateData)
       }
       // Only text updated
-      if (cardText.text.length && !cardText.title.length) {
-        this.card.text = cardText.text
-        this.updateCardText(cardText)
+      if (updateData.text.length && !updateData.title.length) {
+        this.card.text = updateData.text
+        this.updateCard(updateData)
       }
       // Both fields updated
-      if (cardText.title.length && cardText.text.length) {
-        this.card.title = cardText.title
-        this.card.text = cardText.text
-        this.updateCardText(cardText)
+      if (updateData.title.length && updateData.text.length) {
+        this.card.title = updateData.title
+        this.card.text = updateData.text
+        this.updateCard(updateData)
       }
-      this.cardText = {
+      // No fields
+      if (!updateData.title.length && !updateData.text.length) {
+        this.updateCard(card)
+      }
+      updateData.updating = false
+      console.log(updateData)
+      this.updateData = {
         title: '',
         text: ''
       }
-      this.showUpdateField = !this.showUpdateField
-      this.titleUpdating = !this.titleUpdating
+      this.updating = !this.updating
+      this.fieldShow = !this.fieldShow
     },
     // we handle delete card outside the action/mutation system in order to utilize the $delete directive (it's just too easy)
     handleDelete (id) {

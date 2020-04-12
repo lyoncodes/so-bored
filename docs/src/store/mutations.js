@@ -3,10 +3,9 @@ export default {
   appendCard: (state, card) => {
     state.Cards.push(card)
   },
-  // "plugIn" card to board after switch is active
+  // append card after switch is active
   appendPin: (state, card) => {
     card.active = true
-    card.toggled = true
     state.pinnedCards.push(card)
     return state.Cards.map((el) => {
       if (el.id === card.id) {
@@ -14,20 +13,38 @@ export default {
       }
     })
   },
-  // update card in cards and pinnedcards arrays (refactor)
-  replaceCardText: (state, card) => {
+  // change state of cards to updating
+  updateCardField: (state, card) => {
     const arr = [...state.Cards, ...state.pinnedCards]
-    console.log(arr)
+    card.updating = true
+    return arr.map((el) => {
+      if (el.id === card.id) {
+        el.updating = true
+      }
+    })
+  },
+  // update card in cards and pinnedcards arrays & change state of cards to !updating
+  replaceCardRule: (state, card) => {
+    console.log('called')
+    card.updating = false
+    console.log(card)
+    const arr = [...state.Cards, ...state.pinnedCards]
     arr.map(el => {
-      if (el.id === card.cardId && card.title.length && !card.text.length) {
-        el.title = card.title
-      }
-      if (el.id === card.cardId && card.text.length && !card.title.length) {
-        el.text = card.text
-      }
-      if (el.id === card.cardId && card.text.length && card.title.length) {
-        el.title = card.title
-        el.text = card.text
+      if (el.id === card.cardId) {
+        // Only title updated
+        if (card.title.length && !card.text.length) {
+          el.title = card.title
+          el.updating = !el.updating
+        }
+        // Only text updated
+        if (card.text.length && !card.title.length) {
+          el.text = card.text
+          el.updating = !el.updating
+        } else {
+          el.title = card.title
+          el.text = card.text
+          el.updating = !el.updating
+        }
       }
     })
   },

@@ -5,19 +5,19 @@
     button(@click="toggleCardForm" class="btn btn-primary") Add New Card
     b-form(@submit.prevent="handleSubmit" v-if="showCardForm")
       b-col(md="6")
-        b-form-group(id="input-title" label="Card Title" label-for="input-title")
+        b-form-group(id="input-title" label="Card Title:" label-for="input-title")
           b-form-input(
             id="card-title"
             v-model="formData.title"
             required
-            placeholder="Enter title/id"
+            placeholder="Enter Rule Title"
             )
         b-form-group(id="input-card-text" label="Card Text:" label-for="input-card-text")
           b-form-input(
             id="card-text"
             v-model="formData.text"
             required
-            placeholder="Enter text"
+            placeholder="Enter Rule Text"
           )
       b-button(type="submit" variant="primary") Submit
       b-button(type="reset" variant="danger") Reset
