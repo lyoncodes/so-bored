@@ -7,9 +7,12 @@ export default {
   pinCard: ({ commit }, card) => {
     commit('appendPin', card)
   },
+  showUpdateField: ({ commit }, card) => {
+    commit('updateCardField', card)
+  },
   // update card in Cards and pinnedcards arrays
-  updateCardText: ({ commit }, cardText) => {
-    commit('replaceCardText', cardText)
+  updateCard: ({ commit }, card) => {
+    commit('replaceCardRule', card)
   },
   // deletes card in Cards and pinnedCards arrays
   hidePin: ({ commit }, card) => {
