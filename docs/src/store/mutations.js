@@ -15,37 +15,28 @@ export default {
   },
   // change state of cards to updating
   updateCardField: (state, card) => {
-    const arr = [...state.Cards, ...state.pinnedCards]
+    console.log('updateCardField')
     card.updating = true
+    const arr = [...state.Cards, ...state.pinnedCards]
     return arr.map((el) => {
       if (el.id === card.id) {
         el.updating = true
+        console.log(el)
       }
     })
   },
   // update card in cards and pinnedcards arrays & change state of cards to !updating
   replaceCardRule: (state, card) => {
     console.log('called')
-    card.updating = false
     console.log(card)
+    card.updating = false
     const arr = [...state.Cards, ...state.pinnedCards]
     arr.map(el => {
       if (el.id === card.cardId) {
-        // Only title updated
-        if (card.title.length && !card.text.length) {
-          el.title = card.title
-          el.updating = !el.updating
-        }
-        // Only text updated
-        if (card.text.length && !card.title.length) {
-          el.text = card.text
-          el.updating = !el.updating
-        } else {
-          el.title = card.title
-          el.text = card.text
-          el.updating = !el.updating
-        }
+        el.title = card.title
+        el.text = card.text
       }
+      el.updating = false
     })
   },
   // deletes card in Cards and pinnedCards arrays
