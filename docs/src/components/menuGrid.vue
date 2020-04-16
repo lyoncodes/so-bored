@@ -18,7 +18,7 @@
                 h3(v-if="!updateData.title.length || updateData.title.length && !card.updating") {{card.title}}
                 h3(v-if="updateData.title.length && card.updating") {{updateData.title}}
                 //-------------
-                b-form(@submit.prevent="submitUpdate(card)" v-if="updateData.updating")
+                b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
                   b-form-input(
                     id="card-title"
                     v-model="updateData.title"
@@ -29,7 +29,7 @@
                 b-card-text(v-if="!updateData.text.length || updateData.text.length && !card.updating") {{card.text}}
                 b-card-text(v-if="updateData.text.length && card.updating") {{updateData.text}}
                 //-----------
-                b-form(@submit.prevent="submitUpdate(card)" v-if="updateData.updating")
+                b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
                   b-form-input(
                     id="card-text"
                     v-model="updateData.text"
@@ -39,11 +39,11 @@
                   //- UPDATE rule
                   b-button(type="submit" variant="primary" v-if="updateData.updating") Update!
                 //- Update Rule
-                b-button(@click="handleUpdate(card)" variant="primary" v-if="!updateData.updating") Update Rule
+                b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating") Update Rule
                 //- Cancel
                 b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") Nvm
                 //- DELETE rule
-                b-button(@click="handleDelete(card.id)" variant="primary" v-if="!updateData.updating") Delete Card
+                b-button(@click="handleDelete(card.id)" variant="primary" v-if="!card.updating") Delete Card
 </template>
 
 <script>
