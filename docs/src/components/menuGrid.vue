@@ -22,7 +22,6 @@
                   b-form-input(
                     id="card-title"
                     v-model="updateData.title"
-                    required
                     :placeholder="card.title"
                   )
                 //- card text ------
@@ -33,7 +32,6 @@
                   b-form-input(
                     id="card-text"
                     v-model="updateData.text"
-                    required
                     :placeholder="card.text"
                   )
                   //- UPDATE rule
@@ -54,7 +52,7 @@ export default {
     return {
       showCards: false,
       fieldShow: false,
-      cardUpdating: false,
+      switchesActive: false,
       updateData: {
         title: '',
         text: '',
@@ -79,7 +77,7 @@ export default {
     ]),
     handleSwitch (card, index) {
       // only active if card is not being updated
-      if (!this.cardUpdating) {
+      if (!this.switchesActive) {
         const { title, text, id, active } = card
         const pinnedCard = {
           title,
@@ -97,14 +95,18 @@ export default {
     },
     // Toggles update card form fields
     handleUpdate (card) {
-      this.cardUpdating = !this.cardUpdating
-      this.updating = !this.updateData.updating
+      // deactive switch
+      this.switchesActive = !this.switchesActive
+      // changes component state to true, toggling update & nvm buttons
       this.updateData.updating = !this.updateData.updating
+      // format object for action/mutation
       const { id, updating } = card
+      // name object updatePayload
       const updatePayload = {
         id,
         updating
       }
+      // call action function and pass updatePayload
       this.showUpdateField(updatePayload)
     },
     submitUpdate (card) {
@@ -117,17 +119,34 @@ export default {
         updating
       }
       this.updateCard(updateData)
+      // resets updateData after submitting to updateCard
       this.updateData = {
         title: '',
         text: '',
         updating: false
       }
-      // turns card back to not updating
-      this.cardUpdating = !this.cardUpdating
+      // reactivates switches after submission
+      this.switchesActive = !this.switchesActive
     },
     handleCancel (card) {
-      this.cardUpdating = !this.cardUpdating
+      // reactivates switches
+      this.switchesActive = !this.switchesActive
+      // changes component state to true, toggling update & nvm buttons
       this.updateData.updating = !this.updateData.updating
+      // format blank object
+      const id = card.id
+      const updating = false
+      const blankPayload = {
+        id,
+        updating
+      }
+      this.showUpdateField(blankPayload)
+      // resets updateData after submitting to updateCard
+      this.updateData = {
+        title: '',
+        text: '',
+        updating: false
+      }
     },
     // we handle delete card outside the action/mutation system in order to utilize the $delete directive (it's just too easy)
     handleDelete (id) {
