@@ -10,48 +10,65 @@ export default [
     type: 'Styles',
     title: '<h1> & <h2>',
     text: 'test1 text',
-    id: 0
+    id: 0,
+    active: false,
+    updating: false
   },
   {
     type: 'Styles',
     title: 'body & <p>',
     text: 'test2 text',
-    id: 1
+    id: 1,
+    active: false,
+    updating: false
   },
   {
     type: 'Styles',
     title: 'Heading Colors',
     text: 'test3 text',
-    id: 2
+    id: 2,
+    active: false,
+    updating: false
   },
   {
     type: 'Styles',
     title: 'Text Colors',
     text: 'test3 text',
-    id: 3
+    id: 3,
+    active: false,
+    updating: false
   },
   {
     type: 'Copy',
     title: 'Voice',
     text: 'test1 text',
-    id: 4
+    id: 4,
+    active: false,
+    updating: false
   },
   {
     type: 'Copy',
     title: 'Style',
     text: 'test2 text',
-    id: 5
+    id: 5,
+    active: false,
+    updating: false
   },
   {
     type: 'Copy',
     title: 'Syntax',
     text: 'test3 text',
-    id: 6
+    id: 6,
+    active: false,
+    updating: false
   },
   {
     type: 'Copy',
     title: 'Lexicon',
     text: 'test3 text',
-    id: 7
+    id: 7,
+    active: false,
+    updating: false
   }
+
 ]
