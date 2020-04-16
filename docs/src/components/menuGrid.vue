@@ -22,7 +22,6 @@
                   b-form-input(
                     id="card-title"
                     v-model="updateData.title"
-                    required
                     :placeholder="card.title"
                   )
                 //- card text ------
@@ -33,17 +32,16 @@
                   b-form-input(
                     id="card-text"
                     v-model="updateData.text"
-                    required
                     :placeholder="card.text"
                   )
                   //- UPDATE rule
                   b-button(type="submit" variant="primary" v-if="updateData.updating") Update!
                 //- Update Rule
-                b-button(@click="handleUpdate(card)" variant="primary") Update Rule
+                b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating") Update Rule
                 //- Cancel
                 b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") Nvm
                 //- DELETE rule
-                b-button(@click="handleDelete(card.id)" variant="primary") Delete Card
+                b-button(@click="handleDelete(card.id)" variant="primary" v-if="!card.updating") Delete Card
 </template>
 
 <script>
@@ -54,6 +52,7 @@ export default {
     return {
       showCards: false,
       fieldShow: false,
+      switchesActive: false,
       updateData: {
         title: '',
         text: '',
@@ -73,33 +72,41 @@ export default {
       'showUpdateField',
       'updateCard',
       'hidePin',
+      'clearForm',
       'eraseCard'
     ]),
     handleSwitch (card, index) {
-      const { title, text, id, active } = card
-      const pinnedCard = {
-        title,
-        text,
-        id,
-        active
-      }
-      // Conditions to handle juggling switches
-      if (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[index].active)) {
-        return this.pinCard(pinnedCard)
-      } else if (this.Cards[index].active) {
-        return this.hidePin(pinnedCard)
+      // only active if card is not being updated
+      if (!this.switchesActive) {
+        const { title, text, id, active } = card
+        const pinnedCard = {
+          title,
+          text,
+          id,
+          active
+        }
+        // Conditions to handle juggling switches
+        if (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[index].active)) {
+          return this.pinCard(pinnedCard)
+        } else if (this.Cards[index].active) {
+          return this.hidePin(pinnedCard)
+        }
       }
     },
     // Toggles update card form fields
     handleUpdate (card) {
-      console.log('handleUpdate')
-      this.updating = !this.update
+      // deactive switch
+      this.switchesActive = !this.switchesActive
+      // changes component state to true, toggling update & nvm buttons
       this.updateData.updating = !this.updateData.updating
+      // format object for action/mutation
       const { id, updating } = card
+      // name object updatePayload
       const updatePayload = {
         id,
         updating
       }
+      // call action function and pass updatePayload
       this.showUpdateField(updatePayload)
     },
     submitUpdate (card) {
@@ -111,27 +118,30 @@ export default {
         cardId,
         updating
       }
-      // No fields
-      if (!updateData.title.length && !updateData.text.length) {
-        this.updateCard(card)
+      this.updateCard(updateData)
+      // resets updateData after submitting to updateCard
+      this.updateData = {
+        title: '',
+        text: '',
+        updating: false
       }
-      // Only title updated
-      if (updateData.title.length && !updateData.text.length) {
-        this.card.title = updateData.title
-        this.updateCard(updateData)
+      // reactivates switches after submission
+      this.switchesActive = !this.switchesActive
+    },
+    handleCancel (card) {
+      // reactivates switches
+      this.switchesActive = !this.switchesActive
+      // changes component state to true, toggling update & nvm buttons
+      this.updateData.updating = !this.updateData.updating
+      // format blank object
+      const id = card.id
+      const updating = false
+      const blankPayload = {
+        id,
+        updating
       }
-      // Only text updated
-      if (updateData.text.length && !updateData.title.length) {
-        console.log('thisone')
-        this.card.text = updateData.text
-        this.updateCard(updateData)
-      }
-      // Both fields updated
-      if (updateData.title.length && updateData.text.length) {
-        this.card.title = updateData.title
-        this.card.text = updateData.text
-        this.updateCard(updateData)
-      }
+      this.showUpdateField(blankPayload)
+      // resets updateData after submitting to updateCard
       this.updateData = {
         title: '',
         text: '',

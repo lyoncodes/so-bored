@@ -15,20 +15,17 @@ export default {
   },
   // change state of cards to updating
   updateCardField: (state, card) => {
-    console.log('updateCardField')
-    card.updating = true
+    // toggles form field
+    card.updating = !card.updating
     const arr = [...state.Cards, ...state.pinnedCards]
     return arr.map((el) => {
       if (el.id === card.id) {
-        el.updating = true
-        console.log(el)
+        el.updating = !el.updating
       }
     })
   },
   // update card in cards and pinnedcards arrays & change state of cards to !updating
   replaceCardRule: (state, card) => {
-    console.log('called')
-    console.log(card)
     card.updating = false
     const arr = [...state.Cards, ...state.pinnedCards]
     arr.map(el => {
@@ -38,6 +35,9 @@ export default {
       }
       el.updating = false
     })
+  },
+  // nvm button
+  clearCardForm: (state, card) => {
   },
   // deletes card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
