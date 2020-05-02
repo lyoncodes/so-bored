@@ -30,6 +30,8 @@ export default {
     const arr = [...state.Cards, ...state.pinnedCards]
     arr.map(el => {
       if (el.id === card.cardId) {
+        (card.title.length && !card.text.length) ? el.title = card.title : card.text = el.text;
+        (card.text.length && !card.title.length) ? el.text = card.text : card.title = el.title
         el.title = card.title
         el.text = card.text
       }
