@@ -21,5 +21,9 @@ export default {
   // deletes card in Cards and pinnedCards arrays
   hidePin: ({ commit }, card) => {
     commit('removeCard', card)
+  },
+  // filters by type
+  filterByType: ({ commit }, type) => {
+    commit('filterCard', type)
   }
 }

@@ -7,7 +7,7 @@ export default [
 // Brand
 // !!! Be sure to add a proper id.
   {
-    type: 'type1',
+    type: 'Styles',
     title: '<h1> & <h2>',
     text: 'test1 text',
     id: 0,
@@ -15,7 +15,7 @@ export default [
     updating: false
   },
   {
-    type: 'type1',
+    type: 'Styles',
     title: 'body & <p>',
     text: 'test2 text',
     id: 1,
@@ -23,7 +23,7 @@ export default [
     updating: false
   },
   {
-    type: 'type2',
+    type: 'Copy',
     title: 'Heading Colors',
     text: 'test3 text',
     id: 2,
@@ -31,7 +31,7 @@ export default [
     updating: false
   },
   {
-    type: 'type2',
+    type: 'Copy',
     title: 'Text Colors',
     text: 'test3 text',
     id: 3,
@@ -39,7 +39,7 @@ export default [
     updating: false
   },
   {
-    type: 'type3',
+    type: 'Layout',
     title: 'Voice',
     text: 'test1 text',
     id: 4,
@@ -47,7 +47,7 @@ export default [
     updating: false
   },
   {
-    type: 'type3',
+    type: 'Layout',
     title: 'Style',
     text: 'test2 text',
     id: 5,
@@ -55,7 +55,7 @@ export default [
     updating: false
   },
   {
-    type: 'type4',
+    type: 'Brand',
     title: 'Syntax',
     text: 'test3 text',
     id: 6,
@@ -63,7 +63,7 @@ export default [
     updating: false
   },
   {
-    type: 'type4',
+    type: 'Brand',
     title: 'Lexicon',
     text: 'test3 text',
     id: 7,
