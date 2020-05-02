@@ -19,7 +19,7 @@
                 h3(v-if="updateData.title.length && card.updating") {{updateData.title}}
                 //-------------
                 b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
-                  b-form-input(
+                  b-form-textarea(
                     id="card-title"
                     v-model="updateData.title"
                     :placeholder="card.title"
@@ -29,7 +29,7 @@
                 b-card-text(v-if="updateData.text.length && card.updating") {{updateData.text}}
                 //-----------
                 b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
-                  b-form-input(
+                  b-form-textarea(
                     id="card-text"
                     v-model="updateData.text"
                     :placeholder="card.text"
@@ -110,6 +110,7 @@ export default {
       this.showUpdateField(updatePayload)
     },
     submitUpdate (card) {
+      // formats card with form field (validated in mutation)
       const cardId = card.id
       const { title, text, updating } = this.updateData
       const updateData = {
@@ -118,6 +119,7 @@ export default {
         cardId,
         updating
       }
+      // calls updateCard and passes formatted card
       this.updateCard(updateData)
       // resets updateData after submitting to updateCard
       this.updateData = {
@@ -133,15 +135,16 @@ export default {
       this.switchesActive = !this.switchesActive
       // changes component state to true, toggling update & nvm buttons
       this.updateData.updating = !this.updateData.updating
-      // format blank object
+      // format blank object for card
       const id = card.id
       const updating = false
       const blankPayload = {
         id,
         updating
       }
+      // calls action function and passes blankPayload
       this.showUpdateField(blankPayload)
-      // resets updateData after submitting to updateCard
+      // resets updateData after submitting balnkPayload
       this.updateData = {
         title: '',
         text: '',
