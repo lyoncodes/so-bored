@@ -41,6 +41,12 @@ export default {
   // nvm button
   clearCardForm: (state, card) => {
   },
+  filterCard: (state, type) => {
+    console.log(type.type)
+    const filtered = state.Cards.filter((el) => el.type === type.type)
+    console.log(filtered)
+    state.filteredCards = filtered
+  },
   // deletes card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
     const filtered = state.pinnedCards.filter((value) => {
