@@ -9,6 +9,22 @@
           :class="{ selected: card === selectedCard }"
           @click="handleSwitch(card, index)"
           variant="primary") {{card.title}}
+      b-row
+        b-button-group(size="sm")
+          b-button(
+          v-for="(card, index) in type1"
+          :key="index"
+          :class="{ selected: card === selectedCard }"
+          @click="handleSwitch(card, index)"
+          variant="primary") {{card.title}}
+      b-row
+        b-button-group(size="sm")
+          b-button(
+          v-for="(card, index) in type2"
+          :key="index"
+          :class="{ selected: card === selectedCard }"
+          @click="handleSwitch(card, index)"
+          variant="primary") {{card.title}}
       b-card-group(class="card-grid")
         b-container(class="card-container")
           b-row
@@ -63,7 +79,9 @@ export default {
   computed: {
     ...mapState([
       'Cards',
-      'pinnedCards'
+      'pinnedCards',
+      'type1',
+      'type2'
     ])
   },
   methods: {
