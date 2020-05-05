@@ -1,11 +1,11 @@
 <template>
   <div id="menu">
-    <menuGrid />
+    <switchBox />
   </div>
 </template>
 
 <script>
-import menuGrid from '../components/menuGrid'
+import switchBox from '../components/switchBox'
 export default {
   data () {
     return {
@@ -14,7 +14,7 @@ export default {
     }
   },
   components: {
-    menuGrid
+    switchBox
   }
 }
 </script>
