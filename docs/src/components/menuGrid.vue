@@ -10,10 +10,10 @@
       b-row
         b-button-group(size="sm")
           b-button(
-          v-for="(card, index) in Cards"
-          :key="index"
+          v-for="(card, idx) in Cards"
+          :key="idx"
           :class="{ selected: card === selectedCard }"
-          @click="handleSwitch(card, index)"
+          @click="handleSwitch(card, idx)"
           variant="primary") {{card.title}}
     b-card-group(class="card-grid")
       b-container(class="card-container")
@@ -83,13 +83,13 @@ export default {
       'updateCard',
       'hidePin'
     ]),
-    showAllCards (card, index) {
+    showAllCards () {
       this.showCards = !this.showCards
       if (this.showCards && this.showFilterCards) {
         this.showFilterCards = !this.showFilterCards
       }
     },
-    handleSwitch (card, index) {
+    handleSwitch (card, idx) {
       if (!this.switchesActive) {
         const { title, text, id, active } = card
         const pinnedCard = {
@@ -98,8 +98,8 @@ export default {
           id,
           active
         }
-        return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[index].active)) ? this.pinCard(pinnedCard)
-          : (this.Cards[index].active) ? this.hidePin(pinnedCard) : null
+        return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[idx].active)) ? this.pinCard(pinnedCard)
+          : (this.Cards[idx].active) ? this.hidePin(pinnedCard) : null
       }
     },
     handleUpdate (card) {
