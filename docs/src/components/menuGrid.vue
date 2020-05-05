@@ -3,21 +3,7 @@
     b-container(class="menu-row")
       b-row
         b-button-group(size="sm")
-          a(
-          v-for="(title, index) in Menu"
-          :key="index"
-          @click="handleFilter(title, index)"
-          variant="primary") {{title.type}}
           a(@click="showAllCards") {{toggleMsg}}
-    b-container(class="menu-row")
-      b-row
-        b-button-group(size="sm")
-          b-button(
-          v-for="(card, index) in filteredCards"
-          :key="index"
-          :class="{ selected: card === selectedCard }"
-          @click="handleSwitch(card, index)"
-          variant="primary") {{card.title}}
     b-container(class="menu-row" v-if="showCards")
       b-row
         b-button-group(size="sm")
@@ -52,14 +38,10 @@
                   v-model="updateData.text"
                   :placeholder="card.text"
                 )
-                //- UPDATE rule
                 b-button(type="submit" variant="primary" v-if="updateData.updating") Update!
-              //- Update Rule
               b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating") Update Rule
-              //- Cancel
               b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") Nvm
-              //- DELETE rule
-              b-button(@click="handleDelete(card.id)" variant="primary" v-if="!card.updating") Delete Card
+              b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") Hide Card
 </template>
 
 <script>
@@ -68,23 +50,21 @@ export default {
   name: 'menu-row',
   data () {
     return {
-      showCards: false,
-      fieldShow: false,
+      showCards: true,
       switchesActive: false,
       updateData: {
         title: '',
         text: '',
         updating: false
       },
-      toggleMsg: 'Show All Types'
+      toggleMsg: 'Show All Switches'
     }
   },
   computed: {
     ...mapState([
       'Menu',
       'Cards',
-      'pinnedCards',
-      'filteredCards'
+      'pinnedCards'
     ])
   },
   methods: {
@@ -92,16 +72,15 @@ export default {
       'pinCard',
       'showUpdateField',
       'updateCard',
-      'hidePin',
-      'clearForm',
-      'eraseCard',
-      'filterByType'
+      'hidePin'
     ]),
     showAllCards (card, index) {
       this.showCards = !this.showCards
+      if (this.showCards && this.showFilterCards) {
+        this.showFilterCards = !this.showFilterCards
+      }
     },
     handleSwitch (card, index) {
-      // only active if card is not being updated
       if (!this.switchesActive) {
         const { title, text, id, active } = card
         const pinnedCard = {
@@ -110,32 +89,21 @@ export default {
           id,
           active
         }
-        // Conditions to handle juggling switches
-        if (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[index].active)) {
-          return this.pinCard(pinnedCard)
-        } else if (this.Cards[index].active) {
-          return this.hidePin(pinnedCard)
-        }
+        return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[index].active)) ? this.pinCard(pinnedCard)
+          : (this.Cards[index].active) ? this.hidePin(pinnedCard) : null
       }
     },
-    // Toggles update card form fields
     handleUpdate (card) {
-      // deactive switch
       this.switchesActive = !this.switchesActive
-      // changes component state to true, toggling update & nvm buttons
       this.updateData.updating = !this.updateData.updating
-      // format object for action/mutation
       const { id, updating } = card
-      // name object updatePayload
       const updatePayload = {
         id,
         updating
       }
-      // call action function and pass updatePayload
       this.showUpdateField(updatePayload)
     },
     submitUpdate (card) {
-      // formats card with form field (validated in mutation)
       const cardId = card.id
       const { title, text, updating } = this.updateData
       const updateData = {
@@ -144,48 +112,35 @@ export default {
         cardId,
         updating
       }
-      // calls updateCard and passes formatted card
       this.updateCard(updateData)
-      // resets updateData after submitting to updateCard
       this.updateData = {
         title: '',
         text: '',
         updating: false
       }
-      // reactivates switches after submission
       this.switchesActive = !this.switchesActive
     },
     handleCancel (card) {
-      // reactivates switches
       this.switchesActive = !this.switchesActive
-      // changes component state to true, toggling update & nvm buttons
       this.updateData.updating = !this.updateData.updating
-      // format blank object for card
       const id = card.id
       const updating = false
       const blankPayload = {
         id,
         updating
       }
-      // calls action function and passes blankPayload
       this.showUpdateField(blankPayload)
-      // resets updateData after submitting balnkPayload
+      this.clearForm()
+    },
+    handleHide (card) {
+      this.hidePin(card)
+    },
+    clearForm () {
       this.updateData = {
         title: '',
         text: '',
         updating: false
       }
-    },
-    handleFilter (title, index) {
-      const type = title
-      this.filterByType(type, index)
-    },
-    // we handle delete card outside the action/mutation system in order to utilize the $delete directive (it's just too easy)
-    handleDelete (id) {
-      const cardId = id
-      this.$delete(this.Cards, cardId)
-      this.$delete(this.pinnedCards, cardId)
-      this.showCards = !this.showCards
     }
   },
   mounted () {
