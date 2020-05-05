@@ -41,7 +41,7 @@
                 b-button(type="submit" variant="primary" v-if="updateData.updating") Update!
               b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating") Update Rule
               b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") Nvm
-              b-button(@click="handleDelete(card.id)" variant="primary" v-if="!card.updating") Delete Card
+              b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") Hide Card
 </template>
 
 <script>
@@ -104,7 +104,6 @@ export default {
       this.showUpdateField(updatePayload)
     },
     submitUpdate (card) {
-      console.log(this.updateData)
       const cardId = card.id
       const { title, text, updating } = this.updateData
       const updateData = {
@@ -133,11 +132,8 @@ export default {
       this.showUpdateField(blankPayload)
       this.clearForm()
     },
-    handleDelete (id) {
-      const cardId = id
-      this.$delete(this.Cards, cardId)
-      this.$delete(this.pinnedCards, cardId)
-      this.showCards = !this.showCards
+    handleHide (card) {
+      this.hidePin(card)
     },
     clearForm () {
       this.updateData = {

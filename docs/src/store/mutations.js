@@ -43,12 +43,12 @@ export default {
       el.updating = false
     })
   },
-  // deletes card in Cards and pinnedCards arrays
+  // deactivates card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
-    const filtered = state.pinnedCards.filter((value) => {
-      if (value.id !== card.id) {
+    const filtered = state.pinnedCards.filter((el) => {
+      if (el.id !== card.id) {
         card.active = false
-        return value
+        return el
       }
     })
     state.pinnedCards = filtered
