@@ -1,11 +1,10 @@
-<template>
-  <div id="menu">
-    <menuGrid />
-  </div>
+<template lang="pug">
+  #menu
+    switchBox
 </template>
 
 <script>
-import menuGrid from '../components/menuGrid'
+import switchBox from '../components/switchBox'
 export default {
   data () {
     return {
@@ -14,7 +13,7 @@ export default {
     }
   },
   components: {
-    menuGrid
+    switchBox
   }
 }
 </script>

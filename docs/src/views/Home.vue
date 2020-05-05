@@ -39,6 +39,7 @@ export default {
   },
   computed: {
     ...mapState([
+      'Menu',
       'Cards',
       'allCards'
     ])
