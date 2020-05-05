@@ -104,6 +104,7 @@ export default {
       this.showUpdateField(updatePayload)
     },
     submitUpdate (card) {
+      console.log(this.updateData)
       const cardId = card.id
       const { title, text, updating } = this.updateData
       const updateData = {
@@ -130,17 +131,20 @@ export default {
         updating
       }
       this.showUpdateField(blankPayload)
-      this.updateData = {
-        title: '',
-        text: '',
-        updating: false
-      }
+      this.clearForm()
     },
     handleDelete (id) {
       const cardId = id
       this.$delete(this.Cards, cardId)
       this.$delete(this.pinnedCards, cardId)
       this.showCards = !this.showCards
+    },
+    clearForm () {
+      this.updateData = {
+        title: '',
+        text: '',
+        updating: false
+      }
     }
   },
   mounted () {
