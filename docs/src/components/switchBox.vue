@@ -1,21 +1,17 @@
 <template lang="pug">
   b-container
     switchRow
-    cardGrid
+    cardUI
 </template>
 
 <script>
-import cardGrid from '../components/cardGrid'
+import cardUI from '../components/cardUI'
 import switchRow from '../components/switchRow'
 export default {
   name: 'switch-box',
   components: {
-    cardGrid,
+    cardUI,
     switchRow
-  },
-  mounted () {
-    const card = this.Cards
-    this.card = card
   }
 }
 </script>
