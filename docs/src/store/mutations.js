@@ -5,10 +5,9 @@ export default {
   },
   // append card after switch is active
   appendPin: (state, card) => {
-    card.active = true
     state.pinnedCards.push(card)
     return state.Cards.map((el) => {
-      if (el.id === card.id) {
+      if (el.title === card.title) {
         el.active = true
       }
     })
@@ -42,9 +41,7 @@ export default {
   clearCardForm: (state, card) => {
   },
   filterCard: (state, type) => {
-    console.log(type.type)
     const filtered = state.Cards.filter((el) => el.type === type.type)
-    console.log(filtered)
     state.filteredCards = filtered
   },
   // deletes card in Cards and pinnedCards arrays
