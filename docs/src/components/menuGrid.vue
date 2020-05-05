@@ -2,8 +2,10 @@
   b-container
     b-container(class="menu-row")
       b-row
-        b-button-group(size="sm")
-          a(@click="showAllCards") {{toggleMsg}}
+        b-button-group(size="sm" v-if="!showCards")
+          a(@click="showAllCards") {{templateText.toggleMsg}}
+        b-button-group(size="sm" v-if="showCards")
+          a(@click="showAllCards") {{templateText.toggleMsgAlt}}
     b-container(class="menu-row" v-if="showCards")
       b-row
         b-button-group(size="sm")
@@ -38,10 +40,10 @@
                   v-model="updateData.text"
                   :placeholder="card.text"
                 )
-                b-button(type="submit" variant="primary" v-if="updateData.updating") Update!
-              b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating") Update Rule
-              b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") Nvm
-              b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") Hide Card
+                b-button(type="submit" variant="primary" v-if="updateData.updating") {{templateText.updateBtn}}
+              b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating") {{templateText.updateRule}}
+              b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") {{templateText.cancelBtn}}
+              b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
 </template>
 
 <script>
@@ -57,7 +59,14 @@ export default {
         text: '',
         updating: false
       },
-      toggleMsg: 'Show All Switches'
+      templateText: {
+        toggleMsg: 'Show All Switches',
+        toggleMsgAlt: 'Hide All Switches',
+        updateBtn: 'Update!',
+        updateRule: 'Update Rule',
+        cancelBtn: 'Nvm',
+        hideBtn: 'Hide'
+      }
     }
   },
   computed: {
@@ -113,11 +122,7 @@ export default {
         updating
       }
       this.updateCard(updateData)
-      this.updateData = {
-        title: '',
-        text: '',
-        updating: false
-      }
+      this.clearForm()
       this.switchesActive = !this.switchesActive
     },
     handleCancel (card) {
