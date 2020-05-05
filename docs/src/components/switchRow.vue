@@ -1,6 +1,6 @@
 <template lang="pug">
   b-container
-    b-container(class="menu-row")
+    b-container(class="switch-row")
       b-row
         b-button-group(size="sm" v-if="!showCards")
           a(@click="showAllCards") {{templateText.toggleMsg}}
@@ -15,14 +15,12 @@
           :class="{ selected: card === selectedCard }"
           @click="handleSwitch(card, idx)"
           variant="primary") {{card.title}}
-    cardGrid
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import cardGrid from '../components/cardGrid'
 export default {
-  name: 'menu-row',
+  name: 'switch-row',
   data () {
     return {
       showCards: true,
@@ -41,9 +39,6 @@ export default {
         hideBtn: 'Hide'
       }
     }
-  },
-  components: {
-    cardGrid
   },
   computed: {
     ...mapState([
