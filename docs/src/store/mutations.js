@@ -5,10 +5,9 @@ export default {
   },
   // append card after switch is active
   appendPin: (state, card) => {
-    card.active = true
     state.pinnedCards.push(card)
     return state.Cards.map((el) => {
-      if (el.id === card.id) {
+      if (el.title === card.title) {
         el.active = true
       }
     })
@@ -30,23 +29,26 @@ export default {
     const arr = [...state.Cards, ...state.pinnedCards]
     arr.map(el => {
       if (el.id === card.cardId) {
-        (card.title.length && !card.text.length) ? el.title = card.title : card.text = el.text;
-        (card.text.length && !card.title.length) ? el.text = card.text : card.title = el.title
-        el.title = card.title
-        el.text = card.text
+        if (card.title.length && !card.text.length) {
+          el.title = card.title
+          card.text = el.text
+        } else if (card.text.length && !card.title.length) {
+          el.text = card.text
+          card.title = el.title
+        } else {
+          el.title = card.title
+          el.text = card.text
+        }
       }
       el.updating = false
     })
   },
-  // nvm button
-  clearCardForm: (state, card) => {
-  },
-  // deletes card in Cards and pinnedCards arrays
+  // deactivates card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
-    const filtered = state.pinnedCards.filter((value) => {
-      if (value.id !== card.id) {
+    const filtered = state.pinnedCards.filter((el) => {
+      if (el.id !== card.id) {
         card.active = false
-        return value
+        return el
       }
     })
     state.pinnedCards = filtered

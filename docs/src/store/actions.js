@@ -7,6 +7,7 @@ export default {
   pinCard: ({ commit }, card) => {
     commit('appendPin', card)
   },
+  // update/clear form fields
   showUpdateField: ({ commit }, card) => {
     commit('updateCardField', card)
   },
@@ -14,12 +15,12 @@ export default {
   updateCard: ({ commit }, card) => {
     commit('replaceCardRule', card)
   },
-  // clears forms on 'nvm' button
-  clearForm: ({ commit }, card) => {
-    commit('clearCardForm', card)
-  },
   // deletes card in Cards and pinnedCards arrays
   hidePin: ({ commit }, card) => {
     commit('removeCard', card)
+  },
+  // filters by type
+  filterByType: ({ commit }, type) => {
+    commit('filterCard', type)
   }
 }
