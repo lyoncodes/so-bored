@@ -1,38 +1,8 @@
 <template lang="pug">
-  b-card-group.card-grid
-    b-container.card-container
-      b-row
-        b-col(md="4" v-for="card in pinnedCards" :key="card.active")
-          b-card(bg-variant="dark" text-variant="white")
-            //- card title -------
-            h3(v-if="!updateData.title.length || updateData.title.length && !card.updating") {{card.title}}
-            h3(v-if="updateData.title.length && card.updating") {{updateData.title}}
-            //-------------
-            b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
-              b-form-textarea(
-                id="card-title"
-                v-model="updateData.title"
-                :placeholder="card.title"
-              )
-            //- card text ------
-            b-card-text(v-if="!updateData.text.length || updateData.text.length && !card.updating") {{card.text}}
-            b-card-text(v-if="updateData.text.length && card.updating") {{updateData.text}}
-            //-----------
-            b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
-              b-form-textarea(
-                id="card-text"
-                v-model="updateData.text"
-                :placeholder="card.text"
-              )
-              b-button(type="submit" variant="primary" v-if="updateData.updating") {{templateText.updateBtn}}
-            b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating") {{templateText.updateRule}}
-            b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") {{templateText.cancelBtn}}
-            b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
-            cardBody
+  h1 added tag proto
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import cardBody from '../components/card/cardBody'
 export default {
   name: 'menu-row',
   data () {
@@ -52,9 +22,6 @@ export default {
         hideBtn: 'Hide'
       }
     }
-  },
-  components: {
-    cardBody
   },
   computed: {
     ...mapState([
