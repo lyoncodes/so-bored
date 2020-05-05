@@ -1,6 +1,6 @@
 <template lang="pug">
-  b-card-group(class="card-grid")
-    b-container(class="card-container")
+  b-card-group.card-grid
+    b-container.card-container
       b-row
         b-col(md="4" v-for="card in pinnedCards" :key="card.active")
           b-card(bg-variant="dark" text-variant="white")

@@ -1,7 +1,6 @@
-<template>
-  <div id="menu">
-    <switchBox />
-  </div>
+<template lang="pug">
+  #menu
+    switchBox
 </template>
 
 <script>
