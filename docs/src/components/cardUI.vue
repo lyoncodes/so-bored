@@ -24,7 +24,7 @@
                 v-model="updateData.text"
                 :placeholder="card.text"
               )
-              b-button(type="submit" variant="primary" v-if="updateData.updating") {{templateText.updateBtn}}
+              b-button(type="submit" variant="primary" v-if="updateData.updating" :disabled="!updateData.length") {{templateText.updateBtn}}
             b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating") {{templateText.updateRule}}
             b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") {{templateText.cancelBtn}}
             b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
