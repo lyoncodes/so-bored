@@ -12,7 +12,7 @@
           b-button(
           v-for="(card, idx) in Cards"
           :key="idx"
-          :class="{ selected: card === selectedCard }"
+          :class="{ selected: card.active}"
           @click="handleSwitch(card, idx)"
           variant="primary") {{card.title}}
 </template>
