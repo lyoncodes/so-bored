@@ -14,14 +14,8 @@ export default {
   },
   // change state of cards to updating
   updateCardField: (state, card) => {
-    // toggles form field
-    card.updating = !card.updating
-    const arr = [...state.Cards, ...state.pinnedCards]
-    return arr.map((el) => {
-      if (el.id === card.id) {
-        el.updating = !el.updating
-      }
-    })
+    // toggles form f0ield
+    console.log('huh')
   },
   // update card in cards and pinnedcards arrays & change state of cards to !updating
   replaceCardRule: (state, card) => {
