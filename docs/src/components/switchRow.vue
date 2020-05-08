@@ -12,8 +12,9 @@
           b-button(
           v-for="(card, idx) in Cards"
           :key="idx"
-          :class="{ selected: card === selectedCard }"
+          :class="{ selected: card.active}"
           @click="handleSwitch(card, idx)"
+          :disabled="switchDisabled"
           variant="primary") {{card.title}}
 </template>
 
@@ -24,7 +25,8 @@ export default {
   data () {
     return {
       showCards: true,
-      switchesActive: false,
+      switchDisabled: false,
+      selectedCard: null,
       updateData: {
         title: '',
         text: '',
@@ -54,6 +56,9 @@ export default {
       'updateCard',
       'hidePin'
     ]),
+    cardUpdate (card) {
+      console.log(card)
+    },
     showAllCards () {
       this.showCards = !this.showCards
       if (this.showCards && this.showFilterCards) {

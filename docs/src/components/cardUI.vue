@@ -8,7 +8,7 @@
             h3(v-if="!updateData.title.length || updateData.title.length && !card.updating") {{card.title}}
             h3(v-if="updateData.title.length && card.updating") {{updateData.title}}
             //-------------
-            b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
+            b-form(@submit.prevent="submitUpdate(card)" v-if="updateData.updating")
               b-form-textarea(
                 id="card-title"
                 v-model="updateData.title"
@@ -18,24 +18,25 @@
             b-card-text(v-if="!updateData.text.length || updateData.text.length && !card.updating") {{card.text}}
             b-card-text(v-if="updateData.text.length && card.updating") {{updateData.text}}
             //-----------
-            b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
+            b-form(@submit.prevent="submitUpdate(card)" v-if="updateData.updating")
               b-form-textarea(
                 id="card-text"
                 v-model="updateData.text"
                 :placeholder="card.text"
               )
-              b-button(type="submit" variant="primary" v-if="updateData.updating") {{templateText.updateBtn}}
+              b-button(type="submit" variant="primary" v-if="updateData.updating" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
             b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating") {{templateText.updateRule}}
             b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") {{templateText.cancelBtn}}
             b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
+            cardBody
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
+import cardBody from '../components/card/cardBody'
 export default {
   name: 'menu-row',
   data () {
     return {
-      switchesActive: false,
       updateData: {
         title: '',
         text: '',
@@ -51,6 +52,9 @@ export default {
       }
     }
   },
+  components: {
+    cardBody
+  },
   computed: {
     ...mapState([
       'Cards',
@@ -64,38 +68,24 @@ export default {
       'hidePin'
     ]),
     handleUpdate (card) {
-      this.switchesActive = !this.switchesActive
       this.updateData.updating = !this.updateData.updating
       const { id, updating } = card
       const updatePayload = {
         id,
         updating
       }
+      this.$emit('cardUpdate', updatePayload)
       this.showUpdateField(updatePayload)
     },
     submitUpdate (card) {
-      const cardId = card.id
-      const { title, text, updating } = this.updateData
-      const updateData = {
-        title,
-        text,
-        cardId,
-        updating
-      }
+      const updateData = this.cardFormat(card)
       this.updateCard(updateData)
       this.clearForm()
-      this.switchesActive = !this.switchesActive
     },
     handleCancel (card) {
-      this.switchesActive = !this.switchesActive
       this.updateData.updating = !this.updateData.updating
-      const id = card.id
-      const updating = false
-      const blankPayload = {
-        id,
-        updating
-      }
-      this.showUpdateField(blankPayload)
+      const payload = this.cardFormat(card)
+      this.showUpdateField(payload)
       this.clearForm()
     },
     handleHide (card) {
@@ -107,6 +97,18 @@ export default {
         text: '',
         updating: false
       }
+    },
+    cardFormat (card) {
+      const { type, title, text, id, active, updating } = card
+      const cardPayload = {
+        type,
+        title,
+        text,
+        id,
+        active,
+        updating
+      }
+      return cardPayload
     }
   },
   mounted () {
