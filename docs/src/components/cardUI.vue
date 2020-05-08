@@ -8,7 +8,7 @@
             h3(v-if="!updateData.title.length || updateData.title.length && !card.updating") {{card.title}}
             h3(v-if="updateData.title.length && card.updating") {{updateData.title}}
             //-------------
-            b-form(@submit.prevent="submitUpdate(card)" v-if="updateData.updating")
+            b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
               b-form-textarea(
                 id="card-title"
                 v-model="updateData.title"
@@ -18,13 +18,13 @@
             b-card-text(v-if="!updateData.text.length || updateData.text.length && !card.updating") {{card.text}}
             b-card-text(v-if="updateData.text.length && card.updating") {{updateData.text}}
             //-----------
-            b-form(@submit.prevent="submitUpdate(card)" v-if="updateData.updating")
+            b-form(@submit.prevent="submitUpdate(card)" v-if="card.updating")
               b-form-textarea(
                 id="card-text"
                 v-model="updateData.text"
                 :placeholder="card.text"
               )
-              b-button(type="submit" variant="primary" v-if="updateData.updating" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
+              b-button(type="submit" variant="primary" v-if="card.updating" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
             b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating") {{templateText.updateRule}}
             b-button(@click="handleCancel(card)" variant="primary" v-if="updateData.updating") {{templateText.cancelBtn}}
             b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
@@ -69,21 +69,20 @@ export default {
     ]),
     handleUpdate (card) {
       this.updateData.updating = !this.updateData.updating
-      const { id, updating } = card
-      const updatePayload = {
-        id,
-        updating
-      }
-      this.$emit('cardUpdate', updatePayload)
-      this.showUpdateField(updatePayload)
+      card.updating = true
+      const payload = this.cardFormat(card)
+      this.$emit('cardUpdate', payload)
+      this.showUpdateField(payload)
     },
     submitUpdate (card) {
-      const updateData = this.cardFormat(card)
-      this.updateCard(updateData)
+      const payload = this.cardFormat(card)
+      this.updateCard(payload)
+      card.updating = false
       this.clearForm()
     },
     handleCancel (card) {
       this.updateData.updating = !this.updateData.updating
+      card.updating = false
       const payload = this.cardFormat(card)
       this.showUpdateField(payload)
       this.clearForm()
