@@ -6,7 +6,8 @@ export default {
   // append card after switch is active
   appendPin: (state, card) => {
     state.pinnedCards.push(card)
-    return state.Cards.map((el) => {
+    const arr = [...state.Cards, ...state.pinnedCards]
+    return arr.map((el) => {
       if (el.title === card.title) {
         el.active = true
       }
@@ -16,11 +17,15 @@ export default {
   updateCardField: (state, card) => {
     const arr = [...state.Cards, ...state.pinnedCards]
     arr.map(el => {
-      if (el.id === card.id) {
+      if (el.id === card.id && card.updating) {
         el.active = true
+        el.updating = true
+      }
+      if (el.id === card.id && !card.updating) {
+        el.active = false
+        el.updating = false
       }
     })
-    console.log('huh')
   },
   // update card in cards and pinnedcards arrays & change state of cards to !updating
   replaceCardRule: (state, card) => {
