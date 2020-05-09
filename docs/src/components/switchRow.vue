@@ -66,17 +66,15 @@ export default {
       }
     },
     handleSwitch (card, idx) {
-      if (!this.switchesActive) {
-        const { title, text, id, active } = card
-        const pinnedCard = {
-          title,
-          text,
-          id,
-          active
-        }
-        return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[idx].active)) ? this.pinCard(pinnedCard)
-          : (this.Cards[idx].active) ? this.hidePin(pinnedCard) : null
+      const { title, text, id, active } = card
+      const pinnedCard = {
+        title,
+        text,
+        id,
+        active
       }
+      return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[idx].active)) ? this.pinCard(pinnedCard)
+        : (this.Cards[idx].active) ? this.hidePin(pinnedCard) : null
     }
   },
   mounted () {
