@@ -14,18 +14,23 @@
           :key="idx"
           :class="{ selected: card.active}"
           @click="handleSwitch(card, idx)"
-          :disabled="switchDisabled"
+          :disabled="card.updating"
           variant="primary") {{card.title}}
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import cardUI from '../components/cardUI'
+
 export default {
   name: 'switch-row',
+  components: {
+    cardUI
+  },
   data () {
     return {
       showCards: true,
-      switchDisabled: false,
+      switchDisabled: 0,
       selectedCard: null,
       updateData: {
         title: '',
@@ -58,6 +63,7 @@ export default {
     ]),
     cardUpdate (card) {
       console.log(card)
+      this.switchDisabled = (this.switchDisabled + 1)
     },
     showAllCards () {
       this.showCards = !this.showCards
