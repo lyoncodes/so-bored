@@ -1,7 +1,14 @@
 export default {
   // add card from add card form
-  appendCard: (state, card) => {
-    state.Cards.push(card)
+  addRule: (state, card) => {
+    const test = state.Cards.filter(el => {
+      if (el.title === card.title) {
+        return el
+      }
+    })
+    if (!test.length) {
+      state.Cards.push(card)
+    } else alert('this title already exists! Try another entry')
   },
   // append card after switch is active
   appendPin: (state, card) => {

@@ -38,12 +38,8 @@ export default {
         updating: false
       },
       templateText: {
-        toggleMsg: 'Show All Switches',
-        toggleMsgAlt: 'Hide All Switches',
-        updateBtn: 'Update!',
-        updateRule: 'Update Rule',
-        cancelBtn: 'Nvm',
-        hideBtn: 'Hide'
+        toggleMsg: 'Show All Rules',
+        toggleMsgAlt: 'Hide All Rules'
       }
     }
   },

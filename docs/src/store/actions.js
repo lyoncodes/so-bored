@@ -1,7 +1,7 @@
 export default {
   // add card from add card form
-  addCard: ({ commit }, card) => {
-    commit('appendCard', card)
+  submitRule: ({ commit }, card) => {
+    commit('addRule', card)
   },
   // "plugIn" card to board after switch is active
   pinCard: ({ commit }, card) => {
