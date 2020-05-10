@@ -33,7 +33,9 @@ export default {
       formData: {
         title: '',
         text: '',
-        type: ''
+        type: '',
+        active: false,
+        updating: false
       }
     }
   },
@@ -52,13 +54,15 @@ export default {
       this.showCardForm = !this.showCardForm
     },
     handleSubmit () {
-      const { title, text, type } = this.formData
+      const { title, text, type, active, updating } = this.formData
       const id = this.Cards.length
       const card = {
         title,
         text,
         type,
-        id
+        id,
+        active,
+        updating
       }
       this.addCard(card)
       this.formData = {

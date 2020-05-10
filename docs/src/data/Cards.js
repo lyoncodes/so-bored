@@ -12,6 +12,7 @@ export default [
     text: 'test1 text',
     id: 0,
     active: false,
+    updateable: true,
     updating: false
   },
   {
@@ -20,6 +21,7 @@ export default [
     text: 'test2 text',
     id: 1,
     active: false,
+    updateable: true,
     updating: false
   },
   {
@@ -28,6 +30,7 @@ export default [
     text: 'test3 text',
     id: 2,
     active: false,
+    updateable: true,
     updating: false
   },
   {
@@ -36,6 +39,7 @@ export default [
     text: 'test3 text',
     id: 3,
     active: false,
+    updateable: true,
     updating: false
   },
   {
@@ -44,6 +48,7 @@ export default [
     text: 'test1 text',
     id: 4,
     active: false,
+    updateable: true,
     updating: false
   },
   {
@@ -52,6 +57,7 @@ export default [
     text: 'test2 text',
     id: 5,
     active: false,
+    updateable: true,
     updating: false
   },
   {
@@ -60,6 +66,7 @@ export default [
     text: 'test3 text',
     id: 6,
     active: false,
+    updateable: true,
     updating: false
   },
   {
@@ -68,6 +75,7 @@ export default [
     text: 'test3 text',
     id: 7,
     active: false,
+    updateable: true,
     updating: false
   }
 
