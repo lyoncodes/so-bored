@@ -3,6 +3,14 @@
     button(@click="toggleCardForm" class="btn btn-primary") Add New Card
     b-form(@submit.prevent="handleSubmit" v-if="showCardForm")
       b-col(md="6")
+        b-form-group(id="input-type")
+          b-button(
+            id="card-type"
+            v-for="(select, idx) in Menu"
+            v-model="formData.type"
+            :key="idx"
+            @click="submitType(select.type)"
+            variant="light") {{select.type}}
         b-form-group(id="input-title" label="Card Title:" label-for="input-title")
           b-form-input(
             id="card-title"
@@ -55,6 +63,10 @@ export default {
     toggleCardForm () {
       this.showCardForm = !this.showCardForm
     },
+    submitType (type) {
+      this.$emit('addType', type)
+      this.formData.type = type
+    },
     handleSubmit () {
       const { title, text, type, active, updating } = this.formData
       const id = this.Cards.length
@@ -73,6 +85,10 @@ export default {
         type: ''
       }
     }
+  },
+  mounted () {
+    const menu = this.Menu
+    this.menu = menu
   }
 }
 </script>

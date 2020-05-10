@@ -62,7 +62,6 @@ export default {
       'hidePin'
     ]),
     cardUpdate (card) {
-      console.log(card)
       this.switchDisabled = (this.switchDisabled + 1)
     },
     showAllCards () {
@@ -72,11 +71,12 @@ export default {
       }
     },
     handleSwitch (card, idx) {
-      const { title, text, id, active } = card
+      const { title, text, id, type, active } = card
       const pinnedCard = {
         title,
         text,
         id,
+        type,
         active
       }
       return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[idx].active)) ? this.pinCard(pinnedCard)
