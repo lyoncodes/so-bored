@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'addCard'
+      'submitRule'
     ]),
     toggleCardForm () {
       this.showCardForm = !this.showCardForm
@@ -78,7 +78,7 @@ export default {
         active,
         updating
       }
-      this.addCard(card)
+      this.submitRule(card)
       this.formData = {
         title: '',
         text: '',
