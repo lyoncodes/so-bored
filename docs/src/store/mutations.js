@@ -1,12 +1,20 @@
 export default {
   // add card from add card form
-  appendCard: (state, card) => {
-    state.Cards.push(card)
+  addRule: (state, card) => {
+    const test = state.Cards.filter(el => {
+      if (el.title === card.title) {
+        return el
+      }
+    })
+    if (!test.length) {
+      state.Cards.push(card)
+    } else alert('this title already exists! Try another entry')
   },
   // append card after switch is active
   appendPin: (state, card) => {
     state.pinnedCards.push(card)
-    return state.Cards.map((el) => {
+    const arr = [...state.Cards, ...state.pinnedCards]
+    return arr.map((el) => {
       if (el.title === card.title) {
         el.active = true
       }
@@ -14,15 +22,24 @@ export default {
   },
   // change state of cards to updating
   updateCardField: (state, card) => {
-    // toggles form f0ield
-    console.log('huh')
+    const arr = [...state.Cards, ...state.pinnedCards]
+    arr.map(el => {
+      if (el.id === card.id && card.updating) {
+        el.active = true
+        el.updating = true
+      }
+      if (el.id === card.id && !card.updating) {
+        el.active = false
+        el.updating = false
+      }
+    })
   },
   // update card in cards and pinnedcards arrays & change state of cards to !updating
   replaceCardRule: (state, card) => {
-    card.updating = false
+    console.log(card)
     const arr = [...state.Cards, ...state.pinnedCards]
     arr.map(el => {
-      if (el.id === card.cardId) {
+      if (el.id === card.id) {
         if (card.title.length && !card.text.length) {
           el.title = card.title
           card.text = el.text

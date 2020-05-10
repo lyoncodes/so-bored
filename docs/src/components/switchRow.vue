@@ -14,18 +14,23 @@
           :key="idx"
           :class="{ selected: card.active}"
           @click="handleSwitch(card, idx)"
-          :disabled="switchDisabled"
+          :disabled="card.updating"
           variant="primary") {{card.title}}
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import cardUI from '../components/cardUI'
+
 export default {
   name: 'switch-row',
+  components: {
+    cardUI
+  },
   data () {
     return {
       showCards: true,
-      switchDisabled: false,
+      switchDisabled: 0,
       selectedCard: null,
       updateData: {
         title: '',
@@ -33,12 +38,8 @@ export default {
         updating: false
       },
       templateText: {
-        toggleMsg: 'Show All Switches',
-        toggleMsgAlt: 'Hide All Switches',
-        updateBtn: 'Update!',
-        updateRule: 'Update Rule',
-        cancelBtn: 'Nvm',
-        hideBtn: 'Hide'
+        toggleMsg: 'Show All Rules',
+        toggleMsgAlt: 'Hide All Rules'
       }
     }
   },
@@ -57,7 +58,7 @@ export default {
       'hidePin'
     ]),
     cardUpdate (card) {
-      console.log(card)
+      this.switchDisabled = (this.switchDisabled + 1)
     },
     showAllCards () {
       this.showCards = !this.showCards
@@ -66,17 +67,16 @@ export default {
       }
     },
     handleSwitch (card, idx) {
-      if (!this.switchesActive) {
-        const { title, text, id, active } = card
-        const pinnedCard = {
-          title,
-          text,
-          id,
-          active
-        }
-        return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[idx].active)) ? this.pinCard(pinnedCard)
-          : (this.Cards[idx].active) ? this.hidePin(pinnedCard) : null
+      const { title, text, id, type, active } = card
+      const pinnedCard = {
+        title,
+        text,
+        id,
+        type,
+        active
       }
+      return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[idx].active)) ? this.pinCard(pinnedCard)
+        : (this.Cards[idx].active) ? this.hidePin(pinnedCard) : null
     }
   },
   mounted () {
