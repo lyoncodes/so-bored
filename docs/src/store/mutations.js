@@ -36,7 +36,6 @@ export default {
   },
   // update card in cards and pinnedcards arrays & change state of cards to !updating
   replaceCardRule: (state, card) => {
-    console.log(card)
     const arr = [...state.Cards, ...state.pinnedCards]
     arr.map(el => {
       if (el.id === card.id) {
