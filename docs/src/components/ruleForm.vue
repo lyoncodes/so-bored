@@ -12,16 +12,20 @@
             @click="submitType(select.type)"
             variant="light") {{select.type}}
         b-form-group(id="input-title" label="Card Title:" label-for="input-title")
+          a {{formChar.titleCount}} / {{formChar.titleLimit}}
           b-form-input(
             id="card-title"
             v-model="formData.title"
+            @keyup="validateCharCount()"
             required
             placeholder="Enter Rule Title"
             )
         b-form-group(id="input-card-text" label="Card Text:" label-for="input-card-text")
+          a {{formChar.charCount}} / {{formChar.charLimit}}
           b-form-input(
             id="card-text"
             v-model="formData.text"
+            @keyup="validateCharCount()"
             required
             placeholder="Enter Rule Text"
           )
@@ -40,6 +44,12 @@ export default {
   data () {
     return {
       showCardForm: false,
+      formChar: {
+        titleCount: 0,
+        titleLimit: 30,
+        charCount: 0,
+        charLimit: 300
+      },
       formData: {
         title: '',
         text: '',
@@ -63,6 +73,10 @@ export default {
     toggleCardForm () {
       this.showCardForm = !this.showCardForm
     },
+    validateCharCount () {
+      this.formChar.charCount = this.formData.text.length
+      this.formChar.titleCount = this.formData.title.length
+    },
     submitType (type) {
       this.$emit('addType', type)
       this.formData.type = type
@@ -83,6 +97,12 @@ export default {
         title: '',
         text: '',
         type: ''
+      }
+      this.formChar = {
+        titleCount: 0,
+        titleLimit: 30,
+        charCount: 0,
+        charLimit: 300
       }
     }
   },
