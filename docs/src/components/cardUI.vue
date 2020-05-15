@@ -4,7 +4,9 @@
       b-row
         b-col(md="4" v-for="card in pinnedCards" :key="card.active")
           b-card(bg-variant="dark" text-variant="white")
-            //- card title -------
+            //- rule type -------
+            h3 {{card.type}}
+            //- rule title -------
             h3(v-if="!updateData.title.length || updateData.title.length && !card.updating") {{card.title}}
             h3(v-if="updateData.title.length && card.updating") {{updateData.title}}
             //-------------
@@ -14,7 +16,7 @@
                 v-model="updateData.title"
                 :placeholder="card.title"
               )
-            //- card text ------
+            //- rule text ------
             b-card-text(v-if="!updateData.text.length || updateData.text.length && !card.updating") {{card.text}}
             b-card-text(v-if="updateData.text.length && card.updating") {{updateData.text}}
             //-----------
