@@ -13,6 +13,8 @@
             variant="light") {{select.type}}
         b-form-group(id="input-title" label="Card Title:" label-for="input-title")
           a {{formChar.titleCount}} / {{formChar.titleLimit}}
+          b-row(v-if="formChar.titleCount > formChar.titleLimit")
+            b-badge(variant="danger") Too Many!
           b-form-input(
             id="card-title"
             v-model="formData.title"
@@ -22,6 +24,8 @@
             )
         b-form-group(id="input-card-text" label="Card Text:" label-for="input-card-text")
           a {{formChar.charCount}} / {{formChar.charLimit}}
+          b-row(v-if="formChar.charCount > formChar.charLimit")
+            b-badge(variant="danger") Too Many!
           b-form-input(
             id="card-text"
             v-model="formData.text"
@@ -91,6 +95,9 @@ export default {
         id,
         active,
         updating
+      }
+      if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
+        return alert('Error handling: fix length')
       }
       this.submitRule(card)
       this.formData = {

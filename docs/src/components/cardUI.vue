@@ -30,11 +30,11 @@
             b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating" :disabled="updateData.updating") {{templateText.updateRule}}
             b-button(@click="handleCancel(card)" variant="primary" v-if="card.updating") {{templateText.cancelBtn}}
             b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
-            cardBody
+            cardAnnotation
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import cardBody from '../components/card/cardBody'
+import cardAnnotation from '../components/card/cardAnnotation'
 export default {
   name: 'menu-row',
   data () {
@@ -55,7 +55,7 @@ export default {
     }
   },
   components: {
-    cardBody
+    cardAnnotation
   },
   computed: {
     ...mapState([
