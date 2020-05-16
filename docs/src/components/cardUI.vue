@@ -34,7 +34,7 @@
                 @keyup="validateCharCount()"
                 :placeholder="card.text"
               )
-              b-button(type="submit" variant="primary" v-if="card.updating" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
+              b-button(type="submit" variant="primary" v-if="card.updating && !formChar.errorMsg" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
             b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating" :disabled="updateData.updating") {{templateText.updateRule}}
             b-button(@click="handleCancel(card)" variant="primary" v-if="card.updating") {{templateText.cancelBtn}}
             b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
