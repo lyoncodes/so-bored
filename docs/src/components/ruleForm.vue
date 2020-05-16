@@ -14,7 +14,7 @@
         b-form-group(id="input-title" label="Card Title:" label-for="input-title")
           a {{formChar.titleCount}} / {{formChar.titleLimit}}
           b-row(v-if="formChar.titleCount > formChar.titleLimit")
-            b-badge(variant="danger") Too Many!
+            b-badge(variant="danger") {{formChar.errorMsg}}
           b-form-input(
             id="card-title"
             v-model="formData.title"
@@ -25,7 +25,7 @@
         b-form-group(id="input-card-text" label="Card Text:" label-for="input-card-text")
           a {{formChar.charCount}} / {{formChar.charLimit}}
           b-row(v-if="formChar.charCount > formChar.charLimit")
-            b-badge(variant="danger") Too Many!
+            b-badge(variant="danger") {{formChar.errorMsg}}
           b-form-input(
             id="card-text"
             v-model="formData.text"
@@ -33,6 +33,7 @@
             required
             placeholder="Enter Rule Text"
           )
+      b-badge(v-if="showConfirm" variant="success") {{formChar.confirmation}}
       b-button(type="submit" variant="primary") Submit
       b-button(type="reset" variant="danger") Reset
 </template>
@@ -48,11 +49,14 @@ export default {
   data () {
     return {
       showCardForm: false,
+      showConfirm: false,
       formChar: {
         titleCount: 0,
-        titleLimit: 30,
+        titleLimit: 20,
         charCount: 0,
-        charLimit: 300
+        charLimit: 300,
+        confirmation: String,
+        errorMsg: String
       },
       formData: {
         title: '',
@@ -80,6 +84,7 @@ export default {
     validateCharCount () {
       this.formChar.charCount = this.formData.text.length
       this.formChar.titleCount = this.formData.title.length
+      this.formChar.errorMsg = this.formData.title.length > this.formChar.titleLimit || this.formData.text.length > this.formChar.charLimit ? 'Too Many Characters' : null
     },
     submitType (type) {
       this.$emit('addType', type)
@@ -105,11 +110,13 @@ export default {
         text: '',
         type: ''
       }
+      this.showConfirm = true
       this.formChar = {
         titleCount: 0,
-        titleLimit: 30,
+        titleLimit: 20,
         charCount: 0,
-        charLimit: 300
+        charLimit: 300,
+        confirmation: 'Added!'
       }
     }
   },
