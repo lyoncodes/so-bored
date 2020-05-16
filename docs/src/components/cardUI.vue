@@ -11,9 +11,13 @@
             h3(v-if="updateData.title.length && card.updating") {{updateData.title}}
             //-------------
             b-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
+              a {{formChar.titleCount}} / {{formChar.titleLimit}}
+              b-row(v-if="formChar.titleCount > formChar.titleLimit")
+                b-badge(variant="danger") {{formChar.errorMsg}}
               b-form-textarea(
                 id="card-title"
                 v-model="updateData.title"
+                @keyup="validateCharCount()"
                 :placeholder="card.title"
               )
             //- rule text ------
@@ -21,20 +25,24 @@
             b-card-text(v-if="updateData.text.length && card.updating") {{updateData.text}}
             //-----------
             b-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
+              a {{formChar.charCount}} / {{formChar.charLimit}}
+              b-row(v-if="formChar.charCount > formChar.charLimit")
+                b-badge(variant="danger") {{formChar.errorMsg}}
               b-form-textarea(
                 id="card-text"
                 v-model="updateData.text"
+                @keyup="validateCharCount()"
                 :placeholder="card.text"
               )
               b-button(type="submit" variant="primary" v-if="card.updating" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
             b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating" :disabled="updateData.updating") {{templateText.updateRule}}
             b-button(@click="handleCancel(card)" variant="primary" v-if="card.updating") {{templateText.cancelBtn}}
             b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
-            cardBody
+            cardAnnotation
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import cardBody from '../components/card/cardBody'
+import cardAnnotation from '../components/card/cardAnnotation'
 export default {
   name: 'menu-row',
   data () {
@@ -51,11 +59,19 @@ export default {
         updateRule: 'Update Rule',
         cancelBtn: 'Nvm',
         hideBtn: 'Hide'
+      },
+      formChar: {
+        titleCount: 0,
+        titleLimit: 20,
+        charCount: 0,
+        charLimit: 300,
+        confirmation: String,
+        errorMsg: String
       }
     }
   },
   components: {
-    cardBody
+    cardAnnotation
   },
   computed: {
     ...mapState([
@@ -69,6 +85,11 @@ export default {
       'updateCard',
       'hidePin'
     ]),
+    validateCharCount () {
+      this.formChar.charCount = this.updateData.text.length
+      this.formChar.titleCount = this.updateData.title.length
+      this.formChar.errorMsg = this.updateData.title.length > this.formChar.titleLimit || this.updateData.text.length > this.formChar.charLimit ? 'Too Many Characters' : null
+    },
     handleUpdate (card) {
       this.updateData.updating = !this.updateData.updating
       card.updating = true
@@ -84,6 +105,9 @@ export default {
         text,
         id,
         updating
+      }
+      if (updateData.text.length > this.formChar.charLimit || updateData.title.length > this.formChar.titleLimit) {
+        return alert('Error handling: fix length')
       }
       this.updateCard(updateData)
       card.updating = false
