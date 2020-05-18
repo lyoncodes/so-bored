@@ -20,12 +20,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import cardUI from '../components/cardUI'
+import ruleCard from '../components/ruleCard'
 
 export default {
-  name: 'switch-row',
+  name: 'rule-tabs',
   components: {
-    cardUI
+    ruleCard
   },
   data () {
     return {

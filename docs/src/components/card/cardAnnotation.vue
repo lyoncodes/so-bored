@@ -1,5 +1,5 @@
 <template lang="pug">
-  h1 {{card.title}}
+  h1 test
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -10,10 +10,6 @@ export default {
       'Cards',
       'pinnedCards'
     ])
-  },
-  mounted () {
-    const card = this.Cards
-    this.card = card
   }
 }
 </script>
