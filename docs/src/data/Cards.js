@@ -13,7 +13,13 @@ export default [
     id: 0,
     active: false,
     unlocked: true,
-    updating: false
+    updating: false,
+    annotations: [
+      {
+        title: 'Test',
+        text: ''
+      }
+    ]
   },
   {
     type: 'Styles',

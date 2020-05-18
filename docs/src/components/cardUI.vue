@@ -38,7 +38,7 @@
             b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating" :disabled="updateData.updating") {{templateText.updateRule}}
             b-button(@click="handleCancel(card)" variant="primary" v-if="card.updating") {{templateText.cancelBtn}}
             b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
-            cardAnnotation
+            //- cardAnnotation
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'

@@ -25,11 +25,9 @@ export default {
     const arr = [...state.Cards, ...state.pinnedCards]
     arr.map(el => {
       if (el.id === card.id && card.updating) {
-        el.active = true
         el.updating = true
       }
       if (el.id === card.id && !card.updating) {
-        el.active = false
         el.updating = false
       }
     })

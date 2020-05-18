@@ -30,7 +30,6 @@ export default {
   data () {
     return {
       showCards: true,
-      switchDisabled: 0,
       selectedCard: null,
       updateData: {
         title: '',
@@ -57,9 +56,6 @@ export default {
       'updateCard',
       'hidePin'
     ]),
-    cardUpdate (card) {
-      this.switchDisabled = (this.switchDisabled + 1)
-    },
     showAllCards () {
       this.showCards = !this.showCards
       if (this.showCards && this.showFilterCards) {
