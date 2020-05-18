@@ -14,12 +14,7 @@ export default [
     active: false,
     unlocked: true,
     updating: false,
-    annotations: [
-      {
-        title: 'Test',
-        text: ''
-      }
-    ]
+    annotations: ['test']
   },
   {
     type: 'Styles',

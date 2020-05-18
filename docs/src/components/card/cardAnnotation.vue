@@ -1,10 +1,11 @@
 <template lang="pug">
-  h1 test
+  h1 {{rule.annotations[0]}}
 </template>
 <script>
 import { mapState } from 'vuex'
 export default {
   name: 'card-label',
+  props: ['rule'],
   computed: {
     ...mapState([
       'Cards',

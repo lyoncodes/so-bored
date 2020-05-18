@@ -38,7 +38,9 @@
             b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating" :disabled="updateData.updating") {{templateText.updateRule}}
             b-button(@click="handleCancel(card)" variant="primary" v-if="card.updating") {{templateText.cancelBtn}}
             b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
-            cardAnnotation
+            cardAnnotation(
+              :rule="card"
+            )
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -92,7 +94,6 @@ export default {
     },
     handleUpdate (card) {
       this.updateData.updating = !this.updateData.updating
-      card.updating = true
       const payload = this.cardFormat(card)
       this.$emit('cardUpdate', payload)
       this.showUpdateField(payload)
@@ -115,7 +116,6 @@ export default {
     },
     handleCancel (card) {
       this.updateData.updating = !this.updateData.updating
-      card.updating = false
       const payload = this.cardFormat(card)
       this.showUpdateField(payload)
       this.clearForm()
