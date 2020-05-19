@@ -20,17 +20,16 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import cardUI from '../components/cardUI'
+import ruleCard from '../components/ruleCard'
 
 export default {
-  name: 'switch-row',
+  name: 'rule-tabs',
   components: {
-    cardUI
+    ruleCard
   },
   data () {
     return {
       showCards: true,
-      switchDisabled: 0,
       selectedCard: null,
       updateData: {
         title: '',
@@ -57,9 +56,6 @@ export default {
       'updateCard',
       'hidePin'
     ]),
-    cardUpdate (card) {
-      this.switchDisabled = (this.switchDisabled + 1)
-    },
     showAllCards () {
       this.showCards = !this.showCards
       if (this.showCards && this.showFilterCards) {
@@ -67,13 +63,14 @@ export default {
       }
     },
     handleSwitch (card, idx) {
-      const { title, text, id, type, active } = card
+      const { title, text, id, type, active, annotations } = card
       const pinnedCard = {
         title,
         text,
         id,
         type,
-        active
+        active,
+        annotations
       }
       return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[idx].active)) ? this.pinCard(pinnedCard)
         : (this.Cards[idx].active) ? this.hidePin(pinnedCard) : null
