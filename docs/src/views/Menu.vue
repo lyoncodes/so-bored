@@ -1,10 +1,10 @@
 <template lang="pug">
   #menu
-    switchBox
+    ruleBook
 </template>
 
 <script>
-import switchBox from '../components/switchBox'
+import ruleBook from '../components/ruleBook'
 export default {
   data () {
     return {
@@ -13,7 +13,7 @@ export default {
     }
   },
   components: {
-    switchBox
+    ruleBook
   }
 }
 </script>

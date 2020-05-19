@@ -24,13 +24,8 @@ export default {
   updateCardField: (state, card) => {
     const arr = [...state.Cards, ...state.pinnedCards]
     arr.map(el => {
-      if (el.id === card.id && card.updating) {
-        el.active = true
-        el.updating = true
-      }
-      if (el.id === card.id && !card.updating) {
-        el.active = false
-        el.updating = false
+      if (el.id === card.id) {
+        el.updating = !el.updating
       }
     })
   },
@@ -51,6 +46,14 @@ export default {
         }
       }
       el.updating = false
+    })
+  },
+  // annotates card
+  submitAnnotation: (state, card) => {
+    state.pinnedCards.map(el => {
+      if (el.id === card.id) {
+        el.annotations.push(card)
+      }
     })
   },
   // deactivates card in Cards and pinnedCards arrays

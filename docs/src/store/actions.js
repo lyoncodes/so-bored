@@ -15,6 +15,11 @@ export default {
   updateCard: ({ commit }, card) => {
     commit('replaceCardRule', card)
   },
+  // annotate
+  annotateCard: ({ commit }, card) => {
+    console.log(card)
+    commit('submitAnnotation', card)
+  },
   // deletes card in Cards and pinnedCards arrays
   hidePin: ({ commit }, card) => {
     commit('removeCard', card)
