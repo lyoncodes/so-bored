@@ -64,6 +64,7 @@ export default {
         type: '',
         active: false,
         updating: false,
+        annotations: [],
         annotationType: false
       }
     }
@@ -92,7 +93,7 @@ export default {
       this.formData.type = type
     },
     handleSubmit () {
-      const { title, text, type, active, updating, annotationType } = this.formData
+      const { title, text, type, active, updating, annotations, annotationType } = this.formData
       const id = this.Cards.length
       const card = {
         title,
@@ -101,6 +102,7 @@ export default {
         id,
         active,
         updating,
+        annotations,
         annotationType
       }
       if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
