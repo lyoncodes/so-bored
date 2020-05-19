@@ -1,8 +1,8 @@
 <template lang="pug">
   b-container
-    h3 Annotations
+    button(@click="toggleAnnotations" class="btn btn-primary") Annotate
     p(v-for="annotation in rule.annotations") {{ annotation.text }}
-    b-form(@submit.prevent="submitAnnotation(annotationData)")
+    b-form(@submit.prevent="submitAnnotation(annotationData)" v-if="showAnnotations")
       b-form-textarea(
         v-model="annotationData.text"
       )
@@ -15,6 +15,7 @@ export default {
   props: ['rule'],
   data () {
     return {
+      showAnnotations: false,
       annotationData: {
         text: '',
         author: '',
@@ -31,6 +32,9 @@ export default {
     ...mapActions([
       'annotateCard'
     ]),
+    toggleAnnotations () {
+      this.showAnnotations = !this.showAnnotations
+    },
     submitAnnotation (annotationData) {
       this.annotationData.annotationType = true
       const id = this.$props.rule.id
@@ -49,6 +53,7 @@ export default {
         author: '',
         annotationType: false
       }
+      this.showAnnotations = false
     }
   },
   mounted () {
