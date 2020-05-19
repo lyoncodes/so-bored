@@ -48,6 +48,15 @@ export default {
       el.updating = false
     })
   },
+  // annotates card
+  submitAnnotation: (state, card) => {
+    state.pinnedCards.map(el => {
+      if (el.id === card.id) {
+        console.log('hit')
+        el.annotations.push(card)
+      }
+    })
+  },
   // deactivates card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
     const filtered = state.pinnedCards.filter((el) => {

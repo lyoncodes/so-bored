@@ -14,7 +14,13 @@ export default [
     active: false,
     unlocked: true,
     updating: false,
-    annotations: ['test']
+    annotations: [
+      {
+        text: 'test',
+        author: '',
+        annotationType: true
+      }
+    ]
   },
   {
     type: 'Styles',
@@ -23,7 +29,8 @@ export default [
     id: 1,
     active: false,
     unlocked: true,
-    updating: false
+    updating: false,
+    annotations: []
   },
   {
     type: 'Copy',
@@ -32,7 +39,8 @@ export default [
     id: 2,
     active: false,
     unlocked: true,
-    updating: false
+    updating: false,
+    annotations: []
   },
   {
     type: 'Copy',
@@ -41,7 +49,8 @@ export default [
     id: 3,
     active: false,
     unlocked: true,
-    updating: false
+    updating: false,
+    annotations: []
   },
   {
     type: 'Layout',
@@ -50,7 +59,8 @@ export default [
     id: 4,
     active: false,
     unlocked: true,
-    updating: false
+    updating: false,
+    annotations: []
   },
   {
     type: 'Layout',
@@ -59,7 +69,8 @@ export default [
     id: 5,
     active: false,
     unlocked: true,
-    updating: false
+    updating: false,
+    annotations: []
   },
   {
     type: 'Brand',
@@ -68,7 +79,8 @@ export default [
     id: 6,
     active: false,
     unlocked: true,
-    updating: false
+    updating: false,
+    annotations: []
   },
   {
     type: 'Brand',
@@ -77,7 +89,8 @@ export default [
     id: 7,
     active: false,
     unlocked: true,
-    updating: false
+    updating: false,
+    annotations: []
   }
 
 ]

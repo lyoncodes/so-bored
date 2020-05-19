@@ -63,13 +63,14 @@ export default {
       }
     },
     handleSwitch (card, idx) {
-      const { title, text, id, type, active } = card
+      const { title, text, id, type, active, annotations } = card
       const pinnedCard = {
         title,
         text,
         id,
         type,
-        active
+        active,
+        annotations
       }
       return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[idx].active)) ? this.pinCard(pinnedCard)
         : (this.Cards[idx].active) ? this.hidePin(pinnedCard) : null
