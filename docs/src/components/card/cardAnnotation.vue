@@ -1,11 +1,12 @@
 <template lang="pug">
   b-container
-    h1(v-for="annotation in rule.annotations") {{ annotation.text }}
+    h3 Annotations
+    p(v-for="annotation in rule.annotations") {{ annotation.text }}
     b-form(@submit.prevent="submitAnnotation(annotationData)")
       b-form-textarea(
         v-model="annotationData.text"
       )
-      b-button(type="submit" variant="primary") Annotate
+      b-button(type="submit" variant="primary" :disabled="annotationData.text.length === 0") Annotate
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -23,7 +24,6 @@ export default {
   },
   computed: {
     ...mapState([
-      'Cards',
       'pinnedCards'
     ])
   },

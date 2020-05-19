@@ -9,18 +9,12 @@ export default [
   {
     type: 'Styles',
     title: '<h1> & <h2>',
-    text: 'test1 text',
+    text: 'May the error messages guide thee.',
     id: 0,
     active: false,
     unlocked: true,
     updating: false,
-    annotations: [
-      {
-        text: 'test',
-        author: '',
-        annotationType: true
-      }
-    ]
+    annotations: []
   },
   {
     type: 'Styles',

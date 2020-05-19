@@ -52,7 +52,6 @@ export default {
   submitAnnotation: (state, card) => {
     state.pinnedCards.map(el => {
       if (el.id === card.id) {
-        console.log('hit')
         el.annotations.push(card)
       }
     })
