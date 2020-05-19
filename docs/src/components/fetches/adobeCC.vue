@@ -1,8 +1,9 @@
 <template lang="pug">
   b-container
     h1 API Test
-    h1 {{ adobeData.title }}
-    h1 {{ adobeData.userId }}
+    b-row
+      b-col(md="4" v-for="data in adobeData" :key="data")
+        p {{ data.name }}, {{ data.email }}
 </template>
 <script>
 export default {
@@ -12,9 +13,10 @@ export default {
     }
   },
   mounted () {
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then((data) => {
+        console.log(data)
         this.adobeData = data
       })
   }
