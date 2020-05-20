@@ -1,6 +1,8 @@
 <template lang="pug">
   b-container
-    button(@click="toggleCardForm" class="btn btn-primary") Add New Card
+    button(@click="toggleCardForm" class="btn btn-primary")
+      span(v-if="!showCardForm") {{ buttonText.toggleMsg }}
+      span(v-if="showCardForm") {{ buttonText.errorMsg }}
     b-form(@submit.prevent="handleSubmit" v-if="showCardForm")
       b-col(md="6")
         b-form-group(id="input-type")
@@ -52,7 +54,7 @@ export default {
       showConfirm: false,
       buttonText: {
         toggleMsg: 'Add New Card',
-        hideMsg: String
+        errorMsg: 'Nvm'
       },
       formChar: {
         titleCount: 0,
