@@ -1,17 +1,22 @@
 <template lang="pug">
   b-container
-    button(@click="toggleAnnotations" class="btn btn-primary") Annotate
+    button(@click="toggleAnnotations" class="btn btn-primary" v-if="!showAnnotations") Annotate
+    button(@click="toggleAnnotations" class="btn btn-primary" v-if="showAnnotations") Nvm
     p(v-for="annotation in rule.annotations") {{ annotation.text }}
     b-form(@submit.prevent="submitAnnotation(annotationData)" v-if="showAnnotations")
       b-form-textarea(
         v-model="annotationData.text"
+        @keyup="validateCharCount()"
       )
-      b-button(type="submit" variant="primary" :disabled="annotationData.text.length === 0") Annotate
+      a {{annotationData.text.length}} / {{ rule.annotationValidation.charLimit}}
+      b-row(v-if="annotationData.text.length > rule.annotationValidation.charLimit")
+        b-badge(variant="danger") {{ rule.annotationValidation.errorMsg }}
+      b-button(type="submit" variant="primary" v-if="!rule.annotationValidation.errorMsg" :disabled="!annotationData.text.length") Submit
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'card-label',
+  name: 'annotation',
   props: ['rule'],
   data () {
     return {
@@ -34,6 +39,9 @@ export default {
     ]),
     toggleAnnotations () {
       this.showAnnotations = !this.showAnnotations
+    },
+    validateCharCount () {
+      this.rule.annotationValidation.errorMsg = this.annotationData.text.length > this.rule.annotationValidation.charLimit ? 'Too Many' : null
     },
     submitAnnotation (annotationData) {
       this.annotationData.annotationType = true

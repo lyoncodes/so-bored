@@ -14,7 +14,11 @@ export default [
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   },
   {
     type: 'Styles',
@@ -24,7 +28,11 @@ export default [
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   },
   {
     type: 'Copy',
@@ -34,7 +42,11 @@ export default [
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   },
   {
     type: 'Copy',
@@ -44,7 +56,11 @@ export default [
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   },
   {
     type: 'Layout',
@@ -54,7 +70,11 @@ export default [
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   },
   {
     type: 'Layout',
@@ -64,27 +84,11 @@ export default [
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
-  },
-  {
-    type: 'Brand',
-    title: 'Syntax',
-    text: 'We like simple, straight-forward copy. Data is a cool word, but not when it appears more than twice within a text block.',
-    id: 6,
-    active: false,
-    unlocked: true,
-    updating: false,
-    annotations: []
-  },
-  {
-    type: 'Brand',
-    title: 'Lexicon',
-    text: 'GIS is good. Spreadsheet is avoidable.',
-    id: 7,
-    active: false,
-    unlocked: true,
-    updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   }
 
 ]
