@@ -9,82 +9,86 @@ export default [
   {
     type: 'Styles',
     title: '<h1> & <h2>',
-    text: 'May the error messages guide thee.',
+    text: 'Some <h1> and <h2> styles: font-size, padding, heirarchy.',
     id: 0,
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   },
   {
     type: 'Styles',
     title: 'body & <p>',
-    text: 'test2 text',
+    text: 'some body and <p> styles: font-size, padding, and masts.',
     id: 1,
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   },
   {
     type: 'Copy',
     title: 'Heading Colors',
-    text: 'test3 text',
+    text: 'Use #fff against $bg-color-dark',
     id: 2,
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   },
   {
     type: 'Copy',
     title: 'Text Colors',
-    text: 'test3 text',
+    text: 'text-colors: black, white, teal',
     id: 3,
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   },
   {
     type: 'Layout',
-    title: 'Voice',
-    text: 'test1 text',
+    title: 'Col-Grid',
+    text: 'we have a robust custom grid system with the following syntax: grid-xs, grid-sm, grid-md...etc.',
     id: 4,
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   },
   {
     type: 'Layout',
-    title: 'Style',
-    text: 'test2 text',
+    title: 'Grid-Style',
+    text: 'the default grid padding is 10px, creating 20px gutters between cols',
     id: 5,
     active: false,
     unlocked: true,
     updating: false,
-    annotations: []
-  },
-  {
-    type: 'Brand',
-    title: 'Syntax',
-    text: 'test3 text',
-    id: 6,
-    active: false,
-    unlocked: true,
-    updating: false,
-    annotations: []
-  },
-  {
-    type: 'Brand',
-    title: 'Lexicon',
-    text: 'test3 text',
-    id: 7,
-    active: false,
-    unlocked: true,
-    updating: false,
-    annotations: []
+    annotations: [],
+    annotationValidation: {
+      charLimit: 60,
+      errorMsg: String
+    }
   }
 
 ]

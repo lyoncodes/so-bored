@@ -50,6 +50,10 @@ export default {
     return {
       showCardForm: false,
       showConfirm: false,
+      buttonText: {
+        toggleMsg: 'Add New Card',
+        hideMsg: String
+      },
       formChar: {
         titleCount: 0,
         titleLimit: 20,
@@ -65,7 +69,11 @@ export default {
         active: false,
         updating: false,
         annotations: [],
-        annotationType: false
+        annotationType: false,
+        annotationValidation: {
+          charLimit: 100,
+          errorMsg: String
+        }
       }
     }
   },
@@ -93,7 +101,7 @@ export default {
       this.formData.type = type
     },
     handleSubmit () {
-      const { title, text, type, active, updating, annotations, annotationType } = this.formData
+      const { title, text, type, active, updating, annotations, annotationType, annotationValidation } = this.formData
       const id = this.Cards.length
       const card = {
         title,
@@ -103,7 +111,8 @@ export default {
         active,
         updating,
         annotations,
-        annotationType
+        annotationType,
+        annotationValidation
       }
       if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
         return alert('Error handling: fix length')

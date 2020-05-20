@@ -1,17 +1,30 @@
 <template lang="pug">
   b-container
-    ruleTabs
-    ruleCard
+    ruleIDX
+    ruleCard(
+      :validation="formChar"
+    )
 </template>
 
 <script>
 import ruleCard from '../components/ruleCard'
-import ruleTabs from '../components/ruleTabs'
+import ruleIDX from '../components/ruleIDX'
 export default {
   name: 'rule-book',
+  data () {
+    return {
+      formChar: {
+        titleCount: 0,
+        titleLimit: 20,
+        charCount: 0,
+        charLimit: 300,
+        errorMsg: String
+      }
+    }
+  },
   components: {
     ruleCard,
-    ruleTabs
+    ruleIDX
   }
 }
 </script>
