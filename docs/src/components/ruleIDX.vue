@@ -63,8 +63,9 @@ export default {
       }
     },
     handleSwitch (card, idx) {
-      const { title, text, id, type, active, annotations, annotationValidation } = card
+      const { locked, title, text, id, type, active, annotations, annotationValidation } = card
       const pinnedCard = {
+        locked,
         title,
         text,
         id,

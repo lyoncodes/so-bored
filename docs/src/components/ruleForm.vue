@@ -35,6 +35,19 @@
             required
             placeholder="Enter Rule Text"
           )
+        b-form-group(id="card-lock")
+          b-form-radio(
+            id="lock"
+            v-model="formData.locked"
+            :value="true"
+            variant="light"
+          ) lock
+          b-form-radio(
+            id="unlock"
+            v-model="formData.locked"
+            :value="false"
+            variant="light"
+          ) unlock
       b-badge(v-if="showConfirm" variant="success") {{formChar.confirmation}}
       b-button(type="submit" variant="primary") Submit
       b-button(type="reset" variant="danger") Reset
@@ -65,6 +78,7 @@ export default {
         errorMsg: String
       },
       formData: {
+        locked: false,
         title: '',
         text: '',
         type: '',
@@ -103,9 +117,10 @@ export default {
       this.formData.type = type
     },
     handleSubmit () {
-      const { title, text, type, active, updating, annotations, annotationType, annotationValidation } = this.formData
+      const { locked, title, text, type, active, updating, annotations, annotationType, annotationValidation } = this.formData
       const id = this.Cards.length
       const card = {
+        locked,
         title,
         text,
         type,
