@@ -2,10 +2,12 @@
   b-card-group.card-grid
     b-container.card-container
       b-row
-        b-col(md="4" v-for="card in pinnedCards" :key="card.active")
+        b-col(md="4" v-for="card in pinnedCards" :key="card.title")
           b-card(bg-variant="dark" text-variant="white")
             //- rule type -------
             h5 {{card.type}}
+            //- rule locked? ------
+            h5(v-if="card.locked") Card Locked
             //- rule title -------
             h3(v-if="!card.updating") {{card.title}}
             //-------------
@@ -33,8 +35,8 @@
                 :placeholder="updateData.text"
               )
               b-button(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
-            b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating" :disabled="updateData.updating") {{templateText.updateRule}}
-            b-button(@click="handleCancel(card)" variant="primary" v-if="card.updating") {{templateText.cancelBtn}}
+            b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating && !card.locked" :disabled="updateData.updating") {{templateText.updateRule}}
+            b-button(@click="handleCancel(card)" variant="primary" v-else-if="!card.locked") {{templateText.cancelBtn}}
             b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
             cardAnnotation(
               :rule="card"
