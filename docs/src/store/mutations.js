@@ -70,5 +70,9 @@ export default {
         el.active = false
       }
     })
+  },
+  // filters rules in all Rules
+  filterRules: (state, type) => {
+    console.log('hit')
   }
 }

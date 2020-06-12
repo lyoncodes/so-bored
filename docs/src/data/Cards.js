@@ -1,11 +1,5 @@
 export default [
-// Add new cards here
-// Use 1/4 Types:
-// Copy
-// Styles
-// Layout
-// Brand
-// !!! Be sure to add a proper id.
+  // Mock Data
   {
     locked: true,
     type: 'Styles',
