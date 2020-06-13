@@ -2,7 +2,8 @@
   .home
     img(src="../assets/unearth-slate.svg")
     h1.heading Documents
-    button(@click="toggleCardForm" class="btn btn-primary") Add New Card
+    button(@click="toggleCardForm"
+    :class="{selected: showCardForm}") Add New Card
     b-form(@submit.prevent="handleSubmit" v-if="showCardForm")
       b-col(md="6")
         b-form-group(id="input-title" label="Card Title:" label-for="input-title")
@@ -54,11 +55,13 @@ export default {
     handleSubmit () {
       const { title, text, type } = this.formData
       const id = this.Cards.length
+      const active = false
       const card = {
         title,
         text,
         type,
-        id
+        id,
+        active
       }
       this.addCard(card)
       this.formData = {

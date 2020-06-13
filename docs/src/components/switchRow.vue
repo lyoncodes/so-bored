@@ -1,21 +1,21 @@
 <template lang="pug">
   b-container
-    b-container(class="switch-row")
-      b-row
-        b-button-group(size="sm" v-if="!showCards")
+    b-container.switch-row
+      b-row.justify-content-center
+        h5.toggled(v-if="!showCards")
           a(@click="showAllCards") {{templateText.toggleMsg}}
-        b-button-group(size="sm" v-if="showCards")
+        h5(v-if="showCards")
           a(@click="showAllCards") {{templateText.toggleMsgAlt}}
-    b-container(class="menu-row" v-if="showCards")
-      b-row
-        b-button-group(size="sm")
-          b-button(
+      b-button-group
+        b-container.menu-row(v-if="showCards")
+          button(
           v-for="(card, idx) in Cards"
           :key="idx"
-          :class="{ selected: card.active}"
+          :class="{selected: card.active}"
           @click="handleSwitch(card, idx)"
           :disabled="switchDisabled"
-          variant="primary") {{card.title}}
+          squared
+          ) {{card.title}}
 </template>
 
 <script>
@@ -33,8 +33,8 @@ export default {
         updating: false
       },
       templateText: {
-        toggleMsg: 'Show All Switches',
-        toggleMsgAlt: 'Hide All Switches',
+        toggleMsg: 'Show Rulebook',
+        toggleMsgAlt: 'Hide Rulebook',
         updateBtn: 'Update!',
         updateRule: 'Update Rule',
         cancelBtn: 'Nvm',
@@ -56,9 +56,6 @@ export default {
       'updateCard',
       'hidePin'
     ]),
-    cardUpdate (card) {
-      console.log(card)
-    },
     showAllCards () {
       this.showCards = !this.showCards
       if (this.showCards && this.showFilterCards) {
@@ -85,6 +82,13 @@ export default {
   }
 }
 </script>
-<style scoped>
-
+<style scoped lang="scss">
+.selected {
+  border: 5px solid;
+  background: $border-g !important;
+  color: white!important;
+}
+.toggled {
+  color: $indigo
+}
 </style>
