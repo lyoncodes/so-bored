@@ -2,41 +2,41 @@
   b-card-group.card-grid
     b-container.card-container
       b-row
-        b-col(md="4" v-for="card in pinnedCards" :key="card.active")
+        b-col(md="4" v-for="card in pinnedCards" :key="card.title")
           b-card(bg-variant="dark" text-variant="white")
             //- rule type -------
-            h3 {{card.type}}
+            h5 {{card.type}}
+            //- rule locked? ------
+            h5(v-if="card.locked") Card Locked
             //- rule title -------
-            h3(v-if="!updateData.title.length || updateData.title.length && !card.updating") {{card.title}}
-            h3(v-if="updateData.title.length && card.updating") {{updateData.title}}
+            h3(v-if="!card.updating") {{card.title}}
             //-------------
             b-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
-              a {{formChar.titleCount}} / {{formChar.titleLimit}}
-              b-row(v-if="formChar.titleCount > formChar.titleLimit")
-                b-badge(variant="danger") {{formChar.errorMsg}}
+              a {{updateData.title.length}} / {{validation.titleLimit}}
+              b-row(v-if="validation.titleCount > validation.titleLimit")
+                b-badge(variant="danger") {{validation.errorMsg}}
               b-form-textarea(
                 id="card-title"
                 v-model="updateData.title"
                 @keyup="validateCharCount()"
-                :placeholder="card.title"
+                :placeholder="updateData.title"
               )
             //- rule text ------
-            b-card-text(v-if="!updateData.text.length || updateData.text.length && !card.updating") {{card.text}}
-            b-card-text(v-if="updateData.text.length && card.updating") {{updateData.text}}
+            b-card-text(v-if="!card.updating") {{card.text}}
             //-----------
             b-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
-              a {{formChar.charCount}} / {{formChar.charLimit}}
-              b-row(v-if="formChar.charCount > formChar.charLimit")
-                b-badge(variant="danger") {{formChar.errorMsg}}
+              a {{updateData.text.length}} / {{validation.charLimit}}
+              b-row(v-if="validation.charCount > validation.charLimit")
+                b-badge(variant="danger") {{validation.errorMsg}}
               b-form-textarea(
                 id="card-text"
                 v-model="updateData.text"
                 @keyup="validateCharCount()"
-                :placeholder="card.text"
+                :placeholder="updateData.text"
               )
-              b-button(type="submit" variant="primary" v-if="card.updating && !formChar.errorMsg" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
-            b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating" :disabled="updateData.updating") {{templateText.updateRule}}
-            b-button(@click="handleCancel(card)" variant="primary" v-if="card.updating") {{templateText.cancelBtn}}
+              b-button(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
+            b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating && !card.locked" :disabled="updateData.updating") {{templateText.updateRule}}
+            b-button(@click="handleCancel(card)" variant="primary" v-else-if="!card.locked") {{templateText.cancelBtn}}
             b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
             cardAnnotation(
               :rule="card"
@@ -46,7 +46,8 @@
 import { mapActions, mapState } from 'vuex'
 import cardAnnotation from '../components/card/cardAnnotation'
 export default {
-  name: 'rule-row',
+  name: 'activeRuleContainer',
+  props: ['validation'],
   data () {
     return {
       updateData: {
@@ -61,14 +62,6 @@ export default {
         updateRule: 'Update Rule',
         cancelBtn: 'Nvm',
         hideBtn: 'Hide'
-      },
-      formChar: {
-        titleCount: 0,
-        titleLimit: 20,
-        charCount: 0,
-        charLimit: 300,
-        confirmation: String,
-        errorMsg: String
       }
     }
   },
@@ -88,12 +81,14 @@ export default {
       'hidePin'
     ]),
     validateCharCount () {
-      this.formChar.charCount = this.updateData.text.length
-      this.formChar.titleCount = this.updateData.title.length
-      this.formChar.errorMsg = this.updateData.title.length > this.formChar.titleLimit || this.updateData.text.length > this.formChar.charLimit ? 'Too Many Characters' : null
+      this.validation.charCount = this.updateData.text.length
+      this.validation.titleCount = this.updateData.title.length
+      this.validation.errorMsg = this.updateData.title.length > this.validation.titleLimit || this.updateData.text.length > this.validation.charLimit ? 'Too Many!' : null
     },
     handleUpdate (card) {
       this.updateData.updating = !this.updateData.updating
+      this.updateData.title = card.title
+      this.updateData.text = card.text
       const payload = this.cardFormat(card)
       this.$emit('cardUpdate', payload)
       this.showUpdateField(payload)
@@ -107,7 +102,7 @@ export default {
         id,
         updating
       }
-      if (updateData.text.length > this.formChar.charLimit || updateData.title.length > this.formChar.titleLimit) {
+      if (updateData.text.length > this.validation.charLimit || updateData.title.length > this.validation.titleLimit) {
         return alert('Error handling: fix length')
       }
       this.updateCard(updateData)

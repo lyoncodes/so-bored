@@ -1,21 +1,20 @@
 <template lang="pug">
   b-container
-    b-container(class="switch-row")
-      b-row
-        b-button-group(size="sm" v-if="!showCards")
-          a(@click="showAllCards") {{templateText.toggleMsg}}
-        b-button-group(size="sm" v-if="showCards")
-          a(@click="showAllCards") {{templateText.toggleMsgAlt}}
-    b-container(class="menu-row" v-if="showCards")
-      b-row
-        b-button-group(size="sm")
-          b-button(
-          v-for="(card, idx) in Cards"
-          :key="idx"
-          :class="{ selected: card.active}"
-          @click="handleSwitch(card, idx)"
-          :disabled="card.updating"
-          variant="primary") {{card.title}}
+    b-container.rule-menu
+      b-row.justify-content-center
+        h5(size="sm" v-if="!showCards")
+          a(@click="showAllCards") {{ templateText.toggleMsg }}
+        h5(size="sm" v-if="showCards")
+          a(@click="showAllCards") {{ templateText.toggleMsgAlt }}
+    b-button-group
+      b-container.menu-row(v-if="showCards")
+        b-button(
+        v-for="(card, idx) in Cards"
+        :key="idx"
+        :class="{ selected: card.active }"
+        @click="handleSwitch(card, idx)"
+        :disabled="card.updating"
+        squared) {{ card.title }}
 </template>
 
 <script>
@@ -37,14 +36,13 @@ export default {
         updating: false
       },
       templateText: {
-        toggleMsg: 'Show All Rules',
-        toggleMsgAlt: 'Hide All Rules'
+        toggleMsg: 'Show Rulebook',
+        toggleMsgAlt: 'Hide Rulebook'
       }
     }
   },
   computed: {
     ...mapState([
-      'Menu',
       'Cards',
       'pinnedCards'
     ])
@@ -52,8 +50,6 @@ export default {
   methods: {
     ...mapActions([
       'pinCard',
-      'showUpdateField',
-      'updateCard',
       'hidePin'
     ]),
     showAllCards () {
@@ -63,14 +59,16 @@ export default {
       }
     },
     handleSwitch (card, idx) {
-      const { title, text, id, type, active, annotations } = card
+      const { locked, title, text, id, type, active, annotations, annotationValidation } = card
       const pinnedCard = {
+        locked,
         title,
         text,
         id,
         type,
         active,
-        annotations
+        annotations,
+        annotationValidation
       }
       return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[idx].active)) ? this.pinCard(pinnedCard)
         : (this.Cards[idx].active) ? this.hidePin(pinnedCard) : null
@@ -82,6 +80,6 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 
 </style>

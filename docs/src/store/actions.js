@@ -24,7 +24,7 @@ export default {
     commit('removeCard', card)
   },
   // filters by type
-  filterByType: ({ commit }, type) => {
-    commit('filterCard', type)
+  filterAction: ({ commit }, type) => {
+    commit('filterRules', type)
   }
 }
