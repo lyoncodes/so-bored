@@ -1,21 +1,20 @@
 <template lang="pug">
   b-container
     b-container.rule-menu
-      b-row
-        b-button-group(size="sm" v-if="!showCards")
+      b-row.justify-content-center
+        h5(size="sm" v-if="!showCards")
           a(@click="showAllCards") {{ templateText.toggleMsg }}
-        b-button-group(size="sm" v-if="showCards")
+        h5(size="sm" v-if="showCards")
           a(@click="showAllCards") {{ templateText.toggleMsgAlt }}
-    b-container.menu-row(v-if="showCards")
-      b-row
-        b-button-group(size="sm")
-          b-button(
-          v-for="(card, idx) in Cards"
-          :key="idx"
-          :class="{ selected: card.active }"
-          @click="handleSwitch(card, idx)"
-          :disabled="card.updating"
-          variant="primary") {{ card.title }}
+    b-button-group
+      b-container.menu-row(v-if="showCards")
+        b-button(
+        v-for="(card, idx) in Cards"
+        :key="idx"
+        :class="{ selected: card.active }"
+        @click="handleSwitch(card, idx)"
+        :disabled="card.updating"
+        squared) {{ card.title }}
 </template>
 
 <script>
@@ -37,8 +36,8 @@ export default {
         updating: false
       },
       templateText: {
-        toggleMsg: 'Show All Rules',
-        toggleMsgAlt: 'Hide All Rules'
+        toggleMsg: 'Show Rulebook',
+        toggleMsgAlt: 'Hide Rulebook'
       }
     }
   },
@@ -81,6 +80,6 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 
 </style>

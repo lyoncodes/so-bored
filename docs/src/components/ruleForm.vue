@@ -1,6 +1,7 @@
 <template lang="pug">
   b-container
-    button(@click="toggleCardForm" class="btn btn-primary")
+    button(@click="toggleCardForm"
+    :class="{selected: showCardForm}")
       span(v-if="!showCardForm") {{ buttonText.toggleMsg }}
       span(v-if="showCardForm") {{ buttonText.errorMsg }}
     b-form(@submit.prevent="handleSubmit" v-if="showCardForm")
