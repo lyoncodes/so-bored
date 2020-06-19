@@ -1,17 +1,23 @@
 <template lang="pug">
-  b-container
-    button(@click="toggleAnnotations" class="btn btn-primary" v-if="!showAnnotations") Annotate
-    button(@click="toggleAnnotations" class="btn btn-primary" v-if="showAnnotations") Nvm
-    p(v-for="annotation in rule.annotations") {{ annotation.text }}
-    b-form(@submit.prevent="submitAnnotation(annotationData)" v-if="showAnnotations")
-      b-form-textarea(
-        v-model="annotationData.text"
-        @keyup="validateCharCount()"
-      )
-      a {{annotationData.text.length}} / {{ rule.annotationValidation.charLimit}}
-      b-row(v-if="annotationData.text.length > rule.annotationValidation.charLimit")
-        b-badge(variant="danger") {{ rule.annotationValidation.errorMsg }}
-      b-button(type="submit" variant="primary" v-if="!rule.annotationValidation.errorMsg" :disabled="!annotationData.text.length") Submit
+  b-container.mt-3
+    b-row.justify-content-center
+      b-col.col-8
+        button#edit-button.mr-2(
+          @click="toggleAnnotations"
+          class="btn btn-primary"
+          :class="{annotating: showAnnotations}")
+          img#validate-icon(src='../../assets/editPencil.svg')
+        a {{annotationData.text.length}} / {{ rule.annotationValidation.charLimit}}
+      b-col.col-12
+        b-form.mb-2.mt-4(@submit.prevent="submitAnnotation(annotationData)" v-if="showAnnotations")
+          b-form-textarea(
+            v-model="annotationData.text"
+            @keyup="validateCharCount()"
+          )
+          b-row(v-if="annotationData.text.length > rule.annotationValidation.charLimit")
+            b-badge(variant="danger") {{ rule.annotationValidation.errorMsg }}
+          b-button(type="submit" variant="primary" v-if="!rule.annotationValidation.errorMsg" :disabled="!annotationData.text.length") Submit
+        p.annotations(v-for="annotation in rule.annotations") {{ annotation.text }}
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -70,6 +76,19 @@ export default {
   }
 }
 </script>
-<style scoped>
-
+<style scoped lang="scss">
+.annotations {
+  margin: 1.25em;
+}
+.annotating {
+  background: $border-g !important;
+  color: white!important;
+}
+#validate-icon {
+  height: 20px;
+}
+#edit-button {
+  border: 0px;
+  padding: 0;
+}
 </style>

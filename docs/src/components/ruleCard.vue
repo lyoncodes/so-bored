@@ -3,19 +3,22 @@
     b-container.card-container
       b-row
         b-col(md="4" v-for="card in pinnedCards" :key="card.title")
-          b-card(bg-variant="dark" text-variant="white")
-            //- rule type -------
-            h5 {{card.type}}
-            //- rule locked? ------
-            h5(v-if="card.locked") Card Locked
+          b-card
+            b-row.mb-4
+              b-col.col-3.pr-0.pl-3
+                a(@click="handleHide(card)" variant="primary" v-if="!card.updating")
+                  img.card-icon(src='../assets/cancel.svg')
+                //- rule locked? ------
+                img.card-icon.pl-3(v-if="card.locked" src='../assets/lock.svg')
             //- rule title -------
             h3(v-if="!card.updating") {{card.title}}
+            h3(v-if="card.updating") {{updateData.title}}
             //-------------
             b-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
               a {{updateData.title.length}} / {{validation.titleLimit}}
               b-row(v-if="validation.titleCount > validation.titleLimit")
                 b-badge(variant="danger") {{validation.errorMsg}}
-              b-form-textarea(
+              b-form-textarea.mt-3(
                 id="card-title"
                 v-model="updateData.title"
                 @keyup="validateCharCount()"
@@ -23,21 +26,21 @@
               )
             //- rule text ------
             b-card-text(v-if="!card.updating") {{card.text}}
-            //-----------
-            b-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
+            b-form.mt-3(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
               a {{updateData.text.length}} / {{validation.charLimit}}
               b-row(v-if="validation.charCount > validation.charLimit")
                 b-badge(variant="danger") {{validation.errorMsg}}
-              b-form-textarea(
+              b-form-textarea.mt-3(
                 id="card-text"
                 v-model="updateData.text"
                 @keyup="validateCharCount()"
                 :placeholder="updateData.text"
               )
               b-button(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
+            //- Card Buttons
             b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating && !card.locked" :disabled="updateData.updating") {{templateText.updateRule}}
             b-button(@click="handleCancel(card)" variant="primary" v-else-if="!card.locked") {{templateText.cancelBtn}}
-            b-button(@click="handleHide(card)" variant="primary" v-if="!card.updating") {{templateText.hideBtn}}
+            //- Annotation
             cardAnnotation(
               :rule="card"
             )
@@ -145,6 +148,13 @@ export default {
 
 }
 </script>
-<style scoped>
-
+<style scoped lang="scss">
+.card {
+  .card-icon {
+    height: 20px;
+  }
+  .card-text{
+    padding: 1em;
+  }
+}
 </style>
