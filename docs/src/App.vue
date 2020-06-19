@@ -20,13 +20,13 @@
   }
   button{
     background: none;
-    border: 5px solid;
     border-image-slice: 1;
     border-width: 5px;
     border-image-source: $border-g;
     box-shadow: none;
     color: $indigo;
-    font-size: .75em;
+    font-size: .85em;
+    font-weight: 600;
     margin: .25em;
     outline: none;
     padding: .75em 1em;
