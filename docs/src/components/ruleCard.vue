@@ -5,11 +5,15 @@
         b-col(md="4" v-for="card in pinnedCards" :key="card.title")
           b-card
             b-row.mb-4
-              b-col.col-3.pr-0.pl-3
+              b-col.col-4.pr-0.pl-3
                 a(@click="handleHide(card)" variant="primary" v-if="!card.updating")
                   img.card-icon(src='../assets/cancel.svg')
                 //- rule locked? ------
                 img.card-icon.pl-3(v-if="card.locked" src='../assets/lock.svg')
+                b-button#handle-update(@click="handleUpdate(card)" variant="primary" v-if="!card.updating && !card.locked" :disabled="updateData.updating")
+                  img.card-icon(src='../assets/smPen.svg')
+                b-button#handle-cancel(@click="handleCancel(card)" variant="primary" v-else-if="!card.locked")
+                  img.card-icon(src='../assets/smPen.svg')
             //- rule title -------
             h3(v-if="!card.updating") {{card.title}}
             h3(v-if="card.updating") {{updateData.title}}
@@ -37,9 +41,6 @@
                 :placeholder="updateData.text"
               )
               b-button(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
-            //- Card Buttons
-            b-button(@click="handleUpdate(card)" variant="primary" v-if="!card.updating && !card.locked" :disabled="updateData.updating") {{templateText.updateRule}}
-            b-button(@click="handleCancel(card)" variant="primary" v-else-if="!card.locked") {{templateText.cancelBtn}}
             //- Annotation
             cardAnnotation(
               :rule="card"
@@ -149,12 +150,31 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+form {
+  textarea {
+    border: 1px solid $neon;
+  }
+}
 .card {
+  border: 0;
+  -webkit-box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
+  margin: 1em 0 1em;
   .card-icon {
-    height: 20px;
+    height: 2em;
   }
   .card-text{
     padding: 1em;
+  }
+  #handle-update{
+    border: 0em;
+    margin: 1em;
+    padding: .25em;
+  }
+  #handle-cancel{
+    border: 0em;
+    padding: 1em .25em .25em 2.6em;
   }
 }
 </style>

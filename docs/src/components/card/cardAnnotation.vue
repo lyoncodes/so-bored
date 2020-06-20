@@ -3,11 +3,9 @@
     b-row.justify-content-center
       b-col.col-8
         button#edit-button.mr-2(
-          @click="toggleAnnotations"
-          class="btn btn-primary"
-          :class="{annotating: showAnnotations}")
-          img#validate-icon(src='../../assets/editPencil.svg')
-        a {{annotationData.text.length}} / {{ rule.annotationValidation.charLimit}}
+          @click="toggleAnnotations")
+          img.annotate-icon(src='../../assets/annotate.svg')
+        a(v-if="showAnnotations") {{annotationData.text.length}} / {{ rule.annotationValidation.charLimit}}
       b-col.col-12
         b-form.mb-2.mt-4(@submit.prevent="submitAnnotation(annotationData)" v-if="showAnnotations")
           b-form-textarea(
@@ -16,7 +14,8 @@
           )
           b-row(v-if="annotationData.text.length > rule.annotationValidation.charLimit")
             b-badge(variant="danger") {{ rule.annotationValidation.errorMsg }}
-          b-button(type="submit" variant="primary" v-if="!rule.annotationValidation.errorMsg" :disabled="!annotationData.text.length") Submit
+          b-button#submit-annotation(type="submit" variant="primary" v-if="!rule.annotationValidation.errorMsg" :disabled="!annotationData.text.length")
+            img.annotate-icon(src="../../assets/add.svg")
         p.annotations(v-for="annotation in rule.annotations") {{ annotation.text }}
 </template>
 <script>
@@ -77,18 +76,24 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+form {
+  textarea {
+    border: 1px solid $neon;
+  }
+}
 .annotations {
   margin: 1.25em;
 }
-.annotating {
-  background: $border-g !important;
-  color: white!important;
+.annotate-icon {
+  height: 2em;
 }
-#validate-icon {
-  height: 20px;
+#submit-annotation{
+  border: 0em;
+  margin: 1em;
+  padding: .25em;
 }
 #edit-button {
-  border: 0px;
+  border: 0em;
   padding: 0;
 }
 </style>
