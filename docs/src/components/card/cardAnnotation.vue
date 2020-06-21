@@ -1,17 +1,22 @@
 <template lang="pug">
-  b-container
-    button(@click="toggleAnnotations" class="btn btn-primary" v-if="!showAnnotations") Annotate
-    button(@click="toggleAnnotations" class="btn btn-primary" v-if="showAnnotations") Nvm
-    p(v-for="annotation in rule.annotations") {{ annotation.text }}
-    b-form(@submit.prevent="submitAnnotation(annotationData)" v-if="showAnnotations")
-      b-form-textarea(
-        v-model="annotationData.text"
-        @keyup="validateCharCount()"
-      )
-      a {{annotationData.text.length}} / {{ rule.annotationValidation.charLimit}}
-      b-row(v-if="annotationData.text.length > rule.annotationValidation.charLimit")
-        b-badge(variant="danger") {{ rule.annotationValidation.errorMsg }}
-      b-button(type="submit" variant="primary" v-if="!rule.annotationValidation.errorMsg" :disabled="!annotationData.text.length") Submit
+  b-container.mt-3
+    b-row.justify-content-center
+      b-col.col-8
+        button#edit-button.mr-2(
+          @click="toggleAnnotations")
+          img.annotate-icon(src='../../assets/annotate.svg')
+        a(v-if="showAnnotations") {{annotationData.text.length}} / {{ rule.annotationValidation.charLimit}}
+      b-col.col-12
+        b-form.mb-2.mt-4(@submit.prevent="submitAnnotation(annotationData)" v-if="showAnnotations")
+          b-form-textarea(
+            v-model="annotationData.text"
+            @keyup="validateCharCount()"
+          )
+          b-row(v-if="annotationData.text.length > rule.annotationValidation.charLimit")
+            b-badge(variant="danger") {{ rule.annotationValidation.errorMsg }}
+          b-button#submit-annotation(type="submit" variant="primary" v-if="!rule.annotationValidation.errorMsg" :disabled="!annotationData.text.length")
+            img.annotate-icon(src="../../assets/add.svg")
+        p.annotations(v-for="annotation in rule.annotations") {{ annotation.text }}
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -70,6 +75,30 @@ export default {
   }
 }
 </script>
-<style scoped>
-
+<style scoped lang="scss">
+form {
+  textarea {
+    border: 1px solid $neon;
+    outline: none;
+    &:focus {
+      border: 1px solid $indigo;
+    }
+  }
+}
+.annotations {
+  margin: 1.25em;
+}
+.annotate-icon {
+  height: 2em;
+}
+#submit-annotation{
+  border: 0em;
+  box-shadow: none;
+  margin: 1em;
+  padding: .25em;
+}
+#edit-button {
+  border: 0em;
+  padding: 0;
+}
 </style>

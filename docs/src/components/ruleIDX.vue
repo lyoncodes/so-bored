@@ -13,8 +13,7 @@
         :key="idx"
         :class="{ selected: card.active }"
         @click="handleSwitch(card, idx)"
-        :disabled="card.updating"
-        squared) {{ card.title }}
+        :disabled="card.updating") {{ card.title }}
 </template>
 
 <script>
@@ -81,5 +80,38 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.menu-row{
+  button {
+    background: none;
+    border: none;
+    // border-image-slice: 1;
+    // border-width: 5px;
+    // border-image-source: $border-g;
+    -webkit-box-shadow:  23px 7px 13px -16px rgba(116,58,213,1);
+    -moz-box-shadow:  23px 7px 13px -16px rgba(116,58,213,1);
+    box-shadow:  23px 7px 13px -16px rgba(116,58,213,1);
+    color: $indigo;
+    font-size: .85em;
+    font-weight: 600;
+    margin: .25em;
+    outline: none;
+    padding: .75em 1em;
+    transition: color 0.3s ease;
 
+    &:active, :focus{
+      background: $border-g !important;
+      outline: none;
+    }
+  }
+  .selected {
+    background: $border-g !important;
+    color: white!important;
+    -webkit-box-shadow:   23px 7px 13px -16px rgba(213,58,156,1);
+    -moz-box-shadow:   23px 7px 13px -16px rgba(213,58,156,1);
+    box-shadow:   23px 7px 13px -16px rgba(213,58,156,1);
+  }
+  .toggled {
+    color: $indigo
+  }
+}
 </style>
