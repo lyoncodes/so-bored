@@ -35,6 +35,5 @@ export default {
 <style scoped lang="scss">
 .card-grid{
   margin-top: 2em;
-  margin-bottom: 2em;
 }
 </style>
