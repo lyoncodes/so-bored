@@ -9,7 +9,7 @@
                 a(@click="handleHide(card)" variant="primary" v-if="!card.updating")
                   img.card-icon(src='../assets/cancel.svg')
                 //- rule locked? ------
-                img.card-icon.pl-3(v-if="card.locked" src='../assets/lock.svg')
+                img.card-icon.pl-3(v-if="card.locked" src='../assets/Lock.svg')
                 b-button#handle-update(@click="handleUpdate(card)" variant="primary" v-if="!card.updating && !card.locked" :disabled="updateData.updating")
                   img.card-icon(src='../assets/smPen.svg')
                 b-button#handle-cancel(@click="handleCancel(card)" variant="primary" v-else-if="!card.locked")
@@ -18,12 +18,11 @@
             h3(v-if="!card.updating") {{card.title}}
             h3(v-if="card.updating") {{updateData.title}}
             //-------------
-            b-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
+            b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
               a {{updateData.title.length}} / {{validation.titleLimit}}
               b-row(v-if="validation.titleCount > validation.titleLimit")
                 b-badge(variant="danger") {{validation.errorMsg}}
-              b-form-textarea.mt-3(
-                id="card-title"
+              b-form-textarea#card-title.mt-3(
                 v-model="updateData.title"
                 @keyup="validateCharCount()"
                 :placeholder="updateData.title"
@@ -167,14 +166,28 @@ form {
   .card-text{
     padding: 1em;
   }
-  #handle-update{
-    border: 0em;
-    margin: 1em;
-    padding: .25em;
+  .title-form {
+    textarea {
+      color: $indigo;
+      font-size: 1.75em;
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      height: 2em;
+      resize: none;
+    }
   }
-  #handle-cancel{
-    border: 0em;
-    padding: 1em .25em .25em 2.6em;
-  }
+    #handle-update{
+      border: 0em;
+      box-shadow: none;
+      padding: .25em 0 0 .25em;
+      margin: 0 0 0 .5em;
+    }
+    #handle-cancel{
+      border: 0em;
+      box-shadow: none;
+      margin: 0;
+      padding: .25em .25em .25em 2.6em;
+    }
 }
 </style>

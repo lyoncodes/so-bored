@@ -79,6 +79,10 @@ export default {
 form {
   textarea {
     border: 1px solid $neon;
+    outline: none;
+    &:focus {
+      border: 1px solid $indigo;
+    }
   }
 }
 .annotations {
@@ -89,6 +93,7 @@ form {
 }
 #submit-annotation{
   border: 0em;
+  box-shadow: none;
   margin: 1em;
   padding: .25em;
 }
