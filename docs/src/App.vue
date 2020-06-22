@@ -16,13 +16,7 @@ body {
   h3,h4,h5,h6 {
   color: $neon;
   }
-  .heading {
-    background: $border-g;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  button{
+  button {
     background: none;
     border: none;
     -webkit-box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
@@ -38,6 +32,33 @@ body {
     &:active, :focus{
       outline: none;
     }
+  }
+  textarea, input, .form-control {
+    color: $indigo;
+    font-size: 1.75em;
+    border: 1px solid $neon;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    height: 2em;
+    resize: none;
+  }
+  .card {
+    border: 0;
+    -webkit-box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
+    margin: 1em 0 1em;
+  }
+    .card-icon {
+      height: 2em;
+    }
+
+  .heading {
+    background: $border-g;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .selected {
     background: $border-g !important;
