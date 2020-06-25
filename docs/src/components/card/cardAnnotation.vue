@@ -5,10 +5,11 @@
         button#edit-button.mr-2(
           @click="toggleAnnotations")
           img.annotate-icon(src='../../assets/annotate.svg')
-        a(v-if="showAnnotations") {{annotationData.text.length}} / {{ rule.annotationValidation.charLimit}}
+        a.validation-char(v-if="showAnnotations") {{annotationData.text.length}} / {{ rule.annotationValidation.charLimit}}
       b-col.col-12
         b-form.mb-2.mt-4(@submit.prevent="submitAnnotation(annotationData)" v-if="showAnnotations")
           b-form-textarea(
+            id="annotate-text"
             v-model="annotationData.text"
             @keyup="validateCharCount()"
           )
@@ -100,5 +101,8 @@ form {
 #edit-button {
   border: 0em;
   padding: 0;
+  &:active, :focus {
+    background: none!important;
+  }
 }
 </style>

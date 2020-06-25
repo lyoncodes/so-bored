@@ -5,34 +5,33 @@
         b-col(md="4" v-for="card in pinnedCards" :key="card.title")
           b-card
             b-row.mb-4
-              b-col.col-4.pr-0.pl-3
-                a(@click="handleHide(card)" variant="primary" v-if="!card.updating")
+              b-col.col-6
+                b-button.icon-trigger(@click="handleHide(card)" variant="primary" :disabled="card.updating")
                   img.card-icon(src='../assets/cancel.svg')
                 //- rule locked? ------
                 img.card-icon.pl-3(v-if="card.locked" src='../assets/Lock.svg')
-                b-button#handle-update(@click="handleUpdate(card)" variant="primary" v-if="!card.updating && !card.locked" :disabled="updateData.updating")
+                b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.updating && !card.locked" :disabled="updateData.updating")
                   img.card-icon(src='../assets/smPen.svg')
-                b-button#handle-cancel(@click="handleCancel(card)" variant="primary" v-else-if="!card.locked")
+                b-button.icon-trigger(@click="handleCancel(card)" v-else-if="!card.locked")
                   img.card-icon(src='../assets/smPen.svg')
             //- rule title -------
             h3(v-if="!card.updating") {{card.title}}
             //- h3(v-if="card.updating") {{updateData.title}}
             //-------------
             b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
-              a {{updateData.title.length}} / {{validation.titleLimit}}
-              b-row(v-if="validation.titleCount > validation.titleLimit")
-                b-badge(variant="danger") {{validation.errorMsg}}
-              b-form-textarea#card-title.mt-3(
+              b-row.justify-content-center.pt-3(v-if="validation.titleCount > validation.titleLimit")
+                img.error-icon.pl-3(src='../assets/error.svg')
+              b-form-textarea.mt-3(
                 v-model="updateData.title"
                 @keyup="validateCharCount()"
                 :placeholder="updateData.title"
               )
+              a.validation-char {{updateData.title.length}} / {{validation.titleLimit}}
               b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
                 img.card-icon(src='../assets/add.svg')
             //- rule text ------
             b-card-text(v-if="!card.updating") {{card.text}}
             b-form.mt-3(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
-              a {{updateData.text.length}} / {{validation.charLimit}}
               b-row(v-if="validation.charCount > validation.charLimit")
                 b-badge(variant="danger") {{validation.errorMsg}}
               b-form-textarea.mt-3(
@@ -41,6 +40,7 @@
                 @keyup="validateCharCount()"
                 :placeholder="updateData.text"
               )
+              a.validation-char {{updateData.text.length}} / {{validation.charLimit}}
               b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
                 img.card-icon(src='../assets/add.svg')
             //- Annotation
@@ -152,26 +152,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-form {
-  textarea {
-    border: 1px solid $neon;
-  }
-}
 .card {
-  .card-text{
-    padding: 1em;
-  }
-  .title-form {
-    textarea {
-      color: $indigo;
-      font-size: 1.75em;
-      border-top: none;
-      border-right: none;
-      border-left: none;
-      height: 2em;
-      resize: none;
-    }
-  }
     #handle-update{
       border: 0em;
       box-shadow: none;

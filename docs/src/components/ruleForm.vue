@@ -1,6 +1,6 @@
 <template lang="pug">
   b-container
-    button(@click="toggleCardForm")
+    button.labeled-button(@click="toggleCardForm")
       span(v-if="!showCardForm") {{ buttonText.toggleMsg }}
         img.card-icon.pl-3(src='../assets/add.svg')
       span(v-if="showCardForm") {{ buttonText.errorMsg }}
@@ -164,19 +164,13 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-button {
-  &:active, :focus{
-  background: $border-g !important;
-  outline: none;
-  }
-}
-#handle-update{
+.icon-trigger{
   border: 0em;
   box-shadow: none;
-  padding: .25em 0 0 .25em;
-  margin: 0 0 0 .5em;
-  &:active, :focus{
-  background: none;
+  // padding: .25em 0 0 .25em;
+  // margin: 0 0 0 .5em;
+  &:active, :focus, :hover{
+  background: $border-g !important;
   outline: none;
   }
 }
