@@ -16,7 +16,7 @@
                   img.card-icon(src='../assets/smPen.svg')
             //- rule title -------
             h3(v-if="!card.updating") {{card.title}}
-            h3(v-if="card.updating") {{updateData.title}}
+            //- h3(v-if="card.updating") {{updateData.title}}
             //-------------
             b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
               a {{updateData.title.length}} / {{validation.titleLimit}}
@@ -27,6 +27,8 @@
                 @keyup="validateCharCount()"
                 :placeholder="updateData.title"
               )
+              b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
+                img.card-icon(src='../assets/add.svg')
             //- rule text ------
             b-card-text(v-if="!card.updating") {{card.text}}
             b-form.mt-3(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
@@ -39,7 +41,8 @@
                 @keyup="validateCharCount()"
                 :placeholder="updateData.text"
               )
-              b-button(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length") {{templateText.updateBtn}}
+              b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
+                img.card-icon(src='../assets/add.svg')
             //- Annotation
             cardAnnotation(
               :rule="card"
@@ -155,14 +158,6 @@ form {
   }
 }
 .card {
-  border: 0;
-  -webkit-box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
-  margin: 1em 0 1em;
-  .card-icon {
-    height: 2em;
-  }
   .card-text{
     padding: 1em;
   }
@@ -188,6 +183,12 @@ form {
       box-shadow: none;
       margin: 0;
       padding: .25em .25em .25em 2.6em;
+    }
+    #submit-annotation{
+      border: 0em;
+      box-shadow: none;
+      margin: 1em;
+      padding: .25em;
     }
 }
 </style>
