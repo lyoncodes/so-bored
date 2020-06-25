@@ -1,0 +1,36 @@
+button {
+  background: none;
+  border: none;
+  -webkit-box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
+  -moz-box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
+  box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
+  color: $indigo;
+  font-size: .85em;
+  font-weight: 600;
+  margin: .25em;
+  outline: none;
+  transition: all 0.3s ease;
+  &:active, :focus{
+    background: $border-g !important;
+    outline: none;
+  }
+}
+.btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active {
+  background: none;
+  border: none;
+  box-shadow: none;
+  &:active, :focus{
+    background: none !important;
+    outline: none;
+  }
+}
+.labeled-button {
+  padding: 1em;
+  border-radius: .25em;
+  transition: all 0.7s ease;
+  &:hover {
+    background: $border-g;
+    color: #fff;
+    box-shadow: none;
+  }
+}

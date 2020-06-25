@@ -1,0 +1,26 @@
+%text-areas{
+form {
+  textarea, input, .form-control {
+    border: 1px solid $neon;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-radius: 0;
+    color: $indigo;
+    font-size: 1.75em;
+    height: 2em;
+    resize: none;
+  }
+}
+  #card-text, #annotate-text {
+    font-size: $font-md;
+    height: 4em;
+  }
+  #card-text {
+    height: 8em;
+  }
+}
+.validation-char {
+  color: $indigo;
+  font-size: $font-sm
+}
