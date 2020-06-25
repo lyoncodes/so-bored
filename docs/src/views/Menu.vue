@@ -18,7 +18,5 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-body {
-  overflow: hidden !important;
-}
+
 </style>

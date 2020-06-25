@@ -3,10 +3,14 @@ $font-header: "Raleway";
 $font-title: "Playfair Display";
 $font-body: "Raleway";
 $font-caption: "Playfair Display";
-// ============= font weights ================
+// ============= font weights =================
 $font-heavy: 800;
 $font-med: 600;
 $font-light: 300;
+// ============= font sizes =================
+$font-lg: 1.75em;
+$font-md: 1em;
+$font-sm: .75em;
 
 %body-fonts {
   font: 100% $font-body;
@@ -15,4 +19,13 @@ $font-light: 300;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  h1 {
+    background: $border-g;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h3,h4,h5,h6 {
+    color: $neon;
+  }
 }
