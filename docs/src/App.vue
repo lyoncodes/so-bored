@@ -1,8 +1,8 @@
 <template lang="pug">
   #app
     #nav
-      router-link(to="/")  Home |
-      router-link(to="/Menu")  Menu |
+      router-link(to="/")  Home
+      router-link(to="/Menu")  Menu
     <router-view/>
 </template>
 
@@ -12,6 +12,7 @@ body::-webkit-scrollbar {
   display: none;
 }
 #app {
+  @extend %nav;
   @extend %body-fonts;
   @extend %text-areas;
   @extend %cards;
@@ -24,18 +25,6 @@ body::-webkit-scrollbar {
   }
   .toggled {
     color: $indigo
-  }
-}
-
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: $primary;
-    }
   }
 }
 </style>
