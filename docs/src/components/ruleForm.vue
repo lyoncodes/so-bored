@@ -5,59 +5,58 @@
         img.card-icon.pl-3(src='../assets/add.svg')
       span(v-if="showCardForm") {{ buttonText.errorMsg }}
         img.card-icon.pl-3(src='../assets/cancel.svg')
-    b-row.justify-content-center
+    b-row.justify-content-center.mt-3
       b-form(@submit.prevent="handleSubmit" v-if="showCardForm")
-        b-col
-          b-form-group(id="input-type")
-            b-button(
-              id="card-type"
-              v-for="(select, idx) in Menu"
-              v-model="formData.type"
-              :key="idx"
-              :class="{ selected: formData.type === select.type }"
-              @click="submitType(select.type)") {{select.type}}
-          b-form-group(id="input-title" label="Card Title:" label-for="input-title")
-            a {{formChar.titleCount}} / {{formChar.titleLimit}}
-            b-row(v-if="formChar.titleCount > formChar.titleLimit")
-              b-badge(variant="danger") {{formChar.errorMsg}}
-            b-form-input(
-              id="card-title"
-              v-model="formData.title"
-              @keyup="validateCharCount()"
-              required
-              placeholder="Enter Rule Title"
+        b-card
+          b-col
+            b-form-group(id="input-type")
+              b-button.type-links(
+                v-for="(select, idx) in Menu"
+                v-model="formData.type"
+                :key="idx"
+                :class="{ selected: formData.type === select.type }"
+                @click="submitType(select.type)") {{select.type}}
+            b-form-group.mt-5(id="input-title")
+              b-row(v-if="formChar.titleCount > formChar.titleLimit")
+                b-badge(variant="danger") {{formChar.errorMsg}}
+              b-form-input(
+                v-model="formData.title"
+                @keyup="validateCharCount()"
+                required
+                placeholder="Enter Rule Title"
+                )
+              a.validation-char {{formChar.titleCount}} / {{formChar.titleLimit}}
+            b-form-group(id="input-card-text")
+              b-row(v-if="formChar.charCount > formChar.charLimit")
+                b-badge(variant="danger") {{formChar.errorMsg}}
+              b-form-input(
+                id="card-text"
+                v-model="formData.text"
+                @keyup="validateCharCount()"
+                required
+                placeholder="Enter Rule Text"
               )
-          b-form-group(id="input-card-text" label="Card Text:" label-for="input-card-text")
-            a {{formChar.charCount}} / {{formChar.charLimit}}
-            b-row(v-if="formChar.charCount > formChar.charLimit")
-              b-badge(variant="danger") {{formChar.errorMsg}}
-            b-form-input(
-              id="card-text"
-              v-model="formData.text"
-              @keyup="validateCharCount()"
-              required
-              placeholder="Enter Rule Text"
-            )
-          b-form-group(id="card-lock")
-            b-form-radio(
-              id="unlock"
-              v-model="formData.locked"
-              :value="false"
-              variant="light"
-            )
-              img.card-icon(src='../assets/Unlock.svg')
-            b-form-radio.pl-5(
-              id="lock"
-              v-model="formData.locked"
-              :value="true"
-              variant="light"
-            )
-              img.card-icon(src='../assets/Lock.svg')
-        img.card-icon(v-if="showConfirm" src='../assets/Valid.svg')
-        b-button#handle-update(type="submit")
-          img.card-icon(src='../assets/add.svg')
-        b-button#handle-cancel(type="reset")
-          img.card-icon(src='../assets/cancel.svg')
+              a.validation-char {{formChar.charCount}} / {{formChar.charLimit}}
+            b-form-group
+              b-form-radio(
+                id="unlock"
+                v-model="formData.locked"
+                :value="false"
+                variant="light"
+              )
+                img.card-icon-sm(src='../assets/Unlock.svg')
+              b-form-radio(
+                id="lock"
+                v-model="formData.locked"
+                :value="true"
+                variant="light"
+              )
+                img.card-icon-sm(src='../assets/Lock.svg')
+            img.card-icon(v-if="showConfirm" src='../assets/Valid.svg')
+            b-button(type="submit")
+              img.card-icon(src='../assets/add.svg')
+            b-button(type="reset")
+              img.card-icon(src='../assets/cancel.svg')
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -179,14 +178,6 @@ export default {
   box-shadow: none;
   margin: 0;
   padding: .25em .25em .25em 2.6em;
-}
-#card-lock {
-  input{
-    display: inline;
-  }
-}
-#card-text {
-  font-size: 1em;
 }
 .custom-control {
   display: inline;

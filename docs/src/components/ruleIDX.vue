@@ -82,26 +82,30 @@ export default {
 <style scoped lang="scss">
 .menu-row{
   button {
-    background: none;
-    border: none;
+    border: 1px solid transparent;
     // border-image-slice: 1;
     // border-width: 5px;
     // border-image-source: $border-g;
-    -webkit-box-shadow:  23px 7px 13px -16px rgba(116,58,213,1);
-    -moz-box-shadow:  23px 7px 13px -16px rgba(116,58,213,1);
-    box-shadow:  23px 7px 13px -16px rgba(116,58,213,1);
+    -webkit-box-shadow:  $box-shadow-light;
+    -moz-box-shadow:  $box-shadow-light;
+    box-shadow:  $box-shadow-light;
     color: $indigo;
     font-size: .85em;
     font-weight: 600;
     margin: .25em;
     outline: none;
     padding: .75em 1em;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 
     &:active, :focus{
       background: $border-g !important;
       outline: none;
     }
+    &:hover {
+      box-shadow: none;
+      border: 1px solid $neon;
+    }
+
   }
   .selected {
     background: $border-g !important;

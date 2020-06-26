@@ -1,9 +1,9 @@
 %cards {
   .card {
     border: 0;
-    -webkit-box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
-    -moz-box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
-    box-shadow: 10px 10px 24px -10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: $box-shadow-light;
+    -moz-box-shadow: $box-shadow-light;
+    box-shadow: $box-shadow-light;
     margin: 1em 0 1em;
     .card-text{
       padding: 1em;
