@@ -72,7 +72,7 @@ export default {
       showCardForm: false,
       showConfirm: false,
       buttonText: {
-        toggleMsg: 'Add New Card',
+        toggleMsg: 'Add Rule',
         errorMsg: 'Nvm'
       },
       formChar: {
