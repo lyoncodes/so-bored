@@ -1,8 +1,12 @@
 <template lang="pug">
   #app
     #nav
-      router-link(to="/")  Home
-      router-link(to="/Menu")  Menu
+      b-row
+        b-col.col-3.col-md-3
+          img.nav-img(src="./assets/unearth-slate.svg")
+        b-col.col-6.col-md-6
+          router-link(to="/")  Home
+          router-link(to="/Menu")  Menu
     <router-view/>
 </template>
 
