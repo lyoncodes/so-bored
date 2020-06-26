@@ -1,5 +1,8 @@
+// COLORS
 $primary: #31C3C3;
 $sherbert: #ffaf7b;
 $indigo: #743ad5;
 $neon: #d53a9d;
-$border-g: linear-gradient(to left, $indigo, $neon)
+$border-g: linear-gradient(to left, $indigo, $neon);
+$box-shadow-light: 10px 10px 22px -1px rgba($neon,0.35);
+$box-shadow-dark: 10px 10px 22px -1px rgba($indigo,0.35)

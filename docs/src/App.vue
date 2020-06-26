@@ -14,14 +14,14 @@ body::-webkit-scrollbar {
 #app {
   @extend %nav;
   @extend %body-fonts;
-  @extend %text-areas;
+  @extend %forms;
   @extend %cards;
   .selected {
     background: $border-g !important;
     color: white!important;
-    -webkit-box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
-    -moz-box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
-    box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
+    -webkit-box-shadow:  $box-shadow-dark;
+    -moz-box-shadow:  $box-shadow-dark;
+    box-shadow:  $box-shadow-dark;
   }
   .toggled {
     color: $indigo
