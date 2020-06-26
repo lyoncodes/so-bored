@@ -1,6 +1,5 @@
 <template lang="pug">
   .home.mt-5
-    img.header-img(src="../assets/unearth-slate.svg")
     h5.headline Styles & Docs
     ruleForm
     //- adobeAPI
