@@ -1,4 +1,4 @@
-%text-areas{
+%forms{
 form {
   textarea, input, .form-control {
     border: 1px solid $neon;
@@ -10,6 +10,18 @@ form {
     font-size: 1.75em;
     height: 2em;
     resize: none;
+    transition: border .4s ease-in;
+    &::placeholder {
+      color: $sherbert
+    }
+    &:focus {
+      outline: none;
+      box-shadow: none;
+      border: 1px solid $sherbert;
+      border-top: none;
+      border-right: none;
+      border-left: none;
+    }
   }
 }
   #card-text, #annotate-text {
@@ -20,7 +32,12 @@ form {
     height: 8em;
   }
 }
+
+.bv-no-focus-ring{
+  text-align: left;
+}
 .validation-char {
   color: $indigo;
-  font-size: $font-sm
+  font-size: $font-sm;
+  text-align: left
 }

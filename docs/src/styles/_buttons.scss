@@ -1,9 +1,12 @@
+.menu-row>button {
+  background: #fff;
+}
 button {
-  background: none;
+  background-color: none;
   border: none;
-  -webkit-box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
-  -moz-box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
-  box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
+  -webkit-box-shadow:  $box-shadow-light;
+  -moz-box-shadow:  $box-shadow-light;
+  box-shadow:  $box-shadow-light;
   color: $indigo;
   font-size: .85em;
   font-weight: 600;
@@ -15,9 +18,9 @@ button {
     outline: none;
   }
 }
-.btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active {
+.btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active {
   background: none;
-  border: none;
+  border: 1px solid transparent;
   box-shadow: none;
   &:active, :focus{
     background: none !important;
@@ -25,6 +28,7 @@ button {
   }
 }
 .labeled-button {
+  background: #fff;
   padding: 1em;
   border-radius: .25em;
   transition: all 0.7s ease;
@@ -32,5 +36,21 @@ button {
     background: $border-g;
     color: #fff;
     box-shadow: none;
+  }
+}
+#edit-button {
+  background: none;
+  box-shadow: none;
+}
+.type-links {
+  border: 1px solid transparent;
+  color: $sherbert;
+  transition: all .7s ease;
+  &:hover {
+    border: 1px solid $indigo;
+    color: $neon;
+  }
+  &:active, &:focus {
+    border: 1px solid transparent;
   }
 }

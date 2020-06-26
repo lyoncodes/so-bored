@@ -1,0 +1,16 @@
+%nav {
+  #nav {
+    margin: 1em;
+    a {
+      color: $indigo;
+      padding: .5em;
+      font-weight: bold;
+      font-size: $font-sm;
+  
+      &.router-link-exact-active, &:hover {
+        color: $neon;
+        text-decoration: none;
+      }
+    }
+  }
+}

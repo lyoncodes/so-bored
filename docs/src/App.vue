@@ -1,8 +1,12 @@
 <template lang="pug">
   #app
     #nav
-      router-link(to="/")  Home |
-      router-link(to="/Menu")  Menu |
+      b-row
+        b-col.col-3.col-md-3
+          img.nav-img(src="./assets/unearth-slate.svg")
+        b-col.col-6.col-md-6
+          router-link(to="/")  Home
+          router-link(to="/Menu")  Menu
     <router-view/>
 </template>
 
@@ -12,30 +16,19 @@ body::-webkit-scrollbar {
   display: none;
 }
 #app {
+  @extend %nav;
   @extend %body-fonts;
-  @extend %text-areas;
+  @extend %forms;
   @extend %cards;
   .selected {
     background: $border-g !important;
     color: white!important;
-    -webkit-box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
-    -moz-box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
-    box-shadow:  23px 7px 26px -12px rgba(0,0,0,0.75);
+    -webkit-box-shadow:  $box-shadow-dark;
+    -moz-box-shadow:  $box-shadow-dark;
+    box-shadow:  $box-shadow-dark;
   }
   .toggled {
     color: $indigo
-  }
-}
-
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: $primary;
-    }
   }
 }
 </style>

@@ -1,7 +1,6 @@
 <template lang="pug">
-  .home
-    //- img(src="../assets/unearth-slate.svg")
-    h1 Documents
+  .home.mt-5
+    h5.headline Styles & Docs
     ruleForm
     //- adobeAPI
 </template>

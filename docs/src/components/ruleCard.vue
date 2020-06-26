@@ -4,8 +4,8 @@
       b-row
         b-col(md="4" v-for="card in pinnedCards" :key="card.title")
           b-card
-            b-row.mb-4
-              b-col.col-6
+            b-row.mb-4.justify-content-start
+              b-col.col-4.col-md-5.p-0
                 b-button.icon-trigger(@click="handleHide(card)" variant="primary" :disabled="card.updating")
                   img.card-icon(src='../assets/cancel.svg')
                 //- rule locked? ------

@@ -1,0 +1,12 @@
+.custom-control {
+  border: 1px solid transparent;
+  display: inline;
+  padding: .25em;
+  height: 2em;
+  ::after, ::before {
+    display: none;
+  }
+  &:active, &:checked {
+    border: 1px solid black;
+  }
+}
