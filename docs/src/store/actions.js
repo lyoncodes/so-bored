@@ -1,4 +1,20 @@
+import * as firebase from '../../firebase'
+import router from '../router/index'
 export default {
+  // User login
+  async login ({ dispatch }, loginData) {
+    const { user } = await firebase.auth.signInWithEmailAndPassword(loginData.email, loginData.password)
+    // fetch user profile and set to state
+    dispatch('fetchUserProfile', user)
+  },
+  async fetchUserProfile ({ commit }, user) {
+    // fetch user profile
+    const userProfile = await firebase.usersCollection.doc(user.uid).get()
+    // set user profile to state
+    commit('setUserProfile', userProfile.data())
+    // change route
+    router.push('/')
+  },
   // add card from add card form
   submitRule: ({ commit }, card) => {
     commit('addRule', card)
