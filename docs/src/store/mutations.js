@@ -1,4 +1,7 @@
 export default {
+  setUserProfile: (state, loginData) => {
+    state.userProfile = loginData
+  },
   // add card from add card form
   addRule: (state, card) => {
     const test = state.Cards.filter(el => {

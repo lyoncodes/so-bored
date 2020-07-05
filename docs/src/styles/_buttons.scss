@@ -42,6 +42,14 @@ button {
   background: none;
   box-shadow: none;
 }
+#login-btn {
+  color: $indigo;
+  border: 1px solid $indigo;
+  &:hover{
+    color: #fff;
+    background: $indigo !important;
+  }
+}
 .type-links {
   border: 1px solid transparent;
   color: $sherbert;

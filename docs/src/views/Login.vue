@@ -1,12 +1,12 @@
 <template lang="pug">
   b-container
     b-row.justify-content-center.mt-5
-      b-col.col-4
-        b-form(@submit.prevent="handleLogin")
+      b-col.col-md-4
+        b-form(@submit.prevent="handleLogin(loginData)")
           b-card.p-2
             h1 Login
             b-col.mt-4
-              b-form-group(id="login-email")
+              b-form-group#login-email
                 b-row
                   a.validation-char name@unearthlabs.com
                 b-form-input(
@@ -21,9 +21,10 @@
                   type="text"
                   placeholder="********"
                 )
-              b-button(type="submit") Enter
+              b-button#login-btn(type="submit") Enter
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -34,14 +35,15 @@ export default {
     }
   },
   methods: {
-    handleLogin () {
-      console.log('here')
+    ...mapActions([
+      'login'
+    ]),
+    handleLogin (loginData) {
+      return this.login(loginData)
     }
   }
 }
 </script>
 <style scoped lang="scss">
-button{
-  border: 1px solid $indigo
-}
+
 </style>
