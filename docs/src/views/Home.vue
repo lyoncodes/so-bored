@@ -7,11 +7,13 @@
 
 <script>
 import ruleForm from '../components/ruleForm'
+import navBar from '../components/navBar'
 // import adobeAPI from '../components/fetches/adobeCC'
 
 export default {
   name: 'Home',
   components: {
+    navBar,
     ruleForm
     // adobeAPI
   }
