@@ -24,7 +24,6 @@ export default {
       'filterAction'
     ]),
     handleFilter (id) {
-      console.log(id)
       this.filterAction(id)
     }
   },

@@ -46,6 +46,16 @@ button {
     background: $indigo !important;
   }
 }
+.signUp-btn {
+  background: $indigo;
+  color: #fff;
+  &:hover {
+    background: #fff;
+    border: 1px solid $neon;
+    box-shadow: $box-shadow-light-fade;
+    color: $neon;
+  }
+}
 #edit-button {
   background: none;
   box-shadow: none;

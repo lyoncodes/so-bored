@@ -2,7 +2,9 @@
   b-container
     b-row.justify-content-center.mt-5
       b-col.col-md-4
-        b-form(@submit.prevent="handleLogin(loginData)")
+        b-form(
+          @submit.prevent="handleLogin(loginData)"
+        )
           b-card.p-2
             h1 Login
             b-col.mt-4
@@ -21,8 +23,14 @@
                   type="text"
                   placeholder="********"
                 )
-              b-button.login-btn(type="submit") Enter
-        signUpForm
+              b-button.login-btn(type="submit") Log In
+              b-row.justify-content-center
+                b-button.signUp-btn(
+                  @click="toggleSignUp"
+                ) Sign Up
+        signUpForm(
+          v-if="!showLoginForm"
+        )
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -33,7 +41,8 @@ export default {
       loginData: {
         email: '',
         password: ''
-      }
+      },
+      showLoginForm: true
     }
   },
   components: {
@@ -44,8 +53,10 @@ export default {
       'login'
     ]),
     handleLogin (loginData) {
-      console.log(loginData)
       this.login(loginData)
+    },
+    toggleSignUp () {
+      this.showLoginForm = !this.showLoginForm
     }
   }
 }

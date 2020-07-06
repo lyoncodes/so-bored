@@ -76,6 +76,5 @@ export default {
   },
   // filters rules in all Rules
   filterRules: (state, type) => {
-    console.log('hit')
   }
 }
