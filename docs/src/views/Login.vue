@@ -13,7 +13,7 @@
                   v-model="loginData.email"
                   type="text"
                 )
-              b-form-group(id="login-password")
+              b-form-group#login-password
                 b-row
                   a.validation-char Password
                 b-form-input(
@@ -21,10 +21,12 @@
                   type="text"
                   placeholder="********"
                 )
-              b-button#login-btn(type="submit") Enter
+              b-button.login-btn(type="submit") Enter
+        signUpForm
 </template>
 <script>
 import { mapActions } from 'vuex'
+import signUpForm from '../components/navigation/signUpForm'
 export default {
   data () {
     return {
@@ -34,12 +36,16 @@ export default {
       }
     }
   },
+  components: {
+    signUpForm
+  },
   methods: {
     ...mapActions([
       'login'
     ]),
     handleLogin (loginData) {
-      return this.login(loginData)
+      console.log(loginData)
+      this.login(loginData)
     }
   }
 }

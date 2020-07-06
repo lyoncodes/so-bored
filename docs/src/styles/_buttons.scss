@@ -38,17 +38,17 @@ button {
     box-shadow: none;
   }
 }
-#edit-button {
-  background: none;
-  box-shadow: none;
-}
-#login-btn {
+.login-btn {
   color: $indigo;
   border: 1px solid $indigo;
   &:hover{
     color: #fff;
     background: $indigo !important;
   }
+}
+#edit-button {
+  background: none;
+  box-shadow: none;
 }
 .type-links {
   border: 1px solid transparent;

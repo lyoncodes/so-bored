@@ -101,6 +101,7 @@ export default {
   },
   computed: {
     ...mapState([
+      'userProfile',
       'Menu',
       'Cards',
       'allCards'

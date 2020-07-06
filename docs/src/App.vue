@@ -1,15 +1,17 @@
 <template lang="pug">
   #app
-    #nav
-      b-row
-        b-col.col-3.col-md-3
-          img.nav-img(src="./assets/unearth-slate.svg")
-        b-col.col-6.col-md-6
-          router-link(to="/")  Home
-          router-link(to="/Menu")  Menu
+    navBar
     <router-view/>
 </template>
 
+<script>
+import navBar from '../src/components/navBar.vue'
+export default {
+  components: {
+    navBar
+  }
+}
+</script>
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display|Raleway&display=swap');
 body::-webkit-scrollbar {
