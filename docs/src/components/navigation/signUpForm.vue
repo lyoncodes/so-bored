@@ -20,12 +20,20 @@
             type="password"
             placeholder="********"
           )
-        b-button.login-btn(type="submit") Sign Up
+        b-button.signUp-btn(type="submit") Create Account
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'signUpForm',
+  data () {
+    return {
+      signUpForm: {
+        email: '',
+        password: ''
+      }
+    }
+  },
   computed: {
     ...mapState([
       'userProfile'
@@ -42,14 +50,6 @@ export default {
         password
       }
       this.signUp(signUpData)
-    }
-  },
-  data () {
-    return {
-      signUpForm: {
-        email: '',
-        password: ''
-      }
     }
   }
 }
