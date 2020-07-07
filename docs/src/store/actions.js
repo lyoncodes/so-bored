@@ -18,7 +18,9 @@ export default {
   },
   // get() for user profile via user.uid
   async fetchUserProfile ({ commit }, user) {
+    console.log('userfetched: ' + user.email)
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
+    console.log('userProf: ' + Object.keys(userProfile))
     commit('setUserProfile', userProfile.data())
     if (router.currentRoute.path === '/login') {
       router.push('/')

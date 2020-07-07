@@ -46,9 +46,17 @@ button {
     background: $indigo !important;
   }
 }
+.btn-secondary:focus {
+  background-color: #fff !important;
+  border: 1px solid $neon;
+  color: $neon;
+  box-shadow: none
+}
 .signUp-btn {
-  background: $indigo;
-  color: #fff;
+  background: #fff;
+  border: 1px solid $indigo;
+  box-shadow: $box-shadow-light-fade;
+  color: $indigo;
   &:hover {
     background: #fff;
     border: 1px solid $neon;

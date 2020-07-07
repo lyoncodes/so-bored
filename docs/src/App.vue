@@ -1,6 +1,6 @@
 <template lang="pug">
   #app
-    navBar
+    navBar(v-if="showNav")
     <router-view/>
 </template>
 
@@ -11,13 +11,13 @@ export default {
   components: {
     navBar
   },
-  methods: {
-    ...mapState([
-      'userProfile'
-    ])
-  },
   computed: {
+    ...mapState([
+      'userProfile',
+      'Cards'
+    ]),
     showNav () {
+      // console.log(Object.keys(this.userProfile))
       // return console.log(Object.keys(this.userProfile))
       return Object.keys(this.userProfile).length > 1
     }

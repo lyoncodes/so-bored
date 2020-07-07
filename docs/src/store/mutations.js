@@ -1,6 +1,7 @@
 export default {
   // add user to userProfile data
   setUserProfile (state, val) {
+    console.log('user key!: ' + val)
     state.userProfile = val
   },
   // add card from add card form
