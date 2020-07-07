@@ -1,6 +1,7 @@
 export default {
-  setUserProfile: (state, user) => {
-    state.userProfile = user
+  // add user to userProfile data
+  setUserProfile (state, val) {
+    state.userProfile = val
   },
   // add card from add card form
   addRule: (state, card) => {

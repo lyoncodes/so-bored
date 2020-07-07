@@ -1,7 +1,7 @@
 <template lang="pug">
   b-container
     b-row.justify-content-center.mt-5
-      b-col.col-md-4
+      b-col.col-md-8.col-lg-4
         b-form(
           @submit.prevent="handleLogin(loginData)"
         )

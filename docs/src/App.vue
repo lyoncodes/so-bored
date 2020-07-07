@@ -6,9 +6,21 @@
 
 <script>
 import navBar from '../src/components/navBar.vue'
+import { mapState } from 'vuex'
 export default {
   components: {
     navBar
+  },
+  methods: {
+    ...mapState([
+      'userProfile'
+    ])
+  },
+  computed: {
+    showNav () {
+      // return console.log(Object.keys(this.userProfile))
+      return Object.keys(this.userProfile).length > 1
+    }
   }
 }
 </script>
