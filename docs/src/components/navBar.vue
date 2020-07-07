@@ -22,11 +22,6 @@ export default {
     ...mapState([
       'userProfile'
     ])
-  },
-  computed: {
-    showNav () {
-      return Object.keys(this.userProfile).length > 1
-    }
   }
 }
 </script>
