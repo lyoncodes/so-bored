@@ -9,6 +9,7 @@ export default {
   },
   // add card from add card form
   async addRule (state, card) {
+    // checks if title already exists
     const filteredTitle = state.rules.filter(el => {
       if (el.title === card.title) {
         return el
@@ -39,9 +40,9 @@ export default {
       }
     })
   },
-  // change state of cards to updating
+  // change state of cards to updating (only needs front-end)
   updateCardField: (state, card) => {
-    const arr = [...state.Cards, ...state.pinnedCards]
+    const arr = [...state.rules, ...state.pinnedCards]
     arr.map(el => {
       if (el.id === card.id) {
         el.updating = !el.updating
@@ -49,9 +50,9 @@ export default {
     })
   },
   // update card in cards and pinnedcards arrays & change state of cards to !updating
-  replaceCardRule: (state, card) => {
-    const arr = [...state.Cards, ...state.pinnedCards]
-    arr.map(el => {
+  async replaceCardRule (state, card) {
+    const arr = [...state.rules, ...state.pinnedCards]
+    arr.map((el) => {
       if (el.id === card.id) {
         if (card.title.length && !card.text.length) {
           el.title = card.title

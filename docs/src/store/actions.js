@@ -18,7 +18,7 @@ export default {
     dispatch('fetchUserProfile', user)
   },
   // get() for user profile via user.uid
-  async fetchUserProfile ({ commit, dispatch }, user) {
+  async fetchUserProfile ({ commit }, user) {
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
     console.log('userProf: ' + Object.keys(userProfile))
     commit('setUserProfile', userProfile.data())
@@ -31,7 +31,6 @@ export default {
     const snapshot = await rule.get()
     const ruleData = []
     snapshot.forEach(el => ruleData.push(el.data()))
-    console.log(ruleData)
     commit('setRuleCards', ruleData)
   },
   // logs user out and resets current user obj
@@ -53,8 +52,13 @@ export default {
     commit('updateCardField', card)
   },
   // update card in Cards and pinnedcards arrays
-  updateCard: ({ commit }, card) => {
+  async updateCard ({ commit, dispatch }, card) {
     commit('replaceCardRule', card)
+    dispatch('saveCollection', card)
+  },
+  async saveCollection (card) {
+    // const rules = firebase.rulesCollection
+    // const snapshot = await rules.get()
   },
   // annotate
   annotateCard: ({ commit }, card) => {
