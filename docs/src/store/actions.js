@@ -2,7 +2,7 @@ import * as firebase from '../../firebase'
 import router from '../router/index'
 
 export default {
-  // logs user in and calls fetchUserProfile
+  // logs user in
   async login ({ dispatch }, form) {
     const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password)
     dispatch('fetchUserProfile', user)
@@ -20,12 +20,12 @@ export default {
   // get() for user profile via user.uid
   async fetchUserProfile ({ commit }, user) {
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
-    console.log('userProf: ' + Object.keys(userProfile))
     commit('setUserProfile', userProfile.data())
     if (router.currentRoute.path === '/login') {
       router.push('/')
     }
   },
+  // fetches rules, sets cards array to fetched rules
   async fetchRules ({ commit }) {
     const rule = firebase.rulesCollection
     const snapshot = await rule.get()
@@ -40,32 +40,54 @@ export default {
     router.push('/login')
   },
   // add card from add card form
-  submitRule: ({ commit }, card) => {
+  async submitRule ({ commit }, card) {
     commit('addRule', card)
   },
-  // "plugIn" card to board after switch is active
-  pinCard: ({ commit }, card) => {
-    commit('appendPin', card)
+  // appends card to UI
+  async appendCard ({ commit }, card) {
+    const rules = firebase.rulesCollection
+    const ruleSet = await rules.get()
+    const ruleId = ruleSet.docs[card.idx].id
+    await rules.doc(ruleId).update({
+      active: true
+    })
+    commit('activateRule', card)
   },
   // update/clear form fields
-  showUpdateField: ({ commit }, card) => {
+  async showUpdateField ({ commit }, card) {
+    const rules = firebase.rulesCollection
+    const ruleSet = await rules.get()
+    const ruleId = ruleSet.docs[card.idx].id
+    await rules.doc(ruleId).update({
+      updating: !card.updating
+    })
     commit('updateCardField', card)
   },
   // update card in Cards and pinnedcards arrays
-  async updateCard ({ commit, dispatch }, card) {
+  async updateCard ({ dispatch, commit }, card) {
+    const rules = firebase.rulesCollection
+    const ruleSet = await rules.get()
+    const ruleId = ruleSet.docs[card.idx].id
+    await rules.doc(ruleId).update({
+      title: card.title,
+      text: card.text,
+      updating: !card.updating
+    })
+    dispatch('fetchRules')
     commit('replaceCardRule', card)
-    dispatch('saveCollection', card)
-  },
-  async saveCollection (card) {
-    // const rules = firebase.rulesCollection
-    // const snapshot = await rules.get()
   },
   // annotate
   annotateCard: ({ commit }, card) => {
     commit('submitAnnotation', card)
   },
   // deletes card in Cards and pinnedCards arrays
-  hidePin: ({ commit }, card) => {
+  async hidePin ({ commit }, card) {
+    const rules = firebase.rulesCollection
+    const ruleSet = await rules.get()
+    const ruleId = ruleSet.docs[card.idx].id
+    await rules.doc(ruleId).update({
+      active: false
+    })
     commit('removeCard', card)
   },
   // filters by type

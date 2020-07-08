@@ -101,18 +101,23 @@ export default {
       this.showUpdateField(payload)
     },
     submitUpdate (card) {
-      const id = card.id
-      const { title, text, updating } = this.updateData
-      const updateData = {
+      const payload = this.cardFormat(card)
+      const { locked, type, idx, updating, annotations, tokenRef } = payload
+      const { title, text } = this.updateData
+      const ruleUpdate = {
+        locked,
+        type,
         title,
         text,
-        id,
-        updating
+        idx,
+        updating,
+        annotations,
+        tokenRef
       }
-      if (updateData.text.length > this.validation.charLimit || updateData.title.length > this.validation.titleLimit) {
+      if (ruleUpdate.text.length > this.validation.charLimit || ruleUpdate.title.length > this.validation.titleLimit) {
         return alert('Error handling: fix length')
       }
-      this.updateCard(updateData)
+      this.updateCard(ruleUpdate)
       card.updating = false
       this.clearForm()
     },
@@ -133,14 +138,17 @@ export default {
       }
     },
     cardFormat (card) {
-      const { type, title, text, id, active, updating } = card
+      const { locked, type, title, text, idx, active, updating, annotations, tokenRef } = card
       const cardPayload = {
+        locked,
         type,
         title,
         text,
-        id,
+        idx,
         active,
-        updating
+        updating,
+        annotations,
+        tokenRef
       }
       return cardPayload
     }
@@ -153,24 +161,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.card {
-    #handle-update{
-      border: 0em;
-      box-shadow: none;
-      padding: .25em 0 0 .25em;
-      margin: 0 0 0 .5em;
-    }
-    #handle-cancel{
-      border: 0em;
-      box-shadow: none;
-      margin: 0;
-      padding: .25em .25em .25em 2.6em;
-    }
-    #submit-annotation{
-      border: 0em;
-      box-shadow: none;
-      margin: 1em;
-      padding: .25em;
-    }
-}
 </style>
