@@ -3,6 +3,9 @@ export default {
   setUserProfile (state, val) {
     state.userProfile = val
   },
+  setRuleCards (state, ruleData) {
+    state.rules = ruleData
+  },
   // add card from add card form
   addRule: (state, card) => {
     const test = state.Cards.filter(el => {
@@ -17,7 +20,7 @@ export default {
   // append card after switch is active
   appendPin: (state, card) => {
     state.pinnedCards.push(card)
-    const arr = [...state.Cards, ...state.pinnedCards]
+    const arr = [...state.rules, ...state.pinnedCards]
     return arr.map((el) => {
       if (el.title === card.title) {
         el.active = true
@@ -69,7 +72,7 @@ export default {
       }
     })
     state.pinnedCards = filtered
-    return state.Cards.map((el) => {
+    return state.rules.map((el) => {
       if (el.id === card.id) {
         el.active = false
       }

@@ -5,6 +5,6 @@ export default {
   userProfile: {},
   Cards,
   pinnedCards: [],
-  allCards: [...Cards],
+  rules: [],
   Menu
 }

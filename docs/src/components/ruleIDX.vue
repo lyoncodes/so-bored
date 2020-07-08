@@ -9,7 +9,7 @@
     b-button-group
       b-container.menu-row(v-if="showCards")
         b-button(
-        v-for="(card, idx) in Cards"
+        v-for="(card, idx) in rules"
         :key="idx"
         :class="{ selected: card.active }"
         @click="handleSwitch(card, idx)"
@@ -43,7 +43,8 @@ export default {
   computed: {
     ...mapState([
       'Cards',
-      'pinnedCards'
+      'pinnedCards',
+      'rules'
     ])
   },
   methods: {
@@ -69,12 +70,12 @@ export default {
         annotations,
         annotationValidation
       }
-      return (!this.pinnedCards.length || (this.pinnedCards.length && !this.Cards[idx].active)) ? this.pinCard(pinnedCard)
-        : (this.Cards[idx].active) ? this.hidePin(pinnedCard) : null
+      return (!this.pinnedCards.length || (this.pinnedCards.length && !this.rules[idx].active)) ? this.pinCard(pinnedCard)
+        : (this.rules[idx].active) ? this.hidePin(pinnedCard) : null
     }
   },
   mounted () {
-    const card = this.Cards
+    const card = this.rules
     this.card = card
   }
 }
