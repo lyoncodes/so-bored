@@ -18,12 +18,12 @@ export default {
     if (!filteredTitle.length) {
       state.rules.push(card)
       // save to db
-      await firebase.rulesCollection.doc(card.title).set({
+      await firebase.rulesCollection.add({
         locked: card.locked,
         type: card.type,
         title: card.title,
+        idx: card.idx,
         text: card.text,
-        id: card.id,
         active: card.active,
         updating: card.updating,
         annotations: card.annotations
@@ -31,7 +31,7 @@ export default {
     } else alert('this title already exists! Try another entry')
   },
   // append card after switch is active
-  appendPin: (state, card) => {
+  activateRule: (state, card) => {
     state.pinnedCards.push(card)
     const arr = [...state.rules, ...state.pinnedCards]
     return arr.map((el) => {
@@ -44,7 +44,7 @@ export default {
   updateCardField: (state, card) => {
     const arr = [...state.rules, ...state.pinnedCards]
     arr.map(el => {
-      if (el.id === card.id) {
+      if (el.idx === card.idx) {
         el.updating = !el.updating
       }
     })
@@ -53,25 +53,17 @@ export default {
   async replaceCardRule (state, card) {
     const arr = [...state.rules, ...state.pinnedCards]
     arr.map((el) => {
-      if (el.id === card.id) {
-        if (card.title.length && !card.text.length) {
-          el.title = card.title
-          card.text = el.text
-        } else if (card.text.length && !card.title.length) {
-          el.text = card.text
-          card.title = el.title
-        } else {
-          el.title = card.title
-          el.text = card.text
-        }
+      if (el.idx === card.idx) {
+        el.title = card.title
+        el.text = card.text
+        el.updating = false
       }
-      el.updating = false
     })
   },
   // annotates card
   submitAnnotation: (state, card) => {
     state.pinnedCards.map(el => {
-      if (el.id === card.id) {
+      if (el.idx === card.idx) {
         el.annotations.push(card)
       }
     })
@@ -79,14 +71,14 @@ export default {
   // deactivates card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
     const filtered = state.pinnedCards.filter((el) => {
-      if (el.id !== card.id) {
+      if (el.idx !== card.idx) {
         card.active = false
         return el
       }
     })
     state.pinnedCards = filtered
     return state.rules.map((el) => {
-      if (el.id === card.id) {
+      if (el.idx === card.idx) {
         el.active = false
       }
     })

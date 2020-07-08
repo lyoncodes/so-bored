@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'pinCard',
+      'appendCard',
       'hidePin'
     ]),
     showAllCards () {
@@ -59,18 +59,19 @@ export default {
       }
     },
     handleSwitch (card, idx) {
-      const { locked, title, text, id, type, active, annotations, annotationValidation } = card
+      const { locked, title, text, type, active, updating, annotations, tokenRef } = card
       const pinnedCard = {
         locked,
         title,
         text,
-        id,
+        idx,
         type,
         active,
+        updating,
         annotations,
-        annotationValidation
+        tokenRef
       }
-      return (!this.pinnedCards.length || (this.pinnedCards.length && !this.rules[idx].active)) ? this.pinCard(pinnedCard)
+      return (!this.pinnedCards.length || (this.pinnedCards.length && !this.rules[idx].active)) ? this.appendCard(pinnedCard)
         : (this.rules[idx].active) ? this.hidePin(pinnedCard) : null
     }
   },
