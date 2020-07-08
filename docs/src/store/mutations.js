@@ -1,32 +1,48 @@
+import * as firebase from '../../firebase'
 export default {
   // add user to userProfile data
   setUserProfile (state, val) {
     state.userProfile = val
   },
+  setRuleCards (state, ruleData) {
+    state.rules = ruleData
+  },
   // add card from add card form
-  addRule: (state, card) => {
-    const test = state.Cards.filter(el => {
+  async addRule (state, card) {
+    // checks if title already exists
+    const filteredTitle = state.rules.filter(el => {
       if (el.title === card.title) {
         return el
       }
     })
-    if (!test.length) {
-      state.Cards.push(card)
+    if (!filteredTitle.length) {
+      state.rules.push(card)
+      // save to db
+      await firebase.rulesCollection.doc(card.title).set({
+        locked: card.locked,
+        type: card.type,
+        title: card.title,
+        text: card.text,
+        id: card.id,
+        active: card.active,
+        updating: card.updating,
+        annotations: card.annotations
+      })
     } else alert('this title already exists! Try another entry')
   },
   // append card after switch is active
   appendPin: (state, card) => {
     state.pinnedCards.push(card)
-    const arr = [...state.Cards, ...state.pinnedCards]
+    const arr = [...state.rules, ...state.pinnedCards]
     return arr.map((el) => {
       if (el.title === card.title) {
         el.active = true
       }
     })
   },
-  // change state of cards to updating
+  // change state of cards to updating (only needs front-end)
   updateCardField: (state, card) => {
-    const arr = [...state.Cards, ...state.pinnedCards]
+    const arr = [...state.rules, ...state.pinnedCards]
     arr.map(el => {
       if (el.id === card.id) {
         el.updating = !el.updating
@@ -34,9 +50,9 @@ export default {
     })
   },
   // update card in cards and pinnedcards arrays & change state of cards to !updating
-  replaceCardRule: (state, card) => {
-    const arr = [...state.Cards, ...state.pinnedCards]
-    arr.map(el => {
+  async replaceCardRule (state, card) {
+    const arr = [...state.rules, ...state.pinnedCards]
+    arr.map((el) => {
       if (el.id === card.id) {
         if (card.title.length && !card.text.length) {
           el.title = card.title
@@ -69,7 +85,7 @@ export default {
       }
     })
     state.pinnedCards = filtered
-    return state.Cards.map((el) => {
+    return state.rules.map((el) => {
       if (el.id === card.id) {
         el.active = false
       }

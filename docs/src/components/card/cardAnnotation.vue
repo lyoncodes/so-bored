@@ -5,7 +5,7 @@
         button#edit-button.mr-2(
           @click="toggleAnnotations")
           img.annotate-icon(src='../../assets/annotate.svg')
-        a.validation-char(v-if="showAnnotations") {{annotationData.text.length}} / {{ rule.annotationValidation.charLimit}}
+        a.validation-char(v-if="showAnnotations") {{annotationData.text.length}} / {{ annotationValidation.charLimit}}
       b-col.col-12
         b-form.mb-2.mt-4(@submit.prevent="submitAnnotation(annotationData)" v-if="showAnnotations")
           b-form-textarea(
@@ -13,9 +13,9 @@
             v-model="annotationData.text"
             @keyup="validateCharCount()"
           )
-          b-row(v-if="annotationData.text.length > rule.annotationValidation.charLimit")
-            b-badge(variant="danger") {{ rule.annotationValidation.errorMsg }}
-          b-button#submit-annotation(type="submit" variant="primary" v-if="!rule.annotationValidation.errorMsg" :disabled="!annotationData.text.length")
+          b-row(v-if="annotationData.text.length > annotationValidation.charLimit")
+            b-badge(variant="danger") {{ annotationValidation.errorMsg }}
+          b-button#submit-annotation(type="submit" variant="primary" v-if="!annotationValidation.errorMsg" :disabled="!annotationData.text.length")
             img.annotate-icon(src="../../assets/add.svg")
         p.annotations(v-for="annotation in rule.annotations") {{ annotation.text }}
 </template>
@@ -31,6 +31,10 @@ export default {
         text: '',
         author: '',
         annotationType: false
+      },
+      annotationValidation: {
+        charLimit: 60,
+        errorMsg: String
       }
     }
   },

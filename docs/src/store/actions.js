@@ -6,6 +6,7 @@ export default {
   async login ({ dispatch }, form) {
     const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password)
     dispatch('fetchUserProfile', user)
+    dispatch('fetchRules')
   },
   // signs user up and saves doc in firebase with set() method
   async signUp ({ dispatch }, form) {
@@ -19,10 +20,18 @@ export default {
   // get() for user profile via user.uid
   async fetchUserProfile ({ commit }, user) {
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
+    console.log('userProf: ' + Object.keys(userProfile))
     commit('setUserProfile', userProfile.data())
     if (router.currentRoute.path === '/login') {
       router.push('/')
     }
+  },
+  async fetchRules ({ commit }) {
+    const rule = firebase.rulesCollection
+    const snapshot = await rule.get()
+    const ruleData = []
+    snapshot.forEach(el => ruleData.push(el.data()))
+    commit('setRuleCards', ruleData)
   },
   // logs user out and resets current user obj
   async logout ({ commit }) {
@@ -43,8 +52,13 @@ export default {
     commit('updateCardField', card)
   },
   // update card in Cards and pinnedcards arrays
-  updateCard: ({ commit }, card) => {
+  async updateCard ({ commit, dispatch }, card) {
     commit('replaceCardRule', card)
+    dispatch('saveCollection', card)
+  },
+  async saveCollection (card) {
+    // const rules = firebase.rulesCollection
+    // const snapshot = await rules.get()
   },
   // annotate
   annotateCard: ({ commit }, card) => {

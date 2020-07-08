@@ -9,7 +9,7 @@
     b-col.col-3
       a(
         @click="logout()"
-      ) Logout
+      ) logout
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -22,6 +22,15 @@ export default {
     ...mapState([
       'userProfile'
     ])
+  },
+  computed: {
+    ...mapState([
+      'userProfile'
+    ])
+  },
+  mounted () {
+    // const user = this.userProfile
+    // this.user = user
   }
 }
 </script>

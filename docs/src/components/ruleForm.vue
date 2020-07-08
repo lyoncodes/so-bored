@@ -103,8 +103,7 @@ export default {
     ...mapState([
       'userProfile',
       'Menu',
-      'Cards',
-      'allCards'
+      'Cards'
     ])
   },
   methods: {
@@ -124,7 +123,7 @@ export default {
       this.formData.type = type
     },
     handleSubmit () {
-      const { locked, title, text, type, active, updating, annotations, annotationType, annotationValidation } = this.formData
+      const { locked, title, text, type, active, updating, annotations, annotationType } = this.formData
       const id = this.Cards.length
       const card = {
         locked,
@@ -135,8 +134,7 @@ export default {
         active,
         updating,
         annotations,
-        annotationType,
-        annotationValidation
+        annotationType
       }
       if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
         return alert('Error handling: fix length')

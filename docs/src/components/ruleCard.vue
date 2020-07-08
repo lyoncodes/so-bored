@@ -77,7 +77,8 @@ export default {
   computed: {
     ...mapState([
       'Cards',
-      'pinnedCards'
+      'pinnedCards',
+      'rules'
     ])
   },
   methods: {
