@@ -6,6 +6,7 @@ export default {
   async login ({ dispatch }, form) {
     const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password)
     dispatch('fetchUserProfile', user)
+    dispatch('fetchRules')
   },
   // signs user up and saves doc in firebase with set() method
   async signUp ({ dispatch }, form) {
@@ -17,14 +18,21 @@ export default {
     dispatch('fetchUserProfile', user)
   },
   // get() for user profile via user.uid
-  async fetchUserProfile ({ commit }, user) {
-    console.log('userfetched: ' + user.email)
+  async fetchUserProfile ({ commit, dispatch }, user) {
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
     console.log('userProf: ' + Object.keys(userProfile))
     commit('setUserProfile', userProfile.data())
     if (router.currentRoute.path === '/login') {
       router.push('/')
     }
+  },
+  async fetchRules ({ commit }) {
+    const rule = firebase.rulesCollection
+    const snapshot = await rule.get()
+    const ruleData = []
+    snapshot.forEach(el => ruleData.push(el.data()))
+    console.log(ruleData)
+    commit('setRuleCards', ruleData)
   },
   // logs user out and resets current user obj
   async logout ({ commit }) {

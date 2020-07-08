@@ -103,8 +103,7 @@ export default {
     ...mapState([
       'userProfile',
       'Menu',
-      'Cards',
-      'allCards'
+      'Cards'
     ])
   },
   methods: {
