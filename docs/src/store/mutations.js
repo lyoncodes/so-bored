@@ -1,3 +1,4 @@
+import * as firebase from '../../firebase'
 export default {
   // add user to userProfile data
   setUserProfile (state, val) {
@@ -7,14 +8,25 @@ export default {
     state.rules = ruleData
   },
   // add card from add card form
-  addRule: (state, card) => {
-    const test = state.Cards.filter(el => {
+  async addRule (state, card) {
+    const filteredTitle = state.rules.filter(el => {
       if (el.title === card.title) {
         return el
       }
     })
-    if (!test.length) {
-      state.Cards.push(card)
+    if (!filteredTitle.length) {
+      state.rules.push(card)
+      // save to db
+      await firebase.rulesCollection.doc(card.title).set({
+        locked: card.locked,
+        type: card.type,
+        title: card.title,
+        text: card.text,
+        id: card.id,
+        active: card.active,
+        updating: card.updating,
+        annotations: card.annotations
+      })
     } else alert('this title already exists! Try another entry')
   },
   // append card after switch is active
