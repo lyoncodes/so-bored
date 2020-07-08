@@ -41,7 +41,7 @@ export default {
   },
   // change state of cards to updating
   updateCardField: (state, card) => {
-    const arr = [...state.Cards, ...state.pinnedCards]
+    const arr = [...state.rules, ...state.pinnedCards]
     arr.map(el => {
       if (el.id === card.id) {
         el.updating = !el.updating
