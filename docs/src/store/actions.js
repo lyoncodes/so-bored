@@ -1,5 +1,6 @@
 import * as firebase from '../../firebase'
 import router from '../router/index'
+import { firestore } from 'firebase'
 
 export default {
   // logs user in
@@ -77,7 +78,14 @@ export default {
     commit('replaceCardRule', card)
   },
   // annotate
-  annotateCard: ({ commit }, card) => {
+  async annotateCard ({ commit }, card) {
+    const rules = firebase.rulesCollection
+    const ruleSet = await rules.get()
+    const ruleId = ruleSet.docs[card.idx].id
+    const ruleRef = rules.doc(ruleId)
+    await ruleRef.update({
+      annotations: firestore.FieldValue.arrayUnion(card)
+    })
     commit('submitAnnotation', card)
   },
   // deletes card in Cards and pinnedCards arrays

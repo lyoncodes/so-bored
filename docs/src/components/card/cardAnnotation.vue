@@ -51,7 +51,7 @@ export default {
       this.showAnnotations = !this.showAnnotations
     },
     validateCharCount () {
-      this.rule.annotationValidation.errorMsg = this.annotationData.text.length > this.rule.annotationValidation.charLimit ? 'Too Many' : null
+      this.annotationValidation.errorMsg = this.annotationData.text.length > this.annotationValidation.charLimit ? 'Too Many' : null
     },
     submitAnnotation (annotationData) {
       this.annotationData.annotationType = true
