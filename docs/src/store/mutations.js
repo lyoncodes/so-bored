@@ -5,6 +5,8 @@ export default {
     state.userProfile = val
   },
   setRuleCards (state, ruleData) {
+    const active = ruleData.filter(el => el.active)
+    state.pinnedCards = active
     state.rules = ruleData
   },
   // add card from add card form
