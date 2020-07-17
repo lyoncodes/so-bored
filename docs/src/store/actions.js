@@ -50,10 +50,10 @@ export default {
   async submitRule ({ commit }, card) {
     commit('addRule', card)
   },
-  // appends card to UI
+  // updates card in firebase to active
   async appendCard ({ commit, dispatch }, card) {
     dispatch('fetchRuleCollection').then((res) => {
-      const ruleId = res[card.idx].id
+      const ruleId = res[card.idx - 1].id
       firebase.rulesCollection.doc(ruleId).update({
         active: true
       })
@@ -93,11 +93,12 @@ export default {
     })
     commit('submitAnnotation', card)
   },
-  // deletes card in Cards and pinnedCards arrays
+  // hides pin
   async hidePin ({ commit }, card) {
+    console.log(card)
     const rules = firebase.rulesCollection
     const ruleSet = await rules.get()
-    const ruleId = ruleSet.docs[card.idx].id
+    const ruleId = ruleSet.docs[card.idx - 1].id
     await rules.doc(ruleId).update({
       active: false
     })

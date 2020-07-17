@@ -34,13 +34,10 @@ export default {
   },
   // append card after switch is active
   activateRule: (state, card) => {
+    // console.log(card)
+    // const arr = [...state.rules, ...state.pinnedCards]
+    // console.log(arr)
     state.pinnedCards.push(card)
-    const arr = [...state.rules, ...state.pinnedCards]
-    return arr.map((el) => {
-      if (el.title === card.title) {
-        el.active = true
-      }
-    })
   },
   // change state of cards to updating (only needs front-end)
   updateCardField: (state, card) => {
