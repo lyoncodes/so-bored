@@ -42,7 +42,6 @@ export default {
   },
   computed: {
     ...mapState([
-      'Cards',
       'pinnedCards',
       'rules'
     ])
@@ -54,9 +53,6 @@ export default {
     ]),
     showAllCards () {
       this.showCards = !this.showCards
-      if (this.showCards && this.showFilterCards) {
-        this.showFilterCards = !this.showFilterCards
-      }
     },
     handleSwitch (card, idx) {
       const { locked, title, text, type, active, updating, annotations, tokenRef } = card
