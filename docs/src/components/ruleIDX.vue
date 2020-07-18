@@ -9,10 +9,10 @@
     b-button-group
       b-container.menu-row(v-if="showCards")
         b-button(
-        v-for="card in rules"
-        :key="card.idx"
+        v-for="(card, idx) in rules"
+        :key="idx"
         :class="{ selected: card.active }"
-        @click="handleSwitch(card)"
+        @click="handleSwitch(card, idx)"
         :disabled="card.updating") {{ card.title }}
 </template>
 
@@ -49,14 +49,18 @@ export default {
   methods: {
     ...mapActions([
       'appendCard',
-      'hidePin'
+      'hideCard'
     ]),
     showAllCards () {
       this.showCards = !this.showCards
     },
-    handleSwitch (card) {
-      card.active = !card.active
-      const { locked, title, text, type, active, updating, annotations, tokenRef, idx } = card
+    handleSwitch (card, idx) {
+      if (card.active) {
+        card.active = false
+      } else if (!card.active) {
+        card.active = true
+      }
+      const { locked, title, text, type, active, updating, annotations, tokenRef } = card
       const pinnedCard = {
         locked,
         title,
@@ -68,9 +72,7 @@ export default {
         annotations,
         tokenRef
       }
-      return (card.active) ? this.appendCard(pinnedCard) : this.hidePin(pinnedCard)
-      // return (!this.pinnedCards.length || (this.pinnedCards.length && !this.rules[idx].active)) ? this.appendCard(pinnedCard)
-      //   : (this.rules[idx].active) ? this.hidePin(pinnedCard) : null
+      return (card.active) ? this.appendCard(pinnedCard) : this.hideCard(pinnedCard)
     }
   },
   mounted () {

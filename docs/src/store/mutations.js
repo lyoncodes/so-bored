@@ -5,6 +5,7 @@ export default {
     state.userProfile = val
   },
   setRuleCards (state, ruleData) {
+    ruleData.map(el => console.log(el))
     const active = ruleData.filter(el => el.active)
     state.pinnedCards = active
     state.rules = ruleData

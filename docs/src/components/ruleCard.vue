@@ -85,7 +85,7 @@ export default {
     ...mapActions([
       'showUpdateField',
       'updateCard',
-      'hidePin'
+      'hideCard'
     ]),
     validateCharCount () {
       this.validation.charCount = this.updateData.text.length
@@ -128,7 +128,7 @@ export default {
       this.clearForm()
     },
     handleHide (card) {
-      this.hidePin(card)
+      this.hideCard(card)
     },
     clearForm () {
       this.updateData = {

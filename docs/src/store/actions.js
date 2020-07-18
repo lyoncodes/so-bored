@@ -37,7 +37,11 @@ export default {
     const rule = firebase.rulesCollection
     const snapshot = await rule.get()
     const ruleData = []
-    snapshot.forEach(el => ruleData.push(el.data()))
+    snapshot.forEach((el) => {
+      const rule = el.data()
+      rule.id = el.id
+      ruleData.push(el.data())
+    })
     commit('setRuleCards', ruleData)
   },
   // get() rulesCollection
@@ -53,17 +57,32 @@ export default {
   // updates card in firebase to active
   async appendCard ({ commit, dispatch }, card) {
     dispatch('fetchRuleCollection').then((res) => {
-      const ruleId = res[card.idx - 1].id
+      res.map((el) => {
+        console.log(card)
+        console.log(el.id)
+      })
+      const ruleId = res[card.idx].id
       firebase.rulesCollection.doc(ruleId).update({
         active: true
       })
     })
     commit('activateRule', card)
   },
+  // hides pin
+  async hideCard ({ commit }, card) {
+    console.log(card.idx)
+    const rules = firebase.rulesCollection
+    const ruleSet = await rules.get()
+    const ruleId = ruleSet.docs[card.idx].id
+    await rules.doc(ruleId).update({
+      active: false
+    })
+    commit('removeCard', card)
+  },
   // update/clear form fields
   async showUpdateField ({ commit, dispatch }, card) {
     dispatch('fetchRuleCollection').then((res) => {
-      const ruleId = res[card.idx].id
+      const ruleId = res[card.idx - 1].id
       firebase.rulesCollection.doc(ruleId).update({
         updating: !card.updating
       })
@@ -73,7 +92,7 @@ export default {
   // update card in Cards and pinnedcards arrays
   async updateCard ({ commit, dispatch }, card) {
     dispatch('fetchRuleCollection').then((res) => {
-      const ruleId = res[card.idx].id
+      const ruleId = res[card.idx - 1].id
       firebase.rulesCollection.doc(ruleId).update({
         title: card.title,
         text: card.text,
@@ -83,26 +102,15 @@ export default {
     commit('replaceCardRule', card)
   },
   // annotate
-  async annotateCard ({ commit }, card) {
-    const rules = firebase.rulesCollection
-    const ruleSet = await rules.get()
-    const ruleId = ruleSet.docs[card.idx].id
-    const ruleRef = rules.doc(ruleId)
-    await ruleRef.update({
-      annotations: firestore.FieldValue.arrayUnion(card)
+  async annotateCard ({ commit, dispatch }, card) {
+    dispatch('fetchRuleCollection').then(async (res) => {
+      const ruleId = res[card.idx - 1].id
+      const ref = firebase.rulesCollection.doc(ruleId)
+      await ref.update({
+        annotations: firestore.FieldValue.arrayUnion(card)
+      })
     })
     commit('submitAnnotation', card)
-  },
-  // hides pin
-  async hidePin ({ commit }, card) {
-    console.log(card)
-    const rules = firebase.rulesCollection
-    const ruleSet = await rules.get()
-    const ruleId = ruleSet.docs[card.idx - 1].id
-    await rules.doc(ruleId).update({
-      active: false
-    })
-    commit('removeCard', card)
   },
   // filters by type
   filterAction: ({ commit }, type) => {

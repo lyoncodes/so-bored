@@ -23,11 +23,6 @@ export default {
       'userProfile'
     ])
   },
-  computed: {
-    ...mapState([
-      'userProfile'
-    ])
-  },
   mounted () {
     // const user = this.userProfile
     // this.user = user
