@@ -5,8 +5,8 @@ export default {
     state.userProfile = val
   },
   setRuleCards (state, ruleData) {
-    const active = ruleData.filter(el => el.active)
-    state.pinnedCards = active
+    // const active = ruleData.filter(el => el.active)
+    // state.pinnedCards = active
     state.rules = ruleData
   },
   // add card from add card form
@@ -34,13 +34,10 @@ export default {
   },
   // append card after switch is active
   activateRule: (state, card) => {
+    // console.log(card)
+    // const arr = [...state.rules, ...state.pinnedCards]
+    // console.log(arr)
     state.pinnedCards.push(card)
-    const arr = [...state.rules, ...state.pinnedCards]
-    return arr.map((el) => {
-      if (el.title === card.title) {
-        el.active = true
-      }
-    })
   },
   // change state of cards to updating (only needs front-end)
   updateCardField: (state, card) => {
@@ -73,17 +70,12 @@ export default {
   // deactivates card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
     const filtered = state.pinnedCards.filter((el) => {
-      if (el.idx !== card.idx) {
-        card.active = false
+      if (el.id !== card.id) {
+        el.active = false
         return el
       }
     })
     state.pinnedCards = filtered
-    return state.rules.map((el) => {
-      if (el.idx === card.idx) {
-        el.active = false
-      }
-    })
   },
   // filters rules in all Rules
   filterRules: (state, type) => {
