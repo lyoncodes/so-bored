@@ -41,9 +41,9 @@ export default {
   },
   // change state of cards to updating (only needs front-end)
   updateCardField: (state, card) => {
-    const arr = [...state.rules, ...state.pinnedCards]
+    const arr = [...state.rules]
     arr.map(el => {
-      if (el.idx === card.idx) {
+      if (el.id === card.id) {
         el.updating = !el.updating
       }
     })
@@ -61,8 +61,8 @@ export default {
   },
   // annotates card
   submitAnnotation: (state, card) => {
-    state.pinnedCards.map(el => {
-      if (el.idx === card.idx) {
+    state.rules.map(el => {
+      if (el.id === card.id) {
         el.annotations.push(card)
       }
     })

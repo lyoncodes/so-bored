@@ -55,12 +55,12 @@ export default {
     },
     submitAnnotation (annotationData) {
       this.annotationData.annotationType = true
-      const idx = this.$props.rule.idx
+      const id = this.$props.rule.id
       const { text, author, annotationType } = this.annotationData
       const annotationPayload = {
         text,
         author,
-        idx,
+        id,
         annotationType
       }
       if (this.annotationData.text.length) {
