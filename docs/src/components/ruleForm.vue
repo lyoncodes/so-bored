@@ -124,7 +124,7 @@ export default {
     },
     handleSubmit () {
       const { locked, title, text, type, active, updating, annotations, annotationType } = this.formData
-      const idx = this.rules.length
+      const idx = this.rules.length + 1
       const card = {
         locked,
         title,

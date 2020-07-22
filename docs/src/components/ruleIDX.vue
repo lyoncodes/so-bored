@@ -49,26 +49,32 @@ export default {
   methods: {
     ...mapActions([
       'appendCard',
-      'hidePin'
+      'hideCard'
     ]),
     showAllCards () {
       this.showCards = !this.showCards
     },
     handleSwitch (card, idx) {
-      const { locked, title, text, type, active, updating, annotations, tokenRef } = card
+      // conditions to toggle switch ==== REFACTOR
+      if (card.active) {
+        card.active = false
+      } else if (!card.active) {
+        card.active = true
+      }
+      const { locked, title, text, type, active, updating, annotations, tokenRef, id } = card
       const pinnedCard = {
         locked,
         title,
         text,
         idx,
+        id,
         type,
         active,
         updating,
         annotations,
         tokenRef
       }
-      return (!this.pinnedCards.length || (this.pinnedCards.length && !this.rules[idx].active)) ? this.appendCard(pinnedCard)
-        : (this.rules[idx].active) ? this.hidePin(pinnedCard) : null
+      return (card.active) ? this.appendCard(pinnedCard) : this.hideCard(pinnedCard)
     }
   },
   mounted () {

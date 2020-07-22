@@ -1,6 +1,6 @@
 <template lang="pug">
   b-container
-    ruleIDX
+    //- ruleIDX
     //- ruleFilter
     ruleCard(
       :validation="formChar"
