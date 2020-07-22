@@ -92,9 +92,12 @@ export default {
   // update/clear form fields
   async showUpdateField ({ commit, dispatch }, card) {
     dispatch('fetchRuleCollection').then((res) => {
-      const ruleId = res[card.idx - 1].id
-      firebase.rulesCollection.doc(ruleId).update({
-        updating: !card.updating
+      res.map(async (el) => {
+        if (el.id === card.id) {
+          firebase.rulesCollection.doc(card.id).update({
+            updating: !card.updating
+          })
+        }
       })
     })
     commit('updateCardField', card)
@@ -102,11 +105,14 @@ export default {
   // update card in Cards and pinnedcards arrays
   async updateCard ({ commit, dispatch }, card) {
     dispatch('fetchRuleCollection').then((res) => {
-      const ruleId = res[card.idx - 1].id
-      firebase.rulesCollection.doc(ruleId).update({
-        title: card.title,
-        text: card.text,
-        updating: !card.updating
+      res.map(async (el) => {
+        if (el.id === card.id) {
+          firebase.rulesCollection.doc(card.id).update({
+            title: card.title,
+            text: card.text,
+            updating: !card.updating
+          })
+        }
       })
     })
     commit('replaceCardRule', card)
@@ -114,10 +120,13 @@ export default {
   // annotate
   async annotateCard ({ commit, dispatch }, card) {
     dispatch('fetchRuleCollection').then(async (res) => {
-      const ruleId = res[card.idx - 1].id
-      const ref = firebase.rulesCollection.doc(ruleId)
-      await ref.update({
-        annotations: firestore.FieldValue.arrayUnion(card)
+      res.map(async (el) => {
+        if (el.id === card.id) {
+          const ref = firebase.rulesCollection.doc(card.id)
+          await ref.update({
+            annotations: firestore.FieldValue.arrayUnion(card)
+          })
+        }
       })
     })
     commit('submitAnnotation', card)
