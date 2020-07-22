@@ -55,17 +55,19 @@ export default {
       this.showCards = !this.showCards
     },
     handleSwitch (card, idx) {
+      // conditions to toggle switch ==== REFACTOR
       if (card.active) {
         card.active = false
       } else if (!card.active) {
         card.active = true
       }
-      const { locked, title, text, type, active, updating, annotations, tokenRef } = card
+      const { locked, title, text, type, active, updating, annotations, tokenRef, id } = card
       const pinnedCard = {
         locked,
         title,
         text,
         idx,
+        id,
         type,
         active,
         updating,

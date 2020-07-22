@@ -40,7 +40,7 @@ export default {
     snapshot.forEach((el) => {
       const rule = el.data()
       rule.id = el.id
-      ruleData.push(el.data())
+      ruleData.push(rule)
     })
     commit('setRuleCards', ruleData)
   },
@@ -51,33 +51,43 @@ export default {
     return snapshot.docs
   },
   // add card from add card form
-  async submitRule ({ commit }, card) {
+  async submitRule ({ commit, dispatch }, card) {
     commit('addRule', card)
+    dispatch('fetchRules')
   },
   // updates card in firebase to active
   async appendCard ({ commit, dispatch }, card) {
     dispatch('fetchRuleCollection').then((res) => {
       res.map((el) => {
-        console.log(card)
-        console.log(el.id)
-      })
-      const ruleId = res[card.idx].id
-      firebase.rulesCollection.doc(ruleId).update({
-        active: true
+        if (el.id === card.id) {
+          if (!el.active) {
+            firebase.rulesCollection.doc(card.id).update({
+              active: true
+            })
+          }
+        }
       })
     })
     commit('activateRule', card)
   },
-  // hides pin
-  async hideCard ({ commit }, card) {
-    console.log(card.idx)
-    const rules = firebase.rulesCollection
-    const ruleSet = await rules.get()
-    const ruleId = ruleSet.docs[card.idx].id
-    await rules.doc(ruleId).update({
-      active: false
+  // Toggles card.active property value in database
+  async toggleShow ({ commit, dispatch }, card) {
+    dispatch('fetchRuleCollection').then((res) => {
+      res.map(async (el) => {
+        if (el.id === card.id) {
+          const ref = firebase.rulesCollection.doc(card.id)
+          if (card.active) {
+            await ref.update({
+              active: true
+            })
+          } else {
+            await ref.update({
+              active: false
+            })
+          }
+        }
+      })
     })
-    commit('removeCard', card)
   },
   // update/clear form fields
   async showUpdateField ({ commit, dispatch }, card) {
