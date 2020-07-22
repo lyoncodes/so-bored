@@ -8,11 +8,7 @@ export default [
     id: 0,
     active: false,
     updating: false,
-    annotations: [],
-    annotationValidation: {
-      charLimit: 60,
-      errorMsg: String
-    }
+    annotations: []
   },
   {
     locked: false,

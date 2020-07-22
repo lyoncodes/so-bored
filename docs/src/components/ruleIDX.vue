@@ -42,36 +42,39 @@ export default {
   },
   computed: {
     ...mapState([
-      'Cards',
       'pinnedCards',
       'rules'
     ])
   },
   methods: {
     ...mapActions([
-      'pinCard',
-      'hidePin'
+      'appendCard',
+      'hideCard'
     ]),
     showAllCards () {
       this.showCards = !this.showCards
-      if (this.showCards && this.showFilterCards) {
-        this.showFilterCards = !this.showFilterCards
-      }
     },
     handleSwitch (card, idx) {
-      const { locked, title, text, id, type, active, annotations, annotationValidation } = card
+      // conditions to toggle switch ==== REFACTOR
+      if (card.active) {
+        card.active = false
+      } else if (!card.active) {
+        card.active = true
+      }
+      const { locked, title, text, type, active, updating, annotations, tokenRef, id } = card
       const pinnedCard = {
         locked,
         title,
         text,
+        idx,
         id,
         type,
         active,
+        updating,
         annotations,
-        annotationValidation
+        tokenRef
       }
-      return (!this.pinnedCards.length || (this.pinnedCards.length && !this.rules[idx].active)) ? this.pinCard(pinnedCard)
-        : (this.rules[idx].active) ? this.hidePin(pinnedCard) : null
+      return (card.active) ? this.appendCard(pinnedCard) : this.hideCard(pinnedCard)
     }
   },
   mounted () {

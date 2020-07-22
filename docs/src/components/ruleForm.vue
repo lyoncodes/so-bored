@@ -103,7 +103,7 @@ export default {
     ...mapState([
       'userProfile',
       'Menu',
-      'Cards'
+      'rules'
     ])
   },
   methods: {
@@ -124,13 +124,13 @@ export default {
     },
     handleSubmit () {
       const { locked, title, text, type, active, updating, annotations, annotationType } = this.formData
-      const id = this.Cards.length
+      const idx = this.rules.length + 1
       const card = {
         locked,
         title,
         text,
         type,
-        id,
+        idx,
         active,
         updating,
         annotations,
