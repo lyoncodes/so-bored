@@ -131,6 +131,30 @@ export default {
     })
     commit('submitAnnotation', card)
   },
+  async deleteCard ({ commit, dispatch }, card) {
+    dispatch('fetchRuleCollection').then(async (res) => {
+      res.map(async (el) => {
+        if (el.id === card.id) {
+          const ref = firebase.rulesCollection.doc(card.id)
+          ref.delete()
+        }
+      })
+    })
+    commit('removeCard', card)
+  },
+  async deleteAnnotation ({ commit, dispatch }, annotation) {
+    dispatch('fetchRuleCollection').then(async (res) => {
+      res.map(async (el) => {
+        if (el.id === annotation.id) {
+          const ref = firebase.rulesCollection.doc(annotation.id)
+          await ref.update({
+            annotations: firestore.FieldValue.arrayRemove(annotation)
+          })
+        }
+      })
+    })
+    commit('removeAnnotation', annotation)
+  },
   // filters by type
   filterAction: ({ commit }, type) => {
     commit('filterRules', type)

@@ -11,6 +11,11 @@
             b-button.icon-trigger(@click="handleShow(card)" variant="primary"
             :disabled="card.updating")
               img.card-icon(src='../assets/add.svg')
+            //- delete (remove)
+            b-button.icon-trigger(@click="handleDelete(card)" variant="primary"
+            :disabled="card.updating"
+            )
+              img.card-icon(src='../assets/cancel.svg')
             //- CARD HEADING ----------
             b-col(v-if="!card.active")
               h3 {{card.title}}
@@ -90,7 +95,8 @@ export default {
     ...mapActions([
       'showUpdateField',
       'updateCard',
-      'toggleShow'
+      'toggleShow',
+      'deleteCard'
     ]),
     validateCharCount () {
       this.validation.charCount = this.updateData.text.length
@@ -130,6 +136,9 @@ export default {
     handleShow (card) {
       card.active = !card.active
       this.toggleShow(card)
+    },
+    handleDelete (card) {
+      this.deleteCard(card)
     },
     clearForm () {
       this.updateData = {
