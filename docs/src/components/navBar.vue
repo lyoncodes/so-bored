@@ -5,7 +5,7 @@
       img.nav-img(src='../assets/unearth-slate.svg')
     b-col.col-6
       router-link(to="/")  Home
-      router-link(to="/Menu")  Menu
+      router-link(to="/Rules")  Rules
     b-col.col-3
       a(
         @click="logout()"
