@@ -81,13 +81,12 @@ export default {
   },
   // deactivates card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
-    const filtered = state.pinnedCards.filter((el) => {
+    const filtered = state.rules.filter((el) => {
       if (el.id !== card.id) {
-        el.active = false
         return el
       }
     })
-    state.pinnedCards = filtered
+    state.rules = filtered
   },
   // filters rules in all Rules
   filterRules: (state, type) => {
