@@ -1,6 +1,7 @@
 <template lang="pug">
   b-card-group.card-grid
     b-container.card-container
+      h3(v-if="rules.length < 1") Add a rule to get started!
       b-row
         //- array iteration
         b-col.col-6(v-for="card in rules" :key="card.title")
