@@ -18,6 +18,7 @@
           b-button#submit-annotation(type="submit" variant="primary" v-if="!annotationValidation.errorMsg" :disabled="!annotationData.text.length")
             img.annotate-icon(src="../../assets/add.svg")
         p.annotations(v-for="annotation in rule.annotations") {{ annotation.text }}
+          b-button(@click="handleDelete(annotation)") Delete
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -30,7 +31,7 @@ export default {
       annotationData: {
         text: '',
         author: '',
-        annotationType: false
+        annotationType: true
       },
       annotationValidation: {
         charLimit: 60,
@@ -45,7 +46,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'annotateCard'
+      'annotateCard',
+      'deleteAnnotation'
     ]),
     toggleAnnotations () {
       this.showAnnotations = !this.showAnnotations
@@ -72,6 +74,9 @@ export default {
         annotationType: false
       }
       this.showAnnotations = false
+    },
+    handleDelete (annotation) {
+      this.deleteAnnotation(annotation)
     }
   },
   mounted () {

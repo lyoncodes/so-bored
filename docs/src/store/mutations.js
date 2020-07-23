@@ -67,6 +67,18 @@ export default {
       }
     })
   },
+  removeAnnotation: (state, card) => {
+    state.rules.map(el => {
+      if (el.id === card.id) {
+        const filteredAnnotations = el.annotations.filter(el => {
+          if (el.text !== card.text) {
+            return el
+          }
+        })
+        el.annotations = filteredAnnotations
+      }
+    })
+  },
   // deactivates card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
     const filtered = state.pinnedCards.filter((el) => {
