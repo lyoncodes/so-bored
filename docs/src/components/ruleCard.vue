@@ -1,7 +1,6 @@
 <template lang="pug">
   b-card-group.card-grid
     b-container.card-container
-      h3(v-if="rules.length < 1") Add a rule to get started!
       b-row
         //- array iteration
         b-col.col-6(v-for="card in rules" :key="card.title")
@@ -21,6 +20,7 @@
             b-col(v-if="!card.active")
               h3 {{card.title}}
               b-badge {{card.type}}
+            //- CARD BODY ----------
             b-col(v-if="card.active")
               //- CARD NAV ------------
               b-row.mb-4.justify-content-start
@@ -30,7 +30,10 @@
                   //- handle update & cancel
                   b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
                     img.card-icon(src='../assets/smPen.svg')
-              //- title --------------
+                  //- annotate
+                  b-button.icon-trigger(v-if="card.active" @click="toggleAnnotations" variant="primary")
+                    img.card-icon(src='../assets/annotate.svg')
+              //- title form ------------
               h3(v-if="!card.updating") {{card.title}}
               b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
                 b-row.justify-content-center.pt-3(v-if="validation.titleCount > validation.titleLimit")
@@ -41,7 +44,7 @@
                   :placeholder="updateData.title"
                 )
                 a.validation-char {{updateData.title.length}} / {{validation.titleLimit}}
-              //- rule text ------
+              //- text form ------------
               b-card-text(v-if="!card.updating") {{card.text}}
               b-form.mt-3(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
                 b-row(v-if="validation.charCount > validation.charLimit")
@@ -55,9 +58,14 @@
                 a.validation-char {{updateData.text.length}} / {{validation.charLimit}}
                 b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
                   img.card-icon(src='../assets/add.svg')
-              cardAnnotation(
-                :rule="card"
-              )
+              //- annotation comp ------------
+              b-col(v-if="showAnnotations")
+                cardAnnotation(
+                  :rule="card"
+                )
+              //- CARD footer
+              b-col(v-if="card.active")
+                b-badge {{card.type}}
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -79,7 +87,8 @@ export default {
         updateRule: 'Update Rule',
         cancelBtn: 'Nvm',
         hideBtn: 'Hide'
-      }
+      },
+      showAnnotations: false
     }
   },
   components: {
@@ -87,16 +96,14 @@ export default {
   },
   computed: {
     ...mapState([
-      'Cards',
-      'pinnedCards',
       'rules'
     ])
   },
   methods: {
     ...mapActions([
       'showUpdateField',
-      'updateCard',
       'toggleShow',
+      'updateCard',
       'deleteCard'
     ]),
     validateCharCount () {
@@ -116,7 +123,7 @@ export default {
       const payload = this.cardFormat(card)
       const { locked, type, idx, id, updating, annotations, tokenRef } = payload
       const { title, text } = this.updateData
-      const ruleUpdate = {
+      const ruleUpdatePayload = {
         locked,
         type,
         title,
@@ -127,10 +134,10 @@ export default {
         annotations,
         tokenRef
       }
-      if (ruleUpdate.text.length > this.validation.charLimit || ruleUpdate.title.length > this.validation.titleLimit) {
+      if (ruleUpdatePayload.text.length > this.validation.charLimit || ruleUpdatePayload.title.length > this.validation.titleLimit) {
         return alert('Error handling: fix length')
       }
-      this.updateCard(ruleUpdate)
+      this.updateCard(ruleUpdatePayload)
       card.updating = false
       this.clearForm()
     },
@@ -140,6 +147,9 @@ export default {
     },
     handleDelete (card) {
       this.deleteCard(card)
+    },
+    toggleAnnotations () {
+      this.showAnnotations = !this.showAnnotations
     },
     clearForm () {
       this.updateData = {
@@ -166,7 +176,7 @@ export default {
     }
   },
   mounted () {
-    const card = this.Cards
+    const card = this.rules
     this.card = card
   }
 
