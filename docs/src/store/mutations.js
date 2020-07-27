@@ -26,7 +26,8 @@ export default {
         text: card.text,
         active: card.active,
         updating: card.updating,
-        annotations: card.annotations
+        annotations: card.annotations,
+        links: card.links
       })
     } else alert('this title already exists! Try another entry')
   },
@@ -65,6 +66,14 @@ export default {
           return (el.text !== card.text) ? el : null
         })
         el.annotations = filteredAnnotations
+      }
+    })
+  },
+  // adds LinkBox
+  addLink: (state, link) => {
+    state.rules.map(el => {
+      if (el.id === link.id) {
+        el.links.push(link)
       }
     })
   },

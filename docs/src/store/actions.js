@@ -157,6 +157,19 @@ export default {
     })
     commit('removeAnnotation', annotation)
   },
+  async attachLink ({ commit, dispatch }, link) {
+    dispatch('fetchRuleCollection').then(async (res) => {
+      res.map(async (el) => {
+        if (el.id === link.id) {
+          const ref = firebase.rulesCollection.doc(link.id)
+          await ref.update({
+            links: firestore.FieldValue.arrayUnion(link)
+          })
+        }
+      })
+    })
+    commit('addLink', link)
+  },
   // filters by type
   filterAction: ({ commit }, type) => {
     commit('filterRules', type)
