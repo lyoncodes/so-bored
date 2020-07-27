@@ -32,7 +32,7 @@ export default {
       router.push('/')
     }
   },
-  // fetches rules, sets cards array to fetched rules
+  // fetches rules, calls mutation to assign fetched rules to rules array in state
   async fetchRules ({ commit }) {
     const rule = firebase.rulesCollection
     const snapshot = await rule.get()
@@ -50,6 +50,15 @@ export default {
     const snapshot = await rule.get()
     return snapshot.docs
   },
+  async mapRes ({ dispatch }, data) {
+    return new Promise((resolve, reject) => {
+      dispatch('fetchRuleCollection').then((res) => {
+        res.map((el) => {
+          return el.id === data.id ? resolve(firebase.rulesCollection.doc(data.id)) : null
+        })
+      })
+    })
+  },
   // add card from add card form
   async submitRule ({ commit, dispatch }, card) {
     commit('addRule', card)
@@ -57,115 +66,76 @@ export default {
   },
   // delete card from db, calls mutation to remove card from rules in state
   async deleteCard ({ commit, dispatch }, card) {
-    dispatch('fetchRuleCollection').then(async (res) => {
-      res.map(async (el) => {
-        if (el.id === card.id) {
-          const ref = firebase.rulesCollection.doc(card.id)
-          ref.delete()
-        }
-      })
+    dispatch('mapRes', card).then(res => {
+      res.delete()
     })
     commit('removeCard', card)
   },
   // updates card in firebase to active
   async appendCard ({ commit, dispatch }, card) {
-    dispatch('fetchRuleCollection').then((res) => {
-      res.map((el) => {
-        if (el.id === card.id) {
-          if (!el.active) {
-            firebase.rulesCollection.doc(card.id).update({
-              active: true
-            })
-          }
-        }
+    dispatch('mapRes', card).then(res => {
+      res.update({
+        active: true
       })
     })
     commit('activateRule', card)
   },
   // Toggles card.active property value in database
   async toggleShow ({ dispatch }, card) {
-    dispatch('fetchRuleCollection').then((res) => {
-      res.map(async (el) => {
-        if (el.id === card.id) {
-          const ref = firebase.rulesCollection.doc(card.id)
-          if (card.active) {
-            await ref.update({
-              active: true
-            })
-          } else {
-            await ref.update({
-              active: false
-            })
-          }
-        }
-      })
+    dispatch('mapRes', card).then(async (res) => {
+      if (card.active) {
+        await res.update({
+          active: true
+        })
+      } else {
+        await res.update({
+          active: false
+        })
+      }
     })
   },
   // update/clear form fields
   async showUpdateField ({ commit, dispatch }, card) {
-    dispatch('fetchRuleCollection').then((res) => {
-      res.map(async (el) => {
-        if (el.id === card.id) {
-          firebase.rulesCollection.doc(card.id).update({
-            updating: !card.updating
-          })
-        }
+    dispatch('mapRes', card).then((res) => {
+      res.update({
+        updating: !card.updating
       })
     })
     commit('updateCardField', card)
   },
   // update card in db and call mutation to update card in state
   async updateCard ({ commit, dispatch }, updateData) {
-    dispatch('fetchRuleCollection').then((res) => {
-      res.map(async (el) => {
-        if (el.id === updateData.id) {
-          firebase.rulesCollection.doc(updateData.id).update({
-            title: updateData.title,
-            text: updateData.text,
-            updating: !updateData.updating
-          })
-        }
+    dispatch('mapRes', updateData).then((res) => {
+      res.update({
+        title: updateData.title,
+        text: updateData.text,
+        updating: !updateData.updating
       })
     })
     commit('replaceCardRule', updateData)
   },
   // add annotation to annotation array of card object in db and call mutation to annotate card in state
   async annotateCard ({ commit, dispatch }, card) {
-    dispatch('fetchRuleCollection').then(async (res) => {
-      res.map(async (el) => {
-        if (el.id === card.id) {
-          const ref = firebase.rulesCollection.doc(card.id)
-          await ref.update({
-            annotations: firestore.FieldValue.arrayUnion(card)
-          })
-        }
+    dispatch('mapRes', card).then((res) => {
+      res.update({
+        annotations: firestore.FieldValue.arrayUnion(card)
       })
     })
     commit('submitAnnotation', card)
   },
   // delete annotation to annotation array of card object in db and call mutation to remove annotation in state
   async deleteAnnotation ({ commit, dispatch }, annotation) {
-    dispatch('fetchRuleCollection').then(async (res) => {
-      res.map(async (el) => {
-        if (el.id === annotation.id) {
-          const ref = firebase.rulesCollection.doc(annotation.id)
-          await ref.update({
-            annotations: firestore.FieldValue.arrayRemove(annotation)
-          })
-        }
+    dispatch('mapRes', annotation).then((res) => {
+      res.update({
+        annotations: firestore.FieldValue.arrayRemove(annotation)
       })
     })
     commit('removeAnnotation', annotation)
   },
   async attachLink ({ commit, dispatch }, link) {
-    dispatch('fetchRuleCollection').then(async (res) => {
-      res.map(async (el) => {
-        if (el.id === link.id) {
-          const ref = firebase.rulesCollection.doc(link.id)
-          await ref.update({
-            links: firestore.FieldValue.arrayUnion(link)
-          })
-        }
+    dispatch('mapRes', link).then(async (res) => {
+      await res.update({
+        links: firestore.FieldValue.arrayUnion(link)
       })
     })
     commit('addLink', link)
