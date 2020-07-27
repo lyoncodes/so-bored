@@ -2,12 +2,9 @@
   b-container.mt-3
     b-row.justify-content-center
       b-col.col-8
-        button#edit-button.mr-2(
-          @click="toggleAnnotations")
-          img.annotate-icon(src='../../assets/annotate.svg')
-        a.validation-char(v-if="showAnnotations") {{annotationData.text.length}} / {{ annotationValidation.charLimit}}
+        a.validation-char {{annotationData.text.length}} / {{ annotationValidation.charLimit}}
       b-col.col-12
-        b-form.mb-2.mt-4(@submit.prevent="submitAnnotation(annotationData)" v-if="showAnnotations")
+        b-form.mb-2.mt-4(@submit.prevent="submitAnnotation(annotationData)")
           b-form-textarea(
             id="annotate-text"
             v-model="annotationData.text"
@@ -27,7 +24,6 @@ export default {
   props: ['rule'],
   data () {
     return {
-      showAnnotations: false,
       annotationData: {
         text: '',
         author: '',
@@ -41,7 +37,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'pinnedCards'
+      'rules'
     ])
   },
   methods: {
@@ -49,9 +45,6 @@ export default {
       'annotateCard',
       'deleteAnnotation'
     ]),
-    toggleAnnotations () {
-      this.showAnnotations = !this.showAnnotations
-    },
     validateCharCount () {
       this.annotationValidation.errorMsg = this.annotationData.text.length > this.annotationValidation.charLimit ? 'Too Many' : null
     },
@@ -73,7 +66,6 @@ export default {
         author: '',
         annotationType: false
       }
-      this.showAnnotations = false
     },
     handleDelete (annotation) {
       this.deleteAnnotation(annotation)

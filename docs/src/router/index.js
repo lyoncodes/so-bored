@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
-import Menu from '../views/Menu.vue'
+import Rules from '../views/Rules.vue'
 import { auth } from '../../firebase'
 
 Vue.use(VueRouter)
@@ -22,15 +22,15 @@ const routes = [
     component: Login
   },
   {
-    path: '/Menu',
-    name: 'Menu',
-    component: Menu,
+    path: '/Rules',
+    name: 'Rules',
+    component: Rules,
     meta: {
       requiresAuth: true
     }
   }
 ]
-
+// router stack
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,

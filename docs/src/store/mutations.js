@@ -1,25 +1,23 @@
 import * as firebase from '../../firebase'
 export default {
-  // add user to userProfile data
+  // update userProfile in the state to the user passed on login
   setUserProfile (state, val) {
     state.userProfile = val
   },
-  setRuleCards (state, ruleData) {
-    // const active = ruleData.filter(el => el.active)
-    // state.pinnedCards = active
-    state.rules = ruleData
+  // set rules in state to the rules retrieved from db
+  setRuleCards (state, rulePayload) {
+    state.rules = rulePayload
   },
-  // add card from add card form
+  // adds a rule to database
   async addRule (state, card) {
-    // checks if title already exists
+    // checks if rule title already exists
     const filteredTitle = state.rules.filter(el => {
-      if (el.title === card.title) {
-        return el
-      }
+      return (el.title === card.title) ? el : null
     })
     if (!filteredTitle.length) {
+      // adds card to rules in state
       state.rules.push(card)
-      // save to db
+      // adds card to rules in db
       await firebase.rulesCollection.add({
         locked: card.locked,
         type: card.type,
@@ -28,20 +26,14 @@ export default {
         text: card.text,
         active: card.active,
         updating: card.updating,
-        annotations: card.annotations
+        annotations: card.annotations,
+        links: card.links
       })
     } else alert('this title already exists! Try another entry')
   },
-  // append card after switch is active
-  activateRule: (state, card) => {
-    // console.log(card)
-    // const arr = [...state.rules, ...state.pinnedCards]
-    // console.log(arr)
-    state.pinnedCards.push(card)
-  },
-  // change state of cards to updating (only needs front-end)
+  // change state of cards to updating (disables buttons when card is being edited)
   updateCardField: (state, card) => {
-    const arr = [...state.rules]
+    const arr = state.rules
     arr.map(el => {
       if (el.id === card.id) {
         el.updating = !el.updating
@@ -50,12 +42,12 @@ export default {
   },
   // update card in cards and pinnedcards arrays & change state of cards to !updating
   async replaceCardRule (state, card) {
-    const arr = [...state.rules, ...state.pinnedCards]
+    const arr = state.rules
     arr.map((el) => {
-      if (el.idx === card.idx) {
+      if (el.id === card.id) {
         el.title = card.title
         el.text = card.text
-        el.updating = false
+        el.updating = !card.updating
       }
     })
   },
@@ -71,22 +63,26 @@ export default {
     state.rules.map(el => {
       if (el.id === card.id) {
         const filteredAnnotations = el.annotations.filter(el => {
-          if (el.text !== card.text) {
-            return el
-          }
+          return (el.text !== card.text) ? el : null
         })
         el.annotations = filteredAnnotations
       }
     })
   },
-  // deactivates card in Cards and pinnedCards arrays
-  removeCard: (state, card) => {
-    const filtered = state.rules.filter((el) => {
-      if (el.id !== card.id) {
-        return el
+  // adds LinkBox
+  addLink: (state, link) => {
+    state.rules.map(el => {
+      if (el.id === link.id) {
+        el.links.push(link)
       }
     })
-    state.rules = filtered
+  },
+  // deactivates card in Cards and pinnedCards arrays
+  removeCard: (state, card) => {
+    const newArray = state.rules.filter((el) => {
+      return (el.id !== card.id) ? el : null
+    })
+    state.rules = newArray
   },
   // filters rules in all Rules
   filterRules: (state, type) => {

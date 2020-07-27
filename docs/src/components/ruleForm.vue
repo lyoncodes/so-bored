@@ -91,11 +91,8 @@ export default {
         active: false,
         updating: false,
         annotations: [],
-        annotationType: false,
-        annotationValidation: {
-          charLimit: 100,
-          errorMsg: String
-        }
+        links: [],
+        annotationType: false
       }
     }
   },
@@ -123,7 +120,7 @@ export default {
       this.formData.type = type
     },
     handleSubmit () {
-      const { locked, title, text, type, active, updating, annotations, annotationType } = this.formData
+      const { locked, title, text, type, active, updating, annotations, links, annotationType } = this.formData
       const idx = this.rules.length + 1
       const card = {
         locked,
@@ -134,6 +131,7 @@ export default {
         active,
         updating,
         annotations,
+        links,
         annotationType
       }
       if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
@@ -141,9 +139,15 @@ export default {
       }
       this.submitRule(card)
       this.formData = {
+        locked: false,
         title: '',
         text: '',
-        type: ''
+        type: '',
+        active: false,
+        updating: false,
+        annotations: [],
+        links: [],
+        annotationType: false
       }
       this.showConfirm = true
       this.formChar = {
@@ -165,8 +169,6 @@ export default {
 .icon-trigger{
   border: 0em;
   box-shadow: none;
-  // padding: .25em 0 0 .25em;
-  // margin: 0 0 0 .5em;
   &:active, :focus, :hover{
   background: $border-g !important;
   outline: none;

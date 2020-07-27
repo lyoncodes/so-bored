@@ -1,5 +1,5 @@
 <template lang="pug">
-  #menu
+  #rules
     ruleBook
 </template>
 
