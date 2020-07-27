@@ -24,7 +24,6 @@ export default {
   props: ['rule'],
   data () {
     return {
-      showAnnotations: false,
       annotationData: {
         text: '',
         author: '',
@@ -46,9 +45,6 @@ export default {
       'annotateCard',
       'deleteAnnotation'
     ]),
-    toggleAnnotations () {
-      this.showAnnotations = !this.showAnnotations
-    },
     validateCharCount () {
       this.annotationValidation.errorMsg = this.annotationData.text.length > this.annotationValidation.charLimit ? 'Too Many' : null
     },
@@ -70,7 +66,6 @@ export default {
         author: '',
         annotationType: false
       }
-      this.showAnnotations = false
     },
     handleDelete (annotation) {
       this.deleteAnnotation(annotation)

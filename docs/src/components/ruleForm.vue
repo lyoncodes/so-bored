@@ -91,6 +91,7 @@ export default {
         active: false,
         updating: false,
         annotations: [],
+        links: [],
         annotationType: false
       }
     }
@@ -119,7 +120,7 @@ export default {
       this.formData.type = type
     },
     handleSubmit () {
-      const { locked, title, text, type, active, updating, annotations, annotationType } = this.formData
+      const { locked, title, text, type, active, updating, annotations, links, annotationType } = this.formData
       const idx = this.rules.length + 1
       const card = {
         locked,
@@ -130,6 +131,7 @@ export default {
         active,
         updating,
         annotations,
+        links,
         annotationType
       }
       if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
@@ -144,6 +146,7 @@ export default {
         active: false,
         updating: false,
         annotations: [],
+        links: [],
         annotationType: false
       }
       this.showConfirm = true

@@ -3,7 +3,7 @@
     b-container.card-container
       b-row
         //- array iteration
-        b-col.col-6(v-for="card in rules" :key="card.title")
+        b-col.col-md-6(v-for="card in rules" :key="card.title")
           //- card template
           b-card
             //- CARD ----------
@@ -24,15 +24,18 @@
             b-col(v-if="card.active")
               //- CARD NAV ------------
               b-row.mb-4.justify-content-start
-                b-col.p-0
+                b-col.p-0(v-if="card.active")
                   //- If rule locked, display lock
                   img.card-icon.pl-3(v-if="card.locked" src='../assets/Lock.svg')
                   //- handle update & cancel
                   b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
                     img.card-icon(src='../assets/smPen.svg')
                   //- annotate
-                  b-button.icon-trigger(v-if="card.active" @click="toggleAnnotations" variant="primary")
+                  b-button.icon-trigger(@click="toggleAnnotations" variant="primary")
                     img.card-icon(src='../assets/annotate.svg')
+                  //- add link
+                  b-button.icon-trigger(@click="toggleLinks" variant="primary")
+                    img.card-icon(src='../assets/Valid.svg')
               //- title form ------------
               h3(v-if="!card.updating") {{card.title}}
               b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
@@ -58,6 +61,13 @@
                 a.validation-char {{updateData.text.length}} / {{validation.charLimit}}
                 b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
                   img.card-icon(src='../assets/add.svg')
+              //- links comp ----------
+              b-row.justify-content-center(v-for="link in card.links")
+                a.links(@click="redirect(link)") {{ link.ref }}
+              b-col(v-if="showLinks")
+                cardLinks(
+                  :rule="card"
+                )
               //- annotation comp ------------
               b-col(v-if="showAnnotations")
                 cardAnnotation(
@@ -70,6 +80,7 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import cardAnnotation from '../components/card/cardAnnotation'
+import cardLinks from '../components/card/cardLinks'
 export default {
   name: 'activeRuleContainer',
   props: ['validation'],
@@ -88,11 +99,13 @@ export default {
         cancelBtn: 'Nvm',
         hideBtn: 'Hide'
       },
-      showAnnotations: false
+      showAnnotations: false,
+      showLinks: false
     }
   },
   components: {
-    cardAnnotation
+    cardAnnotation,
+    cardLinks
   },
   computed: {
     ...mapState([
@@ -151,6 +164,9 @@ export default {
     toggleAnnotations () {
       this.showAnnotations = !this.showAnnotations
     },
+    toggleLinks () {
+      this.showLinks = !this.showLinks
+    },
     clearForm () {
       this.updateData = {
         title: '',
@@ -173,8 +189,12 @@ export default {
         tokenRef
       }
       return cardPayload
+    },
+    redirect (link) {
+      window.location.href = `https://${link.url}`
     }
   },
+
   mounted () {
     const card = this.rules
     this.card = card
