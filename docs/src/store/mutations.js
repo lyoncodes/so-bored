@@ -6,6 +6,10 @@ export default {
   },
   // set rules in state to the rules retrieved from db
   setRuleCards (state, rulePayload) {
+    rulePayload.forEach((el, idx) => {
+      el.idx = idx
+    })
+    console.log(rulePayload)
     state.rules = rulePayload
   },
   // adds a rule to database
@@ -30,6 +34,10 @@ export default {
         links: card.links
       })
     } else alert('this title already exists! Try another entry')
+  },
+  // deactivates card in Cards and pinnedCards arrays
+  removeCard: (state, card) => {
+    state.rules.splice(card.idx, 1)
   },
   // change state of cards to updating (disables buttons when card is being edited)
   updateCardField: (state, card) => {
@@ -77,14 +85,11 @@ export default {
       }
     })
   },
-  // deactivates card in Cards and pinnedCards arrays
-  removeCard: (state, card) => {
-    const newArray = state.rules.filter((el) => {
-      return (el.id !== card.id) ? el : null
+  // maps rules in all Rules
+  mapRules: (state, card) => {
+    const val = state.rules.forEach(element => {
+      return element.id === card.id ? element : null
     })
-    state.rules = newArray
-  },
-  // filters rules in all Rules
-  filterRules: (state, type) => {
+    return val
   }
 }
