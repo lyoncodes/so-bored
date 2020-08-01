@@ -22,3 +22,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Notes from the devs
+```
+the state holds a cards array. The cards array is populated when a succesful data retrieval happens upon login and refresh. 

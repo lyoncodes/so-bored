@@ -133,14 +133,13 @@ export default {
     },
     submitUpdate (card) {
       const payload = this.cardFormat(card)
-      const { locked, type, idx, id, updating, annotations, tokenRef } = payload
+      const { locked, type, id, updating, annotations, tokenRef } = payload
       const { title, text } = this.updateData
       const ruleUpdatePayload = {
         locked,
         type,
         title,
         text,
-        idx,
         id,
         updating,
         annotations,
@@ -174,13 +173,12 @@ export default {
       }
     },
     cardFormat (card) {
-      const { locked, type, title, text, idx, id, active, updating, annotations, tokenRef } = card
+      const { locked, type, title, text, id, active, updating, annotations, tokenRef } = card
       const cardPayload = {
         locked,
         type,
         title,
         text,
-        idx,
         id,
         active,
         updating,
