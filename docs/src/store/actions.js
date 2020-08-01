@@ -61,6 +61,16 @@ export default {
   },
   // add card from add card form
   async submitRule ({ commit, dispatch }, card) {
+    await firebase.rulesCollection.add({
+      locked: card.locked,
+      type: card.type,
+      title: card.title,
+      text: card.text,
+      active: card.active,
+      updating: card.updating,
+      annotations: card.annotations,
+      links: card.links
+    })
     commit('addRule', card)
     dispatch('fetchRules')
   },

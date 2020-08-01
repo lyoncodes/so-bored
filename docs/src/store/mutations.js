@@ -1,4 +1,3 @@
-import * as firebase from '../../firebase'
 export default {
   // update userProfile in the state to the user passed on login
   setUserProfile (state, val) {
@@ -6,38 +5,25 @@ export default {
   },
   // set rules in state to the rules retrieved from db
   setRuleCards (state, rulePayload) {
-    rulePayload.forEach((el, idx) => {
-      el.idx = idx
-    })
-    console.log(rulePayload)
     state.rules = rulePayload
   },
   // adds a rule to database
   async addRule (state, card) {
     // checks if rule title already exists
-    const filteredTitle = state.rules.filter(el => {
+    const arrCopy = state.rules.filter(el => {
       return (el.title === card.title) ? el : null
     })
-    if (!filteredTitle.length) {
+    if (!arrCopy.length) {
       // adds card to rules in state
       state.rules.push(card)
-      // adds card to rules in db
-      await firebase.rulesCollection.add({
-        locked: card.locked,
-        type: card.type,
-        title: card.title,
-        idx: card.idx,
-        text: card.text,
-        active: card.active,
-        updating: card.updating,
-        annotations: card.annotations,
-        links: card.links
-      })
     } else alert('this title already exists! Try another entry')
   },
   // deactivates card in Cards and pinnedCards arrays
   removeCard: (state, card) => {
-    state.rules.splice(card.idx, 1)
+    const shallowArr = state.rules.filter((el) => {
+      return (el.id !== card.id) ? el : null
+    })
+    state.rules = shallowArr
   },
   // change state of cards to updating (disables buttons when card is being edited)
   updateCardField: (state, card) => {
@@ -49,9 +35,8 @@ export default {
     })
   },
   // update card in cards and pinnedcards arrays & change state of cards to !updating
-  async replaceCardRule (state, card) {
-    const arr = state.rules
-    arr.map((el) => {
+  replaceCardRule (state, card) {
+    state.rules.map((el) => {
       if (el.id === card.id) {
         el.title = card.title
         el.text = card.text
