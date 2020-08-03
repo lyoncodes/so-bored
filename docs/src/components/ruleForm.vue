@@ -139,6 +139,9 @@ export default {
       }
       card.payload = 'addRule'
       this.actionThis(card)
+      this.resetForm()
+    },
+    resetForm () {
       this.formData = {
         locked: false,
         title: '',
