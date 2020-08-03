@@ -61,11 +61,12 @@
               b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
                 img.card-icon(src='../assets/add.svg')
             //- links comp ----------
-            b-row.justify-content-center(v-for="link in card.links")
+            b-row.justify-content-center(v-for="link in card.links" :key="card.id")
               a.links(@click="redirect(link)") {{ link.ref }}
-            b-col(v-if="showLinks")
+            b-col
               cardLinks(
                 :rule="card"
+                v-if="showLinks"
               )
             //- annotation comp ------------
             b-col(v-if="showAnnotations")
@@ -113,34 +114,31 @@ export default {
   },
   methods: {
     ...mapActions([
-      'showUpdateField',
-      'toggleShow',
-      'updateCard',
-      'deleteCard'
+      'actionThis'
     ]),
     validateCharCount () {
       this.validation.charCount = this.updateData.text.length
       this.validation.titleCount = this.updateData.title.length
-      this.validation.errorMsg = this.updateData.title.length > this.validation.titleLimit || this.updateData.text.length > this.validation.charLimit ? 'Too Many!' : null
+      this.validation.errorMsg = this.updateData.title.length > this.validation.titleLimit || this.updateData.text.length > this.validation.charLimit ? 'Error: Char Count' : null
     },
     handleUpdate (card) {
       this.updateData.updating = !this.updateData.updating
       this.updateData.title = card.title
       this.updateData.text = card.text
       const payload = this.cardFormat(card)
+      payload.payload = 'toggleUpdateFields'
       this.$emit('cardUpdate', payload)
-      this.showUpdateField(payload)
+      this.actionThis(payload)
     },
     submitUpdate (card) {
       const payload = this.cardFormat(card)
-      const { locked, type, idx, id, updating, annotations, tokenRef } = payload
+      const { locked, type, id, updating, annotations, tokenRef } = payload
       const { title, text } = this.updateData
       const ruleUpdatePayload = {
         locked,
         type,
         title,
         text,
-        idx,
         id,
         updating,
         annotations,
@@ -149,16 +147,19 @@ export default {
       if (ruleUpdatePayload.text.length > this.validation.charLimit || ruleUpdatePayload.title.length > this.validation.titleLimit) {
         return alert('Error handling: fix length')
       }
-      this.updateCard(ruleUpdatePayload)
+      ruleUpdatePayload.payload = 'updateRule'
+      this.actionThis(ruleUpdatePayload)
       card.updating = false
       this.clearForm()
     },
     handleShow (card) {
       card.active = !card.active
-      this.toggleShow(card)
+      card.payload = 'toggleShow'
+      this.actionThis(card)
     },
     handleDelete (card) {
-      this.deleteCard(card)
+      card.payload = 'deleteRule'
+      this.actionThis(card)
     },
     toggleAnnotations () {
       this.showAnnotations = !this.showAnnotations
@@ -174,13 +175,12 @@ export default {
       }
     },
     cardFormat (card) {
-      const { locked, type, title, text, idx, id, active, updating, annotations, tokenRef } = card
+      const { locked, type, title, text, id, active, updating, annotations, tokenRef } = card
       const cardPayload = {
         locked,
         type,
         title,
         text,
-        idx,
         id,
         active,
         updating,

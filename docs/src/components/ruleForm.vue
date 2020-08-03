@@ -1,21 +1,21 @@
 <template lang="pug">
   b-container
-    button.labeled-button(@click="toggleCardForm")
-      span(v-if="!showCardForm") {{ buttonText.toggleMsg }}
-        img.card-icon.pl-3(src='../assets/add.svg')
-      span(v-if="showCardForm") {{ buttonText.errorMsg }}
-        img.card-icon.pl-3(src='../assets/cancel.svg')
-    b-row.justify-content-center.mt-3
-      b-form(@submit.prevent="handleSubmit" v-if="showCardForm")
-        b-card
+    b-card
+      b-col
+        button.labeled-button(@click="toggleCardForm")
+          span {{ buttonText.toggleMsg }}
+            img.card-icon-sm.pl-2(src='../assets/add.svg')
+      b-col(v-if="showCardForm")
+        b-form(@submit.prevent="handleSubmit")
           b-col
-            b-form-group(id="input-type")
-              b-button.type-links(
-                v-for="(select, idx) in Menu"
-                v-model="formData.type"
-                :key="idx"
-                :class="{ selected: formData.type === select.type }"
-                @click="submitType(select.type)") {{select.type}}
+            b-row.justify-content-center
+              b-form-group#input-type
+                b-button.type-links(
+                  v-for="(select, idx) in Menu"
+                  v-model="formData.type"
+                  :key="idx"
+                  :class="{ selected: formData.type === select.type }"
+                  @click="submitType(select.type)") {{select.type}}
             b-form-group.mt-5(id="input-title")
               b-row(v-if="formChar.titleCount > formChar.titleLimit")
                 b-badge(variant="danger") {{formChar.errorMsg}}
@@ -23,7 +23,7 @@
                 v-model="formData.title"
                 @keyup="validateCharCount()"
                 required
-                placeholder="Enter Rule Title"
+                placeholder="Enter Doc Title"
                 )
               a.validation-char {{formChar.titleCount}} / {{formChar.titleLimit}}
             b-form-group(id="input-card-text")
@@ -72,7 +72,7 @@ export default {
       showCardForm: false,
       showConfirm: false,
       buttonText: {
-        toggleMsg: 'Add Rule',
+        toggleMsg: 'Add Doc',
         errorMsg: 'Nvm'
       },
       formChar: {
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'submitRule'
+      'actionThis'
     ]),
     toggleCardForm () {
       this.showCardForm = !this.showCardForm
@@ -137,7 +137,11 @@ export default {
       if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
         return alert('Error handling: fix length')
       }
-      this.submitRule(card)
+      card.payload = 'addRule'
+      this.actionThis(card)
+      this.resetForm()
+    },
+    resetForm () {
       this.formData = {
         locked: false,
         title: '',
