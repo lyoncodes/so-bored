@@ -9,21 +9,6 @@ export default {
     dispatch('fetchUserProfile', user)
     dispatch('fetchRules')
   },
-  // logs user out and resets current user obj
-  async logout ({ commit }) {
-    await firebase.auth.signOut()
-    commit('setUserProfile', {})
-    router.push('/login')
-  },
-  // signs user up and saves doc in firebase with set() method
-  async signUp ({ dispatch }, form) {
-    const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
-    await firebase.usersCollection.doc(user.uid).set({
-      email: form.email,
-      password: form.password
-    })
-    dispatch('fetchUserProfile', user)
-  },
   // get() for user profile via user.uid
   async fetchUserProfile ({ commit }, user) {
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
@@ -44,6 +29,21 @@ export default {
     })
     commit('setRuleCards', rulePayload)
   },
+  // logs user out and resets current user obj
+  async logout ({ commit }) {
+    await firebase.auth.signOut()
+    commit('setUserProfile', {})
+    router.push('/login')
+  },
+  // signs user up and saves doc in firebase with set() method
+  async signUp ({ dispatch }, form) {
+    const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
+    await firebase.usersCollection.doc(user.uid).set({
+      email: form.email,
+      password: form.password
+    })
+    dispatch('fetchUserProfile', user)
+  },
   // get() rulesCollection
   async fetchRuleCollection () {
     const rule = firebase.rulesCollection
@@ -61,20 +61,20 @@ export default {
     })
   },
   async actionThis ({ commit, dispatch }, data) {
+    if (data.payload === 'addRule') {
+      await firebase.rulesCollection.add({
+        locked: data.locked,
+        type: data.type,
+        title: data.title,
+        text: data.text,
+        active: data.active,
+        updating: data.updating,
+        annotations: data.annotations,
+        links: data.links
+      })
+      dispatch('fetchRules')
+    }
     dispatch('mapRes', data).then(async (res) => {
-      if (data.payload === 'addRule') {
-        await firebase.rulesCollection.add({
-          locked: data.locked,
-          type: data.type,
-          title: data.title,
-          text: data.text,
-          active: data.active,
-          updating: data.updating,
-          annotations: data.annotations,
-          links: data.links
-        })
-        dispatch('fetchRules')
-      }
       if (data.payload === 'deleteRule') {
         res.delete()
       }
