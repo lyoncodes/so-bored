@@ -29,13 +29,17 @@ button {
 }
 .labeled-button {
   background: #fff;
-  padding: 1em;
+  padding: .75em;
+  border: 1px solid transparent;
   border-radius: .25em;
   transition: all 0.7s ease;
   &:hover {
-    background: $border-g;
-    color: #fff;
     box-shadow: none;
+    border: 1px solid $sherbert;
+    color: $sherbert
+  }
+  &:active {
+    background: #fff !important;
   }
 }
 .login-btn {

@@ -61,11 +61,12 @@
               b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
                 img.card-icon(src='../assets/add.svg')
             //- links comp ----------
-            b-row.justify-content-center(v-for="link in card.links")
+            b-row.justify-content-center(v-for="link in card.links" :key="card.id")
               a.links(@click="redirect(link)") {{ link.ref }}
-            b-col(v-if="showLinks")
+            b-col
               cardLinks(
                 :rule="card"
+                v-if="showLinks"
               )
             //- annotation comp ------------
             b-col(v-if="showAnnotations")

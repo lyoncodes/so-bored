@@ -50,6 +50,7 @@ export default {
     const snapshot = await rule.get()
     return snapshot.docs
   },
+  // map response for id, return found value
   async mapRes ({ dispatch }, data) {
     return new Promise((resolve, reject) => {
       dispatch('fetchRuleCollection').then((res) => {
@@ -71,7 +72,8 @@ export default {
       annotations: card.annotations,
       links: card.links
     })
-    commit('addRule', card)
+    card.payload = 'addRule'
+    commit('updateState', card)
     dispatch('fetchRules')
   },
   // delete card from db, calls mutation to remove card from rules in state
@@ -79,7 +81,8 @@ export default {
     dispatch('mapRes', card).then(res => {
       res.delete()
     })
-    commit('removeCard', card)
+    card.payload = 'deleteRule'
+    commit('updateState', card)
   },
   // updates card in firebase to active
   async appendCard ({ commit, dispatch }, card) {
@@ -111,7 +114,8 @@ export default {
         updating: !card.updating
       })
     })
-    commit('updateCardField', card)
+    card.payload = 'toggleUpdateFields'
+    commit('updateState', card)
   },
   // update card in db and call mutation to update card in state
   async updateCard ({ commit, dispatch }, updateData) {
@@ -122,7 +126,8 @@ export default {
         updating: !updateData.updating
       })
     })
-    commit('replaceCardRule', updateData)
+    updateData.payload = 'updateRule'
+    commit('updateState', updateData)
   },
   // add annotation to annotation array of card object in db and call mutation to annotate card in state
   async annotateCard ({ commit, dispatch }, card) {
@@ -131,7 +136,8 @@ export default {
         annotations: firestore.FieldValue.arrayUnion(card)
       })
     })
-    commit('submitAnnotation', card)
+    card.payload = 'addAnnotation'
+    commit('updateState', card)
   },
   // delete annotation to annotation array of card object in db and call mutation to remove annotation in state
   async deleteAnnotation ({ commit, dispatch }, annotation) {
@@ -140,7 +146,8 @@ export default {
         annotations: firestore.FieldValue.arrayRemove(annotation)
       })
     })
-    commit('removeAnnotation', annotation)
+    annotation.payload = 'deleteAnnotation'
+    commit('updateState', annotation)
   },
   async attachLink ({ commit, dispatch }, link) {
     dispatch('mapRes', link).then(async (res) => {
@@ -148,7 +155,8 @@ export default {
         links: firestore.FieldValue.arrayUnion(link)
       })
     })
-    commit('addLink', link)
+    link.payload = 'addLink'
+    commit('updateState', link)
   },
   // filters by type
   filterAction: ({ commit }, type) => {
