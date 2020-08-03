@@ -114,23 +114,21 @@ export default {
   },
   methods: {
     ...mapActions([
-      'showUpdateField',
-      'toggleShow',
-      'updateCard',
-      'deleteCard'
+      'actionThis'
     ]),
     validateCharCount () {
       this.validation.charCount = this.updateData.text.length
       this.validation.titleCount = this.updateData.title.length
-      this.validation.errorMsg = this.updateData.title.length > this.validation.titleLimit || this.updateData.text.length > this.validation.charLimit ? 'Too Many!' : null
+      this.validation.errorMsg = this.updateData.title.length > this.validation.titleLimit || this.updateData.text.length > this.validation.charLimit ? 'Error: Char Count' : null
     },
     handleUpdate (card) {
       this.updateData.updating = !this.updateData.updating
       this.updateData.title = card.title
       this.updateData.text = card.text
       const payload = this.cardFormat(card)
+      payload.payload = 'toggleUpdateFields'
       this.$emit('cardUpdate', payload)
-      this.showUpdateField(payload)
+      this.actionThis(payload)
     },
     submitUpdate (card) {
       const payload = this.cardFormat(card)
@@ -149,16 +147,19 @@ export default {
       if (ruleUpdatePayload.text.length > this.validation.charLimit || ruleUpdatePayload.title.length > this.validation.titleLimit) {
         return alert('Error handling: fix length')
       }
-      this.updateCard(ruleUpdatePayload)
+      ruleUpdatePayload.payload = 'updateRule'
+      this.actionThis(ruleUpdatePayload)
       card.updating = false
       this.clearForm()
     },
     handleShow (card) {
       card.active = !card.active
-      this.toggleShow(card)
+      card.payload = 'toggleShow'
+      this.actionThis(card)
     },
     handleDelete (card) {
-      this.deleteCard(card)
+      card.payload = 'deleteRule'
+      this.actionThis(card)
     },
     toggleAnnotations () {
       this.showAnnotations = !this.showAnnotations

@@ -8,14 +8,14 @@
       b-col(v-if="showCardForm")
         b-form(@submit.prevent="handleSubmit")
           b-col
-            //- b-row.justify-content-center
-            //-   b-form-group#input-type
-            //-     b-button.type-links(
-            //-       v-for="(select, idx) in Menu"
-            //-       v-model="formData.type"
-            //-       :key="idx"
-            //-       :class="{ selected: formData.type === select.type }"
-            //-       @click="submitType(select.type)") {{select.type}}
+            b-row.justify-content-center
+              b-form-group#input-type
+                b-button.type-links(
+                  v-for="(select, idx) in Menu"
+                  v-model="formData.type"
+                  :key="idx"
+                  :class="{ selected: formData.type === select.type }"
+                  @click="submitType(select.type)") {{select.type}}
             b-form-group.mt-5(id="input-title")
               b-row(v-if="formChar.titleCount > formChar.titleLimit")
                 b-badge(variant="danger") {{formChar.errorMsg}}
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'submitRule'
+      'actionThis'
     ]),
     toggleCardForm () {
       this.showCardForm = !this.showCardForm
@@ -137,7 +137,8 @@ export default {
       if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
         return alert('Error handling: fix length')
       }
-      this.submitRule(card)
+      card.payload = 'addRule'
+      this.actionThis(card)
       this.formData = {
         locked: false,
         title: '',
