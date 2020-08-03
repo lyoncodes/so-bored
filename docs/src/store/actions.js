@@ -60,74 +60,49 @@ export default {
       })
     })
   },
-  // add card from add card form
-  async submitRule ({ commit, dispatch }, card) {
-    await firebase.rulesCollection.add({
-      locked: card.locked,
-      type: card.type,
-      title: card.title,
-      text: card.text,
-      active: card.active,
-      updating: card.updating,
-      annotations: card.annotations,
-      links: card.links
-    })
-    card.payload = 'addRule'
-    commit('updateState', card)
-    dispatch('fetchRules')
-  },
-  // delete card from db, calls mutation to remove card from rules in state
-  async deleteCard ({ commit, dispatch }, card) {
-    dispatch('mapRes', card).then(res => {
-      res.delete()
-    })
-    card.payload = 'deleteRule'
-    commit('updateState', card)
-  },
-  // updates card in firebase to active
-  async appendCard ({ commit, dispatch }, card) {
-    dispatch('mapRes', card).then(res => {
-      res.update({
-        active: true
-      })
-    })
-    commit('activateRule', card)
-  },
-  // Toggles card.active property value in database
-  async toggleShow ({ dispatch }, card) {
-    dispatch('mapRes', card).then(async (res) => {
-      if (card.active) {
-        await res.update({
-          active: true
+  async actionThis ({ commit, dispatch }, data) {
+    dispatch('mapRes', data).then(async (res) => {
+      if (data.payload === 'addRule') {
+        await firebase.rulesCollection.add({
+          locked: data.locked,
+          type: data.type,
+          title: data.title,
+          text: data.text,
+          active: data.active,
+          updating: data.updating,
+          annotations: data.annotations,
+          links: data.links
         })
-      } else {
-        await res.update({
-          active: false
+        dispatch('fetchRules')
+      }
+      if (data.payload === 'deleteRule') {
+        res.delete()
+      }
+      if (data.payload === 'toggleShow') {
+        if (data.active) {
+          await res.update({
+            active: true
+          })
+        } else {
+          await res.update({
+            active: false
+          })
+        }
+      }
+      if (data.payload === 'toggleUpdateFields') {
+        res.update({
+          updating: !data.updating
         })
       }
+      if (data.payload === 'updateRule') {
+        res.update({
+          title: data.title,
+          text: data.text,
+          updating: !data.updating
+        })
+      }
+      commit('updateState', data)
     })
-  },
-  // update/clear form fields
-  async showUpdateField ({ commit, dispatch }, card) {
-    dispatch('mapRes', card).then((res) => {
-      res.update({
-        updating: !card.updating
-      })
-    })
-    card.payload = 'toggleUpdateFields'
-    commit('updateState', card)
-  },
-  // update card in db and call mutation to update card in state
-  async updateCard ({ commit, dispatch }, updateData) {
-    dispatch('mapRes', updateData).then((res) => {
-      res.update({
-        title: updateData.title,
-        text: updateData.text,
-        updating: !updateData.updating
-      })
-    })
-    updateData.payload = 'updateRule'
-    commit('updateState', updateData)
   },
   // add annotation to annotation array of card object in db and call mutation to annotate card in state
   async annotateCard ({ commit, dispatch }, card) {
