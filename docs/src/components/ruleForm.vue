@@ -90,9 +90,9 @@ export default {
         type: '',
         active: false,
         updating: false,
-        annotations: [],
+        comments: [],
         links: [],
-        annotationType: false
+        commentType: false
       }
     }
   },
@@ -120,7 +120,7 @@ export default {
       this.formData.type = type
     },
     handleSubmit () {
-      const { locked, title, text, type, active, updating, annotations, links, annotationType } = this.formData
+      const { locked, title, text, type, active, updating, comments, links, commentType } = this.formData
       const idx = this.rules.length + 1
       const card = {
         locked,
@@ -130,9 +130,9 @@ export default {
         idx,
         active,
         updating,
-        annotations,
+        comments,
         links,
-        annotationType
+        commentType
       }
       if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
         return alert('Error handling: fix length')
@@ -149,9 +149,9 @@ export default {
         type: '',
         active: false,
         updating: false,
-        annotations: [],
+        comments: [],
         links: [],
-        annotationType: false
+        commentType: false
       }
       this.showConfirm = true
       this.formChar = {

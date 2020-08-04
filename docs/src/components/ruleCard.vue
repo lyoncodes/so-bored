@@ -30,7 +30,7 @@
                 b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
                   img.card-icon(src='../assets/smPen.svg')
                 //- annotate
-                b-button.icon-trigger(@click="toggleAnnotations" variant="primary")
+                b-button.icon-trigger(@click="toggleComments" variant="primary")
                   img.card-icon(src='../assets/annotate.svg')
                 //- add link
                 b-button.icon-trigger(@click="toggleLinks" variant="primary")
@@ -69,8 +69,8 @@
                 v-if="showLinks"
               )
             //- annotation comp ------------
-            b-col(v-if="showAnnotations")
-              cardAnnotation(
+            b-col(v-if="showComments")
+              cardComments(
                 :rule="card"
               )
             //- CARD footer
@@ -79,7 +79,7 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import cardAnnotation from '../components/card/cardAnnotation'
+import cardComments from '../components/card/cardComments'
 import cardLinks from '../components/card/cardLinks'
 export default {
   name: 'activeRuleContainer',
@@ -99,12 +99,12 @@ export default {
         cancelBtn: 'Nvm',
         hideBtn: 'Hide'
       },
-      showAnnotations: false,
+      showComments: false,
       showLinks: false
     }
   },
   components: {
-    cardAnnotation,
+    cardComments,
     cardLinks
   },
   computed: {
@@ -132,7 +132,7 @@ export default {
     },
     submitUpdate (card) {
       const payload = this.cardFormat(card)
-      const { locked, type, id, updating, annotations, tokenRef } = payload
+      const { locked, type, id, updating, comments, tokenRef } = payload
       const { title, text } = this.updateData
       const ruleUpdatePayload = {
         locked,
@@ -141,7 +141,7 @@ export default {
         text,
         id,
         updating,
-        annotations,
+        comments,
         tokenRef
       }
       if (ruleUpdatePayload.text.length > this.validation.charLimit || ruleUpdatePayload.title.length > this.validation.titleLimit) {
@@ -161,8 +161,8 @@ export default {
       card.payload = 'deleteRule'
       this.actionThis(card)
     },
-    toggleAnnotations () {
-      this.showAnnotations = !this.showAnnotations
+    toggleComments () {
+      this.showComments = !this.showComments
     },
     toggleLinks () {
       this.showLinks = !this.showLinks
@@ -175,7 +175,7 @@ export default {
       }
     },
     cardFormat (card) {
-      const { locked, type, title, text, id, active, updating, annotations, tokenRef } = card
+      const { locked, type, title, text, id, active, updating, comments, tokenRef } = card
       const cardPayload = {
         locked,
         type,
@@ -184,7 +184,7 @@ export default {
         id,
         active,
         updating,
-        annotations,
+        comments,
         tokenRef
       }
       return cardPayload

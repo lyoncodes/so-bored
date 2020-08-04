@@ -69,7 +69,7 @@ export default {
         text: data.text,
         active: data.active,
         updating: data.updating,
-        annotations: data.annotations,
+        comments: data.comments,
         links: data.links
       })
       dispatch('fetchRules')
@@ -101,28 +101,20 @@ export default {
           updating: !data.updating
         })
       }
+      if (!data.commentType) {
+        data.commentType = true
+        res.update({
+          comments: firestore.FieldValue.arrayRemove(data)
+        })
+        data.commentType = false
+      }
+      if (data.commentType) {
+        res.update({
+          comments: firestore.FieldValue.arrayUnion(data)
+        })
+      }
       commit('updateState', data)
     })
-  },
-  // add annotation to annotation array of card object in db and call mutation to annotate card in state
-  async annotateCard ({ commit, dispatch }, card) {
-    dispatch('mapRes', card).then((res) => {
-      res.update({
-        annotations: firestore.FieldValue.arrayUnion(card)
-      })
-    })
-    card.payload = 'addAnnotation'
-    commit('updateState', card)
-  },
-  // delete annotation to annotation array of card object in db and call mutation to remove annotation in state
-  async deleteAnnotation ({ commit, dispatch }, annotation) {
-    dispatch('mapRes', annotation).then((res) => {
-      res.update({
-        annotations: firestore.FieldValue.arrayRemove(annotation)
-      })
-    })
-    annotation.payload = 'deleteAnnotation'
-    commit('updateState', annotation)
   },
   async attachLink ({ commit, dispatch }, link) {
     dispatch('mapRes', link).then(async (res) => {

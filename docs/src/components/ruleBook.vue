@@ -1,6 +1,5 @@
 <template lang="pug">
   b-container
-    //- ruleIDX
     //- ruleFilter
     ruleCard(
       :validation="formChar"
@@ -9,7 +8,6 @@
 
 <script>
 import ruleCard from '../components/ruleCard'
-import ruleIDX from '../components/ruleIDX'
 import ruleFilter from '../components/ruleFilter'
 
 export default {
@@ -27,7 +25,6 @@ export default {
   },
   components: {
     ruleCard,
-    ruleIDX,
     ruleFilter
   }
 }
