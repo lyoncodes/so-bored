@@ -1,21 +1,15 @@
 <template lang="pug">
   b-container
-    b-card
-      b-col
-        button.labeled-button(@click="toggleCardForm")
-          span {{ buttonText.toggleMsg }}
-            img.card-icon-sm.pl-2(src='../assets/add.svg')
-      b-col(v-if="showCardForm")
+    b-col
+      button.add-asset-button(
+        @click="toggleCardForm")
+        span {{ buttonText.toggleMsg }}
+    b-col.mt-4(v-if="showCardForm")
+      b-card
         b-form(@submit.prevent="handleSubmit")
           b-col
-            b-row.justify-content-center
-              b-form-group#input-type
-                b-button.type-links(
-                  v-for="(select, idx) in Menu"
-                  v-model="formData.type"
-                  :key="idx"
-                  :class="{ selected: formData.type === select.type }"
-                  @click="submitType(select.type)") {{select.type}}
+            h5 Category
+            glyphs(@addtype="submitType")
             b-form-group.mt-5(id="input-title")
               b-row(v-if="formChar.titleCount > formChar.titleLimit")
                 b-badge(variant="danger") {{formChar.errorMsg}}
@@ -60,19 +54,19 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import ruleForm from '../components/ruleForm'
+import glyphs from '../components/card/glyphs'
 
 export default {
   name: 'Home',
   components: {
-    ruleForm
+    glyphs
   },
   data () {
     return {
       showCardForm: false,
       showConfirm: false,
       buttonText: {
-        toggleMsg: 'Add Doc',
+        toggleMsg: 'Post',
         errorMsg: 'Nvm'
       },
       formChar: {
@@ -99,7 +93,7 @@ export default {
   computed: {
     ...mapState([
       'userProfile',
-      'Menu',
+      'Glyphs',
       'rules'
     ])
   },
@@ -115,9 +109,8 @@ export default {
       this.formChar.titleCount = this.formData.title.length
       this.formChar.errorMsg = this.formData.title.length > this.formChar.titleLimit || this.formData.text.length > this.formChar.charLimit ? 'Too Many Characters' : null
     },
-    submitType (type) {
-      this.$emit('addType', type)
-      this.formData.type = type
+    submitType (glyphs) {
+      this.formData.type = glyphs
     },
     handleSubmit () {
       const { locked, title, text, type, active, updating, comments, links, commentType } = this.formData
@@ -164,8 +157,8 @@ export default {
     }
   },
   mounted () {
-    const menu = this.Menu
-    this.menu = menu
+    const glyphs = this.Glyphs
+    this.glyphs = glyphs
   }
 }
 </script>

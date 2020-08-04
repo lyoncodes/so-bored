@@ -1,7 +1,7 @@
-import Menu from '../data/Menu'
+import Glyphs from '../data/Glyphs'
 
 export default {
   userProfile: {},
   rules: [],
-  Menu
+  Glyphs
 }
