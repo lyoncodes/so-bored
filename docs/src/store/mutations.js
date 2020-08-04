@@ -15,13 +15,13 @@ export default {
       ruleEl.updating = !data.updating
     } else if (data.payload === 'toggleUpdateFields') {
       ruleEl.updating = !data.updating
-    } else if (data.payload === 'addAnnotation') {
-      ruleEl.annotations.push(data)
-    } else if (data.payload === 'deleteAnnotation') {
-      const filteredArr = ruleEl.annotations.filter(el => {
+    } else if (data.commentType) {
+      ruleEl.comments.push(data)
+    } else if (!data.commentType) {
+      const filteredArr = ruleEl.comments.filter(el => {
         return (el.text !== data.text) ? el : null
       })
-      ruleEl.annotations = filteredArr
+      ruleEl.comments = filteredArr
     } else if (data.payload === 'addLink') {
       ruleEl.links.push(data)
     }
