@@ -101,14 +101,14 @@ export default {
           updating: !data.updating
         })
       }
-      if (!data.commentType) {
+      if (!data.commentType && !data.payload) {
         data.commentType = true
         res.update({
           comments: firestore.FieldValue.arrayRemove(data)
         })
         data.commentType = false
       }
-      if (data.commentType) {
+      if (data.commentType && !data.payload) {
         res.update({
           comments: firestore.FieldValue.arrayUnion(data)
         })

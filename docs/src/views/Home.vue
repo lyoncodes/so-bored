@@ -1,6 +1,6 @@
 <template lang="pug">
   .home.mt-5
-    h5.headline Get started by adding a document
+    h5.headline Message Board Thing
     ruleForm
     //- adobeAPI
 </template>

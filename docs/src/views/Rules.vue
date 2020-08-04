@@ -8,7 +8,7 @@ import ruleBook from '../components/ruleBook'
 export default {
   data () {
     return {
-      menu: {},
+      glyphs: {},
       card: {}
     }
   },
