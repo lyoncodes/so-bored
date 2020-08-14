@@ -33,7 +33,7 @@
                 b-button.icon-trigger(@click="toggleComments(card)" variant="primary")
                   img.card-icon(src='../assets/annotate.svg')
                 //- add link
-                b-button.icon-trigger(@click="toggleLinks" variant="primary")
+                b-button.icon-trigger(@click="toggleLinks(card)" variant="primary")
                   img.card-icon(src='../assets/Valid.svg')
             //- title form ------------
             h3(v-if="!card.updating") {{card.title}}
@@ -66,7 +66,7 @@
             b-col
               cardLinks(
                 :rule="card"
-                v-if="showLinks"
+                :show="card.displayLinks"
               )
             //- annotation comp ------------
             b-col
@@ -165,8 +165,9 @@ export default {
       card.payload = 'toggleComments'
       this.actionThis(card)
     },
-    toggleLinks () {
-      this.showLinks = !this.showLinks
+    toggleLinks (card) {
+      card.payload = 'toggleLinks'
+      this.actionThis(card)
     },
     clearForm () {
       this.updateData = {

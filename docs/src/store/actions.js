@@ -25,7 +25,8 @@ export default {
         updating: data.updating,
         comments: data.comments,
         links: data.links,
-        displayComments: data.displayComments
+        displayComments: data.displayComments,
+        displayLinks: data.displayLinks
       })
       dispatch('fetchRules')
     }
@@ -54,6 +55,12 @@ export default {
       if (data.payload === 'toggleComments') {
         res.update({
           displayComments: !data.displayComments
+        })
+      }
+      if (data.payload === 'toggleLinks') {
+        console.log(data.displayLinks)
+        res.update({
+          displayLinks: !data.displayLinks
         })
       }
       if (!data.commentType && !data.payload) {

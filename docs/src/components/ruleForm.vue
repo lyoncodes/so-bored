@@ -87,7 +87,8 @@ export default {
         comments: [],
         links: [],
         commentType: false,
-        displayComments: false
+        displayComments: false,
+        displayLinks: false
       }
     }
   },
@@ -114,7 +115,7 @@ export default {
       this.formData.type = glyphs
     },
     handleSubmit () {
-      const { locked, title, text, type, active, updating, comments, links, commentType, displayComments } = this.formData
+      const { locked, title, text, type, active, updating, comments, links, commentType, displayComments, displayLinks } = this.formData
       const idx = this.rules.length + 1
       const card = {
         locked,
@@ -127,7 +128,8 @@ export default {
         comments,
         links,
         commentType,
-        displayComments
+        displayComments,
+        displayLinks
       }
       if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
         return alert('Error handling: fix length')
@@ -147,7 +149,8 @@ export default {
         comments: [],
         links: [],
         commentType: false,
-        displayComments: false
+        displayComments: false,
+        displayLinks: false
       }
       this.showConfirm = true
       this.formChar = {
