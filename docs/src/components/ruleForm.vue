@@ -66,7 +66,7 @@ export default {
       showCardForm: false,
       showConfirm: false,
       buttonText: {
-        toggleMsg: 'Post',
+        toggleMsg: 'Add Post',
         errorMsg: 'Nvm'
       },
       formChar: {
