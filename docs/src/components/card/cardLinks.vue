@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-container
+  b-container(v-if="show")
     b-row
       b-col
         b-form(@submit.prevent="submitLink(linkData)")
@@ -19,7 +19,7 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'link-box',
-  props: ['rule'],
+  props: ['rule', 'show'],
   data () {
     return {
       linkData: {
