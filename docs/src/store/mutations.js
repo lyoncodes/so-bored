@@ -15,6 +15,8 @@ export default {
       ruleEl.updating = !data.updating
     } else if (data.payload === 'toggleUpdateFields') {
       ruleEl.updating = !data.updating
+    } else if (data.payload === 'toggleComments') {
+      ruleEl.displayComments = !data.displayComments
     } else if (data.commentType) {
       ruleEl.comments.push(data)
     } else if (!data.commentType) {

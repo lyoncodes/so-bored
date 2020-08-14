@@ -4,7 +4,9 @@
       b-col.col-8
         a.validation-char {{comment.text.length}} / {{ commentValidation.charLimit}}
       b-col.col-12
-        b-form.mb-2.mt-4(@submit.prevent="addComment(comment)")
+        b-form.mb-2.mt-4(
+          @submit.prevent="addComment(comment)"
+          v-if="show")
           b-form-textarea(
             id="annotate-text"
             v-model="comment.text"
@@ -21,7 +23,7 @@
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'annotation',
-  props: ['rule'],
+  props: ['rule', 'show'],
   data () {
     return {
       showComments: false,
@@ -45,9 +47,6 @@ export default {
     ...mapActions([
       'actionThis'
     ]),
-    toggleComments () {
-      this.showComments = !this.showComments
-    },
     validateCharCount () {
       this.commentValidation.errorMsg = this.comment.text.length > this.commentValidation.charLimit ? 'Too Many' : null
     },

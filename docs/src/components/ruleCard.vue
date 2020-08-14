@@ -30,7 +30,7 @@
                 b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
                   img.card-icon(src='../assets/smPen.svg')
                 //- annotate
-                b-button.icon-trigger(@click="toggleComments" variant="primary")
+                b-button.icon-trigger(@click="toggleComments(card)" variant="primary")
                   img.card-icon(src='../assets/annotate.svg')
                 //- add link
                 b-button.icon-trigger(@click="toggleLinks" variant="primary")
@@ -69,9 +69,10 @@
                 v-if="showLinks"
               )
             //- annotation comp ------------
-            b-col(v-if="showComments")
+            b-col
               cardComments(
                 :rule="card"
+                :show="card.displayComments"
               )
             //- CARD footer
             b-col(v-if="card.active")
@@ -99,7 +100,6 @@ export default {
         cancelBtn: 'Nvm',
         hideBtn: 'Hide'
       },
-      showComments: false,
       showLinks: false
     }
   },
@@ -161,8 +161,9 @@ export default {
       card.payload = 'deleteRule'
       this.actionThis(card)
     },
-    toggleComments () {
-      this.showComments = !this.showComments
+    toggleComments (card) {
+      card.payload = 'toggleComments'
+      this.actionThis(card)
     },
     toggleLinks () {
       this.showLinks = !this.showLinks
