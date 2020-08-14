@@ -14,4 +14,13 @@ async function fetchUserProfile ({ commit }, user) {
     router.push('/')
   }
 }
-export { login, fetchUserProfile }
+// signs user up and saves doc in firebase with set() method
+async function signUp ({ dispatch }, form) {
+  const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
+  await firebase.usersCollection.doc(user.uid).set({
+    email: form.email,
+    password: form.password
+  })
+  dispatch('fetchUserProfile', user)
+}
+export { login, fetchUserProfile, signUp }

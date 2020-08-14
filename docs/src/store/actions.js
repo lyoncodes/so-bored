@@ -1,56 +1,19 @@
 import * as firebase from '../../firebase'
-import router from '../router/index'
 import { firestore } from 'firebase'
-import { login, fetchUserProfile } from './db-middleware/entry'
+import { login, fetchUserProfile, signUp } from './db-middleware/auth'
+import { logout } from './db-middleware/exit'
+import { fetchRules, fetchRuleCollection } from './db-middleware/fetch'
+import { mapRes } from './db-middleware/mapRes'
 
 export default {
   // CALL STACK
-  // logs user in
+  signUp,
   login,
   fetchUserProfile,
-  // fetches rules, calls mutation to assign fetched rules to rules array in state
-  async fetchRules ({ commit }) {
-    const rule = firebase.rulesCollection
-    const snapshot = await rule.get()
-    const rulePayload = []
-    snapshot.forEach((el) => {
-      const rule = el.data()
-      rule.id = el.id
-      rulePayload.push(rule)
-    })
-    commit('setRuleCards', rulePayload)
-  },
-  // logs user out and resets current user obj
-  async logout ({ commit }) {
-    await firebase.auth.signOut()
-    commit('setUserProfile', {})
-    router.push('/login')
-  },
-  // signs user up and saves doc in firebase with set() method
-  async signUp ({ dispatch }, form) {
-    const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
-    await firebase.usersCollection.doc(user.uid).set({
-      email: form.email,
-      password: form.password
-    })
-    dispatch('fetchUserProfile', user)
-  },
-  // get() rulesCollection
-  async fetchRuleCollection () {
-    const rule = firebase.rulesCollection
-    const snapshot = await rule.get()
-    return snapshot.docs
-  },
-  // map response for id, return found value
-  async mapRes ({ dispatch }, data) {
-    return new Promise((resolve, reject) => {
-      dispatch('fetchRuleCollection').then((res) => {
-        res.map((el) => {
-          return el.id === data.id ? resolve(firebase.rulesCollection.doc(data.id)) : null
-        })
-      })
-    })
-  },
+  logout,
+  fetchRules,
+  fetchRuleCollection,
+  mapRes,
   async actionThis ({ commit, dispatch }, data) {
     if (data.payload === 'addRule') {
       await firebase.rulesCollection.add({
@@ -61,7 +24,8 @@ export default {
         active: data.active,
         updating: data.updating,
         comments: data.comments,
-        links: data.links
+        links: data.links,
+        displayComments: data.displayComments
       })
       dispatch('fetchRules')
     }
@@ -85,6 +49,11 @@ export default {
           title: data.title,
           text: data.text,
           updating: !data.updating
+        })
+      }
+      if (data.payload === 'toggleComments') {
+        res.update({
+          displayComments: !data.displayComments
         })
       }
       if (!data.commentType && !data.payload) {
