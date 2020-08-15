@@ -26,8 +26,15 @@ export default {
         return (el.text !== data.text) ? el : null
       })
       ruleEl.comments = filteredArr
-    } else if (data.payload === 'addLink') {
+    }
+    if (data.payload === 'addLink') {
       ruleEl.links.push(data)
+    }
+    if (data.payload === 'deleteLink') {
+      const filteredArr = ruleEl.links.filter((el) => {
+        return (el.ref !== data.ref) ? el : null
+      })
+      ruleEl.links = filteredArr
     }
   },
   // update userProfile in the state to the user passed on login
