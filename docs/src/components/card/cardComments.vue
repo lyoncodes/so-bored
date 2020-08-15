@@ -26,7 +26,6 @@ export default {
   props: ['rule', 'show'],
   data () {
     return {
-      showComments: false,
       comment: {
         text: '',
         author: '',
@@ -54,14 +53,14 @@ export default {
       this.comment.commentType = true
       const id = this.$props.rule.id
       const { text, author, commentType } = this.comment
-      const annotationPayload = {
+      const commentPayload = {
         text,
         author,
         id,
         commentType
       }
       if (this.comment.text.length) {
-        this.actionThis(annotationPayload)
+        this.actionThis(commentPayload)
       }
       this.clearComment()
     },
@@ -75,7 +74,6 @@ export default {
         author: '',
         commentType: false
       }
-      this.showComments = false
     }
   },
   mounted () {

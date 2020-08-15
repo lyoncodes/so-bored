@@ -58,21 +58,25 @@ export default {
         })
       }
       if (data.payload === 'toggleLinks') {
-        console.log(data.displayLinks)
         res.update({
           displayLinks: !data.displayLinks
         })
       }
-      if (!data.commentType && !data.payload) {
+      if (!data.commentType) {
         data.commentType = true
         res.update({
           comments: firestore.FieldValue.arrayRemove(data)
         })
         data.commentType = false
       }
-      if (data.commentType && !data.payload) {
+      if (data.commentType) {
         res.update({
           comments: firestore.FieldValue.arrayUnion(data)
+        })
+      }
+      if (data.payload === 'deleteLink') {
+        res.update({
+          links: firestore.FieldValue.arrayRemove(data)
         })
       }
       commit('updateState', data)
