@@ -67,7 +67,6 @@ export default {
       window.location.href = `https://${link.url}`
     },
     handleDelete (link) {
-      link.payload = 'deleteLink'
       this.actionThis(link)
     }
   }

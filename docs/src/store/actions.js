@@ -62,22 +62,24 @@ export default {
           displayLinks: !data.displayLinks
         })
       }
-      if (!data.commentType) {
+      if (!data.commentType && !data.ref) {
         data.commentType = true
         res.update({
           comments: firestore.FieldValue.arrayRemove(data)
         })
         data.commentType = false
       }
-      if (data.commentType) {
+      if (data.commentType && !data.ref) {
         res.update({
           comments: firestore.FieldValue.arrayUnion(data)
         })
       }
-      if (data.payload === 'deleteLink') {
+      if (data.ref) {
+        data.payload = 'addLink'
         res.update({
           links: firestore.FieldValue.arrayRemove(data)
         })
+        data.payload = 'deleteLink'
       }
       commit('updateState', data)
     })
@@ -88,7 +90,6 @@ export default {
         links: firestore.FieldValue.arrayUnion(link)
       })
     })
-    link.payload = 'addLink'
     commit('updateState', link)
   },
   // filters by type
