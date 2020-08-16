@@ -31,6 +31,12 @@ export default {
       dispatch('fetchRules')
     }
     dispatch('mapRes', data).then(async (res) => {
+      if (data.payload === 'toggleUpdateFields') {
+        console.log('called')
+        await res.update({
+          updating: !data.updating
+        })
+      }
       if (data.payload === 'deleteRule') {
         res.delete()
       }
@@ -62,7 +68,7 @@ export default {
           displayLinks: !data.displayLinks
         })
       }
-      if (!data.commentType && !data.ref) {
+      if (!data.commentType && !data.ref && data.payload !== 'toggleUpdateFields') {
         data.commentType = true
         res.update({
           comments: firestore.FieldValue.arrayRemove(data)
@@ -74,7 +80,7 @@ export default {
           comments: firestore.FieldValue.arrayUnion(data)
         })
       }
-      if (data.ref) {
+      if (data.ref && !data.commentType) {
         data.payload = 'addLink'
         res.update({
           links: firestore.FieldValue.arrayRemove(data)

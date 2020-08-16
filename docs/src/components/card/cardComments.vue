@@ -2,7 +2,7 @@
   b-container.mt-3
     b-row.justify-content-center
       b-col.col-8
-        a.validation-char {{comment.text.length}} / {{ commentValidation.charLimit}}
+        a.validation-char(v-if="show") {{comment.text.length}} / {{ commentValidation.charLimit}}
       b-col.col-12
         b-form.mb-2.mt-4(
           @submit.prevent="addComment(comment)"
@@ -23,7 +23,7 @@
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'annotation',
-  props: ['rule', 'show'],
+  props: ['rule', 'show', 'validation'],
   data () {
     return {
       comment: {
