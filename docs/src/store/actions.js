@@ -1,65 +1,19 @@
 import * as firebase from '../../firebase'
-import router from '../router/index'
 import { firestore } from 'firebase'
+import { login, fetchUserProfile, signUp } from './db-middleware/auth'
+import { logout } from './db-middleware/exit'
+import { fetchRules, fetchRuleCollection } from './db-middleware/fetch'
+import { mapRes } from './db-middleware/mapRes'
 
 export default {
-  // logs user in
-  async login ({ dispatch }, form) {
-    const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password)
-    dispatch('fetchUserProfile', user)
-    dispatch('fetchRules')
-  },
-  // get() for user profile via user.uid
-  async fetchUserProfile ({ commit }, user) {
-    const userProfile = await firebase.usersCollection.doc(user.uid).get()
-    commit('setUserProfile', userProfile.data())
-    if (router.currentRoute.path === '/login') {
-      router.push('/')
-    }
-  },
-  // fetches rules, calls mutation to assign fetched rules to rules array in state
-  async fetchRules ({ commit }) {
-    const rule = firebase.rulesCollection
-    const snapshot = await rule.get()
-    const rulePayload = []
-    snapshot.forEach((el) => {
-      const rule = el.data()
-      rule.id = el.id
-      rulePayload.push(rule)
-    })
-    commit('setRuleCards', rulePayload)
-  },
-  // logs user out and resets current user obj
-  async logout ({ commit }) {
-    await firebase.auth.signOut()
-    commit('setUserProfile', {})
-    router.push('/login')
-  },
-  // signs user up and saves doc in firebase with set() method
-  async signUp ({ dispatch }, form) {
-    const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
-    await firebase.usersCollection.doc(user.uid).set({
-      email: form.email,
-      password: form.password
-    })
-    dispatch('fetchUserProfile', user)
-  },
-  // get() rulesCollection
-  async fetchRuleCollection () {
-    const rule = firebase.rulesCollection
-    const snapshot = await rule.get()
-    return snapshot.docs
-  },
-  // map response for id, return found value
-  async mapRes ({ dispatch }, data) {
-    return new Promise((resolve, reject) => {
-      dispatch('fetchRuleCollection').then((res) => {
-        res.map((el) => {
-          return el.id === data.id ? resolve(firebase.rulesCollection.doc(data.id)) : null
-        })
-      })
-    })
-  },
+  // CALL STACK
+  signUp,
+  login,
+  fetchUserProfile,
+  logout,
+  fetchRules,
+  fetchRuleCollection,
+  mapRes,
   async actionThis ({ commit, dispatch }, data) {
     if (data.payload === 'addRule') {
       await firebase.rulesCollection.add({
@@ -69,12 +23,20 @@ export default {
         text: data.text,
         active: data.active,
         updating: data.updating,
-        annotations: data.annotations,
-        links: data.links
+        comments: data.comments,
+        links: data.links,
+        displayComments: data.displayComments,
+        displayLinks: data.displayLinks
       })
       dispatch('fetchRules')
     }
     dispatch('mapRes', data).then(async (res) => {
+      if (data.payload === 'toggleUpdateFields') {
+        console.log('called')
+        await res.update({
+          updating: !data.updating
+        })
+      }
       if (data.payload === 'deleteRule') {
         res.delete()
       }
@@ -89,11 +51,6 @@ export default {
           })
         }
       }
-      if (data.payload === 'toggleUpdateFields') {
-        res.update({
-          updating: !data.updating
-        })
-      }
       if (data.payload === 'updateRule') {
         res.update({
           title: data.title,
@@ -101,28 +58,37 @@ export default {
           updating: !data.updating
         })
       }
+      if (data.payload === 'toggleComments') {
+        res.update({
+          displayComments: !data.displayComments
+        })
+      }
+      if (data.payload === 'toggleLinks') {
+        res.update({
+          displayLinks: !data.displayLinks
+        })
+      }
+      if (!data.commentType && !data.ref && data.payload !== 'toggleUpdateFields') {
+        data.commentType = true
+        res.update({
+          comments: firestore.FieldValue.arrayRemove(data)
+        })
+        data.commentType = false
+      }
+      if (data.commentType && !data.ref) {
+        res.update({
+          comments: firestore.FieldValue.arrayUnion(data)
+        })
+      }
+      if (data.ref && !data.commentType) {
+        data.payload = 'addLink'
+        res.update({
+          links: firestore.FieldValue.arrayRemove(data)
+        })
+        data.payload = 'deleteLink'
+      }
       commit('updateState', data)
     })
-  },
-  // add annotation to annotation array of card object in db and call mutation to annotate card in state
-  async annotateCard ({ commit, dispatch }, card) {
-    dispatch('mapRes', card).then((res) => {
-      res.update({
-        annotations: firestore.FieldValue.arrayUnion(card)
-      })
-    })
-    card.payload = 'addAnnotation'
-    commit('updateState', card)
-  },
-  // delete annotation to annotation array of card object in db and call mutation to remove annotation in state
-  async deleteAnnotation ({ commit, dispatch }, annotation) {
-    dispatch('mapRes', annotation).then((res) => {
-      res.update({
-        annotations: firestore.FieldValue.arrayRemove(annotation)
-      })
-    })
-    annotation.payload = 'deleteAnnotation'
-    commit('updateState', annotation)
   },
   async attachLink ({ commit, dispatch }, link) {
     dispatch('mapRes', link).then(async (res) => {
@@ -130,7 +96,6 @@ export default {
         links: firestore.FieldValue.arrayUnion(link)
       })
     })
-    link.payload = 'addLink'
     commit('updateState', link)
   },
   // filters by type

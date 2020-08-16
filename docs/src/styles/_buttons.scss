@@ -1,21 +1,23 @@
-.menu-row>button {
-  background: #fff;
-}
 button {
-  background-color: none;
-  border: none;
-  -webkit-box-shadow:  $box-shadow-light;
-  -moz-box-shadow:  $box-shadow-light;
-  box-shadow:  $box-shadow-light;
-  color: $indigo;
-  font-size: .85em;
-  font-weight: 600;
-  margin: .25em;
+  background-color: #fff;
+  border: 2px solid $primary;
+  color: $primary;
+  font-size: $font-md;
+  font-weight: $font-med;
   outline: none;
-  transition: all 0.3s ease;
+  padding: .75em;
+  transition: all 0.4s ease;
   &:active, :focus{
-    background: $border-g !important;
     outline: none;
+  }
+}
+.add-asset-button {
+  transform: skew(-8deg);
+  box-shadow: $box-shadow-dark;
+  &:hover{
+    border: 2px solid $sherbert;
+    box-shadow: none;
+    color: $sherbert;
   }
 }
 .btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active {
@@ -27,20 +29,11 @@ button {
     outline: none;
   }
 }
-.labeled-button {
-  background: #fff;
-  padding: .75em;
-  border: 1px solid transparent;
-  border-radius: .25em;
-  transition: all 0.7s ease;
-  &:hover {
-    box-shadow: none;
-    border: 1px solid $sherbert;
-    color: $sherbert
-  }
-  &:active {
-    background: #fff !important;
-  }
+.btn-secondary:focus {
+  background-color: #fff !important;
+  border: 1px solid $neon;
+  color: $neon;
+  box-shadow: none
 }
 .login-btn {
   color: $indigo;
@@ -49,12 +42,6 @@ button {
     color: #fff;
     background: $indigo !important;
   }
-}
-.btn-secondary:focus {
-  background-color: #fff !important;
-  border: 1px solid $neon;
-  color: $neon;
-  box-shadow: none
 }
 .signUp-btn {
   background: #fff;
