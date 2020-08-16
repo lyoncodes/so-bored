@@ -4,7 +4,7 @@
       b-col.col-4(v-for="link in rule.links")
         a.links(@click="redirect(link)") {{link.ref}}
         b-button(@click="handleDelete(link)") Delete
-
+          img.card-icon(src="../../assets/cancel.svg")
     b-row
       b-col
         b-form(
