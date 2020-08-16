@@ -31,12 +31,6 @@ export default {
       dispatch('fetchRules')
     }
     dispatch('mapRes', data).then(async (res) => {
-      if (data.payload === 'toggleUpdateFields') {
-        console.log('called')
-        await res.update({
-          updating: !data.updating
-        })
-      }
       if (data.payload === 'deleteRule') {
         res.delete()
       }
@@ -56,16 +50,6 @@ export default {
           title: data.title,
           text: data.text,
           updating: !data.updating
-        })
-      }
-      if (data.payload === 'toggleComments') {
-        res.update({
-          displayComments: !data.displayComments
-        })
-      }
-      if (data.payload === 'toggleLinks') {
-        res.update({
-          displayLinks: !data.displayLinks
         })
       }
       if (!data.commentType && !data.ref && data.payload !== 'toggleUpdateFields') {

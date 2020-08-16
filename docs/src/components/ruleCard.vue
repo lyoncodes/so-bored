@@ -125,7 +125,6 @@ export default {
       this.updateData.text = card.text
       const payload = this.cardFormat(card)
       payload.payload = 'toggleUpdateFields'
-      this.$emit('cardUpdate', payload)
       this.actionThis(payload)
     },
     submitUpdate (card) {
