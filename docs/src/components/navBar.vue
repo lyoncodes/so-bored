@@ -1,12 +1,9 @@
 <template lang="pug">
 #nav
   b-row
-    b-col.col-3
-      img.nav-img(src='../assets/unearth-slate.svg')
     b-col.col-6
-      router-link(to="/")  Home
-      router-link(to="/Rules")  Rules
-    b-col.col-3
+      router-link(to="/")  So Bored
+    b-col.col-6
       a(
         @click="logout()"
       ) logout

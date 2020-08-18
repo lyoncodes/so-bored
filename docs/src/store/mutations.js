@@ -1,5 +1,5 @@
 export default {
-  // updateState function handles all dispatched actions
+  // updateState function handles all dispatched actions, updating the state per the data
   updateState (state, data) {
     const ruleEl = state.rules.find(el => el.id === data.id)
     if (data.payload === 'addRule') {
@@ -28,11 +28,9 @@ export default {
       ruleEl.comments = filteredArr
     }
     if (data.payload === 'addLink') {
-      console.log('called on add')
       ruleEl.links.push(data)
     }
     if (data.payload === 'deleteLink') {
-      console.log('called on del')
       const filteredArr = ruleEl.links.filter((el) => {
         return (el.url !== data.url) ? el : null
       })

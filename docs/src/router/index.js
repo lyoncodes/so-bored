@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
 import Rules from '../views/Rules.vue'
 import { auth } from '../../firebase'
 
@@ -10,8 +9,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Rules',
+    component: Rules,
     meta: {
       requiresAuth: true
     }
@@ -20,14 +19,6 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
-  },
-  {
-    path: '/Rules',
-    name: 'Rules',
-    component: Rules,
-    meta: {
-      requiresAuth: true
-    }
   }
 ]
 // router stack
