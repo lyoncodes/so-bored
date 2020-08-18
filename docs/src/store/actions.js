@@ -4,6 +4,7 @@ import { login, fetchUserProfile, signUp } from './db-middleware/auth'
 import { logout } from './db-middleware/exit'
 import { fetchRules, fetchRuleCollection } from './db-middleware/fetch'
 import { mapRes } from './db-middleware/mapRes'
+import { attachLink } from './db-middleware/attachLink'
 
 export default {
   // CALL STACK
@@ -14,7 +15,9 @@ export default {
   fetchRules,
   fetchRuleCollection,
   mapRes,
+  attachLink,
   async actionThis ({ commit, dispatch }, data) {
+    console.log(data)
     if (data.payload === 'addRule') {
       await firebase.rulesCollection.add({
         locked: data.locked,
@@ -45,7 +48,7 @@ export default {
           })
         }
       }
-      if (data.payload === 'updateRule') {
+      if (data.payload === 'updateRule' && !data.commentType) {
         res.update({
           title: data.title,
           text: data.text,
@@ -73,14 +76,6 @@ export default {
       }
       commit('updateState', data)
     })
-  },
-  async attachLink ({ commit, dispatch }, link) {
-    dispatch('mapRes', link).then(async (res) => {
-      await res.update({
-        links: firestore.FieldValue.arrayUnion(link)
-      })
-    })
-    commit('updateState', link)
   },
   // filters by type
   filterAction: ({ commit }, type) => {

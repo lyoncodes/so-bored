@@ -14,7 +14,7 @@
           b-button.icon-trigger(@click="handleDelete(card)" variant="primary"
           :disabled="card.updating"
           )
-            img.card-icon(src='../assets/cancel.svg')
+            iconScissors
           //- CARD HEADING ----------
           b-col(v-if="!card.active")
             h3 {{card.title}}
@@ -28,7 +28,7 @@
                 img.card-icon.pl-3(v-if="card.locked" src='../assets/Lock.svg')
                 //- handle update & cancel
                 b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
-                  img.card-icon(src='../assets/smPen.svg')
+                  iconPallete
                 //- annotate
                 b-button.icon-trigger(@click="toggleComments(card)" variant="primary")
                   img.card-icon(src='../assets/annotate.svg')
@@ -80,6 +80,9 @@
 import { mapActions, mapState } from 'vuex'
 import cardComments from '../components/card/cardComments'
 import cardLinks from '../components/card/cardLinks'
+import iconWatch from '../components/icons/iconWatch'
+import iconScissors from '../components/icons/iconScissors'
+import iconPallete from '../components/icons/iconPallete'
 export default {
   name: 'activeRuleContainer',
   props: ['validation'],
@@ -103,7 +106,10 @@ export default {
   },
   components: {
     cardComments,
-    cardLinks
+    cardLinks,
+    iconWatch,
+    iconScissors,
+    iconPallete
   },
   computed: {
     ...mapState([
@@ -129,7 +135,7 @@ export default {
     },
     submitUpdate (card) {
       const payload = this.cardFormat(card)
-      const { locked, type, id, updating, comments, tokenRef } = payload
+      const { locked, type, id, updating, comments } = payload
       const { title, text } = this.updateData
       const ruleUpdatePayload = {
         locked,
@@ -138,8 +144,7 @@ export default {
         text,
         id,
         updating,
-        comments,
-        tokenRef
+        comments
       }
       if (ruleUpdatePayload.text.length > this.validation.charLimit || ruleUpdatePayload.title.length > this.validation.titleLimit) {
         return alert('Error handling: fix length')
@@ -174,7 +179,7 @@ export default {
       }
     },
     cardFormat (card) {
-      const { locked, type, title, text, id, active, updating, comments, tokenRef } = card
+      const { locked, type, title, text, id, active, updating, comments } = card
       const cardPayload = {
         locked,
         type,
@@ -183,8 +188,7 @@ export default {
         id,
         active,
         updating,
-        comments,
-        tokenRef
+        comments
       }
       return cardPayload
     },

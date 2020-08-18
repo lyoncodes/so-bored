@@ -1,6 +1,6 @@
 <template lang="pug">
   .home.mt-5
-    h5.headline Message Board Thing
+    h5.headline 
     ruleForm
     //- adobeAPI
 </template>

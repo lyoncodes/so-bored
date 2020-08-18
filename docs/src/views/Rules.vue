@@ -1,9 +1,11 @@
 <template lang="pug">
   #rules
+    ruleForm
     ruleBook
 </template>
 
 <script>
+import ruleForm from '../components/ruleForm'
 import ruleBook from '../components/ruleBook'
 export default {
   data () {
@@ -13,6 +15,7 @@ export default {
     }
   },
   components: {
+    ruleForm,
     ruleBook
   }
 }

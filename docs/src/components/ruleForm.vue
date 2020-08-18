@@ -8,8 +8,8 @@
       b-card
         b-form(@submit.prevent="handleSubmit")
           b-col
-            h5 Category
-            glyphs(@addtype="submitType")
+            //- h5 knack knack
+            //- glyphs(@addtype="submitType")
             b-form-group.mt-5(id="input-title")
               b-row(v-if="formChar.titleCount > formChar.titleLimit")
                 b-badge(variant="danger") {{formChar.errorMsg}}
