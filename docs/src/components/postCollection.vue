@@ -1,14 +1,14 @@
 <template lang="pug">
   b-container
-    //- ruleFilter
-    ruleCard(
+    //- postFilter
+    postCard(
       :validation="formChar"
     )
 </template>
 
 <script>
-import ruleCard from '../components/ruleCard'
-import ruleFilter from '../components/ruleFilter'
+import postCard from '../components/postCard'
+import postFilter from '../components/postFilter'
 
 export default {
   name: 'rule-book',
@@ -24,8 +24,8 @@ export default {
     }
   },
   components: {
-    ruleCard,
-    ruleFilter
+    postCard,
+    postFilter
   }
 }
 </script>

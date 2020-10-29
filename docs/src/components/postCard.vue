@@ -1,42 +1,42 @@
 <template lang="pug">
   b-card-group.card-grid
-    b-container.card-container
+    b-container.card-container.p-0
       //- array iteration
-      b-col(v-for="card in rules" :key="card.title")
+      b-col.p-0(v-for="card in rules" :key="card.title")
         //- card template
         b-card
           //- CARD ----------
-          //- activate (show)
-          b-button.icon-trigger(@click="handleShow(card)" variant="primary"
-          :disabled="card.updating")
-            img.card-icon(src='../assets/add.svg')
-          //- delete (remove)
-          b-button.icon-trigger(@click="handleDelete(card)" variant="primary"
-          :disabled="card.updating"
-          )
-            iconScissors
+          b-row
+            //- activate (show)
+            b-button.icon-trigger(@click="handleShow(card)" variant="primary"
+            :disabled="card.updating")
+              img.card-icon(src='../assets/add.svg')
+            //- delete (remove)
+            b-button.icon-trigger(@click="handleDelete(card)" variant="primary"
+            :disabled="card.updating"
+            )
+              img.card-icon(src='../assets/cancel.svg')
+            //- handle update & cancel
+            b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
+              img.card-icon(src='../assets/editPencil.svg')
+            //- annotate
+            b-button.icon-trigger(@click="toggleComments(card)" variant="primary")
+              img.card-icon(src='../assets/annotate.svg')
+            //- add link
+            b-button.icon-trigger(@click="toggleLinks(card)" variant="primary")
+              iconWatch
           //- CARD HEADING ----------
           b-col(v-if="!card.active")
-            h3 {{card.title}}
-            b-badge {{card.type}}
+            b-row.mb-4.justify-content-start
+              h3 {{card.title}}
           //- CARD BODY ----------
           b-col(v-if="card.active")
-            //- CARD NAV ------------
             b-row.mb-4.justify-content-start
+              //- title form ------------
+              h3(v-if="!card.updating") {{card.title}}
               b-col.p-0(v-if="card.active")
                 //- If rule locked, display lock
                 img.card-icon.pl-3(v-if="card.locked" src='../assets/Lock.svg')
-                //- handle update & cancel
-                b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
-                  iconPallete
-                //- annotate
-                b-button.icon-trigger(@click="toggleComments(card)" variant="primary")
-                  img.card-icon(src='../assets/annotate.svg')
-                //- add link
-                b-button.icon-trigger(@click="toggleLinks(card)" variant="primary")
-                  img.card-icon(src='../assets/Valid.svg')
-            //- title form ------------
-            h3(v-if="!card.updating") {{card.title}}
             b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
               b-row.justify-content-center.pt-3(v-if="validation.titleCount > validation.titleLimit")
                 img.error-icon.pl-3(src='../assets/error.svg')
@@ -62,27 +62,26 @@
                 img.card-icon(src='../assets/add.svg')
             //- links comp ----------
             b-col
-              cardLinks(
+              postLinks(
                 :rule="card"
                 :show="card.displayLinks"
               )
             //- annotation comp ------------
             b-col
-              cardComments(
+              postComments(
                 :rule="card"
                 :show="card.displayComments"
               )
             //- CARD footer
             b-col(v-if="card.active")
               b-badge {{card.type}}
+              b-badge {{userProfile.email}}
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import cardComments from '../components/card/cardComments'
-import cardLinks from '../components/card/cardLinks'
+import postComments from '../components/card/postComments'
+import postLinks from '../components/card/postLinks'
 import iconWatch from '../components/icons/iconWatch'
-import iconScissors from '../components/icons/iconScissors'
-import iconPallete from '../components/icons/iconPallete'
 export default {
   name: 'activeRuleContainer',
   props: ['validation'],
@@ -105,20 +104,19 @@ export default {
     }
   },
   components: {
-    cardComments,
-    cardLinks,
-    iconWatch,
-    iconScissors,
-    iconPallete
+    postComments,
+    postLinks,
+    iconWatch
   },
   computed: {
     ...mapState([
-      'rules'
+      'rules',
+      'userProfile'
     ])
   },
   methods: {
     ...mapActions([
-      'actionThis'
+      'mother'
     ]),
     validateCharCount () {
       this.validation.charCount = this.updateData.text.length
@@ -131,7 +129,7 @@ export default {
       this.updateData.text = card.text
       const payload = this.cardFormat(card)
       payload.payload = 'toggleUpdateFields'
-      this.actionThis(payload)
+      this.mother(payload)
     },
     submitUpdate (card) {
       const payload = this.cardFormat(card)
@@ -150,26 +148,26 @@ export default {
         return alert('Error handling: fix length')
       }
       ruleUpdatePayload.payload = 'updateRule'
-      this.actionThis(ruleUpdatePayload)
+      this.mother(ruleUpdatePayload)
       card.updating = false
       this.clearForm()
     },
     handleShow (card) {
       card.active = !card.active
       card.payload = 'toggleShow'
-      this.actionThis(card)
+      this.mother(card)
     },
     handleDelete (card) {
       card.payload = 'deleteRule'
-      this.actionThis(card)
+      this.mother(card)
     },
     toggleComments (card) {
       card.payload = 'toggleComments'
-      this.actionThis(card)
+      this.mother(card)
     },
     toggleLinks (card) {
       card.payload = 'toggleLinks'
-      this.actionThis(card)
+      this.mother(card)
     },
     clearForm () {
       this.updateData = {

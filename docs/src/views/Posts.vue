@@ -1,12 +1,12 @@
 <template lang="pug">
   #rules
-    ruleForm
-    ruleBook
+    postForm
+    postCollection
 </template>
 
 <script>
-import ruleForm from '../components/ruleForm'
-import ruleBook from '../components/ruleBook'
+import postForm from '../components/postForm'
+import postCollection from '../components/postCollection'
 export default {
   data () {
     return {
@@ -15,8 +15,8 @@ export default {
     }
   },
   components: {
-    ruleForm,
-    ruleBook
+    postForm,
+    postCollection
   }
 }
 </script>

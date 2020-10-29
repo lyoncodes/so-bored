@@ -40,7 +40,7 @@ body::-webkit-scrollbar {
     box-shadow:  $box-shadow-dark;
   }
   .toggled {
-    color: $indigo
+    color: $metallic-blue
   }
 }
 </style>

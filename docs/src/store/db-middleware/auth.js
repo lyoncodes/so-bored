@@ -4,7 +4,7 @@ import router from '../../router/index'
 async function login ({ dispatch }, form) {
   const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password)
   dispatch('fetchUserProfile', user)
-  dispatch('fetchRules')
+  dispatch('fetchPosts')
 }
 // get() for user profile via user.uid
 async function fetchUserProfile ({ commit }, user) {

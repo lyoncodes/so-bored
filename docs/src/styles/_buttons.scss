@@ -1,7 +1,7 @@
 button {
   background-color: #fff;
-  border: 2px solid $sherbert;
-  color: $sherbert;
+  border: 2px solid $primary-blue;
+  color: $primary-blue;
   font-size: $font-md;
   font-weight: $font-med;
   outline: none;
@@ -9,15 +9,6 @@ button {
   transition: all 0.4s ease;
   &:active, :focus{
     outline: none;
-  }
-}
-.add-asset-button {
-  transform: skew(-8deg);
-  box-shadow: $box-shadow-dark;
-  &:hover{
-    border: 2px solid $sherbert;
-    box-shadow: none;
-    color: $sherbert;
   }
 }
 .btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active {
@@ -31,28 +22,28 @@ button {
 }
 .btn-secondary:focus {
   background-color: #fff !important;
-  border: 1px solid $neon;
-  color: $neon;
+  border: 1px solid $hot-pink;
+  color: $hot-pink;
   box-shadow: none
 }
 .login-btn {
-  color: $indigo;
-  border: 1px solid $indigo;
+  color: $metallic-blue;
+  border: 1px solid $metallic-blue;
   &:hover{
     color: #fff;
-    background: $indigo !important;
+    background: $metallic-blue !important;
   }
 }
 .signUp-btn {
   background: #fff;
-  border: 1px solid $indigo;
+  border: 1px solid $metallic-blue;
   box-shadow: $box-shadow-light-fade;
-  color: $indigo;
+  color: $metallic-blue;
   &:hover {
     background: #fff;
-    border: 1px solid $neon;
+    border: 1px solid $hot-pink;
     box-shadow: $box-shadow-light-fade;
-    color: $neon;
+    color: $hot-pink;
   }
 }
 #edit-button {
@@ -61,11 +52,11 @@ button {
 }
 .type-links {
   border: 1px solid transparent;
-  color: $sherbert;
+  color: $true-blue;
   transition: all .7s ease;
   &:hover {
-    border: 1px solid $indigo;
-    color: $neon;
+    border: 1px solid $metallic-blue;
+    color: $hot-pink;
   }
   &:active, &:focus {
     border: 1px solid transparent;

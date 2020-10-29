@@ -1,12 +1,12 @@
 <template lang="pug">
   .home.mt-5
     h5.headline 
-    ruleForm
+    postForm
     //- adobeAPI
 </template>
 
 <script>
-import ruleForm from '../components/ruleForm'
+import postForm from '../components/postForm'
 import navBar from '../components/navBar'
 // import adobeAPI from '../components/fetches/adobeCC'
 
@@ -14,7 +14,7 @@ export default {
   name: 'Home',
   components: {
     navBar,
-    ruleForm
+    postForm
     // adobeAPI
   }
 }

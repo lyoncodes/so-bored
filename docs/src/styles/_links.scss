@@ -1,12 +1,16 @@
 .custom-control {
-  border: 1px solid transparent;
-  display: inline;
-  padding: .25em;
-  height: 2em;
+  // border: 3px solid $primary-blue;
+  color: $primary-blue;
+  display: inline-block;
+  padding: .5em;
+  transition: 0.3s ease;
   ::after, ::before {
     display: none;
   }
-  &:active, &:checked {
-    border: 1px solid black;
+  &:hover, &:visited, &:active, &:focus {
+    color: $true-blue;
   }
+}
+input[type="radio"]:checked+label {
+  color: $true-blue;
 }

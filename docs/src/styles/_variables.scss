@@ -1,11 +1,14 @@
 // COLORS
-$primary: #31C3C3;
-$sherbert: #ffaf7b;
-$indigo: #743ad5;
-$neon: #d53a9d;
-$border-g: linear-gradient(to left, $indigo, $neon);
-$box-shadow-light: 10px 10px 22px -1px rgba($neon,0.35);
-$box-shadow-light-fade: 8px 8px 20px -3px rgba($neon,0.25);
-$box-shadow-dark: 10px 10px 22px -1px rgba($indigo,0.35);
+$primary-blue: #032CA6;
+$tert-blue: #021859;
+$true-blue: #0B9ED9;
+$metallic-blue: #112C56;
+$hot-pink: #F25CA2;
+$slate: #374049;
+$metallic-slate: rgba(70, 77, 81, 0.247);
+$border-g: linear-gradient(to left, $metallic-blue, $hot-pink);
+$box-shadow-light: 10px 10px 22px -1px rgba($hot-pink,0.35);
+$box-shadow-light-fade: 8px 8px 20px -3px rgba($metallic-slate,0.25);
+$box-shadow-dark: ç;
 // SHAPES
 $border-radius-lg: .75em;

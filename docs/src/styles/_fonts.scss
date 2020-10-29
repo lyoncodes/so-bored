@@ -8,7 +8,7 @@ $font-heavy: 800;
 $font-med: 600;
 $font-light: 300;
 // ============= font sizes =================
-$font-lg: 1.75em;
+$font-lg: 1.25em;
 $font-md: 1em;
 $font-sm: .75em;
 
@@ -26,7 +26,8 @@ $font-sm: .75em;
     -webkit-text-fill-color: transparent;
   }
   h3,h4,h5,h6 {
-    color: $neon;
+    color: $primary-blue;
+    font-size: $font-lg;
   }
   .headline {
     font-weight: $font-med;
