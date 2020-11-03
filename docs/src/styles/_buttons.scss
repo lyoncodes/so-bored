@@ -11,9 +11,10 @@ button {
   }
 }
 .neu-a-button{
+  -webkit-appearance: none;
   height: 100px;
   width: 100px;
-  -webkit-appearance: none;
+  background-color: $background-slate;
   box-shadow: $box-shadow-dark;
   border-radius: 50%;
   border: 8px solid $background-slate;
@@ -27,6 +28,23 @@ button {
   border-radius: 50%;
   border: 8px solid $background-slate;
   outline: none;
+}
+.neu-c-button{
+  background-color: $background-slate;
+  -webkit-appearance: none;
+  box-shadow: $box-shadow-button-inset;
+  border-radius: 10%;
+  border: none;
+  letter-spacing: .1em;
+  margin: 0 .75em 0 .75em;
+  outline: none;
+  padding: 1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  &:hover {
+    box-shadow: $box-shadow-button-inset-hover;
+    transform: scale(0.98);
+  }
 }
 .btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active {
   background: none;
