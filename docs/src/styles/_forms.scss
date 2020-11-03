@@ -1,31 +1,31 @@
 %forms{
 form {
+  #title-input {
+    font-size: $font-md !important;
+  }
   textarea, input, .form-control {
-    border: 1px solid $neon;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-radius: 0;
-    color: $indigo;
-    font-size: 1em;
-    height: 2em;
+    color: $metallic-blue;
+    background: $background-slate;
+    border: 1px solid transparent;
+    border-radius: 0.5;
+    box-shadow: $box-shadow-dark;
+    padding: .5em 0 2.5em .5em; 
+    height: 1.5em;
     resize: none;
-    transition: border .4s ease-in;
-    &::placeholder {
-      color: $sherbert
+    transition: all .4s ease-in;
+    &::placeholder{
+      color: $metallic-blue;
     }
-    &:focus {
-      outline: none;
-      box-shadow: none;
-      border: 1px solid $sherbert;
-      border-top: none;
-      border-right: none;
-      border-left: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &:hover, :active {
+      transform: scale(0.99);
     }
   }
 }
   #card-text, #annotate-text {
-    font-size: $font-md;
+    font-size: $font-sm;
     height: 4em;
   }
   #card-text {
@@ -37,7 +37,8 @@ form {
   text-align: left;
 }
 .validation-char {
-  color: $indigo;
+  color: $metallic-blue;
   font-size: $font-sm;
-  text-align: left
+  text-align: left;
+  margin: .75em;
 }

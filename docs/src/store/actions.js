@@ -2,24 +2,27 @@ import * as firebase from '../../firebase'
 import { firestore } from 'firebase'
 import { login, fetchUserProfile, signUp } from './db-middleware/auth'
 import { logout } from './db-middleware/exit'
-import { fetchRules, fetchRuleCollection } from './db-middleware/fetch'
+import { fetchPosts, fetchRuleCollection } from './db-middleware/fetch'
 import { mapRes } from './db-middleware/mapRes'
 import { attachLink } from './db-middleware/attachLink'
 
 export default {
-  // CALL STACK
+  // MESSAGE BOARD CALL STACK
   signUp,
   login,
   fetchUserProfile,
   logout,
-  fetchRules,
+  fetchPosts,
   fetchRuleCollection,
   mapRes,
   attachLink,
-  async actionThis ({ commit, dispatch }, data) {
-    console.log(data)
+  async mother ({ commit, dispatch }, data) {
+    console.log('momma says: ', data)
     if (data.payload === 'addRule') {
       await firebase.rulesCollection.add({
+        createdOn: new Date(),
+        userId: firebase.auth.currentUser.uid,
+        userName: firebase.auth.currentUser.email,
         locked: data.locked,
         type: data.type,
         title: data.title,
@@ -31,7 +34,7 @@ export default {
         displayComments: data.displayComments,
         displayLinks: data.displayLinks
       })
-      dispatch('fetchRules')
+      dispatch('fetchPosts')
     }
     dispatch('mapRes', data).then(async (res) => {
       if (data.payload === 'deleteRule') {
@@ -79,6 +82,6 @@ export default {
   },
   // filters by type
   filterAction: ({ commit }, type) => {
-    commit('filterRules', type)
+    commit('filterPosts', type)
   }
 }

@@ -1,16 +1,23 @@
 %nav {
   #nav {
-    margin: 1em;
+    background: $border-g;
+    height: 70px;
     a {
-      color: $indigo;
+      color: white;
       padding: .5em;
       font-weight: bold;
       font-size: $font-sm;
-  
       &.router-link-exact-active, &:hover {
-        color: $neon;
+        color: white;
         text-decoration: none;
       }
+    }
+    .main-icon {
+      height: 3em;
+    }
+    .post-icon {
+      margin: 1em 0 0 0;
+      height: 1.5em;
     }
   }
 }

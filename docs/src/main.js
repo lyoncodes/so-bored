@@ -25,6 +25,7 @@ auth.onAuthStateChanged(user => {
   }
   if (user) {
     store.dispatch('fetchUserProfile', user)
-    store.dispatch('fetchRules')
+    store.dispatch('fetchPosts')
+    // trigger welcome animation here:
   }
 })

@@ -1,6 +1,6 @@
 import * as firebase from '../../../firebase'
 // fetches rules, calls mutation to assign fetched rules to rules array in state
-async function fetchRules ({ commit }) {
+async function fetchPosts ({ commit }) {
   const rule = firebase.rulesCollection
   const snapshot = await rule.get()
   const rulePayload = []
@@ -17,4 +17,4 @@ async function fetchRuleCollection () {
   const snapshot = await rule.get()
   return snapshot.docs
 }
-export { fetchRules, fetchRuleCollection }
+export { fetchPosts, fetchRuleCollection }

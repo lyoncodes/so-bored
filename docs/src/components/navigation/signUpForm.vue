@@ -7,7 +7,7 @@
       b-col.mt-4
         b-form-group#account-email
           b-row
-            a.validation-char unearth email
+            a.validation-char email
           b-form-input(
             v-model="signUpForm.email"
             type="text"
@@ -18,7 +18,7 @@
           b-form-input(
             v-model="signUpForm.password"
             type="password"
-            placeholder="********"
+            placeholder="password"
           )
         b-button.signUp-btn(type="submit") Create Account
 </template>

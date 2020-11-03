@@ -1,56 +1,56 @@
 <template lang="pug">
-  b-container
+  b-container.mt-5
     b-col
-      button.add-asset-button(
-        @click="toggleCardForm")
-        span {{ buttonText.toggleMsg }}
+      button.neu-a-button(
+        @click="toggleCardForm"
+        v-bind:class="{postFormActive: showCardForm }")
+        //- span {{ buttonText.toggleMsg }}
+        img.card-icon(src="../assets/add.svg")
     b-col.mt-4(v-if="showCardForm")
-      b-card
-        b-form(@submit.prevent="handleSubmit")
-          b-col
-            //- h5 knack knack
-            //- glyphs(@addtype="submitType")
-            b-form-group.mt-5(id="input-title")
-              b-row(v-if="formChar.titleCount > formChar.titleLimit")
-                b-badge(variant="danger") {{formChar.errorMsg}}
-              b-form-input(
-                v-model="formData.title"
-                @keyup="validateCharCount()"
-                required
-                placeholder="Enter Doc Title"
-                )
-              a.validation-char {{formChar.titleCount}} / {{formChar.titleLimit}}
-            b-form-group(id="input-card-text")
-              b-row(v-if="formChar.charCount > formChar.charLimit")
-                b-badge(variant="danger") {{formChar.errorMsg}}
-              b-form-input(
-                id="card-text"
-                v-model="formData.text"
-                @keyup="validateCharCount()"
-                required
-                placeholder="Enter Rule Text"
+      b-form(@submit.prevent="handleSubmit")
+        b-col
+          //- h5 knack knack
+          //- glyphs(@addtype="submitType")
+          b-form-group.mt-5(id="input-title")
+            b-form-textarea#title-input(
+              v-model="formData.title"
+              @keyup="validateCharCount()"
+              required
+              contenteditable
+              placeholder="Title"
               )
-              a.validation-char {{formChar.charCount}} / {{formChar.charLimit}}
-            b-form-group
-              b-form-radio(
-                id="unlock"
-                v-model="formData.locked"
-                :value="false"
-                variant="light"
-              )
-                img.card-icon-sm(src='../assets/Unlock.svg')
-              b-form-radio(
-                id="lock"
-                v-model="formData.locked"
-                :value="true"
-                variant="light"
-              )
-                img.card-icon-sm(src='../assets/Lock.svg')
-            img.card-icon(v-if="showConfirm" src='../assets/Valid.svg')
-            b-button(type="submit")
-              img.card-icon(src='../assets/add.svg')
-            b-button(type="reset")
-              img.card-icon(src='../assets/cancel.svg')
+            a.validation-char(
+              v-bind:class="errorObject"
+            ) {{formChar.titleCount}} / {{formChar.titleLimit}}
+          b-form-group(id="input-card-text")
+            b-form-textarea(
+              id="card-text"
+              v-model="formData.text"
+              @keyup="validateCharCount()"
+              required
+              placeholder="Enter Rule Text"
+            )
+            a.validation-char(
+              v-bind:class="errorObject"
+            ) {{formChar.charCount}} / {{formChar.charLimit}}
+          b-form-group
+            b-form-radio(
+              id="unlock"
+              v-model="formData.locked"
+              :value="false"
+              variant="light"
+            )
+              img.card-icon-sm(src='../assets/Unlock.svg')
+            b-form-radio(
+              id="lock"
+              v-model="formData.locked"
+              :value="true"
+              variant="light"
+            )
+              img.card-icon-sm(src='../assets/Lock.svg')
+              img.card-icon-sm.ml-3(v-if="showConfirm" src='../assets/Valid.svg')
+          button.neu-c-button(type="submit") Post
+          button.neu-c-button(type="reset") Nah
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -66,16 +66,17 @@ export default {
       showCardForm: false,
       showConfirm: false,
       buttonText: {
-        toggleMsg: 'Add Post',
+        toggleMsg: 'Neu',
         errorMsg: 'Nvm'
       },
       formChar: {
         titleCount: 0,
-        titleLimit: 20,
+        titleLimit: 40,
         charCount: 0,
         charLimit: 300,
         confirmation: String,
-        errorMsg: String
+        errorMsg: String,
+        isError: false
       },
       formData: {
         locked: false,
@@ -86,7 +87,6 @@ export default {
         updating: false,
         comments: [],
         links: [],
-        commentType: false,
         displayComments: false,
         displayLinks: false
       }
@@ -97,11 +97,16 @@ export default {
       'userProfile',
       'Glyphs',
       'rules'
-    ])
+    ]),
+    errorObject: function () {
+      return {
+        error: this.formData.title.length > this.formChar.titleLimit || this.formData.text.length > this.formChar.charLimit ? true : null
+      }
+    }
   },
   methods: {
     ...mapActions([
-      'actionThis'
+      'mother'
     ]),
     toggleCardForm () {
       this.showCardForm = !this.showCardForm
@@ -115,7 +120,7 @@ export default {
       this.formData.type = glyphs
     },
     handleSubmit () {
-      const { locked, title, text, type, active, updating, comments, links, commentType, displayComments, displayLinks } = this.formData
+      const { locked, title, text, type, active, updating, comments, links, displayComments, displayLinks } = this.formData
       const idx = this.rules.length + 1
       const card = {
         locked,
@@ -127,7 +132,6 @@ export default {
         updating,
         comments,
         links,
-        commentType,
         displayComments,
         displayLinks
       }
@@ -135,7 +139,7 @@ export default {
         return alert('Error handling: fix length')
       }
       card.payload = 'addRule'
-      this.actionThis(card)
+      this.mother(card)
       this.resetForm()
     },
     resetForm () {
@@ -155,10 +159,9 @@ export default {
       this.showConfirm = true
       this.formChar = {
         titleCount: 0,
-        titleLimit: 20,
+        titleLimit: 40,
         charCount: 0,
-        charLimit: 300,
-        confirmation: 'Added!'
+        charLimit: 300
       }
     }
   },
@@ -169,6 +172,15 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.postFormActive{
+  color: $lime-green;
+  -webkit-appearance: none;
+  background-color: $background-slate;
+  box-shadow: $box-shadow-light-inset;
+}
+.error {
+  color: $cotton-candy !important;
+}
 .icon-trigger{
   border: 0em;
   box-shadow: none;
