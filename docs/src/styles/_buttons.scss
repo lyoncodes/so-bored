@@ -1,15 +1,32 @@
 button {
-  background-color: #fff;
-  border: 2px solid $primary-blue;
-  color: $primary-blue;
+  // background-color: #fff;
+  border: 2px solid $lime-green;
+  color: $cotton-candy;
   font-size: $font-md;
-  font-weight: $font-med;
-  outline: none;
+  font-weight: $font-heavy;
   padding: .75em;
   transition: all 0.4s ease;
   &:active, :focus{
     outline: none;
   }
+}
+.neu-a-button{
+  height: 100px;
+  width: 100px;
+  -webkit-appearance: none;
+  box-shadow: $box-shadow-dark;
+  border-radius: 50%;
+  border: 8px solid $background-slate;
+  outline: none;
+}
+.neu-b-button{
+  height: 50px;
+  width: 50px;
+  -webkit-appearance: none;
+  box-shadow: $box-shadow-dark;
+  border-radius: 50%;
+  border: 8px solid $background-slate;
+  outline: none;
 }
 .btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active {
   background: none;
@@ -22,8 +39,8 @@ button {
 }
 .btn-secondary:focus {
   background-color: #fff !important;
-  border: 1px solid $hot-pink;
-  color: $hot-pink;
+  border: 1px solid $cotton-candy;
+  color: $cotton-candy;
   box-shadow: none
 }
 .login-btn {
@@ -41,9 +58,9 @@ button {
   color: $metallic-blue;
   &:hover {
     background: #fff;
-    border: 1px solid $hot-pink;
+    border: 1px solid $cotton-candy;
     box-shadow: $box-shadow-light-fade;
-    color: $hot-pink;
+    color: $cotton-candy;
   }
 }
 #edit-button {
@@ -56,7 +73,7 @@ button {
   transition: all .7s ease;
   &:hover {
     border: 1px solid $metallic-blue;
-    color: $hot-pink;
+    color: $cotton-candy;
   }
   &:active, &:focus {
     border: 1px solid transparent;

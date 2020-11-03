@@ -1,5 +1,5 @@
 <template lang="pug">
-  #rules
+  #rules.pb-5
     postForm
     postCollection
 </template>

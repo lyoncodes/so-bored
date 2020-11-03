@@ -85,7 +85,7 @@ export default {
 <style scoped lang="scss">
 form {
   textarea {
-    border: 1px solid $hot-pink;
+    border: 1px solid $cotton-candy;
     outline: none;
     &:focus {
       border: 1px solid $metallic-blue;

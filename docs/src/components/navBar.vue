@@ -1,11 +1,11 @@
 <template lang="pug">
 #nav
   b-row
-    b-col.col-4.mt-3
+    b-col.col-4.mt-4
       a(@click="logout()") logout
-    b-col.col-4.mb-1.mt-1
+    b-col.col-4.mb-1.mt-2
       img.main-icon(src='../assets/ito-white.svg')
-    b-col.col-4
+    b-col.col-4.mt-1
       img.post-icon(src='../assets/post-flag.svg')
 </template>
 <script>

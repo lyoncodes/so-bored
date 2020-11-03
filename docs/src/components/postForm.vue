@@ -1,9 +1,11 @@
 <template lang="pug">
-  b-container
+  b-container.mt-5
     b-col
-      button(
-        @click="toggleCardForm")
-        span {{ buttonText.toggleMsg }}
+      button.neu-a-button(
+        @click="toggleCardForm"
+        v-bind:class="{postFormActive: showCardForm }")
+        //- span {{ buttonText.toggleMsg }}
+        img.card-icon(src="../assets/add.svg")
     b-col.mt-4(v-if="showCardForm")
       b-form(@submit.prevent="handleSubmit")
         b-col
@@ -66,7 +68,7 @@ export default {
       showCardForm: false,
       showConfirm: false,
       buttonText: {
-        toggleMsg: '+',
+        toggleMsg: 'Neu',
         errorMsg: 'Nvm'
       },
       formChar: {
@@ -87,7 +89,6 @@ export default {
         updating: false,
         comments: [],
         links: [],
-        commentType: false,
         displayComments: false,
         displayLinks: false
       }
@@ -121,7 +122,7 @@ export default {
       this.formData.type = glyphs
     },
     handleSubmit () {
-      const { locked, title, text, type, active, updating, comments, links, commentType, displayComments, displayLinks } = this.formData
+      const { locked, title, text, type, active, updating, comments, links, displayComments, displayLinks } = this.formData
       const idx = this.rules.length + 1
       const card = {
         locked,
@@ -133,7 +134,6 @@ export default {
         updating,
         comments,
         links,
-        commentType,
         displayComments,
         displayLinks
       }
@@ -175,8 +175,13 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.postFormActive{
+  color: $lime-green;
+  -webkit-appearance: none;
+  box-shadow: $box-shadow-dark-inset;
+}
 .error {
-  color: $hot-pink !important;
+  color: $cotton-candy !important;
 }
 .icon-trigger{
   border: 0em;

@@ -20,6 +20,9 @@ export default {
     console.log('momma says: ', data)
     if (data.payload === 'addRule') {
       await firebase.rulesCollection.add({
+        createdOn: new Date(),
+        userId: firebase.auth.currentUser.uid,
+        userName: firebase.auth.currentUser.email,
         locked: data.locked,
         type: data.type,
         title: data.title,

@@ -32,6 +32,7 @@ body::-webkit-scrollbar {
   @extend %body-fonts;
   @extend %forms;
   @extend %cards;
+  background-color: $background-slate;
   .selected {
     background: $border-g !important;
     color: white!important;

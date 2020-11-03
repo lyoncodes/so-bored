@@ -4,7 +4,13 @@
       //- array iteration
       b-col.p-0(v-for="card in rules" :key="card.title")
         //- card template
-        b-card
+        b-card.pb-1
+          //- CARD HEADING ----------
+          b-col
+            b-row.mb-2.mt-2.justify-content-start
+              h3 {{card.title}}
+            b-row.mb-4.justify-content-start
+              span.caption {{card.userName}}
           //- CARD ----------
           b-row
             //- activate (show)
@@ -25,15 +31,10 @@
             //- add link
             b-button.icon-trigger(@click="toggleLinks(card)" variant="primary")
               iconWatch
-          //- CARD HEADING ----------
-          b-col(v-if="!card.active")
-            b-row.mb-4.justify-content-start
-              h3 {{card.title}}
           //- CARD BODY ----------
           b-col(v-if="card.active")
             b-row.mb-4.justify-content-start
               //- title form ------------
-              h3(v-if="!card.updating") {{card.title}}
               b-col.p-0(v-if="card.active")
                 //- If rule locked, display lock
                 img.card-icon.pl-3(v-if="card.locked" src='../assets/Lock.svg')
@@ -75,7 +76,6 @@
             //- CARD footer
             b-col(v-if="card.active")
               b-badge {{card.type}}
-              b-badge {{userProfile.email}}
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'

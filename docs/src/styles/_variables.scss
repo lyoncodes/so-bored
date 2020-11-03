@@ -1,14 +1,24 @@
 // COLORS
-$primary-blue: #032CA6;
+$lime-green: #72e896;
+$canary-yellow: #fff383;
+$sherbert: #f4891e;
+$cotton-candy: #ffa5d8;
 $tert-blue: #021859;
 $true-blue: #0B9ED9;
 $metallic-blue: #112C56;
-$hot-pink: #F25CA2;
 $slate: #374049;
+$light-slate: rgba(255,255,255,0.5);
+$dark-slate: rgba(70,70,70,0.12);
+$background-slate: #f1f1f1;
 $metallic-slate: rgba(70, 77, 81, 0.247);
-$border-g: linear-gradient(to left, $metallic-blue, $hot-pink);
-$box-shadow-light: 10px 10px 22px -1px rgba($hot-pink,0.35);
+$border-g: linear-gradient(90deg, $lime-green 16%, $canary-yellow 40%, $cotton-candy 68%, $sherbert 100%);
+$box-shadow-light: 10px 10px 22px -1px rgba($slate,0.35);
 $box-shadow-light-fade: 8px 8px 20px -3px rgba($metallic-slate,0.25);
-$box-shadow-dark: ç;
+$box-shadow-dark: -10px -10px 15px $light-slate,
+10px 10px 15px $dark-slate;
+$box-shadow-dark-inset: -10px -10px 15px $light-slate,
+10px 10px 15px $dark-slate,
+inset -10px -10px 15px $light-slate,
+inset 10px 10px 15px $dark-slate;
 // SHAPES
 $border-radius-lg: .75em;

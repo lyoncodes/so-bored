@@ -4,7 +4,7 @@ $font-title: "Playfair Display";
 $font-body: "Raleway";
 $font-caption: "Playfair Display";
 // ============= font weights =================
-$font-heavy: 800;
+$font-heavy: 700;
 $font-med: 600;
 $font-light: 300;
 // ============= font sizes =================
@@ -26,11 +26,16 @@ $font-sm: .75em;
     -webkit-text-fill-color: transparent;
   }
   h3,h4,h5,h6 {
-    color: $primary-blue;
+    color: $sherbert;
     font-size: $font-lg;
   }
   .headline {
     font-weight: $font-med;
     padding: .75em;
+  }
+  .caption {
+    color: $slate;
+    font-size: $font-sm;
+    font-style: italic;
   }
 }
