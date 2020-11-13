@@ -1,7 +1,11 @@
 <template lang="pug">
-  #rules.pb-5
-    postForm
-    postCollection
+  b-row
+    b-col.col-4
+      #post-form.pb-5
+        postForm
+    b-col.mt-5
+      #posts.pb-5
+        postCollection
 </template>
 
 <script>
@@ -21,5 +25,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
 </style>

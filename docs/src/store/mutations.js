@@ -43,6 +43,9 @@ export default {
   },
   // set rules in state to the rules retrieved from db
   setRuleCards (state, rulePayload) {
+    rulePayload.sort((a, b) => {
+      return a.createdOn.seconds - b.createdOn.seconds
+    })
     state.rules = rulePayload
   }
 }
