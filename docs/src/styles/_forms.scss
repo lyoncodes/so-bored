@@ -33,6 +33,12 @@ form {
   }
 }
 
+.form-container {
+  border-radius: 0.5;
+  box-shadow: $box-shadow-dark;
+  padding: .15em 1em 1em 1em;
+}
+
 .bv-no-focus-ring{
   text-align: left;
 }

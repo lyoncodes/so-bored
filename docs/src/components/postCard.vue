@@ -1,81 +1,82 @@
 <template lang="pug">
-  b-card-group.card-grid
+  b-card-group.card-grid.mt-4
     b-container.card-container.p-0
-      //- array iteration
-      b-col.p-0(v-for="card in rules" :key="card.title")
-        //- card template
-        b-card.pb-1
-          //- CARD HEADING ----------
-          b-col
-            b-row.mb-2.mt-2.justify-content-start
-              h3 {{card.title}}
-            b-row.mb-4.justify-content-start
-              span.caption {{card.userName}}
-          //- CARD ----------
-          b-row
-            //- activate (show)
-            b-button.icon-trigger(@click="handleShow(card)" variant="primary"
-            :disabled="card.updating")
-              img.card-icon(src='../assets/add.svg')
-            //- delete (remove)
-            b-button.icon-trigger(@click="handleDelete(card)" variant="primary"
-            :disabled="card.updating"
-            )
-              img.card-icon(src='../assets/cancel.svg')
-            //- handle update & cancel
-            b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
-              img.card-icon(src='../assets/editPencil.svg')
-            //- annotate
-            b-button.icon-trigger(@click="toggleComments(card)" variant="primary")
-              img.card-icon(src='../assets/annotate.svg')
-            //- add link
-            b-button.icon-trigger(@click="toggleLinks(card)" variant="primary")
-              iconWatch
-          //- CARD BODY ----------
-          b-col(v-if="card.active")
-            b-row.mb-4.justify-content-start
-              //- title form ------------
-              b-col.p-0(v-if="card.active")
-                //- If rule locked, display lock
-                img.card-icon.pl-3(v-if="card.locked" src='../assets/Lock.svg')
-            b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
-              b-row.justify-content-center.pt-3(v-if="validation.titleCount > validation.titleLimit")
-                img.error-icon.pl-3(src='../assets/error.svg')
-              b-form-textarea.mt-3(
-                v-model="updateData.title"
-                @keyup="validateCharCount()"
-                :placeholder="updateData.title"
-              )
-              a.validation-char {{updateData.title.length}} / {{validation.titleLimit}}
-            //- text form ------------
-            b-card-text(v-if="!card.updating") {{card.text}}
-            b-form.mt-3(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
-              b-row(v-if="validation.charCount > validation.charLimit")
-                b-badge(variant="danger") {{validation.errorMsg}}
-              b-form-textarea.mt-3(
-                id="card-text"
-                v-model="updateData.text"
-                @keyup="validateCharCount()"
-                :placeholder="updateData.text"
-              )
-              a.validation-char {{updateData.text.length}} / {{validation.charLimit}}
-              b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
+      b-row
+        //- array iteration
+        b-col.col-6.p-1(v-for="card in rules" :key="card.title")
+          //- card template
+          b-card.pb-1
+            //- CARD HEADING ----------
+            b-col
+              b-row.mb-2.mt-2.justify-content-start
+                h3 {{card.title}}
+              b-row.mb-4.justify-content-start
+                span.caption {{card.userName}}
+            //- CARD ----------
+            b-row
+              //- activate (show)
+              b-button.icon-trigger(@click="handleShow(card)" variant="primary"
+              :disabled="card.updating")
                 img.card-icon(src='../assets/add.svg')
-            //- links comp ----------
-            b-col
-              postLinks(
-                :rule="card"
-                :show="card.displayLinks"
+              //- delete (remove)
+              b-button.icon-trigger(@click="handleDelete(card)" variant="primary"
+              :disabled="card.updating"
               )
-            //- annotation comp ------------
-            b-col
-              postComments(
-                :rule="card"
-                :show="card.displayComments"
-              )
-            //- CARD footer
+                img.card-icon(src='../assets/cancel.svg')
+              //- handle update & cancel
+              b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
+                img.card-icon(src='../assets/editPencil.svg')
+              //- annotate
+              b-button.icon-trigger(@click="toggleComments(card)" variant="primary")
+                img.card-icon(src='../assets/annotate.svg')
+              //- add link
+              b-button.icon-trigger(@click="toggleLinks(card)" variant="primary")
+                iconWatch
+            //- CARD BODY ----------
             b-col(v-if="card.active")
-              b-badge {{card.type}}
+              b-row.mb-4.justify-content-start
+                //- title form ------------
+                b-col.p-0(v-if="card.active")
+                  //- If rule locked, display lock
+                  img.card-icon.pl-3(v-if="card.locked" src='../assets/Lock.svg')
+              b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
+                b-row.justify-content-center.pt-3(v-if="validation.titleCount > validation.titleLimit")
+                  img.error-icon.pl-3(src='../assets/error.svg')
+                b-form-textarea.mt-3(
+                  v-model="updateData.title"
+                  @keyup="validateCharCount()"
+                  :placeholder="updateData.title"
+                )
+                a.validation-char {{updateData.title.length}} / {{validation.titleLimit}}
+              //- text form ------------
+              b-card-text(v-if="!card.updating") {{card.text}}
+              b-form.mt-3(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
+                b-row(v-if="validation.charCount > validation.charLimit")
+                  b-badge(variant="danger") {{validation.errorMsg}}
+                b-form-textarea.mt-3(
+                  id="card-text"
+                  v-model="updateData.text"
+                  @keyup="validateCharCount()"
+                  :placeholder="updateData.text"
+                )
+                a.validation-char {{updateData.text.length}} / {{validation.charLimit}}
+                b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
+                  img.card-icon(src='../assets/add.svg')
+              //- links comp ----------
+              b-col
+                postLinks(
+                  :rule="card"
+                  :show="card.displayLinks"
+                )
+              //- annotation comp ------------
+              b-col
+                postComments(
+                  :rule="card"
+                  :show="card.displayComments"
+                )
+              //- CARD footer
+              b-col(v-if="card.active")
+                b-badge {{card.type}}
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'

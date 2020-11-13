@@ -5,7 +5,7 @@ button {
   font-size: $font-md;
   font-weight: $font-heavy;
   padding: .75em;
-  transition: all 0.4s ease;
+  transition: ease-in-out 0.4s all;
   &:active, :focus{
     outline: none;
   }
@@ -21,9 +21,9 @@ button {
   outline: none;
 }
 .neu-b-button{
+  -webkit-appearance: none;
   height: 50px;
   width: 50px;
-  -webkit-appearance: none;
   box-shadow: $box-shadow-dark;
   border-radius: 50%;
   border: 8px solid $background-slate;

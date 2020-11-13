@@ -1,12 +1,12 @@
 <template lang="pug">
-  b-container.mt-5
+  div.mt-5.p-0
     b-col
-      button.neu-a-button(
+      button.neu-c-button(
         @click="toggleCardForm"
         v-bind:class="{postFormActive: showCardForm }")
-        //- span {{ buttonText.toggleMsg }}
-        img.card-icon(src="../assets/add.svg")
-    b-col.mt-4(v-if="showCardForm")
+        span {{ buttonText.toggleMsg }}
+        //- img.card-icon(src="../assets/add.svg")
+    b-col.mt-4.form-container(v-if="showCardForm")
       b-form(@submit.prevent="handleSubmit")
         b-col
           //- h5 knack knack
@@ -66,7 +66,7 @@ export default {
       showCardForm: false,
       showConfirm: false,
       buttonText: {
-        toggleMsg: 'Neu',
+        toggleMsg: 'New Card',
         errorMsg: 'Nvm'
       },
       formChar: {
