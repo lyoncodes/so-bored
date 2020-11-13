@@ -4,11 +4,11 @@ $font-title: "Playfair Display";
 $font-body: "Raleway";
 $font-caption: "Playfair Display";
 // ============= font weights =================
-$font-heavy: 800;
+$font-heavy: 700;
 $font-med: 600;
 $font-light: 300;
 // ============= font sizes =================
-$font-lg: 1.75em;
+$font-lg: 1.25em;
 $font-md: 1em;
 $font-sm: .75em;
 
@@ -26,10 +26,16 @@ $font-sm: .75em;
     -webkit-text-fill-color: transparent;
   }
   h3,h4,h5,h6 {
-    color: $neon;
+    color: $sherbert;
+    font-size: $font-lg;
   }
   .headline {
     font-weight: $font-med;
     padding: .75em;
+  }
+  .caption {
+    color: $slate;
+    font-size: $font-sm;
+    font-style: italic;
   }
 }

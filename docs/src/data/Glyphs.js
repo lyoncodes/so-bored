@@ -1,5 +1,5 @@
 export default [
-  { type: 'Styles' },
+  { type: 'new Image()' },
   { type: 'Copy' },
   { type: 'Layout' },
   { type: 'Brand' }

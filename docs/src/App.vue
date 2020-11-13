@@ -32,6 +32,7 @@ body::-webkit-scrollbar {
   @extend %body-fonts;
   @extend %forms;
   @extend %cards;
+  background-color: $background-slate;
   .selected {
     background: $border-g !important;
     color: white!important;
@@ -40,7 +41,7 @@ body::-webkit-scrollbar {
     box-shadow:  $box-shadow-dark;
   }
   .toggled {
-    color: $indigo
+    color: $metallic-blue
   }
 }
 </style>

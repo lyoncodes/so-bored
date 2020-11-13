@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'actionThis'
+      'mother'
     ]),
     validateCharCount () {
       this.commentValidation.errorMsg = this.comment.text.length > this.commentValidation.charLimit ? 'Too Many' : null
@@ -60,13 +60,13 @@ export default {
         commentType
       }
       if (this.comment.text.length) {
-        this.actionThis(commentPayload)
+        this.mother(commentPayload)
       }
       this.clearComment()
     },
     handleDelete (comment) {
       comment.commentType = false
-      this.actionThis(comment)
+      this.mother(comment)
     },
     clearComment () {
       this.comment = {
@@ -85,10 +85,10 @@ export default {
 <style scoped lang="scss">
 form {
   textarea {
-    border: 1px solid $neon;
+    border: 1px solid $cotton-candy;
     outline: none;
     &:focus {
-      border: 1px solid $indigo;
+      border: 1px solid $metallic-blue;
     }
   }
 }

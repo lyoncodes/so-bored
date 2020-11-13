@@ -43,7 +43,7 @@ export default {
   methods: {
     ...mapActions([
       'attachLink',
-      'actionThis'
+      'mother'
     ]),
     submitLink (linkData) {
       const id = this.$props.rule.id
@@ -67,7 +67,7 @@ export default {
       window.location.href = `https://${link.url}`
     },
     handleDelete (link) {
-      this.actionThis(link)
+      this.mother(link)
     }
   }
 }
