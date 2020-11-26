@@ -1,3 +1,2 @@
 # so-bored
-CRUD message board.
-Thx to THE sarah drasner
+a fun message board powered by Vue.js
