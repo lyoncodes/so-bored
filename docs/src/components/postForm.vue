@@ -12,7 +12,7 @@
           //- h5 knack knack
           //- glyphs(@addtype="submitType")
           b-form-group.mt-5(id="input-title")
-            b-form-textarea#title-input(
+            b-form-input#title-input(
               v-model="formData.title"
               @keyup="validateCharCount()"
               required
@@ -27,8 +27,6 @@
               id="card-text"
               v-model="formData.text"
               @keyup="validateCharCount()"
-              required
-              placeholder="Enter Rule Text"
             )
             a.validation-char(
               v-bind:class="errorObject"
@@ -50,7 +48,7 @@
               img.card-icon-sm(src='../assets/Lock.svg')
               img.card-icon-sm.ml-3(v-if="showConfirm" src='../assets/Valid.svg')
           button.neu-c-button(type="submit") Post
-          button.neu-c-button(type="reset") Nah
+          button.neu-c-button(type="reset" @click="toggleCardForm") Nah
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -66,12 +64,12 @@ export default {
       showCardForm: false,
       showConfirm: false,
       buttonText: {
-        toggleMsg: 'New Card',
-        errorMsg: 'Nvm'
+        toggleMsg: 'New Thread',
+        errorMsg: 'Nah'
       },
       formChar: {
         titleCount: 0,
-        titleLimit: 40,
+        titleLimit: 140,
         charCount: 0,
         charLimit: 300,
         confirmation: String,
@@ -159,7 +157,7 @@ export default {
       this.showConfirm = true
       this.formChar = {
         titleCount: 0,
-        titleLimit: 40,
+        titleLimit: 140,
         charCount: 0,
         charLimit: 300
       }

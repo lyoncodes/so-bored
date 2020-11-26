@@ -2,25 +2,33 @@
   b-form(
     @submit.prevent="handleSignUp(signUpForm)"
   )
-    b-card.p-2
-      h1 Create Account
+    .p-2
       b-col.mt-4
+        img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
         b-form-group#account-email
           b-row
-            a.validation-char email
+            a.validation-char login email
           b-form-input(
             v-model="signUpForm.email"
             type="text"
           )
+        b-form-group#account-username
+          b-row
+            a.validation-char username
+          b-form-input(
+            v-model="signUpForm.username"
+            type="text"
+          )
         b-form-group#account-password
           b-row
-            a.validation-char Password
+            a.validation-char password
           b-form-input(
             v-model="signUpForm.password"
-            type="password"
-            placeholder="password"
+            type="text"
           )
-        b-button.signUp-btn(type="submit") Create Account
+        button.neu-c-button.mt-3(type="submit") Join
+        .mt-3
+          a(type="submit" @click="toggleForm()") nvm
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
@@ -30,8 +38,10 @@ export default {
     return {
       signUpForm: {
         email: '',
+        username: '',
         password: ''
-      }
+      },
+      toggleBoolean: false
     }
   },
   computed: {
@@ -44,12 +54,19 @@ export default {
       'signUp'
     ]),
     handleSignUp () {
-      const { email, password } = this.signUpForm
+      const { email, username, password } = this.signUpForm
       const signUpData = {
         email,
+        username,
         password
       }
-      this.signUp(signUpData)
+      if (email && password && username) {
+        this.signUp(signUpData)
+      }
+    },
+    toggleForm () {
+      this.toggleBoolean = !this.toggleBoolean
+      this.$emit('toggle', this.toggleBoolean)
     }
   }
 }

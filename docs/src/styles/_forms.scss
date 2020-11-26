@@ -4,23 +4,25 @@ form {
     font-size: $font-md !important;
   }
   textarea, input, .form-control {
-    color: $metallic-blue;
+    color: $slate;
     background: $background-slate;
     border: 1px solid transparent;
     border-radius: 0.5;
     box-shadow: $box-shadow-dark;
-    padding: .5em 0 2.5em .5em; 
-    height: 1.5em;
+    font-size: $font-lg;
+    height: 3.5em;
     resize: none;
     transition: all .4s ease-in;
     &::placeholder{
-      color: $metallic-blue;
+      color: $slate;
     }
     &::-webkit-scrollbar {
       display: none;
     }
     &:hover, :active {
       transform: scale(0.99);
+      box-shadow: none;
+      border: 1px solid $sherbert-opaque;
     }
   }
 }
