@@ -28,7 +28,7 @@
           )
         button.neu-c-button.mt-3(type="submit") Join
         .mt-3
-          a(type="submit" @click="toggleForm()") nvm
+          a(type="submit" @click="toggleForm()") Go Back
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
