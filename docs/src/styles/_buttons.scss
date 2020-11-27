@@ -44,6 +44,7 @@ button {
   text-decoration: none;
   transition: ease-in-out 0.4s all;
   &:hover {
+    color: $terra-red;
     box-shadow: $box-shadow-button-inset-hover;
     transform: scale(0.98);
   }

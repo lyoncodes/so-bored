@@ -6,6 +6,7 @@
       .p-2
         b-col.mt-4
           img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
+          h4 Password Recovery
           b-form-group#reset-email
             b-row
               a.validation-char.pl-3 enter your email & I will send you instructions
@@ -15,7 +16,7 @@
             )
           button.neu-c-button.mt-3(type="submit" @click="resetPassword(resetData)") Reset
           .col.pt-4
-            a(@click="toggleSignUp") Back to Login
+            a.login-menu-link(@click="toggleSignUp") Back to Login
   div(v-else)
     img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
     p Ok. I sent them.

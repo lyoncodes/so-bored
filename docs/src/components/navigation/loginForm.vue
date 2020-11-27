@@ -5,6 +5,7 @@
     .p-2
       b-col.mt-4
         img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
+        h4 Welcome
         b-form-group#login-email
           b-row
             a.validation-char email
@@ -19,10 +20,10 @@
             v-model="loginData.password"
             type="password"
           )
-        button.neu-c-button.mt-3(type="submit") Log In
+        button.neu-c-button.mt-3(type="submit") Login
         b-row.justify-content-center.pt-5
           span New user?
-          a.pl-1(
+          a.pl-1.login-menu-link(
             @click="toggleSignUp"
           ) Sign Up
 </template>

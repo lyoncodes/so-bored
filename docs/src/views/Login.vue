@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-container
+  b-container#login-container
     b-row.justify-content-center.pt-5
       b-col.col-8.col-lg-4(v-if="showLoginForm && !toggleCredentials")
         loginForm(v-on:toggleBoolean="toggleSignUp")
@@ -8,7 +8,7 @@
       b-col.col-8.col-lg-4(v-if="toggleCredentials")
         passwordReset(v-on:resetForms="toggleResetForm")
       b-col.col-8.col-lg-12(v-if="!toggleCredentials")
-        a(@click="toggleResetForm") forgot password
+        a.login-menu-link(@click="toggleResetForm") forgot password
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -43,6 +43,9 @@ export default {
     },
     toggleResetForm () {
       this.toggleCredentials = !this.toggleCredentials
+      if (!this.showLoginForm) {
+        this.showLoginForm = true
+      }
     }
   }
 }
