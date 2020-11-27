@@ -1,13 +1,13 @@
 <template lang="pug">
   b-container
     b-row.justify-content-center.pt-5
-      b-col.col-sm-8.col-lg-4(v-if="showLoginForm && !toggleCredentials")
+      b-col.col-8.col-lg-4(v-if="showLoginForm && !toggleCredentials")
         loginForm(v-on:toggleBoolean="toggleSignUp")
-      b-col.col-md-8.col-lg-4(v-if="!showLoginForm && !toggleCredentials")
+      b-col.col-8.col-lg-4(v-if="!showLoginForm && !toggleCredentials")
         signUpForm(v-on:toggle="toggleSignUp")
-      b-col.col-md-8.col-lg-4(v-if="toggleCredentials")
-        passwordReset(v-on:toggleResetData="toggleResetForm")
-      b-col.col-md-8.col-lg-12(v-if="!toggleCredentials")
+      b-col.col-8.col-lg-4(v-if="toggleCredentials")
+        passwordReset(v-on:resetForms="toggleResetForm")
+      b-col.col-8.col-lg-12(v-if="!toggleCredentials")
         a(@click="toggleResetForm") forgot password
 </template>
 <script>

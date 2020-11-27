@@ -14,9 +14,12 @@
               type="email"
             )
           button.neu-c-button.mt-3(type="submit" @click="resetPassword(resetData)") Reset
+          .col.pt-4
+            a(@click="toggleSignUp") Back to Login
   div(v-else)
     img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
     p Ok. I sent them.
+    a(@click="toggleSignUp") Back to Login
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -36,7 +39,7 @@ export default {
       this.showSuccess = !this.showSuccess
     },
     toggleSignUp () {
-      this.$emit('toggleResetForm')
+      this.$emit('resetForms')
     }
   }
 }

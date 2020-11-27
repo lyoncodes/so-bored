@@ -6,10 +6,12 @@
       .pb-1
         //- CARD HEADING ----------
         b-col
+          b-row.mb-4.justify-content-start
+            span.caption Posted by: {{card.userName}}
           b-row.mb-2.mt-2.justify-content-start
             h3 {{card.title}}
           b-row.mb-4.justify-content-start
-            span.caption {{card.userName}}
+            b-card-text(v-if="!card.updating") {{card.text}}
         //- CARD ----------
         b-row
           //- activate (show)
@@ -47,7 +49,6 @@
               )
               a.validation-char {{updateData.title.length}} / {{validation.titleLimit}}
           //- text form ------------
-          b-card-text(v-if="!card.updating") {{card.text}}
           b-form.mt-3(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
             b-row(v-if="validation.charCount > validation.charLimit")
               b-badge(variant="danger") {{validation.errorMsg}}
