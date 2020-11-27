@@ -1,15 +1,20 @@
 <template lang="pug">
   b-container
     b-row.justify-content-center.pt-5
-      b-col.col-sm-8.col-lg-4(v-if="showLoginForm")
+      b-col.col-sm-8.col-lg-4(v-if="showLoginForm && !toggleCredentials")
         loginForm(v-on:toggleBoolean="toggleSignUp")
-      b-col.col-md-8.col-lg-4(v-if="!showLoginForm")
+      b-col.col-md-8.col-lg-4(v-if="!showLoginForm && !toggleCredentials")
         signUpForm(v-on:toggle="toggleSignUp")
+      b-col.col-md-8.col-lg-4(v-if="toggleCredentials")
+        passwordReset(v-on:toggleResetData="toggleResetForm")
+      b-col.col-md-8.col-lg-12(v-if="!toggleCredentials")
+        a(@click="toggleResetForm") forgot password
 </template>
 <script>
 import { mapActions } from 'vuex'
 import signUpForm from '../components/navigation/signUpForm'
 import loginForm from '../components/navigation/loginForm'
+import passwordReset from '../components/navigation/passwordReset'
 export default {
   data () {
     return {
@@ -17,12 +22,14 @@ export default {
         email: '',
         password: ''
       },
-      showLoginForm: true
+      showLoginForm: true,
+      toggleCredentials: false
     }
   },
   components: {
     signUpForm,
-    loginForm
+    loginForm,
+    passwordReset
   },
   methods: {
     ...mapActions([
@@ -33,6 +40,9 @@ export default {
     },
     toggleSignUp () {
       this.showLoginForm = !this.showLoginForm
+    },
+    toggleResetForm () {
+      this.toggleCredentials = !this.toggleCredentials
     }
   }
 }

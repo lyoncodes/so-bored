@@ -20,7 +20,7 @@
             type="password"
           )
         button.neu-c-button.mt-3(type="submit") Log In
-        b-row.justify-content-center.pt-3
+        b-row.justify-content-center.pt-5
           span New user?
           a.pl-1(
             @click="toggleSignUp"
