@@ -1,7 +1,7 @@
 button {
   // background-color: #fff;
   border: 2px solid $lime-green;
-  color: $cotton-candy;
+  color: $sherbert;
   font-size: $font-md;
   font-weight: $font-heavy;
   padding: .75em;
@@ -33,17 +33,22 @@ button {
   background-color: $background-slate;
   -webkit-appearance: none;
   box-shadow: $box-shadow-button-inset;
-  border-radius: 10%;
+  border-radius: 20px;
   border: none;
+  font-size: $font-lg;
   letter-spacing: .1em;
   margin: 0 .75em 0 .75em;
   outline: none;
   padding: 1em;
   text-transform: uppercase;
   text-decoration: none;
+  transition: ease-in-out 0.4s all;
   &:hover {
     box-shadow: $box-shadow-button-inset-hover;
     transform: scale(0.98);
+  }
+  &:focus{
+    outline: none;
   }
 }
 .btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active {

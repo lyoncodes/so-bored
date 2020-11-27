@@ -1,6 +1,6 @@
 import * as firebase from '../../firebase'
 import { firestore } from 'firebase'
-import { login, fetchUserProfile, signUp } from './db-middleware/auth'
+import { login, fetchUserProfile, signUp, resetCredential } from './db-middleware/auth'
 import { logout } from './db-middleware/exit'
 import { fetchPosts, fetchRuleCollection } from './db-middleware/fetch'
 import { mapRes } from './db-middleware/mapRes'
@@ -10,6 +10,7 @@ export default {
   // MESSAGE BOARD CALL STACK
   signUp,
   login,
+  resetCredential,
   fetchUserProfile,
   logout,
   fetchPosts,

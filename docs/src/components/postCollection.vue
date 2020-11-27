@@ -16,7 +16,7 @@ export default {
     return {
       formChar: {
         titleCount: 0,
-        titleLimit: 20,
+        titleLimit: 140,
         charCount: 0,
         charLimit: 300,
         errorMsg: String

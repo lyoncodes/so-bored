@@ -3,14 +3,14 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDx77VYbPiGJn3-taC8jh1i1lishX2xRk8',
-  authDomain: 'unearth-docs-72b0a.firebaseapp.com',
-  databaseURL: 'https://unearth-docs-72b0a.firebaseio.com',
-  projectId: 'unearth-docs-72b0a',
-  storageBucket: 'unearth-docs-72b0a.appspot.com',
-  messagingSenderId: '72124022510',
-  appId: '1:72124022510:web:a230a8bd0c2b2fe1be3dff',
-  measurementId: 'G-28FV5MVQH1'
+  apiKey: 'AIzaSyDGs4h23pMfAAcyR7rMhtYap2Lyq1yVVOs',
+  authDomain: 'itoio-e3548.firebaseapp.com',
+  databaseURL: 'https://itoio-e3548.firebaseio.com',
+  projectId: 'itoio-e3548',
+  storageBucket: 'itoio-e3548.appspot.com',
+  messagingSenderId: '147268643356',
+  appId: '1:147268643356:web:a2075616b7e9de53d70dd9',
+  measurementId: 'G-SBF957DP30'
 }
 firebase.initializeApp(firebaseConfig)
 

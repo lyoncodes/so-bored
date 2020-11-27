@@ -19,8 +19,14 @@ async function signUp ({ dispatch }, form) {
   const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
   await firebase.usersCollection.doc(user.uid).set({
     email: form.email,
+    username: form.username,
     password: form.password
   })
   dispatch('fetchUserProfile', user)
 }
-export { login, fetchUserProfile, signUp }
+async function resetCredential ({ commit }, email) {
+  console.log(email)
+  await firebase.auth.sendPasswordResetEmail(email)
+  commit('resetLoginState')
+}
+export { login, fetchUserProfile, signUp, resetCredential }

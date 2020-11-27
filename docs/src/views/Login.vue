@@ -1,40 +1,20 @@
 <template lang="pug">
   b-container
-    b-row.justify-content-center.mt-5
-      b-col.col-md-8.col-lg-4
-        b-form(
-          @submit.prevent="handleLogin(loginData)"
-        )
-          b-card.p-2
-            h1 Login
-            b-col.mt-4
-              b-form-group#login-email
-                b-row
-                  a.validation-char name@unearthlabs.com
-                b-form-input(
-                  v-model="loginData.email"
-                  type="text"
-                )
-              b-form-group#login-password
-                b-row
-                  a.validation-char Password
-                b-form-input(
-                  v-model="loginData.password"
-                  type="text"
-                  placeholder="********"
-                )
-              b-button.login-btn(type="submit") Log In
-              b-row.justify-content-center
-                b-button.signUp-btn(
-                  @click="toggleSignUp"
-                ) Sign Up
-        signUpForm(
-          v-if="!showLoginForm"
-        )
+    b-row.justify-content-center.pt-5
+      b-col.col-sm-8.col-lg-4(v-if="showLoginForm && !toggleCredentials")
+        loginForm(v-on:toggleBoolean="toggleSignUp")
+      b-col.col-md-8.col-lg-4(v-if="!showLoginForm && !toggleCredentials")
+        signUpForm(v-on:toggle="toggleSignUp")
+      b-col.col-md-8.col-lg-4(v-if="toggleCredentials")
+        passwordReset(v-on:toggleResetData="toggleResetForm")
+      b-col.col-md-8.col-lg-12(v-if="!toggleCredentials")
+        a(@click="toggleResetForm") forgot password
 </template>
 <script>
 import { mapActions } from 'vuex'
 import signUpForm from '../components/navigation/signUpForm'
+import loginForm from '../components/navigation/loginForm'
+import passwordReset from '../components/navigation/passwordReset'
 export default {
   data () {
     return {
@@ -42,11 +22,14 @@ export default {
         email: '',
         password: ''
       },
-      showLoginForm: true
+      showLoginForm: true,
+      toggleCredentials: false
     }
   },
   components: {
-    signUpForm
+    signUpForm,
+    loginForm,
+    passwordReset
   },
   methods: {
     ...mapActions([
@@ -57,6 +40,9 @@ export default {
     },
     toggleSignUp () {
       this.showLoginForm = !this.showLoginForm
+    },
+    toggleResetForm () {
+      this.toggleCredentials = !this.toggleCredentials
     }
   }
 }
