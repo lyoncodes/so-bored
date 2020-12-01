@@ -13,8 +13,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'userProfile',
-      'Cards'
+      'userProfile'
     ]),
     showNav () {
       return Object.keys(this.userProfile).length > 1
@@ -32,7 +31,7 @@ body::-webkit-scrollbar {
   @extend %body-fonts;
   @extend %forms;
   @extend %cards;
-  background-color: $background-slate;
+  // background-color: $background-slate;
   .selected {
     background: $border-g !important;
     color: white!important;
@@ -42,6 +41,11 @@ body::-webkit-scrollbar {
   }
   .toggled {
     color: $metallic-blue
+  }
+  .bg-img{
+    position: absolute;
+    height: 110vh;
+    z-index: 0;
   }
 }
 </style>

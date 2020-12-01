@@ -17,4 +17,12 @@ async function fetchRuleCollection () {
   const snapshot = await rule.get()
   return snapshot.docs
 }
-export { fetchPosts, fetchRuleCollection }
+// ref Images
+async function fetchImageAssets ({ commit }) {
+  const gsReference = await firebase.storage.refFromURL('gs://itoio-e3548.appspot.com/ito-bg.png')
+  gsReference.getDownloadURL().then((url) => {
+    console.log(url)
+    commit('populateImages', url)
+  })
+}
+export { fetchPosts, fetchRuleCollection, fetchImageAssets }

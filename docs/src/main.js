@@ -24,6 +24,7 @@ auth.onAuthStateChanged(user => {
     }).$mount('#app')
   }
   if (user) {
+    store.dispatch('fetchImageAssets')
     store.dispatch('fetchUserProfile', user)
     store.dispatch('fetchPosts')
     // trigger welcome animation here:

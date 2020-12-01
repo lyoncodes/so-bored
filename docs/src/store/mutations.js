@@ -47,5 +47,8 @@ export default {
       return a.createdOn.seconds - b.createdOn.seconds
     })
     state.rules = rulePayload
+  },
+  populateImages (state, asset) {
+    state.imgFolder.push(asset)
   }
 }
