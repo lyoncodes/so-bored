@@ -14,13 +14,14 @@
               v-model="resetData"
               type="email"
             )
-          button.neu-c-button.mt-3(type="submit" @click="resetPassword(resetData)") Reset
+          button.neu-c-button.mt-3(type="submit" @click="resetPassword(resetData)") Send
           .col.pt-4
             a.login-menu-link(@click="toggleSignUp") Back to Login
   div(v-else)
     img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
-    p Ok. I sent them.
-    a(@click="toggleSignUp") Back to Login
+    h4 Success
+    p.pt-1 Ok. I sent them.
+    a.login-menu-link(@click="toggleSignUp") Back to Login
 </template>
 <script>
 import { mapActions } from 'vuex'

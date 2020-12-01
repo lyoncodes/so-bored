@@ -2,7 +2,7 @@ import * as firebase from '../../firebase'
 import { firestore } from 'firebase'
 import { login, fetchUserProfile, signUp, resetCredential } from './db-middleware/auth'
 import { logout } from './db-middleware/exit'
-import { fetchPosts, fetchRuleCollection } from './db-middleware/fetch'
+import { fetchPosts, fetchRuleCollection, fetchImageAssets } from './db-middleware/fetch'
 import { mapRes } from './db-middleware/mapRes'
 import { attachLink } from './db-middleware/attachLink'
 
@@ -15,6 +15,7 @@ export default {
   logout,
   fetchPosts,
   fetchRuleCollection,
+  fetchImageAssets,
   mapRes,
   attachLink,
   async mother ({ commit, dispatch }, data) {
