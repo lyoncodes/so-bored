@@ -1,12 +1,13 @@
 <template lang="pug">
 #nav
-  b-row
-    b-col.col-4.mt-4
-      a(@click="logout()") logout
-    b-col.col-4.mb-1.mt-2
-      img.main-icon(src='../assets/ito-white.svg')
-    b-col.col-4.mt-1
-      img.post-icon(src='../assets/post-flag.svg')
+  b-col.col-12
+    b-row
+      b-col.col-4.mt-4
+        a(@click="logout()") logout
+      b-col.col-4.mb-1.mt-2
+        img.main-icon(src='../assets/main-logo.svg')
+      b-col.col-4.mt-1
+        img.post-icon(src='../assets/post-flag.svg')
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'

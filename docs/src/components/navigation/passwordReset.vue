@@ -5,7 +5,7 @@
     )
       .p-2
         b-col.mt-4
-          img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
+          img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
           h4 Password Recovery
           b-form-group#reset-email
             b-row

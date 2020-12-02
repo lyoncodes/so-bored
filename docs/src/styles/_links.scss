@@ -15,10 +15,10 @@ input[type="radio"]:checked+label {
   color: $true-blue;
 }
 .login-menu-link {
-  color: $sherbert !important;
+  color: $terra-red !important;
   transition: ease 0.4s all;
   &:hover{
-    color: $terra-red!important;
+    color: $sherbert!important;
     cursor: pointer;
   }
 }
