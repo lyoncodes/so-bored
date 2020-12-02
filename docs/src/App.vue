@@ -42,10 +42,5 @@ body::-webkit-scrollbar {
   .toggled {
     color: $metallic-blue
   }
-  .bg-img{
-    position: absolute;
-    height: 110vh;
-    z-index: 0;
-  }
 }
 </style>

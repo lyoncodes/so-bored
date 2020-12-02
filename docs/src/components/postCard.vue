@@ -1,44 +1,45 @@
 <template lang="pug">
   b-container.card-container.p-0
     //- array iteration
-    b-col.col-0.p-1(v-for="card in rules" :key="card.title")
+    b-col.col-0.card(v-for="card in rules" :key="card.title")
       //- card template
-      .pb-1
+      .p-3
         //- CARD HEADING ----------
         b-col
-          b-row.mb-4.justify-content-start
-            span.caption Posted by: {{card.userName}}
-          b-row.mb-2.mt-2.justify-content-start
+          b-row
+            span.caption {{card.userName}}
+            //- delete (remove)
+            b-button.icon-trigger(@click="handleDelete(card)"
+            :disabled="card.updating"
+            )
+              img.card-icon(src='../assets/delete.svg')
+          b-row.justify-content-start.mt-3
             h3 {{card.title}}
-          b-row.mb-4.justify-content-start
-            b-card-text(v-if="!card.updating") {{card.text}}
         //- CARD ----------
         b-row
           //- activate (show)
-          b-button.icon-trigger(@click="handleShow(card)" variant="primary"
+          b-button.icon-trigger.pt-0(@click="handleShow(card)"
           :disabled="card.updating")
-            img.card-icon(src='../assets/add.svg')
-          //- delete (remove)
-          b-button.icon-trigger(@click="handleDelete(card)" variant="primary"
-          :disabled="card.updating"
-          )
-            img.card-icon(src='../assets/cancel.svg')
-          //- handle update & cancel
-          b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
-            img.card-icon(src='../assets/editPencil.svg')
-          //- annotate
-          b-button.icon-trigger(@click="toggleComments(card)" variant="primary")
-            img.card-icon(src='../assets/annotate.svg')
-          //- add link
-          b-button.icon-trigger(@click="toggleLinks(card)" variant="primary")
-            iconWatch
+            img.card-icon#show-more(src='../assets/show-more.svg')
         //- CARD BODY ----------
         b-col(v-if="card.active")
+          b-row.justify-content-start
+            b-card-text(v-if="!card.updating") {{card.text}}
           b-row.mb-4.justify-content-start
             //- title form ------------
             b-col.p-0(v-if="card.active")
               //- If rule locked, display lock
               img.card-icon.pl-3(v-if="card.locked" src='../assets/Lock.svg')
+          b-row
+            //- handle update & cancel
+            b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
+              img.card-icon(src='../assets/editPencil.svg')
+            //- annotate
+            b-button.icon-trigger(@click="toggleComments(card)")
+              img.card-icon(src='../assets/comment.svg')
+            //- add link
+            b-button.icon-trigger(@click="toggleLinks(card)")
+              img.card-icon(src='../assets/link.svg')
           b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
               b-row.justify-content-center.pt-3(v-if="validation.titleCount > validation.titleLimit")
               img.error-icon.pl-3(src='../assets/error.svg')

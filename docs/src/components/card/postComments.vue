@@ -17,7 +17,8 @@
           b-button#submit-annotation(type="submit" variant="primary" v-if="!commentValidation.errorMsg" :disabled="!comment.text.length")
             img.annotate-icon(src="../../assets/add.svg")
         p.comments-section(v-for="comment in rule.comments") {{ comment.text }}
-          b-button(@click="handleDelete(comment)") Delete
+          b-button.icon-trigger.d-block.ml-auto.mr-auto(@click="handleDelete(comment)")
+            img.card-icon(src="../../assets/delete.svg")
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -93,7 +94,7 @@ form {
   }
 }
 .comments-section {
-  margin: 1.25em;
+  margin: 1.5em 0 .25em 0;
 }
 .annotate-icon {
   height: 2em;

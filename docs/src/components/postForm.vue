@@ -64,7 +64,7 @@ export default {
       showCardForm: false,
       showConfirm: false,
       buttonText: {
-        toggleMsg: 'New Thread',
+        toggleMsg: 'New Post',
         errorMsg: 'Nah'
       },
       formChar: {

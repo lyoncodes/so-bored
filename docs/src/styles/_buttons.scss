@@ -1,12 +1,12 @@
 button {
   // background-color: #fff;
-  border: 2px solid $lime-green;
-  color: $sherbert;
+  color: $background-slate;
   font-size: $font-md;
   font-weight: $font-heavy;
   padding: .75em;
   transition: ease-in-out 0.4s all;
-  &:active, :focus{
+  &:active, :focus, :hover{
+    background-color: none;
     outline: none;
   }
 }
@@ -30,7 +30,7 @@ button {
   outline: none;
 }
 .neu-c-button{
-  background-color: $background-slate;
+  background-color: $terra-red;
   -webkit-appearance: none;
   box-shadow: $box-shadow-button-inset;
   border-radius: 20px;
@@ -44,8 +44,7 @@ button {
   text-decoration: none;
   transition: ease-in-out 0.4s all;
   &:hover {
-    color: $terra-red;
-    box-shadow: $box-shadow-button-inset-hover;
+    background-color: $sherbert;
     transform: scale(0.98);
   }
   &:focus{
@@ -61,10 +60,9 @@ button {
     outline: none;
   }
 }
-.btn-secondary:focus {
-  background-color: #fff !important;
-  border: 1px solid $cotton-candy;
-  color: $cotton-candy;
+.btn-secondary:focus, .btn-secondary:hover {
+  background-color: transparent !important;
+  border: 1px solid transparent;
   box-shadow: none
 }
 .login-btn {
@@ -91,6 +89,10 @@ button {
   background: none;
   box-shadow: none;
 }
+#show-more {
+  height: .55em;
+  padding-left: .175em;
+}
 .type-links {
   border: 1px solid transparent;
   color: $true-blue;
@@ -102,4 +104,7 @@ button {
   &:active, &:focus {
     border: 1px solid transparent;
   }
+}
+.icon-trigger {
+  padding-left: 15;
 }
