@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  b-container(fluid="xl")
     img.bg-img(v-bind:src="imgFolder[0]")
     b-col.col-12.col-lg-4
       #post-form.pb-5
@@ -35,8 +35,8 @@ export default {
 .bg-img{
   position: fixed;
   left: 0;
-  top: 120;
-  width: 100vw;
+  top: 0;
+  height: 100vh;
   z-index: -1000;
 }
 </style>
