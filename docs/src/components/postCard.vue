@@ -3,28 +3,31 @@
     //- array iteration
     b-col.col-0.card(v-for="card in rules" :key="card.title")
       //- card template
-      .p-3
+      .pt-4.pl-3.pr-3.pb-3
         //- CARD HEADING ----------
-        b-col
+        b-col.mb-1
           b-row
-            span.caption {{card.userName}}
-            //- delete (remove)
-            b-button.icon-trigger(@click="handleDelete(card)"
-            :disabled="card.updating"
-            )
-              img.card-icon(src='../assets/delete.svg')
-          b-row.justify-content-start.mt-3
+            b-col.col-9.text-left.pl-0.pt-1
+              //- delete (remove)
+              p.caption {{card.userName}}
+            b-col.col-3.text-right
+              b-button.icon-trigger(@click="handleDelete(card)"
+              :disabled="card.updating"
+              )
+                img.card-icon(src='../assets/delete.svg')
+          b-row.justify-content-start
+          b-row
             h3 {{card.title}}
         //- CARD ----------
-        b-row
+        b-row.mb-2
           //- activate (show)
           b-button.icon-trigger.pt-0(@click="handleShow(card)"
           :disabled="card.updating")
             img.card-icon#show-more(src='../assets/show-more.svg')
         //- CARD BODY ----------
         b-col(v-if="card.active")
-          b-row.justify-content-start
-            b-card-text(v-if="!card.updating") {{card.text}}
+          b-row.justify-content-start.card-text-container
+            b-card-text.p-3(v-if="!card.updating") {{card.text}}
           b-row.mb-4.justify-content-start
             //- title form ------------
             b-col.p-0(v-if="card.active")
