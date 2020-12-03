@@ -17,12 +17,15 @@
       font-size: $font-md;
       height: 4em;
     }
-    .card-text-container {
-      border: 1px solid $dark-slate;
-      border-radius: 5px;
-    }
     &:hover {
       box-shadow: none;
+    }
+    .comments-section{
+      text-align: left;
+      .comments-container {
+        border: 1px solid $dark-slate;
+        border-radius: 5px;
+      }
     }
     #handle-update{
       border: 0em;

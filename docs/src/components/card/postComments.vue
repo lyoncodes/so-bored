@@ -1,8 +1,6 @@
 <template lang="pug">
-  b-container.mt-3
+  b-container
     b-row.justify-content-center
-      b-col.col-8
-        a.validation-char(v-if="show") {{comment.text.length}} / {{ commentValidation.charLimit}}
       b-col.col-12
         b-form.mb-2.mt-4(
           @submit.prevent="addComment(comment)"
@@ -16,9 +14,16 @@
             b-badge(variant="danger") {{ commentValidation.errorMsg }}
           b-button#submit-annotation(type="submit" variant="primary" v-if="!commentValidation.errorMsg" :disabled="!comment.text.length")
             img.annotate-icon(src="../../assets/add.svg")
-        p.comments-section(v-for="comment in rule.comments") {{ comment.text }}
-          b-button.icon-trigger.d-block.ml-auto.mr-auto(@click="handleDelete(comment)")
-            img.card-icon(src="../../assets/delete.svg")
+        b-row.mb-3
+          b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
+            b-row.comments-container
+              b-col.col-11
+                p.card-text {{ comment.text }}
+              b-col.col-1
+                b-button.icon-trigger(@click="handleDelete(comment)")
+                  img.card-icon(src="../../assets/delete.svg")
+      b-col.col-8
+        a.validation-char(v-if="show") {{comment.text.length}} / {{ commentValidation.charLimit}}
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
