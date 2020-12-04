@@ -1,23 +1,24 @@
 <template lang="pug">
   b-container.card-container.p-0
     //- array iteration
-    b-col.col-0.card(v-for="card in rules" :key="card.title")
+    b-col.col-12.card.ml-0(v-for="card in rules" :key="card.title")
       //- card template
-      .pt-4.pl-3.pr-3.pb-3
+      .pt-3.pt-lg-4.pl-3.pr-3.pb-3
         //- CARD HEADING ----------
         b-col.mb-1
-          b-row
-            b-col.col-9.text-left.pl-0.pt-1
-              p.caption {{card.userName}}
-            b-col.col-3.text-right
-              b-button.icon-trigger(@click="handleDelete(card)"
+          b-row.justify-content-end
+            b-col.col-1.pr-0
+              b-button.icon-trigger.p-0(@click="handleDelete(card)"
               :disabled="card.updating"
               )
-                img.card-icon(src='../assets/delete.svg')
+                img.card-icon-sm(src='../assets/delete.svg')
           b-row
-            h3 {{card.title}}
+            b-col.col-10.text-left.pl-0
+              p.caption.mb-1 {{card.userName}}
+          b-row
+            h3.mb-0 {{card.title}}
           b-row.justify-content-start
-            b-card-text.p-3(v-if="!card.updating") {{card.text}}
+            b-card-text.pl-0.pr-0(v-if="!card.updating") {{card.text}}
         b-row.mb-2
           //- activate (show)
           b-button.icon-trigger.pt-0(@click="handleShow(card)"
@@ -51,7 +52,7 @@
             b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
               img.card-icon(src='../assets/add.svg')
           //- annotation comp ------------
-          b-col
+          b-col.col-12.p-0
             postComments(
               :rule="card"
               :show="card.displayComments"

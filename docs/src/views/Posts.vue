@@ -1,10 +1,10 @@
 <template lang="pug">
-  b-container(fluid="xl")
+  b-container(fluid="sm")
     img.bg-img(v-bind:src="imgFolder[0]")
     b-col.col-12.col-lg-4
       #post-form.pb-5
         postForm
-    b-col.col-12.mt-5
+    b-col.col-12.mt-5.p-0
       #posts.pb-5
         postCollection
 </template>

@@ -4,23 +4,27 @@
   )
     .p-2
       b-col.mt-4
-        img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
-        h4 Welcome
-        b-form-group#login-email
-          b-row
-            a.validation-char email
-          b-form-input(
-            v-model="loginData.email"
-            type="text"
-          )
-        b-form-group#login-password
-          b-row
-            a.validation-char password
-          b-form-input(
-            v-model="loginData.password"
-            type="password"
-          )
-        button.neu-c-button.mt-3(type="submit") Login
+        b-row.justify-content-center
+          img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
+        b-row.justify-content-center
+          h4 Welcome
+        b-row.justify-content-center
+          b-form-group#login-email
+            b-row
+              a.validation-char email
+            b-form-input(
+              v-model="loginData.email"
+              type="text"
+            )
+          b-form-group#login-password
+            b-row
+              a.validation-char password
+            b-form-input(
+              v-model="loginData.password"
+              type="password"
+            )
+        b-row.justify-content-center
+          button.neu-c-button.mt-3(type="submit") Login
         b-row.justify-content-center.pt-5
           span New user?
           a.pl-1.login-menu-link(
