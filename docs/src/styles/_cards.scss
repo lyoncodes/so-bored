@@ -12,19 +12,19 @@
     .card-text{
       padding: 1em;
       font-weight: $font-light;
-    }
-    #card-text, #annotate-text {
-      font-size: $font-md;
-      height: 4em;
+      font-size: $font-sm;
     }
     &:hover {
       box-shadow: none;
     }
     .comments-section{
-      text-align: left;
       .comments-container {
         border: 1px solid $dark-slate;
         border-radius: 5px;
+      }
+      .comment-text {
+        font-size: $font-sm;
+        font-weight: $font-light;
       }
     }
     #handle-update{
@@ -42,8 +42,6 @@
     #submit-annotation{
       border: 0em;
       box-shadow: none;
-      margin: 1em;
-      padding: .25em;
     }
   }
 }

@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-container
+  b-container.pl-0.pr-0
     //- postFilter
     postCard(
       :validation="formChar"

@@ -1,7 +1,7 @@
 <template lang="pug">
   b-container
     b-row.justify-content-center
-      b-col.col-12
+      b-col.col-12.p-0
         b-form.mb-2.mt-4(
           @submit.prevent="addComment(comment)"
           v-if="show")
@@ -10,20 +10,21 @@
             v-model="comment.text"
             @keyup="validateCharCount()"
           )
+          b-row.p-0
+            a.validation-char.ml-3(v-if="show") {{comment.text.length}} / {{ commentValidation.charLimit}}
+          b-row.justify-content-end
+            button#submit-annotation.neu-c-button.p-3.m-0.mr-3(type="submit" v-if="!commentValidation.errorMsg" :disabled="!comment.text.length") Reply
           b-row(v-if="comment.text.length > commentValidation.charLimit")
             b-badge(variant="danger") {{ commentValidation.errorMsg }}
-          b-button#submit-annotation(type="submit" variant="primary" v-if="!commentValidation.errorMsg" :disabled="!comment.text.length")
-            img.annotate-icon(src="../../assets/add.svg")
-        b-row.mb-3
+        b-row.mb-3.ml-2.pl-2.pr-2
           b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
             b-row.comments-container
-              b-col.col-11
-                p.card-text {{ comment.text }}
-              b-col.col-1
-                b-button.icon-trigger(@click="handleDelete(comment)")
-                  img.card-icon(src="../../assets/delete.svg")
-      b-col.col-8
-        a.validation-char(v-if="show") {{comment.text.length}} / {{ commentValidation.charLimit}}
+              b-col.col-11.p-0
+                p.caption.pl-2.pt-2.mb-1 {{ user.username }} says:
+                p.comment-text.pl-2 {{ comment.text }}
+              b-col.col-1.p-0
+                b-button.icon-trigger.p-0.pt-2.pr-1(@click="handleDelete(comment)")
+                  img.card-icon-sm(src="../../assets/delete.svg")
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -34,7 +35,6 @@ export default {
     return {
       comment: {
         text: '',
-        author: '',
         commentType: null
       },
       commentValidation: {
@@ -45,7 +45,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'rules'
+      'rules',
+      'userProfile'
     ])
   },
   methods: {
@@ -58,7 +59,8 @@ export default {
     addComment (comment) {
       this.comment.commentType = true
       const id = this.$props.rule.id
-      const { text, author, commentType } = this.comment
+      const author = this.userProfile.username
+      const { text, commentType } = this.comment
       const commentPayload = {
         text,
         author,
@@ -85,6 +87,8 @@ export default {
   mounted () {
     const ruleData = this.comment
     this.ruleData = ruleData
+    const user = this.userProfile
+    this.user = user
   }
 }
 </script>
