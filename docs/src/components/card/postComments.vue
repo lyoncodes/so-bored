@@ -2,6 +2,16 @@
   b-container
     b-row.justify-content-center
       b-col.col-12.p-0
+        b-row.mb-3.ml-2.pl-2.pr-2
+          b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
+            b-row.comments-container
+              b-col.col-10.col-lg-11.p-0
+                p.caption.pl-2.pt-2.mb-1 {{ comment.author }} says:
+                p.comment-text.pl-2 {{ comment.text }}
+              b-col.col-2.col-lg-1.p-0
+                b-button.icon-trigger.caption(
+                  @click="handleDelete(comment)"
+                  v-if="user.username === comment.author") delete
         b-form.mb-2.mt-4(
           @submit.prevent="addComment(comment)"
           v-if="show")
@@ -11,20 +21,11 @@
             @keyup="validateCharCount()"
           )
           b-row.p-0
-            a.validation-char.ml-3(v-if="show") {{comment.text.length}} / {{ commentValidation.charLimit}}
+            a.validation-char.mt-2.mb-0.ml-3(v-if="show") {{comment.text.length}} / {{ commentValidation.charLimit}}
           b-row.justify-content-end
-            button#submit-annotation.neu-c-button.p-3.m-0.mr-3(type="submit" v-if="!commentValidation.errorMsg" :disabled="!comment.text.length") Reply
+            button#submit-annotation.neu-c-button.m-0.mr-3(type="submit" v-if="!commentValidation.errorMsg" :disabled="!comment.text.length") Reply
           b-row(v-if="comment.text.length > commentValidation.charLimit")
             b-badge(variant="danger") {{ commentValidation.errorMsg }}
-        b-row.mb-3.ml-2.pl-2.pr-2
-          b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
-            b-row.comments-container
-              b-col.col-11.p-0
-                p.caption.pl-2.pt-2.mb-1 {{ user.username }} says:
-                p.comment-text.pl-2 {{ comment.text }}
-              b-col.col-1.p-0
-                b-button.icon-trigger.p-0.pt-2.pr-1(@click="handleDelete(comment)")
-                  img.card-icon-sm(src="../../assets/delete.svg")
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -40,7 +41,8 @@ export default {
       commentValidation: {
         charLimit: 160,
         errorMsg: String
-      }
+      },
+      user: this.userProfile
     }
   },
   computed: {
@@ -58,6 +60,7 @@ export default {
     },
     addComment (comment) {
       this.comment.commentType = true
+      const commentSerial = this.serialMaker()
       const id = this.$props.rule.id
       const author = this.userProfile.username
       const { text, commentType } = this.comment
@@ -65,6 +68,7 @@ export default {
         text,
         author,
         id,
+        commentSerial,
         commentType
       }
       if (this.comment.text.length) {
@@ -80,8 +84,14 @@ export default {
       this.comment = {
         text: '',
         author: '',
+        commentSerial: null,
         commentType: false
       }
+      this.$emit('toggleCommentFormEvent')
+    },
+    serialMaker () {
+      const rando = Math.floor(Math.random() * 1000)
+      return Math.floor(Math.random() * rando)
     }
   },
   mounted () {
