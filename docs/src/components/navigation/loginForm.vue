@@ -9,20 +9,22 @@
         b-row.justify-content-center
           h4 Welcome
         b-row.justify-content-center
-          b-form-group#login-email
+          b-form-group#login-email.col-12
             b-row
               a.validation-char email
-            b-form-input(
-              v-model="loginData.email"
-              type="text"
-            )
-          b-form-group#login-password
+            b-row
+              b-form-input(
+                v-model="loginData.email"
+                type="text"
+              )
+          b-form-group#login-password.col-12
             b-row
               a.validation-char password
-            b-form-input(
-              v-model="loginData.password"
-              type="password"
-            )
+            b-row
+              b-form-input(
+                v-model="loginData.password"
+                type="password"
+              )
         b-row.justify-content-center
           button.neu-c-button.mt-3(type="submit") Login
         b-row.justify-content-center.pt-5

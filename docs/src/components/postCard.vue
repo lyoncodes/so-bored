@@ -56,6 +56,7 @@
             postComments(
               :rule="card"
               :show="card.displayComments"
+              v-on:toggleCommentFormEvent="toggleCommentForm(card)"
             )
           //- links comp ----------
           b-col
@@ -165,11 +166,15 @@ export default {
       card.payload = 'toggleComments'
       this.mother(card)
     },
+    toggleCommentForm (card) {
+      card.payload = 'toggleCommentForm'
+      this.mother(card)
+    },
     toggleLinks (card) {
       card.payload = 'toggleLinks'
       this.mother(card)
     },
-    clearForm () {
+    clearForm (card) {
       this.updateData = {
         title: '',
         text: '',

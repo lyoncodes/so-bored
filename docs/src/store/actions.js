@@ -24,7 +24,7 @@ export default {
       await firebase.rulesCollection.add({
         createdOn: new Date(),
         userId: firebase.auth.currentUser.uid,
-        userName: firebase.auth.currentUser.email,
+        userName: data.author,
         locked: data.locked,
         type: data.type,
         title: data.title,
@@ -61,11 +61,15 @@ export default {
         })
       }
       if (!data.commentType && !data.ref && data.payload !== 'toggleUpdateFields') {
+        console.log('hit', data)
         data.commentType = true
         res.update({
           comments: firestore.FieldValue.arrayRemove(data)
         })
         data.commentType = false
+      }
+      if (data.payload === 'toggleCommentForm') {
+        data.displayComments = !data.displayComments
       }
       if (data.commentType && !data.ref) {
         res.update({

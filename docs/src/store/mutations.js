@@ -13,6 +13,8 @@ export default {
       ruleEl.title = data.title
       ruleEl.text = data.text
       ruleEl.updating = !data.updating
+    } else if (data.payload === 'toggleCommentForm') {
+      ruleEl.displayComments = data.displayComments
     } else if (data.payload === 'toggleUpdateFields') {
       ruleEl.updating = !data.updating
     } else if (data.payload === 'toggleComments') {
@@ -23,7 +25,7 @@ export default {
       ruleEl.comments.push(data)
     } else if (!data.commentType) {
       const filteredArr = ruleEl.comments.filter(el => {
-        return (el.text !== data.text) ? el : null
+        return (el.commentSerial !== data.commentSerial) ? el : null
       })
       ruleEl.comments = filteredArr
     }

@@ -119,8 +119,10 @@ export default {
     },
     handleSubmit () {
       const { locked, title, text, type, active, updating, comments, links, displayComments, displayLinks } = this.formData
+      const author = this.userProfile.username
       const idx = this.rules.length + 1
       const card = {
+        author,
         locked,
         title,
         text,
