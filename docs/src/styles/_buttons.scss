@@ -85,12 +85,11 @@ button {
     color: $cotton-candy;
   }
 }
-#edit-button {
-  background: none;
-  box-shadow: none;
-}
-#show-more {
-  height: .55em;
+.link-button {
+  color: $terra-red;
+  font-size: $font-sm;
+  border: none;
+  background-color: transparent;
 }
 .type-links {
   border: 1px solid transparent;
@@ -106,4 +105,7 @@ button {
 }
 .icon-trigger {
   padding-left: 15;
+}
+#show-more {
+  height: .55em;
 }

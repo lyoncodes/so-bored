@@ -6,9 +6,8 @@ form {
   textarea, input, .form-control {
     color: $black-slate;
     background: $background-slate;
-    border: 1px solid transparent;
+    border: 1px solid $creme;
     border-radius: 0.5;
-    box-shadow: $box-shadow-dark;
     font-size: $font-lg;
     height: 3.5em;
     resize: none;
@@ -19,9 +18,9 @@ form {
     &::-webkit-scrollbar {
       display: none;
     }
-    &:hover, :active {
+    &:hover, :active, :focus {
       transform: scale(0.99);
-      border: 1px solid $terra-red;
+      border: 1px solid $creme;
       box-shadow: none;
     }
   }
