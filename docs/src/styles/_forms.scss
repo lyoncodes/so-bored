@@ -3,13 +3,13 @@ form {
   #title-input {
     font-size: $font-md !important;
   }
-  textarea, input, .form-control {
+  textarea, input, .form-control, #card-text, #title-text {
     color: $black-slate;
     background: $background-slate;
-    border: 1px solid transparent;
+    border: 1px solid $creme;
     border-radius: 0.5;
-    box-shadow: $box-shadow-dark;
-    font-size: $font-lg;
+    font-size: $font-md;
+    font-weight: $font-heavy;
     height: 3.5em;
     resize: none;
     transition: all .4s ease-in;
@@ -19,30 +19,34 @@ form {
     &::-webkit-scrollbar {
       display: none;
     }
-    &:hover, :active {
+    &:hover, :active, :focus {
       transform: scale(0.99);
-      border: 1px solid $terra-red;
+      border: 1px solid $creme;
       box-shadow: none;
     }
   }
-  #annotate-text{
-    font-size: $font-sm;
-    height: 8em;
-  }
 }
 }
-
 .form-container {
   border-radius: 0.5;
   box-shadow: $box-shadow-dark;
   padding: .15em 1em 1em 1em;
 }
-
+.title-form {
+  color: $black-slate;
+  font-size: $font-lg;
+  font-weight: $font-heavy;
+}
+#card-text {
+  color: $black-slate;
+  font-size: 0.75em!important;
+  font-weight: 100!important;;
+}
 .bv-no-focus-ring{
   text-align: left;
 }
 .validation-char {
-  color: $metallic-blue;
+  color: $dark-slate;
   display: inline;
   font-size: $font-sm;
   text-align: left;

@@ -65,6 +65,11 @@ button {
   border: 1px solid transparent;
   box-shadow: none
 }
+.btn-secondary.disabled, .btn-secondary:disabled {
+  background-color: transparent !important;
+  border: 1px solid transparent;
+  box-shadow: none
+}
 .login-btn {
   color: $metallic-blue;
   border: 1px solid $metallic-blue;
@@ -85,12 +90,11 @@ button {
     color: $cotton-candy;
   }
 }
-#edit-button {
-  background: none;
-  box-shadow: none;
-}
-#show-more {
-  height: .55em;
+.link-button {
+  color: $terra-red;
+  font-size: $font-sm;
+  border: none;
+  background-color: transparent;
 }
 .type-links {
   border: 1px solid transparent;
@@ -106,4 +110,7 @@ button {
 }
 .icon-trigger {
   padding-left: 15;
+}
+#show-more {
+  height: .55em;
 }
