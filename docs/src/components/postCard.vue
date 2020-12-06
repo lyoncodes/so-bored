@@ -16,28 +16,22 @@
             b-col.col-10.text-left.pl-0
               p.caption.mb-1 {{card.userName}}
           b-row
-            h3.mb-0 {{card.title}}
+            h3.mb-0(v-if="!card.updating") {{card.title}}
+            b-col.p-0
+              b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
+                b-form-textarea.mt-3(
+                  id="title-text"
+                v-model="updateData.title"
+                @keyup="validateCharCount()"
+                :placeholder="updateData.title"
+                )
+                a.validation-char {{updateData.title.length}} / {{validation.titleLimit}}
           b-row.justify-content-start
             b-card-text.pl-0.pr-0(v-if="!card.updating") {{card.text}}
-        b-row.mb-2
-          //- activate (show)
-          b-button.icon-trigger.pt-0(@click="handleShow(card)"
-          :disabled="card.updating")
-            img.card-icon#show-more(src='../assets/show-more.svg')
         //- CARD BODY ----------
         //- title form ------------
         b-col.p-0(v-if="card.active")
           //- If rule locked, display lock
-          img.card-icon.pl-3(v-if="card.locked" src='../assets/Lock.svg')
-          b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
-              b-row.justify-content-center.pt-3(v-if="validation.titleCount > validation.titleLimit")
-              img.error-icon.pl-3(src='../assets/error.svg')
-              b-form-textarea.mt-3(
-              v-model="updateData.title"
-              @keyup="validateCharCount()"
-              :placeholder="updateData.title"
-              )
-              a.validation-char {{updateData.title.length}} / {{validation.titleLimit}}
           //- text form ------------
           b-form.mt-3(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
             b-row(v-if="validation.charCount > validation.charLimit")
@@ -49,9 +43,13 @@
               :placeholder="updateData.text"
             )
             a.validation-char {{updateData.text.length}} / {{validation.charLimit}}
-            b-button#submit-annotation(type="submit" variant="primary" v-if="card.updating && !validation.errorMsg" :disabled="!updateData.text.length && !updateData.title.length")
-              img.card-icon(src='../assets/add.svg')
-          //- annotation comp ------------
+            button.mb-1#submit-annotation.neu-c-button.mt-2(type="submit" variant="primary" :disabled="!updateData.text.length && !updateData.title.length") edit
+          b-row.mb-2
+            //- activate (show)
+            b-button.icon-trigger.pt-0(@click="handleShow(card)"
+            :disabled="card.updating")
+              img.card-icon#show-more(src='../assets/show-more.svg')
+          //- comments component ------------
           b-col.col-12.p-0
             postComments(
               :rule="card"
