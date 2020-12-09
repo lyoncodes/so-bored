@@ -1,8 +1,8 @@
 import * as firebase from '../../firebase'
 import { firestore } from 'firebase'
-import { login, fetchUserProfile, signUp } from './db-middleware/auth'
+import { login, fetchUserProfile, signUp, resetCredential } from './db-middleware/auth'
 import { logout } from './db-middleware/exit'
-import { fetchPosts, fetchRuleCollection } from './db-middleware/fetch'
+import { fetchPosts, fetchRuleCollection, fetchImageAssets } from './db-middleware/fetch'
 import { mapRes } from './db-middleware/mapRes'
 import { attachLink } from './db-middleware/attachLink'
 
@@ -10,10 +10,12 @@ export default {
   // MESSAGE BOARD CALL STACK
   signUp,
   login,
+  resetCredential,
   fetchUserProfile,
   logout,
   fetchPosts,
   fetchRuleCollection,
+  fetchImageAssets,
   mapRes,
   attachLink,
   async mother ({ commit, dispatch }, data) {
@@ -22,7 +24,7 @@ export default {
       await firebase.rulesCollection.add({
         createdOn: new Date(),
         userId: firebase.auth.currentUser.uid,
-        userName: firebase.auth.currentUser.email,
+        userName: data.author,
         locked: data.locked,
         type: data.type,
         title: data.title,
@@ -59,11 +61,15 @@ export default {
         })
       }
       if (!data.commentType && !data.ref && data.payload !== 'toggleUpdateFields') {
+        console.log('hit', data)
         data.commentType = true
         res.update({
           comments: firestore.FieldValue.arrayRemove(data)
         })
         data.commentType = false
+      }
+      if (data.payload === 'toggleCommentForm') {
+        data.displayComments = !data.displayComments
       }
       if (data.commentType && !data.ref) {
         res.update({

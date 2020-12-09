@@ -2,23 +2,30 @@
   .card {
     background: $background-slate;
     border: 0;
-    box-shadow: none;
+    border-radius: 20px;
+    box-shadow: $box-shadow-dark;
+    margin: 1em;
     transition: ease-in-out 0.4s all;
     .card-body{
       padding: .5rem 1.25rem .5rem 1.25rem;
     }
     .card-text{
       padding: 1em;
-    }
-    #card-text, #annotate-text {
-      font-size: $font-md;
-      height: 4em;
-    }
-    #card-text {
-      height: 8em;
+      font-weight: $font-light;
+      font-size: $font-sm;
     }
     &:hover {
-      box-shadow: $box-shadow-dark;
+      box-shadow: none;
+    }
+    .comments-section{
+      .comments-container {
+        border: 1px solid $dark-slate;
+        border-radius: 5px;
+      }
+      .comment-text {
+        font-size: $font-sm;
+        font-weight: $font-light;
+      }
     }
     #handle-update{
       border: 0em;
@@ -35,8 +42,8 @@
     #submit-annotation{
       border: 0em;
       box-shadow: none;
-      margin: 1em;
-      padding: .25em;
+      font-size: $font-sm!important;
+      padding: .75em;
     }
   }
 }

@@ -1,12 +1,12 @@
 button {
   // background-color: #fff;
-  border: 2px solid $lime-green;
-  color: $sherbert;
+  color: $background-slate;
   font-size: $font-md;
   font-weight: $font-heavy;
   padding: .75em;
   transition: ease-in-out 0.4s all;
-  &:active, :focus{
+  &:active, :focus, :hover{
+    background-color: none;
     outline: none;
   }
 }
@@ -30,7 +30,7 @@ button {
   outline: none;
 }
 .neu-c-button{
-  background-color: $background-slate;
+  background-color: $terra-red;
   -webkit-appearance: none;
   box-shadow: $box-shadow-button-inset;
   border-radius: 20px;
@@ -44,7 +44,7 @@ button {
   text-decoration: none;
   transition: ease-in-out 0.4s all;
   &:hover {
-    box-shadow: $box-shadow-button-inset-hover;
+    background-color: $sherbert;
     transform: scale(0.98);
   }
   &:focus{
@@ -60,10 +60,14 @@ button {
     outline: none;
   }
 }
-.btn-secondary:focus {
-  background-color: #fff !important;
-  border: 1px solid $cotton-candy;
-  color: $cotton-candy;
+.btn-secondary:focus, .btn-secondary:hover {
+  background-color: transparent !important;
+  border: 1px solid transparent;
+  box-shadow: none
+}
+.btn-secondary.disabled, .btn-secondary:disabled {
+  background-color: transparent !important;
+  border: 1px solid transparent;
   box-shadow: none
 }
 .login-btn {
@@ -86,9 +90,11 @@ button {
     color: $cotton-candy;
   }
 }
-#edit-button {
-  background: none;
-  box-shadow: none;
+.link-button {
+  color: $terra-red;
+  font-size: $font-sm;
+  border: none;
+  background-color: transparent;
 }
 .type-links {
   border: 1px solid transparent;
@@ -101,4 +107,10 @@ button {
   &:active, &:focus {
     border: 1px solid transparent;
   }
+}
+.icon-trigger {
+  padding-left: 0;
+}
+#show-more {
+  height: .55em;
 }

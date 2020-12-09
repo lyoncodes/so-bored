@@ -1,7 +1,6 @@
 <template lang="pug">
   #app
-    navBar(v-if="showNav")
-    <router-view/>
+    <router-view />
 </template>
 
 <script>
@@ -13,8 +12,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'userProfile',
-      'Cards'
+      'userProfile'
     ]),
     showNav () {
       return Object.keys(this.userProfile).length > 1
@@ -32,7 +30,8 @@ body::-webkit-scrollbar {
   @extend %body-fonts;
   @extend %forms;
   @extend %cards;
-  background-color: $background-slate;
+  // background-color: $background-slate;
+  text-align: left;
   .selected {
     background: $border-g !important;
     color: white!important;

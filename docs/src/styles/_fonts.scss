@@ -26,15 +26,19 @@ $font-sm: .75em;
     -webkit-text-fill-color: transparent;
   }
   h3,h4,h5,h6 {
-    color: $sherbert;
+    color: $black-slate;
     font-size: $font-lg;
+    font-weight: $font-heavy;
   }
   .headline {
     font-weight: $font-med;
     padding: .75em;
   }
   .caption {
-    color: $slate;
+    background: $border-g;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: $font-sm;
     font-style: italic;
   }

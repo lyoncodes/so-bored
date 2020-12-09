@@ -1,13 +1,17 @@
 // COLORS
 $lime-green: #72e896;
 $canary-yellow: #fff383;
-$sherbert: #f4891e;
+$terra-red: #F27557;
+$sherbert: #ffd65c;
 $sherbert-opaque: #ec8f64e7;
 $cotton-candy: #ffa5d8;
+$creme: #ffeae6;
 $tert-blue: #021859;
 $true-blue: #0B9ED9;
 $metallic-blue: #2c0f1e;
+// Slates & Shadows
 $slate: #374049;
+$black-slate: #2c3e50;
 $light-slate: rgba(255,255,255,0.5);
 $light-slate-full: rgba(255,255,255,1);
 $light-slate-op: rgba(255,255,255,0.1);
@@ -15,8 +19,9 @@ $light-slate-tr: rgba(0,0,0,0.15);
 $dark-slate: rgba(70,70,70,0.12);
 $background-slate: #fcfafa;
 $metallic-slate: rgba(70, 77, 81, 0.247);
+$white: #fff;
 
-$border-g: linear-gradient(90deg, $lime-green 16%, $canary-yellow 40%, $cotton-candy 68%, $sherbert 100%);
+$border-g: linear-gradient(90deg, $sherbert-opaque 16%, $terra-red 40%, $cotton-candy 68%, $sherbert 100%);
 // BOX SHADOWS
 $box-shadow-light: 10px 10px 22px -1px rgba($slate,0.35);
 

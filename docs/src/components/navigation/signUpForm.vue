@@ -4,7 +4,8 @@
   )
     .p-2
       b-col.mt-4
-        img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
+        img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
+        h4 Create Your Account
         b-form-group#account-email
           b-row
             a.validation-char login email
@@ -28,7 +29,7 @@
           )
         button.neu-c-button.mt-3(type="submit") Join
         .mt-3
-          a(type="submit" @click="toggleForm()") nvm
+        a.login-menu-link.pt-5(type="submit" @click="toggleForm()") Go Back
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'

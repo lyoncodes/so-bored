@@ -1,23 +1,33 @@
 <template lang="pug">
-  b-container.mt-3
-    b-row.justify-content-center
-      b-col.col-8
-        a.validation-char(v-if="show") {{comment.text.length}} / {{ commentValidation.charLimit}}
-      b-col.col-12
-        b-form.mb-2.mt-4(
-          @submit.prevent="addComment(comment)"
-          v-if="show")
-          b-form-textarea(
-            id="annotate-text"
-            v-model="comment.text"
-            @keyup="validateCharCount()"
-          )
-          b-row(v-if="comment.text.length > commentValidation.charLimit")
-            b-badge(variant="danger") {{ commentValidation.errorMsg }}
-          b-button#submit-annotation(type="submit" variant="primary" v-if="!commentValidation.errorMsg" :disabled="!comment.text.length")
-            img.annotate-icon(src="../../assets/add.svg")
-        p.comments-section(v-for="comment in rule.comments") {{ comment.text }}
-          b-button(@click="handleDelete(comment)") Delete
+  b-row.justify-content-center
+    b-col.col-12.p-0
+        b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
+          b-row.comments-container
+            b-col.col-10.col-lg-11.p-0
+              p.caption.pl-2.pt-2.mb-1 {{ comment.author }} says:
+              p.comment-text.pl-4.pt-1 {{ comment.text }}
+            b-col.col-1.p-0.mb-1
+              button.mb-1.link-button(
+                @click="handleDelete(comment)"
+                v-if="user.username === comment.author") delete
+        b-col.col-12.mt-2.p-0
+          b-form.mb-2.mt-4(
+            @submit.prevent="addComment(comment)"
+            v-if="show")
+            b-form-textarea(
+              id="annotate-text"
+              v-model="comment.text"
+              @keyup="validateCharCount()"
+            )
+            b-row.p-0
+              a.validation-char.mt-2.mb-0.ml-3(v-if="show") {{comment.text.length}} / {{ commentValidation.charLimit}}
+            b-row.justify-content-end
+              button#submit-annotation.neu-c-button.m-0.mr-3(
+                type="submit"
+                :disabled="!comment.text.length"
+              ) Reply
+            b-row(v-if="comment.text.length > commentValidation.charLimit")
+              b-badge(variant="danger") {{ commentValidation.errorMsg }}
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -28,18 +38,20 @@ export default {
     return {
       comment: {
         text: '',
-        author: '',
+        commentSerial: null,
         commentType: null
       },
       commentValidation: {
         charLimit: 160,
         errorMsg: String
-      }
+      },
+      user: this.userProfile
     }
   },
   computed: {
     ...mapState([
-      'rules'
+      'rules',
+      'userProfile'
     ])
   },
   methods: {
@@ -51,12 +63,15 @@ export default {
     },
     addComment (comment) {
       this.comment.commentType = true
+      const commentSerial = this.serialMaker()
       const id = this.$props.rule.id
-      const { text, author, commentType } = this.comment
+      const author = this.userProfile.username
+      const { text, commentType } = this.comment
       const commentPayload = {
         text,
         author,
         id,
+        commentSerial,
         commentType
       }
       if (this.comment.text.length) {
@@ -72,13 +87,21 @@ export default {
       this.comment = {
         text: '',
         author: '',
+        commentSerial: null,
         commentType: false
       }
+      this.$emit('toggleCommentFormEvent')
+    },
+    serialMaker () {
+      const rando = Math.floor(Math.random() * 1000)
+      return Math.floor(Math.random() * rando)
     }
   },
   mounted () {
     const ruleData = this.comment
     this.ruleData = ruleData
+    const user = this.userProfile
+    this.user = user
   }
 }
 </script>
@@ -93,7 +116,7 @@ form {
   }
 }
 .comments-section {
-  margin: 1.25em;
+  margin: 1.5em 0 .25em 0;
 }
 .annotate-icon {
   height: 2em;
@@ -103,12 +126,5 @@ form {
   box-shadow: none;
   margin: 1em;
   padding: .25em;
-}
-#edit-button {
-  border: 0em;
-  padding: 0;
-  &:active, :focus {
-    background: none!important;
-  }
 }
 </style>
