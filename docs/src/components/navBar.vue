@@ -3,23 +3,38 @@
   b-col.col-12
     b-row
       b-col.col-4.mt-4
-        a(@click="logout()") logout
+        a.login-menu-link(@click="logout()") logout
       b-col.col-4.mb-1.mt-2
         img.main-icon(src='../assets/main-logo.svg')
       b-col.col-4.mt-1
-        img.post-icon(src='../assets/post-flag.svg')
+        button.neu-c-button(
+        @click="toggleCardForm"
+        v-bind:class="{postFormActive: showCardForm }")
+          span {{ buttonText.toggleMsg }}
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'navBar',
+  data () {
+    return {
+      buttonText: {
+        toggleMsg: 'New Post'
+      },
+      showCardForm: false
+    }
+  },
   methods: {
     ...mapActions([
       'logout'
     ]),
     ...mapState([
       'userProfile'
-    ])
+    ]),
+    toggleCardForm () {
+      this.showCardForm = !this.showCardForm
+      this.$emit('togglePostForm', this.showCardForm)
+    }
   },
   mounted () {
     // const user = this.userProfile
