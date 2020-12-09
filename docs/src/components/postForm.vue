@@ -1,12 +1,6 @@
 <template lang="pug">
   div.mt-5.p-0
-    b-col
-      button.neu-c-button(
-        @click="toggleCardForm"
-        v-bind:class="{postFormActive: showCardForm }")
-        span {{ buttonText.toggleMsg }}
-        //- img.card-icon(src="../assets/add.svg")
-    b-col.mt-4.form-container(v-if="showCardForm")
+    b-col.mt-4.form-container
       b-form(@submit.prevent="handleSubmit")
         b-col
           //- h5 knack knack

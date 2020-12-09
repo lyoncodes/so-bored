@@ -1,7 +1,6 @@
 <template lang="pug">
   #app
-    navBar(v-if="showNav")
-    <router-view/>
+    <router-view />
 </template>
 
 <script>

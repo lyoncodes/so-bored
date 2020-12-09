@@ -5,7 +5,7 @@
           b-row.comments-container
             b-col.col-10.col-lg-11.p-0
               p.caption.pl-2.pt-2.mb-1 {{ comment.author }} says:
-              p.comment-text.pl-2 {{ comment.text }}
+              p.comment-text.pl-4.pt-1 {{ comment.text }}
             b-col.col-1.p-0.mb-1
               button.mb-1.link-button(
                 @click="handleDelete(comment)"

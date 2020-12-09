@@ -11,6 +11,7 @@ const routes = [
     path: '/',
     name: 'Posts',
     component: Posts,
+    props: {},
     meta: {
       requiresAuth: true
     }
