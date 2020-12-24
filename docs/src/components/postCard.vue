@@ -65,7 +65,7 @@
               :rule="card"
               :show="card.displayLinks"
             )
-        b-row.mb-3(v-if="card.active")
+        b-row.mb-3.justify-content-center(v-if="card.active")
           //- annotate
           b-button.icon-trigger(@click="toggleComments(card)")
             img.card-icon(src='../assets/comment.svg')
