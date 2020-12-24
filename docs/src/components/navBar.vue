@@ -8,8 +8,7 @@
         img.main-icon(src='../assets/main-logo.svg')
       b-col.col-4.mt-1
         button.neu-c-button(
-        @click="toggleCardForm"
-        v-bind:class="{postFormActive: showCardForm }")
+        @click="toggleCardForm")
           span {{ buttonText.toggleMsg }}
 </template>
 <script>

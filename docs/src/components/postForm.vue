@@ -150,13 +150,13 @@ export default {
         displayComments: false,
         displayLinks: false
       }
-      this.showConfirm = true
       this.formChar = {
         titleCount: 0,
         titleLimit: 140,
         charCount: 0,
         charLimit: 300
       }
+      this.$emit('formSubmitted', this.formData.active)
     }
   },
   mounted () {

@@ -1,6 +1,8 @@
 <template lang="pug">
   b-row.justify-content-center
     b-col.col-12.p-0
+        b-row.justify-content-center
+          b-card-text.mb-2(v-if="!show && !rule.comments.length") click the speech bubble to begin the discussion...
         b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
           b-row.comments-container
             b-col.col-10.col-lg-11.p-0

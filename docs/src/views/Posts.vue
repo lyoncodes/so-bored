@@ -5,7 +5,8 @@
       img.bg-img(v-bind:src="imgFolder[0]")
       b-col.col-12
         #post-form.pb-5
-          postForm(v-if="togglePostForm")
+          postForm(v-if="togglePostForm"
+          v-on:formSubmitted="showPostForm($event)")
       b-col.col-12.mt-5.p-0
         #posts.pb-5
           postCollection
