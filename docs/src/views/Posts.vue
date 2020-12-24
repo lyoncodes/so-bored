@@ -3,7 +3,7 @@
     navBar(v-on:togglePostForm="showPostForm($event)")
     b-container(fluid="sm")
       img.bg-img(v-bind:src="imgFolder[0]")
-      b-col.col-12.col-lg-4
+      b-col.col-12
         #post-form.pb-5
           postForm(v-if="togglePostForm")
       b-col.col-12.mt-5.p-0
