@@ -2,9 +2,7 @@ export default {
   // updateState function handles all dispatched actions, updating the state per the data
   updateState (state, data) {
     const ruleEl = state.rules.find(el => el.id === data.id)
-    if (data.payload === 'addRule') {
-      state.rules.push(data)
-    } else if (data.payload === 'deleteRule') {
+    if (data.payload === 'deleteRule') {
       const filteredArr = state.rules.filter((el) => {
         return (el.id !== data.id) ? el : null
       })
@@ -45,10 +43,10 @@ export default {
   },
   // set rules in state to the rules retrieved from db
   setRuleCards (state, rulePayload) {
-    rulePayload.sort((a, b) => {
-      return a.createdOn.seconds - b.createdOn.seconds
+    state.rules = rulePayload.sort((a, b) => {
+      return b.createdOn.seconds - a.createdOn.seconds
     })
-    state.rules = rulePayload
+    console.log(state.rules)
   },
   populateImages (state, asset) {
     state.imgFolder.push(asset)
