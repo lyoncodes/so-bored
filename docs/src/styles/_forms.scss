@@ -3,6 +3,11 @@ form {
   #title-input {
     font-size: $font-md !important;
   }
+  #post-form-textarea {
+    height: 10.5em;
+    font-size: $font-sm !important;
+    font-weight: 100 !important;
+  }
   textarea, input, .form-control, #card-text, #title-text {
     color: $black-slate;
     background: $background-slate;
@@ -20,20 +25,19 @@ form {
       display: none;
     }
     &:hover, :active, :focus {
-      transform: scale(0.99);
+      transform: scale(1.01);
       border: 1px solid $creme;
-      box-shadow: none;
+      box-shadow: none!important;
     }
-  }
-  #post-form-textarea {
-    height: 10.5em;
-    font-size: $font-sm !important;
-    font-weight: 100 !important;
+    &:focus {
+      box-shadow: none!important;
+    }
   }
 }
 #annotate-text, #card-text {
   font-size: $font-sm !important;
   font-weight: 100 !important;
+  height: 7.25em;
 }
 }
 .form-container {
