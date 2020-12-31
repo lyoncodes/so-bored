@@ -51,7 +51,7 @@
           b-button.icon-trigger.pt-0(@click="handleShow(card)"
           :disabled="card.updating")
             img.card-icon#show-more(src='../assets/show-more.svg')
-        b-col(v-if="card.active")
+        b-col.p-0(v-if="card.active")
           //- comments component ------------
           b-col.col-12.p-0
             postComments(
@@ -60,7 +60,7 @@
               v-on:toggleCommentFormEvent="toggleCommentForm(card)"
             )
           //- links comp ----------
-          b-col
+          b-col.col-12.p-0.mb-4
             postLinks(
               :rule="card"
               :show="card.displayLinks"

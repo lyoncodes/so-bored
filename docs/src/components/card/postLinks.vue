@@ -1,26 +1,31 @@
 <template lang="pug">
-  b-container
-    b-row.justify-content-center
-      b-col.col-4(v-for="link in rule.links")
-        a.links(@click="redirect(link)") {{link.ref}}
-        b-button(@click="handleDelete(link)") Delete
-          img.card-icon(src="../../assets/cancel.svg")
-    b-row
-      b-col
-        b-form(
-          @submit.prevent="submitLink(linkData)"
-          v-if="show")
-          b-form-textarea(
-            id="link-title"
-            v-model="linkData.ref"
-            placeholder="Enter Link Title"
-          )
-          b-form-textarea(
-            id="link-url"
-            v-model="linkData.url"
-            placeholder="Link URL"
-          )
-          b-button.type-links(type="submit" variant="primary") Add Link
+  b-row.justify-content-center
+    b-col.col-12.p-0
+      b-col.col-12.mt-2.comments-section(v-for="link in rule.links")
+        b-row.links-container
+          b-col.col-10.col-lg-11.p-0
+            p.caption.pl-2.pt-2.mb-1 {{ link.author }} linked:
+            a.comment-text.pl-4.pt-1(@click="redirect(link)") {{link.ref}}
+          b-col.col-1.p-0.mb-1
+            button.mb-1.link-button(
+              @click="handleDelete(link)")
+              img.card-icon-sm(src="../../assets/delete.svg")
+    b-col.col-12.mt-4.p-0(v-if="show")
+      b-form(
+        @submit.prevent="submitLink(linkData)"
+        v-if="show")
+        b-form-textarea.mb-2(
+          id="link-text-area"
+          v-model="linkData.ref"
+          placeholder="link text"
+        )
+        b-form-textarea(
+          id="link-text-area"
+          v-model="linkData.url"
+          placeholder="url"
+        )
+        b-row.justify-content-end.mt-2
+          button#submit-annotation.neu-c-button.m-0.mr-3(type="submit" variant="primary") Add Link
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
@@ -37,7 +42,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'rules'
+      'rules',
+      'userProfile'
     ])
   },
   methods: {
@@ -47,11 +53,13 @@ export default {
     ]),
     submitLink (linkData) {
       const id = this.$props.rule.id
+      const author = this.userProfile.username
       const { ref, url } = this.linkData
       const payload = 'addLink'
       const linkPayload = {
         ref,
         url,
+        author,
         id,
         payload
       }
@@ -69,6 +77,10 @@ export default {
     handleDelete (link) {
       this.mother(link)
     }
+  },
+  mounted () {
+    const user = this.userProfile
+    this.user = user
   }
 }
 </script>
