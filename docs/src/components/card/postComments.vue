@@ -2,7 +2,7 @@
   b-row.justify-content-center
     b-col.col-12.p-0
         b-row.justify-content-center
-          b-card-text.mb-2(v-if="!show && !rule.comments.length") click the speech bubble to begin the discussion...
+          b-card-text.mb-2(v-if="!show && !rule.comments.length") click the speech bubble below to begin the discussion...
         b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
           b-row.comments-container
             b-col.col-10.col-lg-11.p-0
@@ -11,7 +11,8 @@
             b-col.col-1.p-0.mb-1
               button.mb-1.link-button(
                 @click="handleDelete(comment)"
-                v-if="user.username === comment.author") delete
+                v-if="user.username === comment.author")
+                img.card-icon-sm(src="../../assets/delete.svg")
         b-col.col-12.mt-2.p-0
           b-form.mb-2.mt-4(
             @submit.prevent="addComment(comment)"

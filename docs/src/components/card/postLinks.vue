@@ -1,12 +1,17 @@
 <template lang="pug">
-  b-container
-    b-row.justify-content-center
-      b-col.col-4(v-for="link in rule.links")
-        a.links(@click="redirect(link)") {{link.ref}}
-        b-button(@click="handleDelete(link)") Delete
-          img.card-icon(src="../../assets/cancel.svg")
-    b-row
-      b-col
+  b-row.justify-content-center
+    b-col.col-12.p-0
+      b-col.col-12.mt-2.comments-section(v-for="link in rule.links")
+        b-row.links-container
+          b-col.col-10.col-lg-11.p-0
+            p.caption.pl-2.pt-2.mb-1 {{ link.author }} linked:
+            a.comment-text.pl-4.pt-1(@click="redirect(link)") {{link.ref}}
+          b-col.col-1.p-0.mb-1
+            button.mb-1.link-button(
+              @click="handleDelete(link)")
+              img.card-icon-sm(src="../../assets/delete.svg")
+    b-row(v-if="show")
+      b-col(v-if="show")
         b-form(
           @submit.prevent="submitLink(linkData)"
           v-if="show")
@@ -37,7 +42,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'rules'
+      'rules',
+      'userProfile'
     ])
   },
   methods: {
@@ -47,11 +53,13 @@ export default {
     ]),
     submitLink (linkData) {
       const id = this.$props.rule.id
+      const author = this.userProfile.username
       const { ref, url } = this.linkData
       const payload = 'addLink'
       const linkPayload = {
         ref,
         url,
+        author,
         id,
         payload
       }
@@ -69,6 +77,10 @@ export default {
     handleDelete (link) {
       this.mother(link)
     }
+  },
+  mounted () {
+    const user = this.userProfile
+    this.user = user
   }
 }
 </script>

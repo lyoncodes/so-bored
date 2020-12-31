@@ -60,7 +60,7 @@
               v-on:toggleCommentFormEvent="toggleCommentForm(card)"
             )
           //- links comp ----------
-          b-col
+          b-col.col-12.p-0.mb-4
             postLinks(
               :rule="card"
               :show="card.displayLinks"
