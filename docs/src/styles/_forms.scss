@@ -34,10 +34,13 @@ form {
     }
   }
 }
-#annotate-text, #card-text {
+#annotate-text, #card-text, #link-text-area {
   font-size: $font-sm !important;
   font-weight: 100 !important;
   height: 7.25em;
+}
+#link-text-area {
+  height: 3em!important;
 }
 }
 .form-container {

@@ -10,22 +10,22 @@
             button.mb-1.link-button(
               @click="handleDelete(link)")
               img.card-icon-sm(src="../../assets/delete.svg")
-    b-row(v-if="show")
-      b-col(v-if="show")
-        b-form(
-          @submit.prevent="submitLink(linkData)"
-          v-if="show")
-          b-form-textarea(
-            id="link-title"
-            v-model="linkData.ref"
-            placeholder="Enter Link Title"
-          )
-          b-form-textarea(
-            id="link-url"
-            v-model="linkData.url"
-            placeholder="Link URL"
-          )
-          b-button.type-links(type="submit" variant="primary") Add Link
+    b-col.col-12.mt-4.p-0(v-if="show")
+      b-form(
+        @submit.prevent="submitLink(linkData)"
+        v-if="show")
+        b-form-textarea.mb-2(
+          id="link-text-area"
+          v-model="linkData.ref"
+          placeholder="link text"
+        )
+        b-form-textarea(
+          id="link-text-area"
+          v-model="linkData.url"
+          placeholder="url"
+        )
+        b-row.justify-content-end.mt-2
+          button#submit-annotation.neu-c-button.m-0.mr-3(type="submit" variant="primary") Add Link
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'

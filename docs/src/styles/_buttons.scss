@@ -102,18 +102,6 @@ button {
     outline: none!important;
   }
 }
-.type-links {
-  border: 1px solid transparent;
-  color: $true-blue;
-  transition: all .7s ease;
-  &:hover {
-    border: 1px solid $metallic-blue;
-    color: $cotton-candy;
-  }
-  &:active, &:focus {
-    border: 1px solid transparent;
-  }
-}
 .icon-trigger {
   padding-left: 0;
 }
