@@ -8,14 +8,14 @@ form {
     font-size: $font-sm !important;
     font-weight: 100 !important;
   }
-  textarea, input, .form-control, #card-text, #title-text {
+  textarea, input, .form-control, #card-text {
     color: $black-slate;
     background: $background-slate;
     border: 1px solid $creme;
     border-radius: 0.5;
     font-size: $font-md;
     font-weight: $font-heavy;
-    height: 3.5em;
+    // height: 3.5em;
     resize: none;
     transition: all .4s ease-in;
     &::placeholder{
@@ -31,6 +31,13 @@ form {
     }
     &:focus {
       box-shadow: none!important;
+    }
+  }
+  #title-text, #card-text {
+    padding: 0;
+    border: none;
+    &:hover {
+      border: none;
     }
   }
 }
@@ -52,6 +59,7 @@ form {
   color: $black-slate;
   font-size: $font-lg;
   font-weight: $font-heavy;
+  margin-bottom: 0;
 }
 .postFormActive{
   color: $lime-green;
@@ -64,7 +72,6 @@ form {
 }
 .validation-char {
   color: $black-slate;
-  display: inline;
   font-size: $font-sm;
   text-align: left;
   margin: .75em;
