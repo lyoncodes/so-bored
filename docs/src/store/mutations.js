@@ -46,7 +46,6 @@ export default {
     state.rules = rulePayload.sort((a, b) => {
       return b.createdOn.seconds - a.createdOn.seconds
     })
-    console.log(state.rules)
   },
   populateImages (state, asset) {
     state.imgFolder.push(asset)

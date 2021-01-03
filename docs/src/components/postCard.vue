@@ -7,12 +7,16 @@
       .pt-3.pl-2.pr-2.pt-lg-3.pr-lg-4.pb-lg-2.pl-lg-4
         //- CARD HEADING ----------
         b-row.justify-content-between
+          //- username
           p.caption.mb-1 {{card.userName}}
+          //- delete icon
           b-button.icon-trigger.p-0.pr-3(@click="handleDelete(card)"
           :disabled="card.updating"
           )
             img.card-icon-sm(src='../assets/delete.svg')
+        //- CARD TTILE
         b-row.mt-1
+          //- post title
           h3.mb-0(v-if="!card.updating") {{card.title}}
           //- edit/update title form
           b-col.p-0.mb-0
@@ -24,12 +28,13 @@
               :placeholder="updateData.title"
               )
               a.validation-char {{updateData.title.length}} / {{validation.titleLimit}}
+        //- CARD TEXT
         b-row(v-if="!card.updating")
+          //- card text
           b-card-text.pl-0.pr-0(v-if="!card.updating") {{card.text}}
+        //- card text form
         b-row
           b-col.p-0
-            //- If rule locked, display lock
-            //- text form ------------
             b-form.mt-3(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
               b-row(v-if="validation.charCount > validation.charLimit")
                 b-badge(variant="danger") {{validation.errorMsg}}
@@ -59,20 +64,21 @@
               :show="card.displayComments"
               v-on:toggleCommentFormEvent="toggleCommentForm(card)"
             )
-          //- links comp ----------
+          //- links component ----------
           b-col.col-12.p-0.mb-4
             postLinks(
               :rule="card"
               :show="card.displayLinks"
             )
+        //- CARD FOOTER
         b-row.mb-3.justify-content-center(v-if="card.active")
-          //- annotate
+          //- add comment
           b-button.icon-trigger(@click="toggleComments(card)")
             img.card-icon(src='../assets/add-post.svg')
           //- add link
           b-button.icon-trigger(@click="toggleLinks(card)")
             img.card-icon(src='../assets/link.svg')
-        //- CARD footer
+        //- CARD TYPE
         b-col(v-if="card.active")
           b-badge {{card.type}}
 </template>
@@ -90,14 +96,6 @@ export default {
         title: '',
         text: '',
         updating: false
-      },
-      templateText: {
-        toggleMsg: 'Show All Switches',
-        toggleMsgAlt: 'Hide All Switches',
-        updateBtn: 'Update!',
-        updateRule: 'Update Rule',
-        cancelBtn: 'Nvm',
-        hideBtn: 'Hide'
       },
       showLinks: false
     }
@@ -197,10 +195,10 @@ export default {
       window.location.href = `https://${link.url}`
     }
   },
-
   mounted () {
     const card = this.rules
     this.card = card
+    card.forEach(el => console.log(el.dateToFormat.getDay()))
   }
 
 }
