@@ -7,8 +7,11 @@
       .pt-3.pl-2.pr-2.pt-lg-3.pr-lg-4.pb-lg-2.pl-lg-4
         //- CARD HEADING ----------
         b-row.justify-content-between
-          //- username
-          p.caption.mb-1 {{card.userName}}
+          b-col.p-0
+            //- username
+            span.caption.mb-1 {{card.userName}}
+            //- time string
+            span.caption.ml-2 {{ card.dateToFormat.toLocaleDateString() }}
           //- delete icon
           b-button.icon-trigger.p-0.pr-3(@click="handleDelete(card)"
           :disabled="card.updating"
@@ -198,7 +201,6 @@ export default {
   mounted () {
     const card = this.rules
     this.card = card
-    card.forEach(el => console.log(el.dateToFormat.getDay()))
   }
 
 }
