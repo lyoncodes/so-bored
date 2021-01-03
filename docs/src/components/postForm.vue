@@ -1,6 +1,6 @@
 <template lang="pug">
   div.mt-5.p-0
-    b-col.mt-4.form-container
+    b-col.col-12.mt-4.form-container
       b-form(@submit.prevent="handleSubmit")
         b-col
           //- h5 knack knack
@@ -18,7 +18,7 @@
             ) {{formChar.titleCount}} / {{formChar.titleLimit}}
           b-form-group(id="input-card-text")
             b-form-textarea(
-              id="card-text"
+              id="post-form-textarea"
               v-model="formData.text"
               @keyup="validateCharCount()"
             )
@@ -150,13 +150,13 @@ export default {
         displayComments: false,
         displayLinks: false
       }
-      this.showConfirm = true
       this.formChar = {
         titleCount: 0,
         titleLimit: 140,
         charCount: 0,
         charLimit: 300
       }
+      this.$emit('formSubmitted', this.formData.active)
     }
   },
   mounted () {

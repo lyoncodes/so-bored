@@ -1,33 +1,31 @@
 <template lang="pug">
+  //- CARD CONTAINER
   b-container.card-container.p-0
-    //- array iteration
+    //- array iteration (card in rules)
     b-col.col-12.card.ml-0(v-for="card in rules" :key="card.title")
-      //- card template
-      .pt-3.pt-lg-3.pl-4.pr-4.pb-2
+      //- content-padding
+      .pt-3.pl-2.pr-2.pt-lg-3.pr-lg-4.pb-lg-2.pl-lg-4
         //- CARD HEADING ----------
-        b-row.justify-content-end
+        b-row.justify-content-between
+          p.caption.mb-1 {{card.userName}}
           b-button.icon-trigger.p-0.pr-3(@click="handleDelete(card)"
           :disabled="card.updating"
           )
             img.card-icon-sm(src='../assets/delete.svg')
-        b-row
-          b-col.col-10.text-left.pl-0
-            p.caption.mb-1 {{card.userName}}
-        b-row
+        b-row.mt-1
           h3.mb-0(v-if="!card.updating") {{card.title}}
-          b-col.p-0
+          //- edit/update title form
+          b-col.p-0.mb-0
             b-form.title-form(@submit.prevent="submitUpdate(card, updateData)" v-if="card.updating")
-              b-form-textarea.mt-3(
-                id="title-text"
+              b-form-textarea(
+              id="title-text"
               v-model="updateData.title"
               @keyup="validateCharCount()"
               :placeholder="updateData.title"
               )
               a.validation-char {{updateData.title.length}} / {{validation.titleLimit}}
-        b-row
+        b-row(v-if="!card.updating")
           b-card-text.pl-0.pr-0(v-if="!card.updating") {{card.text}}
-        //- CARD BODY ----------
-          //- title form ------------
         b-row
           b-col.p-0
             //- If rule locked, display lock
@@ -41,17 +39,19 @@
                 @keyup="validateCharCount()"
                 :placeholder="updateData.text"
               )
-              a.validation-char {{updateData.text.length}} / {{validation.charLimit}}
-              button.mb-1#submit-annotation.neu-c-button.mt-2(type="submit" variant="primary" :disabled="!updateData.text.length && !updateData.title.length") edit
+              b-row.justify-content-between.ml-1.mr-1
+                a.validation-char {{updateData.text.length}} / {{validation.charLimit}}
+                button.mb-1#submit-annotation.neu-c-button.mt-2(type="submit" variant="primary" :disabled="!updateData.text.length && !updateData.title.length") edit
         b-row.mb-2
           //- handle update & cancel
           b-button.icon-trigger(@click="handleUpdate(card)" v-if="!card.locked")
             img.card-icon(src='../assets/editPencil.svg')
           //- activate (show)
-          b-button.icon-trigger.pt-0(@click="handleShow(card)"
+          b-button.icon-trigger(@click="handleShow(card)"
           :disabled="card.updating")
-            img.card-icon#show-more(src='../assets/show-more.svg')
-        b-col(v-if="card.active")
+            img#show-more(src='../assets/comment.svg')
+            span.caption.pl-1 {{card.comments.length}}
+        b-col.p-0(v-if="card.active")
           //- comments component ------------
           b-col.col-12.p-0
             postComments(
@@ -60,15 +60,15 @@
               v-on:toggleCommentFormEvent="toggleCommentForm(card)"
             )
           //- links comp ----------
-          b-col
+          b-col.col-12.p-0.mb-4
             postLinks(
               :rule="card"
               :show="card.displayLinks"
             )
-        b-row.mb-3(v-if="card.active")
+        b-row.mb-3.justify-content-center(v-if="card.active")
           //- annotate
           b-button.icon-trigger(@click="toggleComments(card)")
-            img.card-icon(src='../assets/comment.svg')
+            img.card-icon(src='../assets/add-post.svg')
           //- add link
           b-button.icon-trigger(@click="toggleLinks(card)")
             img.card-icon(src='../assets/link.svg')

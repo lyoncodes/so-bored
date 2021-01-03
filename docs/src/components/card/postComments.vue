@@ -1,17 +1,8 @@
 <template lang="pug">
   b-row.justify-content-center
     b-col.col-12.p-0
-        b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
-          b-row.comments-container
-            b-col.col-10.col-lg-11.p-0
-              p.caption.pl-2.pt-2.mb-1 {{ comment.author }} says:
-              p.comment-text.pl-4.pt-1 {{ comment.text }}
-            b-col.col-1.p-0.mb-1
-              button.mb-1.link-button(
-                @click="handleDelete(comment)"
-                v-if="user.username === comment.author") delete
         b-col.col-12.mt-2.p-0
-          b-form.mb-2.mt-4(
+          b-form.mb-2.mt-2(
             @submit.prevent="addComment(comment)"
             v-if="show")
             b-form-textarea(
@@ -25,9 +16,22 @@
               button#submit-annotation.neu-c-button.m-0.mr-3(
                 type="submit"
                 :disabled="!comment.text.length"
-              ) Reply
+              ) Submit
             b-row(v-if="comment.text.length > commentValidation.charLimit")
               b-badge(variant="danger") {{ commentValidation.errorMsg }}
+        b-row.justify-content-center
+          b-col.col-8
+            b-card-text.mb-2.caption.text-center(v-if="!show && !rule.comments.length") Begin the discussion by adding comments or links from the buttons below
+        b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
+          b-row.comments-container
+            b-col.col-10.col-lg-11.p-0
+              p.caption.pl-2.pt-2.mb-1 {{ comment.author }} says:
+              p.comment-text.pl-4.pt-1 {{ comment.text }}
+            b-col.col-1.p-0.mb-1
+              button.mb-1.link-button(
+                @click="handleDelete(comment)"
+                v-if="user.username === comment.author")
+                img.card-icon-sm(src="../../assets/delete.svg")
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'

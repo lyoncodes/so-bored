@@ -1,6 +1,6 @@
 <template lang="pug">
   .home.mt-5
-    h5.headline 
+    h5.headline
     postForm
     //- adobeAPI
 </template>

@@ -51,6 +51,9 @@ button {
     outline: none;
   }
 }
+.btn-secondary:not(:disabled):not(.disabled):active:focus {
+  box-shadow: none;
+}
 .btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active {
   background: none;
   border: 1px solid transparent;
@@ -95,22 +98,17 @@ button {
   font-size: $font-sm;
   border: none;
   background-color: transparent;
+  &:focus {
+    outline: none!important;
+  }
 }
-.type-links {
-  border: 1px solid transparent;
-  color: $true-blue;
-  transition: all .7s ease;
-  &:hover {
-    border: 1px solid $metallic-blue;
-    color: $cotton-candy;
-  }
-  &:active, &:focus {
-    border: 1px solid transparent;
-  }
+#add-post {
+  height: 2em;
 }
 .icon-trigger {
   padding-left: 0;
 }
 #show-more {
-  height: .55em;
+  padding: 3px 0 0 0;
+  height: 1.55em;
 }

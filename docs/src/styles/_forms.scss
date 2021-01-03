@@ -3,14 +3,19 @@ form {
   #title-input {
     font-size: $font-md !important;
   }
-  textarea, input, .form-control, #card-text, #title-text {
+  #post-form-textarea {
+    height: 10.5em;
+    font-size: $font-sm !important;
+    font-weight: 100 !important;
+  }
+  textarea, input, .form-control, #card-text {
     color: $black-slate;
     background: $background-slate;
     border: 1px solid $creme;
     border-radius: 0.5;
     font-size: $font-md;
     font-weight: $font-heavy;
-    height: 3.5em;
+    // height: 3.5em;
     resize: none;
     transition: all .4s ease-in;
     &::placeholder{
@@ -20,11 +25,29 @@ form {
       display: none;
     }
     &:hover, :active, :focus {
-      transform: scale(0.99);
+      transform: scale(1.01);
       border: 1px solid $creme;
-      box-shadow: none;
+      box-shadow: none!important;
+    }
+    &:focus {
+      box-shadow: none!important;
     }
   }
+  #title-text, #card-text {
+    padding: 0;
+    border: none;
+    &:hover {
+      border: none;
+    }
+  }
+}
+#annotate-text, #card-text, #link-text-area {
+  font-size: $font-sm !important;
+  font-weight: 100 !important;
+  height: 7.25em;
+}
+#link-text-area {
+  height: 3em!important;
 }
 }
 .form-container {
@@ -36,6 +59,7 @@ form {
   color: $black-slate;
   font-size: $font-lg;
   font-weight: $font-heavy;
+  margin-bottom: 0;
 }
 .postFormActive{
   color: $lime-green;
@@ -48,13 +72,7 @@ form {
 }
 .validation-char {
   color: $black-slate;
-  display: inline;
   font-size: $font-sm;
   text-align: left;
   margin: .75em;
-}
-#annotate-text, #card-text {
-  font-size: $font-sm;
-  font-weight: 100 !important;
-
 }
