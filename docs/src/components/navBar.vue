@@ -2,14 +2,14 @@
 #nav
   b-col.col-12
     b-row
-      b-col.col-4.mt-4
+      b-col.col-2.mt-4
         a.login-menu-link(@click="logout()") logout
-      b-col.col-4.mb-1.mt-2
+      b-col.mb-1.mt-2
         img.main-icon(src='../assets/main-logo.svg')
-      b-col.col-4.mt-1
-        button.neu-c-button(
+      b-col.col-2.mt-3.p-0
+        button.link-button.p-0(
         @click="toggleCardForm")
-          span {{ buttonText.toggleMsg }}
+          img#add-post(src='../assets/add-post.svg')
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -17,9 +17,6 @@ export default {
   name: 'navBar',
   data () {
     return {
-      buttonText: {
-        toggleMsg: 'New Post'
-      },
       showCardForm: false
     }
   },

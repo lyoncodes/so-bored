@@ -102,9 +102,13 @@ button {
     outline: none!important;
   }
 }
+#add-post {
+  height: 2em;
+}
 .icon-trigger {
   padding-left: 0;
 }
 #show-more {
-  height: .55em;
+  padding: 3px 0 0 0;
+  height: 1.55em;
 }
