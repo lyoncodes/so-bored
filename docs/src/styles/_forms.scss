@@ -2,6 +2,7 @@
 form {
   #title-input {
     font-size: $font-md !important;
+    margin-top: 2em;
   }
   #post-form-textarea {
     height: 10.5em;
@@ -50,9 +51,15 @@ form {
 }
 }
 .form-container {
-  border-radius: 0.5;
+  background-color: $white;
+  border-radius: 20px;
   box-shadow: $box-shadow-dark;
-  padding: .15em 1em 1em 1em;
+  position: absolute;
+  z-index: 1;
+  top: 50;
+  .form-content {
+    padding-bottom: 2em;
+  }
 }
 .title-form {
   color: $black-slate;

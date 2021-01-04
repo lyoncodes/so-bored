@@ -5,18 +5,22 @@
     )
       .p-2
         b-col.mt-4
-          img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
-          h4 Password Recovery
-          b-form-group#reset-email
-            b-row
-              a.validation-char.pl-3 enter your email & I will send you instructions
-            b-form-input(
-              v-model="resetData"
-              type="email"
-            )
-          button.neu-c-button.mt-3(type="submit" @click="resetPassword(resetData)") Send
-          .col.pt-4
-            a.login-menu-link(@click="toggleSignUp") Back to Login
+          b-row.justify-content-center
+            img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
+          b-row.justify-content-center
+            h4 Password Recovery
+          b-row.justify-content-center
+            b-form-group#reset-email.col-12
+              b-row.justify-content-center
+                a.validation-char enter your email & I will send you instructions
+              b-row
+                b-form-input(
+                  v-model="resetData"
+                  type="email"
+                )
+            button.neu-c-button.mt-3(type="submit" @click="resetPassword(resetData)") Send
+          b-row.justify-content-center
+            a.login-menu-link.pt-5(@click="toggleSignUp") Back to Login
   div(v-else)
     img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
     h4 Success

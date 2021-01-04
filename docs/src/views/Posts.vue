@@ -1,15 +1,15 @@
 <template lang="pug">
-  div
+  div(v-bind:class="{ blackout: togglePostForm }")
     navBar(v-on:togglePostForm="showPostForm($event)")
     b-container(fluid="sm")
       img.bg-img(v-bind:src="imgFolder[0]")
-      b-col.col-12
-        #post-form.pb-5
+      b-col.col-12.p-0
+        #post-form
           postForm(v-if="togglePostForm"
           v-on:formSubmitted="resetButton()")
       b-col.col-12.mt-5.p-0
         #posts.pb-5
-          postCollection
+          postCollection(v-bind:class="{ hide: togglePostForm }")
 </template>
 
 <script>
@@ -52,5 +52,11 @@ export default {
   top: 0;
   height: 100vh;
   z-index: -1000;
+}
+.blackout{
+  height: 100vh;
+}
+.hide{
+  display: none;
 }
 </style>
