@@ -22,6 +22,10 @@ export default {
 </script>
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display|Raleway&display=swap');
+body {
+  margin-left: auto;
+  margin-right: auto;
+}
 body::-webkit-scrollbar {
   display: none;
 }

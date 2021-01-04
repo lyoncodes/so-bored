@@ -11,7 +11,7 @@
             h4 Password Recovery
           b-row.justify-content-center
             b-form-group#reset-email.col-12
-              b-row.justify-content-center
+              b-row
                 a.validation-char enter your email & I will send you instructions
               b-row
                 b-form-input(
@@ -24,7 +24,7 @@
   div(v-else)
     img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
     h4 Success
-    p.pt-1 Ok. I sent them.
+    p.pt-1 okay I sent them.
     a.login-menu-link(@click="toggleSignUp") Back to Login
 </template>
 <script>

@@ -6,9 +6,11 @@
             @submit.prevent="addComment(comment)"
             v-if="show")
             b-form-textarea(
+              autofocus
               id="annotate-text"
               v-model="comment.text"
               @keyup="validateCharCount()"
+              @keydown.enter.prevent="addComment(comment)"
             )
             b-row.p-0
               a.validation-char.mt-2.mb-0.ml-3(v-if="show") {{comment.text.length}} / {{ commentValidation.charLimit}}
@@ -20,8 +22,17 @@
             b-row(v-if="comment.text.length > commentValidation.charLimit")
               b-badge(variant="danger") {{ commentValidation.errorMsg }}
         b-row.justify-content-center
-          b-col.col-8
-            b-card-text.mb-2.caption.text-center(v-if="!show && !rule.comments.length") Begin the discussion by adding comments or links from the buttons below
+          b-col.col-8(v-if="!show && !rule.comments.length && !rule.links.length")
+            b-row.justify-content-center
+              span.caption click
+              span
+                img.card-icon-sm.pl-1.pr-1(src='../../assets/add-post.svg')
+              span.caption to add the first comment to this post
+            b-row.justify-content-center.pt-2
+              span.caption ...or add links
+              span
+                img.card-icon-sm.pl-1.pr-1(src='../../assets/link.svg')
+              span.caption
         b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
           b-row.comments-container
             b-col.col-10.col-lg-11.p-0

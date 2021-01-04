@@ -30,9 +30,13 @@
               a.validation-char password
             b-row
               b-form-input(
+                @keyup="validateCharCount()"
+                @keydown.enter.prevent="handleSignUp(signUpForm)"
                 v-model="signUpForm.password"
                 type="text"
               )
+            a.validation-char(
+            ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
           button.neu-c-button.mt-3(type="submit") Join
         b-row.justify-content-center
           a.login-menu-link.pt-5(type="submit" @click="toggleForm()") Back to Login
@@ -48,6 +52,9 @@ export default {
         username: '',
         password: ''
       },
+      formChar: {
+        passwordLength: 6
+      },
       toggleBoolean: false
     }
   },
@@ -61,6 +68,7 @@ export default {
       'signUp'
     ]),
     handleSignUp () {
+      console.log('handleSignUp')
       const { email, username, password } = this.signUpForm
       const signUpData = {
         email,
@@ -74,6 +82,9 @@ export default {
     toggleForm () {
       this.toggleBoolean = !this.toggleBoolean
       this.$emit('toggle', this.toggleBoolean)
+    },
+    validateCharCount () {
+      console.log('')
     }
   }
 }
