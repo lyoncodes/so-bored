@@ -32,7 +32,7 @@ export default {
     }
     if (data.payload === 'deleteLink') {
       const filteredArr = ruleEl.links.filter((el) => {
-        return (el.url !== data.url) ? el : null
+        return (el.linkSerial !== data.linkSerial) ? el : null
       })
       ruleEl.links = filteredArr
     }
