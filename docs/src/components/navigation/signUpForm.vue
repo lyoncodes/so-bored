@@ -4,32 +4,38 @@
   )
     .p-2
       b-col.mt-4
-        img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
-        h4 Create Your Account
-        b-form-group#account-email
-          b-row
-            a.validation-char login email
-          b-form-input(
-            v-model="signUpForm.email"
-            type="text"
-          )
-        b-form-group#account-username
-          b-row
-            a.validation-char username
-          b-form-input(
-            v-model="signUpForm.username"
-            type="text"
-          )
-        b-form-group#account-password
-          b-row
-            a.validation-char password
-          b-form-input(
-            v-model="signUpForm.password"
-            type="text"
-          )
-        button.neu-c-button.mt-3(type="submit") Join
-        .mt-3
-        a.login-menu-link.pt-5(type="submit" @click="toggleForm()") Go Back
+        b-row.justify-content-center
+          img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
+        b-row.justify-content-center
+          h4 Create Your Account
+        b-row.justify-content-center
+          b-form-group#account-email.col-12
+            b-row
+              a.validation-char login email
+            b-row
+              b-form-input(
+                v-model="signUpForm.email"
+                type="text"
+              )
+          b-form-group#account-username.col-12
+            b-row
+              a.validation-char username
+            b-row
+              b-form-input(
+                v-model="signUpForm.username"
+                type="text"
+              )
+          b-form-group#account-password.col-12
+            b-row
+              a.validation-char password
+            b-row
+              b-form-input(
+                v-model="signUpForm.password"
+                type="text"
+              )
+          button.neu-c-button.mt-3(type="submit") Join
+        b-row.justify-content-center
+          a.login-menu-link.pt-5(type="submit" @click="toggleForm()") Back to Login
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'

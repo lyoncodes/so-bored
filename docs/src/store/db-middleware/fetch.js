@@ -7,6 +7,7 @@ async function fetchPosts ({ commit }) {
   snapshot.forEach((el) => {
     const rule = el.data()
     rule.id = el.id
+    rule.dateToFormat = rule.createdOn.toDate()
     rulePayload.push(rule)
   })
   commit('setRuleCards', rulePayload)

@@ -1,46 +1,46 @@
 <template lang="pug">
-  div.mt-5.p-0
-    b-col.col-12.mt-4.form-container
-      b-form(@submit.prevent="handleSubmit")
-        b-col
-          //- h5 knack knack
-          //- glyphs(@addtype="submitType")
-          b-form-group.mt-5(id="input-title")
-            b-form-input#title-input(
-              v-model="formData.title"
-              @keyup="validateCharCount()"
-              required
-              contenteditable
-              placeholder="Title"
-              )
-            a.validation-char(
-              v-bind:class="errorObject"
-            ) {{formChar.titleCount}} / {{formChar.titleLimit}}
-          b-form-group(id="input-card-text")
-            b-form-textarea(
-              id="post-form-textarea"
-              v-model="formData.text"
-              @keyup="validateCharCount()"
+  b-col.col-12.mt-4.p-0.form-container
+    b-form(@submit.prevent="handleSubmit")
+      b-col.form-content
+        //- h5 knack knack
+        //- glyphs(@addtype="submitType")
+        b-form-group.mt-3(id="input-title")
+          b-form-input#title-input(
+            v-model="formData.title"
+            @keyup="validateCharCount()"
+            required
+            contenteditable
+            placeholder="Note Heading"
             )
-            a.validation-char(
-              v-bind:class="errorObject"
-            ) {{formChar.charCount}} / {{formChar.charLimit}}
-          b-form-group
-            b-form-radio(
-              id="unlock"
-              v-model="formData.locked"
-              :value="false"
-              variant="light"
-            )
-              img.card-icon-sm(src='../assets/Unlock.svg')
-            b-form-radio(
-              id="lock"
-              v-model="formData.locked"
-              :value="true"
-              variant="light"
-            )
-              img.card-icon-sm(src='../assets/Lock.svg')
-              img.card-icon-sm.ml-3(v-if="showConfirm" src='../assets/Valid.svg')
+          a.validation-char(
+            v-bind:class="errorObject"
+          ) {{formChar.titleCount}} / {{formChar.titleLimit}}
+        b-form-group(id="input-card-text")
+          b-form-textarea#post-form-textarea(
+            @keyup="validateCharCount()"
+            v-model="formData.text"
+            placeholder="Note Text"
+          )
+          a.validation-char(
+            v-bind:class="errorObject"
+          ) {{formChar.charCount}} / {{formChar.charLimit}}
+        b-form-group
+          b-form-radio(
+            id="unlock"
+            v-model="formData.locked"
+            :value="false"
+            variant="light"
+          )
+            img.card-icon-sm(src='../assets/Unlock.svg')
+          b-form-radio(
+            id="lock"
+            v-model="formData.locked"
+            :value="true"
+            variant="light"
+          )
+            img.card-icon-sm(src='../assets/Lock.svg')
+            img.card-icon-sm.ml-3(v-if="showConfirm" src='../assets/Valid.svg')
+        b-row.justify-content-center
           button.neu-c-button(type="submit") Post
           button.neu-c-button(type="reset" @click="toggleCardForm") Nah
 </template>
