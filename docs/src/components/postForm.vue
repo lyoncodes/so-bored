@@ -8,6 +8,7 @@
           b-form-input#title-input(
             v-model="formData.title"
             @keyup="validateCharCount()"
+            autofocus
             required
             contenteditable
             placeholder="Note Title"

@@ -55,6 +55,7 @@ export default {
     ]),
     submitLink (linkData) {
       const id = this.$props.rule.id
+      const linkSerial = this.serialMaker()
       const author = this.userProfile.username
       const { ref, url } = this.linkData
       const payload = 'addLink'
@@ -63,6 +64,7 @@ export default {
         url,
         author,
         id,
+        linkSerial,
         payload
       }
       if (this.linkData.ref.length && this.linkData.url.length) {
@@ -79,6 +81,10 @@ export default {
     },
     handleDelete (link) {
       this.mother(link)
+    },
+    serialMaker () {
+      const rando = Math.floor(Math.random() * 1000)
+      return Math.floor(Math.random() * rando)
     }
   },
   mounted () {

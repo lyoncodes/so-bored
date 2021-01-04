@@ -11,14 +11,14 @@
         #posts.pb-5
           postCollection(v-bind:class="{ hide: togglePostForm }")
         b-row.justify-content-center
-          b-col.col-6(v-if="!rules.length && !togglePostForm")
+          b-col.text-center.col-lg-6(v-if="!rules.length && !togglePostForm")
             b-row.pb-5.justify-content-center
               h5 hello {{userProfile.username}}!
             b-row.justify-content-center
-              span.caption Click the (
+              span.caption Click
               span
                 img.card-icon-sm.pl-1.pr-1(src='../assets/add-post.svg')
-              span.caption ) in the navbar to add your first note to this collection
+              span.caption in the navbar to add your first note to this collection
 </template>
 
 <script>
