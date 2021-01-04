@@ -1,15 +1,24 @@
 <template lang="pug">
-  div(v-bind:class="{ blackout: togglePostForm }")
+  div.bg-image-container(v-bind:class="{ blackout: togglePostForm }")
     navBar(v-on:togglePostForm="showPostForm($event)")
     b-container(fluid="sm")
       img.bg-img(v-bind:src="imgFolder[0]")
       b-col.col-12.p-0
         #post-form
           postForm(v-if="togglePostForm"
-          v-on:formSubmitted="resetButton()")
+          v-on:hideForm="resetButton()")
       b-col.col-12.mt-5.p-0
         #posts.pb-5
           postCollection(v-bind:class="{ hide: togglePostForm }")
+        b-row.justify-content-center
+          b-col.col-6(v-if="!rules.length && !togglePostForm")
+            b-row.pb-5.justify-content-center
+              h5 hello {{userProfile.username}}!
+            b-row.justify-content-center
+              span.caption Click the (
+              span
+                img.card-icon-sm.pl-1.pr-1(src='../assets/add-post.svg')
+              span.caption ) in the navbar to add your first note to this collection
 </template>
 
 <script>
@@ -40,6 +49,8 @@ export default {
   },
   computed: {
     ...mapState([
+      'userProfile',
+      'rules',
       'imgFolder'
     ])
   }
@@ -58,5 +69,20 @@ export default {
 }
 .hide{
   display: none;
+}
+@media only screen and (min-width: 1045px) {
+  .bg-image-container{
+  height: 100vh;
+  position: relative;
+  .bg-img{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1000
+  }
+}
 }
 </style>

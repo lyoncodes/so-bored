@@ -22,6 +22,7 @@
               a.validation-char password
             b-row
               b-form-input(
+                @keydown.enter.prevent="handleLogin(loginData)"
                 v-model="loginData.password"
                 type="password"
               )

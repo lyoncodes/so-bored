@@ -28,7 +28,9 @@
               id="title-text"
               v-model="updateData.title"
               @keyup="validateCharCount()"
+              @keydown.enter.prevent="submitUpdate(card, updateData)"
               :placeholder="updateData.title"
+              autofocus
               )
               a.validation-char {{updateData.title.length}} / {{validation.titleLimit}}
         //- CARD TEXT
@@ -45,6 +47,7 @@
                 id="card-text"
                 v-model="updateData.text"
                 @keyup="validateCharCount()"
+                @keydown.enter.prevent="submitUpdate(card, updateData)"
                 :placeholder="updateData.text"
               )
               b-row.justify-content-between.ml-1.mr-1
@@ -72,6 +75,7 @@
             postLinks(
               :rule="card"
               :show="card.displayLinks"
+              v-on:toggleLinkForm="toggleLinkForm(card)"
             )
         //- CARD FOOTER
         b-row.mb-3.justify-content-center(v-if="card.active")
@@ -171,6 +175,10 @@ export default {
     },
     toggleLinks (card) {
       card.payload = 'toggleLinks'
+      this.mother(card)
+    },
+    toggleLinkForm (card) {
+      card.payload = 'toggleLinkForm'
       this.mother(card)
     },
     clearForm (card) {

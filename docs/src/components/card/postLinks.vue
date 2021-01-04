@@ -15,6 +15,7 @@
         @submit.prevent="submitLink(linkData)"
         v-if="show")
         b-form-textarea.mb-2(
+          autofocus
           id="link-text-area"
           v-model="linkData.ref"
           placeholder="link text"
@@ -23,6 +24,7 @@
           id="link-text-area"
           v-model="linkData.url"
           placeholder="url"
+          @keydown.enter.prevent="submitLink(linkData)"
         )
         b-row.justify-content-end.mt-2
           button#submit-annotation.neu-c-button.m-0.mr-3(type="submit" variant="primary") Add Link
@@ -70,6 +72,7 @@ export default {
         ref: '',
         url: ''
       }
+      this.$emit('toggleLinkForm')
     },
     redirect (link) {
       window.location.href = `https://${link.url}`

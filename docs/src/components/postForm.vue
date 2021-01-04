@@ -10,7 +10,7 @@
             @keyup="validateCharCount()"
             required
             contenteditable
-            placeholder="Note Heading"
+            placeholder="Note Title"
             )
           a.validation-char(
             v-bind:class="errorObject"
@@ -18,6 +18,7 @@
         b-form-group(id="input-card-text")
           b-form-textarea#post-form-textarea(
             @keyup="validateCharCount()"
+            @keydown.enter.prevent="handleSubmit"
             v-model="formData.text"
             placeholder="Note Text"
           )
@@ -42,7 +43,7 @@
             img.card-icon-sm.ml-3(v-if="showConfirm" src='../assets/Valid.svg')
         b-row.justify-content-center
           button.neu-c-button(type="submit") Post
-          button.neu-c-button(type="reset" @click="toggleCardForm") Nah
+          button.neu-c-button(type="reset" @click="toggleCardForm") Nvm
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -55,7 +56,6 @@ export default {
   },
   data () {
     return {
-      showCardForm: false,
       showConfirm: false,
       buttonText: {
         toggleMsg: 'New Post',
@@ -101,7 +101,7 @@ export default {
       'mother'
     ]),
     toggleCardForm () {
-      this.showCardForm = !this.showCardForm
+      this.$emit('hideForm', this.formData.active)
     },
     validateCharCount () {
       this.formChar.charCount = this.formData.text.length
@@ -156,7 +156,7 @@ export default {
         charCount: 0,
         charLimit: 300
       }
-      this.$emit('formSubmitted', this.formData.active)
+      this.$emit('hideForm', this.formData.active)
     }
   },
   mounted () {

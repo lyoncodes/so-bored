@@ -82,6 +82,9 @@ export default {
         })
         data.payload = 'deleteLink'
       }
+      if (data.payload === 'toggleLinkForm') {
+        data.displayLinks = !data.displayLinks
+      }
       commit('updateState', data)
     })
   },
