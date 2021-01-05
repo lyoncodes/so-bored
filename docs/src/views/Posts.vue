@@ -17,7 +17,7 @@
             b-row.justify-content-center
               span.caption Click
               span
-                img.card-icon-sm.pl-1.pr-1(src='../assets/add-post.svg')
+                img.card-icon-sm.pl-1.pr-1(src='../assets/add-post-red.svg')
               span.caption in the navbar to add your first note to this collection
 </template>
 

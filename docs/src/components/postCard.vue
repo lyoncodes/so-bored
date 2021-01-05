@@ -16,7 +16,7 @@
           b-button.icon-trigger.p-0.pr-3(@click="handleDelete(card)"
           :disabled="card.updating"
           )
-            img.card-icon-sm(src='../assets/delete.svg')
+            img.card-icon-sm(src='../assets/delete-red.svg')
         //- CARD TTILE
         b-row.mt-1
           //- post title
@@ -81,7 +81,7 @@
         b-row.mb-3.justify-content-center(v-if="card.active")
           //- add comment
           b-button.icon-trigger(@click="toggleComments(card)")
-            img.card-icon(src='../assets/add-post.svg')
+            img.card-icon(src='../assets/add-post-red.svg')
           //- add link
           b-button.icon-trigger(@click="toggleLinks(card)")
             img.card-icon(src='../assets/link.svg')

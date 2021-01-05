@@ -26,22 +26,22 @@
           a.validation-char(
             v-bind:class="errorObject"
           ) {{formChar.charCount}} / {{formChar.charLimit}}
-        b-form-group
-          b-form-radio(
-            id="unlock"
-            v-model="formData.locked"
-            :value="false"
-            variant="light"
-          )
-            img.card-icon-sm(src='../assets/Unlock.svg')
-          b-form-radio(
-            id="lock"
-            v-model="formData.locked"
-            :value="true"
-            variant="light"
-          )
-            img.card-icon-sm(src='../assets/Lock.svg')
-            img.card-icon-sm.ml-3(v-if="showConfirm" src='../assets/Valid.svg')
+        //- b-form-group
+        //-   b-form-radio(
+        //-     id="unlock"
+        //-     v-model="formData.locked"
+        //-     :value="false"
+        //-     variant="light"
+        //-   )
+        //-     img.card-icon-sm(src='../assets/Unlock.svg')
+        //-   b-form-radio(
+        //-     id="lock"
+        //-     v-model="formData.locked"
+        //-     :value="true"
+        //-     variant="light"
+        //-   )
+        //-     img.card-icon-sm(src='../assets/Lock.svg')
+        //-     img.card-icon-sm.ml-3(v-if="showConfirm" src='../assets/Valid.svg')
         b-row.justify-content-center
           button.neu-c-button(type="submit") Post
           button.neu-c-button(type="reset" @click="toggleCardForm") Nvm

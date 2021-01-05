@@ -8,8 +8,7 @@
             a.comment-text.pl-4.pt-1(@click="redirect(link)") {{link.ref}}
           b-col.col-1.p-0.mb-1
             button.mb-1.link-button(
-              @click="handleDelete(link)")
-              img.card-icon-sm(src="../../assets/delete.svg")
+              @click="handleDelete(link)") delete
     b-col.col-12.mt-4.p-0(v-if="show")
       b-form(
         @submit.prevent="submitLink(linkData)"

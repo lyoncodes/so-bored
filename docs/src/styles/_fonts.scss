@@ -35,10 +35,11 @@ $font-sm: .75em;
     padding: .75em;
   }
   .caption {
-    background: $border-g;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    // background: $border-g;
+    // background-clip: text;
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
+    color: $candy-red-opaque;
     font-size: $font-sm;
     font-style: italic;
   }

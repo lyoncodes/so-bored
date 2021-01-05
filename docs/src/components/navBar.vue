@@ -5,11 +5,11 @@
       b-col.col-2.mt-4
         a.login-menu-link(@click="logout()") logout
       b-col.mb-1.mt-2
-        img.main-icon(src='../assets/main-logo.svg')
+        img.main-icon(src='../assets/tellTales.svg')
       b-col.col-2.mt-3.p-0
-        button.link-button.p-0(
+        button.link-button-icon.p-0(
         @click="toggleCardForm")
-          img#add-post(src='../assets/add-post.svg')
+          img#add-post-red(src='../assets/add-post-red.svg')
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'

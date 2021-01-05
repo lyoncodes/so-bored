@@ -30,7 +30,7 @@ button {
   outline: none;
 }
 .neu-c-button{
-  background-color: $terra-red;
+  background-color: $candy-red-opaque;
   -webkit-appearance: none;
   box-shadow: $box-shadow-button-inset;
   border-radius: 20px;
@@ -44,7 +44,7 @@ button {
   text-decoration: none;
   transition: ease-in-out 0.4s all;
   &:hover {
-    background-color: $sherbert;
+    background-color: $candy-red;
     transform: scale(0.98);
   }
   &:focus{
@@ -94,6 +94,20 @@ button {
   }
 }
 .link-button {
+  color: $white;
+  font-size: $font-sm;
+  border: none;
+  border-radius: 5px;
+  padding: 5 8 5 8;
+  position: absolute;
+  top: 5;
+  left: -20;
+  background-color: $candy-red;
+  &:focus {
+    outline: none!important;
+  }
+}
+.link-button-icon{
   color: $terra-red;
   font-size: $font-sm;
   border: none;
@@ -102,7 +116,7 @@ button {
     outline: none!important;
   }
 }
-#add-post {
+#add-post-red {
   height: 2em;
 }
 .icon-trigger {

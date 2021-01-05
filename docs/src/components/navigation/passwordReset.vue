@@ -6,15 +6,15 @@
       .p-2
         b-col.mt-4
           b-row.justify-content-center
-            img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
+            img.form-header-icon.mb-4(src='../../assets/tellTales.svg')
           b-row.justify-content-center
             h4 Password Recovery
           b-row.justify-content-center
-            b-form-group#reset-email.col-12
+            b-form-group#reset-email.col-12.mb-0
               b-row
                 a.validation-char enter your email & I will send you instructions
               b-row
-                b-form-input(
+                b-form-input.sign-up-form(
                   v-model="resetData"
                   type="email"
                 )

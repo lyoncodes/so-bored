@@ -26,7 +26,7 @@
             b-row.justify-content-center
               span.caption click
               span
-                img.card-icon-sm.pl-1.pr-1(src='../../assets/add-post.svg')
+                img.card-icon-sm.pl-1.pr-1(src='../../assets/add-post-red.svg')
               span.caption to add the first comment to this post
             b-row.justify-content-center.pt-2
               span.caption ...or add links
@@ -35,14 +35,13 @@
               span.caption
         b-col.col-12.mt-2(v-for="comment in rule.comments").comments-section
           b-row.comments-container
-            b-col.col-10.col-lg-11.p-0
+            b-col.col-11.p-0
               p.caption.pl-2.pt-2.mb-1 {{ comment.author }} says:
               p.comment-text.pl-4.pt-1 {{ comment.text }}
             b-col.col-1.p-0.mb-1
               button.mb-1.link-button(
                 @click="handleDelete(comment)"
-                v-if="user.username === comment.author")
-                img.card-icon-sm(src="../../assets/delete.svg")
+                v-if="user.username === comment.author") delete
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -141,5 +140,10 @@ form {
   box-shadow: none;
   margin: 1em;
   padding: .25em;
+}
+@media only screen and (min-width: 1045px) {
+  .link-button {
+    left: 0;
+  }
 }
 </style>
