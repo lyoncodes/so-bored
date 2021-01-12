@@ -1,7 +1,7 @@
 import * as firebase from '../../firebase'
 import { firestore } from 'firebase'
 import { login, fetchUserProfile, signUp, resetCredential } from './db-middleware/auth'
-import { logout } from './db-middleware/exit'
+import { logout } from './db-middleware/logout'
 import { fetchPosts, fetchRuleCollection, fetchImageAssets } from './db-middleware/fetch'
 import { mapRes } from './db-middleware/mapRes'
 import { attachLink } from './db-middleware/attachLink'
@@ -25,8 +25,6 @@ export default {
         createdOn: new Date(),
         userId: firebase.auth.currentUser.uid,
         userName: data.author,
-        locked: data.locked,
-        type: data.type,
         title: data.title,
         text: data.text,
         active: data.active,
@@ -42,7 +40,7 @@ export default {
       if (data.payload === 'deleteRule') {
         res.delete()
       }
-      if (data.payload === 'toggleShow') {
+      if (data.payload === 'toggleActive') {
         if (data.active) {
           await res.update({
             active: true
@@ -53,6 +51,7 @@ export default {
           })
         }
       }
+      // update card title & text
       if (data.payload === 'updateRule' && !data.commentType) {
         res.update({
           title: data.title,
@@ -60,15 +59,14 @@ export default {
           updating: !data.updating
         })
       }
+      // delete comment
       if (!data.commentType && !data.ref && data.payload !== 'toggleUpdateFields') {
+        // if it's none of those things, then it must be a comment!
         data.commentType = true
         res.update({
           comments: firestore.FieldValue.arrayRemove(data)
         })
         data.commentType = false
-      }
-      if (data.payload === 'toggleCommentForm') {
-        data.displayComments = !data.displayComments
       }
       if (data.commentType && !data.ref) {
         res.update({
@@ -87,9 +85,5 @@ export default {
       }
       commit('updateState', data)
     })
-  },
-  // filters by type
-  filterAction: ({ commit }, type) => {
-    commit('filterPosts', type)
   }
 }

@@ -18,7 +18,8 @@
       box-shadow: none;
     }
     .comments-section{
-      .comments-container {
+      margin: 1.5em 0 .25em 0;
+      .comments-container, .links-container {
         border: 1px solid $dark-slate;
         border-radius: 5px;
       }
@@ -42,11 +43,21 @@
       margin: 0;
       padding: .25em .25em .25em 2.6em;
     }
-    #submit-annotation{
+    #submit-comment-button, #submit-annotation{
+      background: none;
       border: 0em;
       box-shadow: none;
       font-size: $font-sm!important;
       padding: .75em;
+      position: absolute;
+      right: -10;
+      bottom: 0;
+    }
+    #submit-annotation{
+      bottom: 5;
+      &:focus {
+        outline: none;
+      }
     }
   }
 }

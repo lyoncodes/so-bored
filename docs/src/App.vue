@@ -26,7 +26,6 @@ body {
   background-color: $sky-pink;
   margin-left: auto;
   margin-right: auto;
-  max-width: 800px;
 }
 body::-webkit-scrollbar {
   display: none;
@@ -36,17 +35,5 @@ body::-webkit-scrollbar {
   @extend %body-fonts;
   @extend %forms;
   @extend %cards;
-  // background-color: $background-slate;
-  text-align: left;
-  .selected {
-    background: $border-g !important;
-    color: white!important;
-    -webkit-box-shadow:  $box-shadow-dark;
-    -moz-box-shadow:  $box-shadow-dark;
-    box-shadow:  $box-shadow-dark;
-  }
-  .toggled {
-    color: $metallic-blue
-  }
 }
 </style>

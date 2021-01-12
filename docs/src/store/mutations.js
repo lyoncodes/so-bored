@@ -1,20 +1,18 @@
 export default {
   // updateState function handles all dispatched actions, updating the state per the data
   updateState (state, data) {
-    const ruleEl = state.rules.find(el => el.id === data.id)
+    const ruleEl = state.posts.find(el => el.id === data.id)
     if (data.payload === 'deleteRule') {
-      const filteredArr = state.rules.filter((el) => {
+      const filteredArr = state.posts.filter((el) => {
         return (el.id !== data.id) ? el : null
       })
-      state.rules = filteredArr
+      state.posts = filteredArr
     } else if (data.payload === 'updateRule') {
       ruleEl.title = data.title
       ruleEl.text = data.text
       ruleEl.updating = !data.updating
     } else if (data.payload === 'toggleCommentForm') {
       ruleEl.displayComments = data.displayComments
-    } else if (data.payload === 'toggleUpdateFields') {
-      ruleEl.updating = !data.updating
     } else if (data.payload === 'toggleComments') {
       ruleEl.displayComments = !data.displayComments
     } else if (data.payload === 'toggleLinks') {
@@ -41,9 +39,9 @@ export default {
   setUserProfile (state, val) {
     state.userProfile = val
   },
-  // set rules in state to the rules retrieved from db
+  // set posts in state to the posts retrieved from db
   setRuleCards (state, rulePayload) {
-    state.rules = rulePayload.sort((a, b) => {
+    state.posts = rulePayload.sort((a, b) => {
       return b.createdOn.seconds - a.createdOn.seconds
     })
   },

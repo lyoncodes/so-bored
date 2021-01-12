@@ -1,13 +1,20 @@
 .form-header-icon{
   height: 4em;
 }
-.post-icon, .error-icon {
-  height: 1em;
+.inline-card-icon {
+  display: inline;
+  height: 22px;
 }
-.card-icon {
-  height: 1.5em;
+#add-post-icon {
+  margin-top: 3px;
+  height: 2em;
 }
-.card-icon-sm {
-  height: 1.25em;
-  padding-bottom: 5px
+#add-comment-icon {
+  background: none;
+}
+#delete-card-icon {
+  position: absolute;
+  height: 18px;
+  right: 25;
+  top: 10;
 }

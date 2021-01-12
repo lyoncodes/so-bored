@@ -33,7 +33,7 @@ form {
       box-shadow: none!important;
     }
   }
-  #title-text, #card-text {
+  #title-update-text, #card-text {
     padding: 0;
     border: none;
     &:hover {
@@ -56,12 +56,12 @@ form {
   box-shadow: $box-shadow-dark;
   position: absolute;
   z-index: 1;
-  top: 50;
+  top: -25;
   .form-content {
     padding-bottom: 2em;
   }
 }
-.title-form {
+#title-update-form {
   color: $black-slate;
   font-size: $font-lg;
   font-weight: $font-heavy;
@@ -81,7 +81,8 @@ form {
 }
 .validation-char {
   color: $black-slate;
-  font-size: $font-sm;
+  font-size: 10px!important;
+  font-weight: $font-heavy;
+  margin: .75em 0 0 2em;
   text-align: left;
-  margin: .75em;
 }
