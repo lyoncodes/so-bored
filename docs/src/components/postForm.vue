@@ -1,9 +1,7 @@
 <template lang="pug">
   b-col.col-12.mt-4.p-0.form-container
-    b-form(@submit.prevent="handleSubmit")
+    b-form(@submit.prevent="handleSubmit" v-bind:class="errorObject")
       b-col.form-content
-        //- h5 knack knack
-        //- glyphs(@addtype="submitType")
         b-form-group.mt-3(id="input-title")
           b-form-input#title-input(
             v-model="formData.title"
@@ -11,71 +9,36 @@
             autofocus
             required
             contenteditable
-            placeholder="Note Title"
-            )
-          a.validation-char(
-            v-bind:class="errorObject"
-          ) {{formChar.titleCount}} / {{formChar.titleLimit}}
+            placeholder="Title"
+          )
+          a.validation-char.ml-1 {{formChar.titleCount}} / {{validation.titleLimit}}
         b-form-group(id="input-card-text")
           b-form-textarea#post-form-textarea(
             @keyup="validateCharCount()"
             @keydown.enter.prevent="handleSubmit"
             v-model="formData.text"
-            placeholder="Note Text"
+            placeholder="Input text here"
           )
-          a.validation-char(
-            v-bind:class="errorObject"
-          ) {{formChar.charCount}} / {{formChar.charLimit}}
-        //- b-form-group
-        //-   b-form-radio(
-        //-     id="unlock"
-        //-     v-model="formData.locked"
-        //-     :value="false"
-        //-     variant="light"
-        //-   )
-        //-     img.card-icon-sm(src='../assets/Unlock.svg')
-        //-   b-form-radio(
-        //-     id="lock"
-        //-     v-model="formData.locked"
-        //-     :value="true"
-        //-     variant="light"
-        //-   )
-        //-     img.card-icon-sm(src='../assets/Lock.svg')
-        //-     img.card-icon-sm.ml-3(v-if="showConfirm" src='../assets/Valid.svg')
+          a.validation-char.ml-1 {{formChar.charCount}} / {{validation.charLimit}}
         b-row.justify-content-center
-          button.neu-c-button(type="submit") Post
           button.neu-c-button(type="reset" @click="toggleCardForm") Nvm
+          button.neu-c-button(type="submit") Post
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import glyphs from '../components/card/glyphs'
 
 export default {
-  name: 'Home',
-  components: {
-    glyphs
-  },
+  name: 'postForm',
+  props: ['validation'],
   data () {
     return {
-      showConfirm: false,
-      buttonText: {
-        toggleMsg: 'New Post',
-        errorMsg: 'Nah'
-      },
       formChar: {
         titleCount: 0,
-        titleLimit: 140,
-        charCount: 0,
-        charLimit: 300,
-        confirmation: String,
-        errorMsg: String,
-        isError: false
+        charCount: 0
       },
       formData: {
-        locked: false,
         title: '',
         text: '',
-        type: '',
         active: false,
         updating: false,
         comments: [],
@@ -88,12 +51,11 @@ export default {
   computed: {
     ...mapState([
       'userProfile',
-      'Glyphs',
-      'rules'
+      'posts'
     ]),
     errorObject: function () {
       return {
-        error: this.formData.title.length > this.formChar.titleLimit || this.formData.text.length > this.formChar.charLimit ? true : null
+        error: this.formData.title.length > this.validation.titleLimit || this.formData.text.length > this.validation.charLimit ? true : null
       }
     }
   },
@@ -107,21 +69,16 @@ export default {
     validateCharCount () {
       this.formChar.charCount = this.formData.text.length
       this.formChar.titleCount = this.formData.title.length
-      this.formChar.errorMsg = this.formData.title.length > this.formChar.titleLimit || this.formData.text.length > this.formChar.charLimit ? 'Too Many Characters' : null
-    },
-    submitType (glyphs) {
-      this.formData.type = glyphs
+      this.validation.errorMsg = this.formData.title.length > this.validation.titleLimit || this.formData.text.length > this.validation.charLimit ? 'Too Many Characters' : null
     },
     handleSubmit () {
-      const { locked, title, text, type, active, updating, comments, links, displayComments, displayLinks } = this.formData
+      const { title, text, active, updating, comments, links, displayComments, displayLinks } = this.formData
       const author = this.userProfile.username
-      const idx = this.rules.length + 1
+      const idx = this.posts.length + 1
       const card = {
         author,
-        locked,
         title,
         text,
-        type,
         idx,
         active,
         updating,
@@ -130,7 +87,7 @@ export default {
         displayComments,
         displayLinks
       }
-      if (card.text.length > this.formChar.charLimit || card.title.length > this.formChar.titleLimit) {
+      if (card.text.length > this.validation.charLimit || card.title.length > this.validation.titleLimit) {
         return alert('Error handling: fix length')
       }
       card.payload = 'addRule'
@@ -139,10 +96,8 @@ export default {
     },
     resetForm () {
       this.formData = {
-        locked: false,
         title: '',
         text: '',
-        type: '',
         active: false,
         updating: false,
         comments: [],
@@ -153,44 +108,15 @@ export default {
       }
       this.formChar = {
         titleCount: 0,
-        titleLimit: 140,
-        charCount: 0,
-        charLimit: 300
+        charCount: 0
       }
       this.$emit('hideForm', this.formData.active)
     }
-  },
-  mounted () {
-    const glyphs = this.Glyphs
-    this.glyphs = glyphs
   }
 }
 </script>
 <style scoped lang="scss">
-.postFormActive{
-  color: $lime-green;
-  -webkit-appearance: none;
-  background-color: $background-slate;
-  box-shadow: $box-shadow-light-inset;
-}
-.error {
-  color: $cotton-candy !important;
-}
-.icon-trigger{
-  border: 0em;
-  box-shadow: none;
-  &:active, :focus, :hover{
-  background: $border-g !important;
-  outline: none;
-  }
-}
-#handle-cancel{
-  border: 0em;
-  box-shadow: none;
-  margin: 0;
-  padding: .25em .25em .25em 2.6em;
-}
-.custom-control {
-  display: inline;
+.error .validation-char {
+  color: $candy-red!important;
 }
 </style>

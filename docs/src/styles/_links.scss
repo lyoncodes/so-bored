@@ -14,11 +14,14 @@
 input[type="radio"]:checked+label {
   color: $true-blue;
 }
-.login-menu-link {
+.link-style-main {
   color: $candy-red-opaque !important;
   transition: ease 0.4s all;
   &:hover{
     color: $candy-red!important;
     cursor: pointer;
   }
+}
+.link-text {
+  color: $true-blue
 }
