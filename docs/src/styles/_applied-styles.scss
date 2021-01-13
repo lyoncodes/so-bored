@@ -1,0 +1,11 @@
+.yellowBackground{
+  height: 100vh;
+  background-color: $sherbert;
+  transition: background-color 0.3s ease-in-out;
+}
+.hide{
+  display: none;
+}
+.error, .titleError, .textError {
+  color: $candy-red;
+}

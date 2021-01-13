@@ -23,6 +23,7 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display|Raleway&display=swap');
 body {
+  background-color: $sky-pink;
   margin-left: auto;
   margin-right: auto;
 }
@@ -33,18 +34,6 @@ body::-webkit-scrollbar {
   @extend %nav;
   @extend %body-fonts;
   @extend %forms;
-  @extend %cards;
-  // background-color: $background-slate;
-  text-align: left;
-  .selected {
-    background: $border-g !important;
-    color: white!important;
-    -webkit-box-shadow:  $box-shadow-dark;
-    -moz-box-shadow:  $box-shadow-dark;
-    box-shadow:  $box-shadow-dark;
-  }
-  .toggled {
-    color: $metallic-blue
-  }
+  @extend %posts;
 }
 </style>

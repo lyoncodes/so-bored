@@ -5,41 +5,39 @@
     .p-2
       b-col.mt-4
         b-row.justify-content-center
-          img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
+          img.form-header-icon.mb-4(src='../../assets/tellTales.svg')
         b-row.justify-content-center
-          h4 Create Your Account
-        b-row.justify-content-center
-          b-form-group#account-email.col-12
+          b-form-group#account-email.col-12.mb-0
             b-row
-              a.validation-char login email
+              a.validation-char.ml-1.mb-1 login email
             b-row
-              b-form-input(
+              b-form-input.sign-up-form(
                 v-model="signUpForm.email"
                 type="text"
               )
-          b-form-group#account-username.col-12
+          b-form-group#account-username.col-12.mb-0
             b-row
-              a.validation-char username
+              a.validation-char.ml-1.mb-1 tell tales username
             b-row
-              b-form-input(
+              b-form-input.sign-up-form(
                 v-model="signUpForm.username"
                 type="text"
               )
           b-form-group#account-password.col-12
             b-row
-              a.validation-char password
+              a.validation-char.ml-1.mb-1 password
             b-row
-              b-form-input(
+              b-form-input.sign-up-form(
                 @keyup="validateCharCount()"
                 @keydown.enter.prevent="handleSignUp(signUpForm)"
                 v-model="signUpForm.password"
                 type="text"
               )
-            a.validation-char(
+            a.validation-char.ml-1.mb-1(
             ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
           button.neu-c-button.mt-3(type="submit") Join
         b-row.justify-content-center
-          a.login-menu-link.pt-5(type="submit" @click="toggleForm()") Back to Login
+          a.link-style-main.pt-5(type="submit" @click="toggleForm()") Back to Login
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'

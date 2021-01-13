@@ -14,11 +14,11 @@
 input[type="radio"]:checked+label {
   color: $true-blue;
 }
-.login-menu-link {
-  color: $terra-red !important;
+.link-style-main {
+  color: $candy-red-opaque !important;
   transition: ease 0.4s all;
   &:hover{
-    color: $sherbert!important;
+    color: $candy-red!important;
     cursor: pointer;
   }
 }

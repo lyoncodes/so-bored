@@ -1,6 +1,7 @@
 @import './variables';
 // GRID
 @import './grid';
+@import './section-sizing';
 // FONTS
 @import './fonts';
 // IMAGES
@@ -11,8 +12,10 @@
 // NAV
 @import './nav';
 // CARDS
-@import './cards';
+@import './posts';
 // ICONS
 @import './icons';
 // TEXT AREAS
-@import './forms'
+@import './forms';
+// APPLIED STYLES
+@import './applied-styles'

@@ -30,16 +30,22 @@ $font-sm: .75em;
     font-size: $font-lg;
     font-weight: $font-heavy;
   }
-  .headline {
-    font-weight: $font-med;
-    padding: .75em;
-  }
   .caption {
-    background: $border-g;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    // background: $border-g;
+    // background-clip: text;
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
+    color: $candy-red-opaque;
     font-size: $font-sm;
     font-style: italic;
+  }
+  .card-title, .post-text{
+    margin-bottom: 0;
+    text-align: left;
+  }
+  .post-text{
+    padding: 1em;
+    font-weight: $font-light;
+    font-size: $font-sm;
   }
 }

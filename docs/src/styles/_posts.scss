@@ -1,24 +1,17 @@
-%cards {
-  .card {
+%posts {
+  .post {
     background: $background-slate;
     border: 0;
-    border-radius: 20px;
+    border-radius: 5px;
     box-shadow: $box-shadow-dark;
     margin: 1em;
     transition: ease-in-out 0.4s all;
-    .card-body{
-      padding: .5rem 1.25rem .5rem 1.25rem;
-    }
-    .card-text{
-      padding: 1em;
-      font-weight: $font-light;
-      font-size: $font-sm;
-    }
     &:hover {
       box-shadow: none;
     }
     .comments-section{
-      .comments-container {
+      margin: 1.5em 0 .25em 0;
+      .comments-container, .links-container {
         border: 1px solid $dark-slate;
         border-radius: 5px;
       }
@@ -42,11 +35,24 @@
       margin: 0;
       padding: .25em .25em .25em 2.6em;
     }
-    #submit-annotation{
+    #submit-comment-button, #submit-annotation, #edit-post-button{
+      background: none;
       border: 0em;
       box-shadow: none;
       font-size: $font-sm!important;
       padding: .75em;
+      position: absolute;
+      right: -10;
+      bottom: -19;
+      &:focus {
+        outline: none;
+      }
+    }
+    #submit-annotation{
+      bottom: 5;
+    }
+    #edit-post-button{
+      background-color: $candy-red;
     }
   }
 }

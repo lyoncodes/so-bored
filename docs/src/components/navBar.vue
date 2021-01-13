@@ -3,18 +3,18 @@
   b-col.col-12
     b-row
       b-col.col-2.mt-4
-        a.login-menu-link(@click="logout()") logout
+        a.link-style-main(@click="logout()") logout
       b-col.mb-1.mt-2
-        img.main-icon(src='../assets/main-logo.svg')
+        img.nav-logo(src='../assets/tellTales.svg')
       b-col.col-2.mt-3.p-0
-        button.link-button.p-0(
-        @click="toggleCardForm")
-          img#add-post(src='../assets/add-post.svg')
+        button.nav-icon-button.p-0(
+        @click="toggleForm")
+          img#add-post-icon(src='../assets/add-post-red.svg')
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'navBar',
+  name: 'navigation',
   data () {
     return {
       showCardForm: false
@@ -27,14 +27,10 @@ export default {
     ...mapState([
       'userProfile'
     ]),
-    toggleCardForm () {
+    toggleForm () {
       this.showCardForm = !this.showCardForm
       this.$emit('togglePostForm', this.showCardForm)
     }
-  },
-  mounted () {
-    // const user = this.userProfile
-    // this.user = user
   }
 }
 </script>
@@ -43,7 +39,7 @@ export default {
     @extend %nav;
     @extend %body-fonts;
     @extend %forms;
-    @extend %cards;
+    @extend %posts;
     .selected {
       background: $border-g !important;
       color: white!important;

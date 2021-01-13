@@ -9,13 +9,13 @@
         passwordReset(v-on:resetForms="toggleResetForm")
       b-col.col-11.col-lg-12(v-if="!toggleCredentials")
         b-row.justify-content-center
-          a.login-menu-link(@click="toggleResetForm") forgot password
+          a.link-style-main(@click="toggleResetForm") forgot password
 </template>
 <script>
 import { mapActions } from 'vuex'
-import signUpForm from '../components/navigation/signUpForm'
-import loginForm from '../components/navigation/loginForm'
-import passwordReset from '../components/navigation/passwordReset'
+import signUpForm from '../components/login/signUpForm'
+import loginForm from '../components/login/loginForm'
+import passwordReset from '../components/login/passwordReset'
 export default {
   data () {
     return {

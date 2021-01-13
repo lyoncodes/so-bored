@@ -6,26 +6,26 @@
       .p-2
         b-col.mt-4
           b-row.justify-content-center
-            img.form-header-icon.mb-4(src='../../assets/main-logo.svg')
+            img.form-header-icon.mb-4(src='../../assets/tellTales.svg')
           b-row.justify-content-center
             h4 Password Recovery
           b-row.justify-content-center
-            b-form-group#reset-email.col-12
+            b-form-group#reset-email.col-12.mb-0
               b-row
-                a.validation-char enter your email & I will send you instructions
+                a.validation-char.ml-1.mb-1 enter your email & I will send you instructions
               b-row
-                b-form-input(
+                b-form-input.sign-up-form(
                   v-model="resetData"
                   type="email"
                 )
             button.neu-c-button.mt-3(type="submit" @click="resetPassword(resetData)") Send
           b-row.justify-content-center
-            a.login-menu-link.pt-5(@click="toggleSignUp") Back to Login
+            a.link-style-main.pt-5(@click="toggleSignUp") Back to Login
   div(v-else)
     img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
     h4 Success
     p.pt-1 okay I sent them.
-    a.login-menu-link(@click="toggleSignUp") Back to Login
+    a.link-style-main(@click="toggleSignUp") Back to Login
 </template>
 <script>
 import { mapActions } from 'vuex'
