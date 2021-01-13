@@ -39,7 +39,7 @@ export default {
     @extend %nav;
     @extend %body-fonts;
     @extend %forms;
-    @extend %cards;
+    @extend %posts;
     .selected {
       background: $border-g !important;
       color: white!important;

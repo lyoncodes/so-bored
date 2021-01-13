@@ -2,11 +2,13 @@
   b-row.justify-content-center
     b-col.col-12.p-0
         postCommentForm(
-          :rule="rule"
+          :post="post"
           :validation="validation"
+          :show="show"
+          :formChar="formChar"
         )
         //- COMMENT
-        b-col.col-12.mt-2.mb-4(v-for="comment in rule.comments").comments-section
+        b-col.col-12.mb-4(v-for="comment in post.comments").comments-section
           b-row.comments-container.text-left
             b-col.col-11.p-0
               p.caption.pl-2.pt-2.mb-1 {{ comment.author }} says:
@@ -22,15 +24,14 @@ import postCommentForm from '../card/postCommentForm'
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'annotation',
-  props: ['rule', 'validation', 'user'],
+  props: ['post', 'validation', 'user', 'show', 'formChar'],
   data () {
     return {
       comment: {
         text: '',
         commentSerial: null,
         commentType: null
-      },
-      formShow: this.show
+      }
     }
   },
   computed: {
@@ -43,24 +44,6 @@ export default {
     ...mapActions([
       'mother'
     ]),
-    addComment (comment) {
-      this.comment.commentType = true
-      const commentSerial = this.serialMaker()
-      const id = this.$props.rule.id
-      const author = this.userProfile.username
-      const { text, commentType } = this.comment
-      const commentPayload = {
-        text,
-        author,
-        id,
-        commentSerial,
-        commentType
-      }
-      if (this.comment.text.length) {
-        this.mother(commentPayload)
-      }
-      this.clearComment()
-    },
     handleDelete (comment) {
       comment.commentType = false
       this.mother(comment)
@@ -99,18 +82,10 @@ form {
     }
   }
 }
-.annotate-icon {
-  height: 2em;
-}
 #submit-annotation{
   border: 0em;
   box-shadow: none;
   margin: 1em;
   padding: .25em;
-}
-@media only screen and (min-width: 1045px) {
-  .link-button {
-    left: 0;
-  }
 }
 </style>

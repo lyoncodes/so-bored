@@ -2,14 +2,16 @@ export default {
   // updateState function handles all dispatched actions, updating the state per the data
   updateState (state, data) {
     const ruleEl = state.posts.find(el => el.id === data.id)
-    if (data.payload === 'deleteRule') {
+    if (data.payload === 'deletePost') {
       const filteredArr = state.posts.filter((el) => {
         return (el.id !== data.id) ? el : null
       })
       state.posts = filteredArr
-    } else if (data.payload === 'updateRule') {
+    } else if (data.payload === 'updatePost') {
       ruleEl.title = data.title
       ruleEl.text = data.text
+      ruleEl.updating = !data.updating
+    } else if (data.payload === 'toggleUpdateFields') {
       ruleEl.updating = !data.updating
     } else if (data.payload === 'toggleCommentForm') {
       ruleEl.displayComments = data.displayComments

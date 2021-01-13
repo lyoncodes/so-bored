@@ -100,7 +100,7 @@ button {
   border-radius: 5px;
   padding: 5 8 5 8;
   position: absolute;
-  top: 48;
+  bottom: -10;
   left: -28;
   background-color: $candy-red;
   &:focus {
@@ -120,6 +120,7 @@ button {
   border: 1px solid transparent;
   box-shadow: none;
   padding-left: 0;
+  padding-top: 0;
   &:active, :focus, :hover{
   border: none;
   outline: none;
@@ -131,4 +132,9 @@ button {
 #show-more {
   padding: 3px 0 0 0;
   height: 1.55em;
+}
+@media only screen and (min-width: 1045px) {
+  .link-button {
+    left: 0;
+  }
 }

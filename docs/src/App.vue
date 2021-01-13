@@ -34,6 +34,6 @@ body::-webkit-scrollbar {
   @extend %nav;
   @extend %body-fonts;
   @extend %forms;
-  @extend %cards;
+  @extend %posts;
 }
 </style>
