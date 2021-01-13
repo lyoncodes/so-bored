@@ -52,7 +52,7 @@ form {
 }
 .form-container {
   background-color: $white;
-  border-radius: 20px;
+  border-radius: 5px;
   box-shadow: $box-shadow-dark;
   position: absolute;
   z-index: 1;
@@ -85,4 +85,18 @@ form {
   font-weight: $font-heavy;
   margin: .75em 0 0 2em;
   text-align: left;
+}
+// Form Errors
+.post-form-error-badge{
+  position: absolute;
+  bottom: 100;
+  right: 50;
+  left: 50;
+  z-index: 1
+}
+#edit-post-error{
+  top: -10;
+  bottom: 292;
+  right: 50;
+  left: 50;
 }

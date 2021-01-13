@@ -9,12 +9,18 @@
   margin-top: 3px;
   height: 2em;
 }
-#add-comment-icon {
+#add-comment-icon, #add-link-icon {
   background: none;
-}
-#delete-card-icon {
   position: absolute;
-  height: 18px;
-  right: 25;
+  bottom: 28px;
+  left: -10px;
+}
+#add-link-icon{
+  bottom: 10px;
+}
+#delete-post-icon {
+  position: absolute;
+  height: 15px;
+  right: 15;
   top: 10;
 }

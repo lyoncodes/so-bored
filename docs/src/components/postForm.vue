@@ -1,5 +1,6 @@
 <template lang="pug">
   b-col.col-12.mt-4.p-0.form-container
+    b-badge.post-form-error-badge(v-if="isError" variant="danger") This post's title or text is too long!
     b-form(@submit.prevent="handleSubmit" v-bind:class="errorObject")
       b-col.form-content
         b-form-group.mt-3(id="input-title")
@@ -29,23 +30,10 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'postForm',
-  props: ['validation'],
+  props: ['validation', 'formData', 'formChar'],
   data () {
     return {
-      formChar: {
-        titleCount: 0,
-        charCount: 0
-      },
-      formData: {
-        title: '',
-        text: '',
-        active: false,
-        updating: false,
-        comments: [],
-        links: [],
-        displayComments: false,
-        displayLinks: false
-      }
+      isError: false
     }
   },
   computed: {
@@ -64,7 +52,7 @@ export default {
       'mother'
     ]),
     toggleCardForm () {
-      this.$emit('hideForm', this.formData.active)
+      this.$emit('resetForm', this.formData.active)
     },
     validateCharCount () {
       this.formChar.charCount = this.formData.text.length
@@ -75,7 +63,7 @@ export default {
       const { title, text, active, updating, comments, links, displayComments, displayLinks } = this.formData
       const author = this.userProfile.username
       const idx = this.posts.length + 1
-      const card = {
+      const post = {
         author,
         title,
         text,
@@ -87,30 +75,16 @@ export default {
         displayComments,
         displayLinks
       }
-      if (card.text.length > this.validation.charLimit || card.title.length > this.validation.titleLimit) {
-        return alert('Error handling: fix length')
+      if (post.text.length > this.validation.charLimit || post.title.length > this.validation.titleLimit) {
+        this.isError = true
+      } else {
+        post.payload = 'addRule'
+        this.mother(post)
+        this.resetForm()
       }
-      card.payload = 'addRule'
-      this.mother(card)
-      this.resetForm()
     },
     resetForm () {
-      this.formData = {
-        title: '',
-        text: '',
-        active: false,
-        updating: false,
-        comments: [],
-        links: [],
-        commentType: false,
-        displayComments: false,
-        displayLinks: false
-      }
-      this.formChar = {
-        titleCount: 0,
-        charCount: 0
-      }
-      this.$emit('hideForm', this.formData.active)
+      this.$emit('resetForm', this.formData)
     }
   }
 }

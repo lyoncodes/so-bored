@@ -19,7 +19,7 @@ export default {
   mapRes,
   attachLink,
   async mother ({ commit, dispatch }, data) {
-    console.log('momma says: ', data)
+    // console.log('momma says: ', data)
     if (data.payload === 'addRule') {
       await firebase.rulesCollection.add({
         createdOn: new Date(),
@@ -37,7 +37,7 @@ export default {
       dispatch('fetchPosts')
     }
     dispatch('mapRes', data).then(async (res) => {
-      if (data.payload === 'deleteRule') {
+      if (data.payload === 'deletePost') {
         res.delete()
       }
       if (data.payload === 'toggleActive') {
@@ -51,8 +51,14 @@ export default {
           })
         }
       }
-      // update card title & text
-      if (data.payload === 'updateRule' && !data.commentType) {
+      // Toggles post title & text fields
+      if (data.payload === 'toggleUpdateFields') {
+        res.update({
+          updating: !data.updating
+        })
+      }
+      // Updates post title & text
+      if (data.payload === 'updatePost' && !data.commentType) {
         res.update({
           title: data.title,
           text: data.text,

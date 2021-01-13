@@ -1,17 +1,19 @@
 <template lang="pug">
-b-col.col-12.mt-2.p-0
-  b-form.mb-2.mt-2(
+b-col.col-12.p-0
+  b-badge.post-form-error-badge(v-if="isError" variant="danger") This comment is too long!
+  b-form.mb-2(
     @submit.prevent="addComment(comment)"
     v-bind:class="errorObject")
     b-form-textarea(
       autofocus
       id="annotate-text"
       v-model="comment.text"
+      @keyup="validateCharCount()"
       @keydown.enter.prevent="addComment(comment)"
       placeholder="add a comment..."
     )
     b-row.p-0.justify-content-between
-      a.validation-char.mt-2.mb-0.ml-3(v-if="show") {{comment.text.length}} / {{ validation.commentLimit}}
+      a.validation-char.mt-2.mb-0.ml-3(v-bind:class="errorObject") {{comment.text.length}} / {{ validation.commentLimit}}
       button#submit-comment-button.m-0.mr-3(
         type="submit"
         :disabled="!comment.text.length")
@@ -20,15 +22,16 @@ b-col.col-12.mt-2.p-0
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'annotation',
-  props: ['rule', 'show', 'validation'],
+  name: 'postCommentForm',
+  props: ['post', 'show', 'validation', 'formChar'],
   data () {
     return {
       comment: {
         text: '',
         commentSerial: null,
         commentType: null
-      }
+      },
+      isError: null
     }
   },
   computed: {
@@ -42,6 +45,11 @@ export default {
       }
     }
   },
+  watch: {
+    isError: () => {
+      console.log('error! text length is too long in title or text')
+    }
+  },
   methods: {
     ...mapActions([
       'mother'
@@ -49,7 +57,7 @@ export default {
     addComment (comment) {
       this.comment.commentType = true
       const commentSerial = this.serialMaker()
-      const id = this.$props.rule.id
+      const id = this.$props.post.id
       const author = this.userProfile.username
       const { text, commentType } = this.comment
       const commentPayload = {
@@ -59,14 +67,10 @@ export default {
         commentSerial,
         commentType
       }
-      if (this.comment.text.length) {
+      if (!this.isError) {
         this.mother(commentPayload)
+        this.clearComment()
       }
-      this.clearComment()
-    },
-    handleDelete (comment) {
-      comment.commentType = false
-      this.mother(comment)
     },
     clearComment () {
       this.comment = {
@@ -75,11 +79,16 @@ export default {
         commentSerial: null,
         commentType: false
       }
+      this.isError = false
       this.$emit('toggleCommentForm', this.comment.commentType)
     },
     serialMaker () {
       const rando = Math.floor(Math.random() * 1000)
       return Math.floor(Math.random() * rando)
+    },
+    validateCharCount () {
+      this.formChar.charCount = this.comment.text.length
+      this.isError = this.formChar.charCount > this.validation.commentLimit ? true : null
     }
   },
   mounted () {
@@ -99,18 +108,6 @@ form {
       border: 1px solid $metallic-blue;
     }
   }
-}
-.comments-section {
-  margin: 1.5em 0 .25em 0;
-}
-.annotate-icon {
-  height: 2em;
-}
-#submit-annotation{
-  border: 0em;
-  box-shadow: none;
-  margin: 1em;
-  padding: .25em;
 }
 .error .validation-char {
   color: $candy-red!important;
