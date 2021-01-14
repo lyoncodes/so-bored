@@ -75,7 +75,7 @@
             img#show-more(src='../assets/link.svg')
             span.caption.pl-1 {{post.links.length}}
         //- COMMENTS COMPONENT -----------
-        b-col.p-0.mb-2(v-if="post.active && !displayLinks")
+        b-col.p-0.mb-2(v-if="post.active && !post.displayLinks")
           b-col.col-12.p-0
             postComments(
               :post="post"
@@ -85,10 +85,10 @@
               :formChar="formChar"
             )
         //- LINKS COMPONENT -----------
-        b-col.col-12.p-0.mb-2(v-if="displayLinks")
+        b-col.col-12.p-0.mb-2(v-if="post.displayLinks")
           postLinks(
             :post="post"
-            :show="displayLinks"
+            :show="post.displayLinks"
             v-on:toggleLinkForm="toggleLinkForm(post)"
           )
 </template>
@@ -145,15 +145,15 @@ export default {
     },
     // Display / Hide Comment Section
     toggleCommentComponent (post) {
-      this.displayLinks = false
       post.active = !post.active
       post.payload = 'toggleActive'
       this.mother(post)
     },
     // Display / Hide Link Section
     toggleLinkForm (post) {
-      this.displayLinks = !this.displayLinks
       post.active = false
+      post.payload = 'toggleLinkForm'
+      this.mother(post)
     },
     // Updates Post Title & Text in dB and Front End
     submitUpdateData (post) {
