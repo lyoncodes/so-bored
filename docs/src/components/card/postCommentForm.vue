@@ -23,7 +23,7 @@ b-col.col-12.p-0
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'postCommentForm',
-  props: ['post', 'show', 'validation', 'formChar'],
+  props: ['post', 'show', 'validation', 'formCounter'],
   data () {
     return {
       comment: {
@@ -47,12 +47,11 @@ export default {
   },
   watch: {
     isError: () => {
-      console.log('error! text length is too long in title or text')
     }
   },
   methods: {
     ...mapActions([
-      'mother'
+      'createComment'
     ]),
     addComment (comment) {
       this.comment.commentType = true
@@ -68,7 +67,7 @@ export default {
         commentType
       }
       if (!this.isError) {
-        this.mother(commentPayload)
+        this.createComment(commentPayload)
         this.clearComment()
       }
     },
@@ -80,15 +79,14 @@ export default {
         commentType: false
       }
       this.isError = false
-      this.$emit('toggleCommentForm', this.comment.commentType)
     },
     serialMaker () {
       const rando = Math.floor(Math.random() * 1000)
       return Math.floor(Math.random() * rando)
     },
     validateCharCount () {
-      this.formChar.charCount = this.comment.text.length
-      this.isError = this.formChar.charCount > this.validation.commentLimit ? true : null
+      this.formCounter.charCount = this.comment.text.length
+      this.isError = this.formCounter.charCount > this.validation.commentLimit ? true : null
     }
   },
   mounted () {

@@ -10,10 +10,10 @@ async function fetchPosts ({ commit }) {
     rule.dateToFormat = rule.createdOn.toDate()
     rulePayload.push(rule)
   })
-  commit('setRuleCards', rulePayload)
+  commit('sortPosts', rulePayload)
 }
 // get() rulesCollection
-async function fetchRuleCollection () {
+async function fetchPostSnapshot () {
   const rule = firebase.rulesCollection
   const snapshot = await rule.get()
   return snapshot.docs
@@ -22,8 +22,7 @@ async function fetchRuleCollection () {
 async function fetchImageAssets ({ commit }) {
   const gsReference = await firebase.storage.refFromURL('gs://itoio-e3548.appspot.com/bg-alt.png')
   gsReference.getDownloadURL().then((url) => {
-    console.log(url)
     commit('populateImages', url)
   })
 }
-export { fetchPosts, fetchRuleCollection, fetchImageAssets }
+export { fetchPosts, fetchPostSnapshot, fetchImageAssets }

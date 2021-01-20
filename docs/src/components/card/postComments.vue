@@ -5,7 +5,7 @@
           :post="post"
           :validation="validation"
           :show="show"
-          :formChar="formChar"
+          :formCounter="formCounter"
         )
         //- COMMENT
         b-col.col-12.mb-4(v-for="comment in post.comments").comments-section
@@ -24,7 +24,7 @@ import postCommentForm from '../card/postCommentForm'
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'annotation',
-  props: ['post', 'validation', 'user', 'show', 'formChar'],
+  props: ['post', 'validation', 'user', 'show', 'formCounter'],
   data () {
     return {
       comment: {
@@ -42,11 +42,11 @@ export default {
   },
   methods: {
     ...mapActions([
-      'mother'
+      'deleteComment'
     ]),
     handleDelete (comment) {
       comment.commentType = false
-      this.mother(comment)
+      this.deleteComment(comment)
     },
     clearComment () {
       this.comment = {
