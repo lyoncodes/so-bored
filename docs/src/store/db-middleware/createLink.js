@@ -1,11 +1,12 @@
 import { firestore } from 'firebase'
-async function attachLink ({ commit, dispatch }, link) {
+async function createLink ({ commit, dispatch }, link) {
   dispatch('mapRes', link).then(async (res) => {
-    console.log('hit')
-    await res.update({
+    // Creates Link
+    res.update({
       links: firestore.FieldValue.arrayUnion(link)
     })
   })
+  link.payload = 'createLink'
   commit('updateState', link)
 }
-export { attachLink }
+export { createLink }

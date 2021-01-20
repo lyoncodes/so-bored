@@ -25,7 +25,6 @@ async function signUp ({ dispatch }, form) {
   dispatch('fetchUserProfile', user)
 }
 async function resetCredential ({ commit }, email) {
-  console.log(email)
   await firebase.auth.sendPasswordResetEmail(email)
   commit('resetLoginState')
 }

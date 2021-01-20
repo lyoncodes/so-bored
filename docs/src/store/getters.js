@@ -1,7 +1,7 @@
 export default {
-  activeCards: (state) => {
-    return state.Cards.filter((card) => {
-      return card.id === 0
+  userPosts: (state) => {
+    state.posts.filter((post) => {
+      return post.userName === state.userProfile.username
     })
   }
 }

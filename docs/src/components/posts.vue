@@ -13,7 +13,8 @@
             //- Time Stamp
             span.caption.ml-2 {{ post.dateToFormat.toLocaleDateString() }}
           //- Delete Post Button
-          b-button.icon-button.p-0.pr-3(@click="handleDelete(post)"
+          b-button.icon-button.p-0.pr-3(v-if="userProfile.username === post.userName"
+            @click="handleDelete(post)"
           :disabled="updateData.updating"
           )
             img#delete-post-icon(src='../assets/delete.svg')
@@ -22,7 +23,7 @@
         b-row
           //- Post Title
           h3.card-title(v-if="!post.updating") {{post.title}}
-          //- Update Title Form Fields (v-if="updateData.updating")
+          //- Update Title Form Fields (v-if="post.updating")
           b-col.p-0.mb-0
             b-form#title-update-form(@submit.prevent="submitUpdateData(post, updateData)" v-if="post.updating")
               b-form-textarea(
@@ -35,18 +36,18 @@
               )
               //- Input Validation
               b-row.justify-content-start
-                a.validation-char(v-bind:class="titleErrorObject") {{updateData.title.length}} / {{validation.titleLimit}}
+                a.validation-char(v-bind:class="titleErrorObject") {{updateData.title.length}} / {{postList.formValidation.titleLimit}}
         //- POST TEXT -----------
         b-row(v-if="!post.updating")
           //- Post Text
           b-card-text.post-text.pl-0.pr-0 {{post.text}}
-        //- Update Text Form Fields (v-if="updateData.updating")
+        //- Update Text Form Fields (v-if="post.updating")
         b-row
           b-col.p-0(v-if="post.updating")
             b-form.mt-3(@submit.prevent="submitUpdateData(post, updateData)" v-if="post.updating")
               //- Error Message
-              b-row(v-if="validation.charCount > validation.charLimit")
-                b-badge(variant="danger") {{validation.errorMsg}}
+              b-row(v-if="postList.formValidation.charCount > postList.formValidation.charLimit")
+                b-badge(variant="danger") {{postList.formValidation.errorMsg}}
               //- text area
               b-form-textarea.mt-3(
                 id="card-text"
@@ -57,35 +58,26 @@
               )
               //- character counter and edit button
               b-row.justify-content-between.mr-1
-                a.validation-char(v-bind:class="textErrorObject") {{updateData.text.length}} / {{validation.charLimit}}
+                a.validation-char(v-bind:class="textErrorObject") {{updateData.text.length}} / {{postList.formValidation.charLimit}}
                 button.mb-1#edit-post-button.neu-c-button.mt-2(type="submit" variant="primary" :disabled="!updateData.text.length && !updateData.title.length") edit
         //- POST NAVIGATION ROW -----------
-        b-row.mb-2
-          //- handle update post data & cancel form update
-          b-button.icon-button(@click="toggleUpdateForm(post)")
-            img.inline-card-icon(src='../assets/editPencil.svg')
-          //- sets post.active & displays comment component
-          b-button.icon-button(@click="toggleCommentComponent(post)"
-          :disabled="updateData.updating")
-            img#show-more(src='../assets/comment.svg')
-            span.caption.pl-1 {{post.comments.length}}
-          //- sets post.showLinks & displays link component
-          b-button.icon-button(@click="toggleLinkForm(post)"
-          :disabled="updateData.updating")
-            img#show-more(src='../assets/link.svg')
-            span.caption.pl-1 {{post.links.length}}
+        postNavigation(
+          :post="post"
+          :updateData="updateData"
+          v-on:toggleForms
+        )
         //- COMMENTS COMPONENT -----------
         b-col.p-0.mb-2(v-if="post.active && !post.displayLinks")
           b-col.col-12.p-0
             postComments(
               :post="post"
               :user="userProfile.username"
-              :validation="validation"
+              :validation="postList.formValidation"
               :show="post.active"
-              :formChar="formChar"
+              :formCounter="postList.formCounter"
             )
         //- LINKS COMPONENT -----------
-        b-col.col-12.p-0.mb-2(v-if="post.displayLinks")
+        b-col.col-12.p-0.mb-2(v-if="post.displayLinks && !post.active")
           postLinks(
             :post="post"
             :show="post.displayLinks"
@@ -96,9 +88,10 @@
 import { mapActions, mapState } from 'vuex'
 import postComments from '../components/card/postComments'
 import postLinks from '../components/card/postLinks'
+import postNavigation from '../components/card/postNavigation'
 export default {
   name: 'posts',
-  props: ['validation', 'formChar'],
+  props: ['postList'],
   data () {
     return {
       updateData: {
@@ -106,13 +99,13 @@ export default {
         text: '',
         updating: false
       },
-      displayLinks: false,
       isError: null
     }
   },
   components: {
     postComments,
-    postLinks
+    postLinks,
+    postNavigation
   },
   computed: {
     ...mapState([
@@ -122,38 +115,32 @@ export default {
     // Handles Form Entry Errors
     textErrorObject: function () {
       return {
-        textError: this.updateData.text.length > this.validation.charLimit
+        textError: this.updateData.text.length > this.postList.formValidation.charLimit
       }
     },
     titleErrorObject: function () {
       return {
-        titleError: this.updateData.title.length > this.validation.titleLimit
+        titleError: this.updateData.title.length > this.postList.formValidation.titleLimit
       }
     }
   },
   methods: {
     ...mapActions([
-      'mother'
+      'updatePost',
+      'deletePost'
     ]),
-    // Display / Hide Editing Fields
-    toggleUpdateForm (post) {
-      this.updateData.title = post.title
-      this.updateData.text = post.text
-      this.updateData.updating = !this.updateData.updating
-      post.payload = 'toggleUpdateFields'
-      this.mother(post)
-    },
-    // Display / Hide Comment Section
-    toggleCommentComponent (post) {
-      post.active = !post.active
-      post.payload = 'toggleActive'
-      this.mother(post)
-    },
-    // Display / Hide Link Section
-    toggleLinkForm (post) {
-      post.active = false
-      post.payload = 'toggleLinkForm'
-      this.mother(post)
+    // Formats Post as Object
+    formatPost (post) {
+      const { title, text, id, active, updating, comments } = post
+      const postPayload = {
+        title,
+        text,
+        id,
+        active,
+        updating,
+        comments
+      }
+      return postPayload
     },
     // Updates Post Title & Text in dB and Front End
     submitUpdateData (post) {
@@ -169,12 +156,10 @@ export default {
         updating,
         comments
       }
-      // error handling block
+      // error catch
       if (!this.isError) {
-        // attach update payload & call mother()
         postUpdateData.payload = 'updatePost'
-        this.mother(postUpdateData)
-        // set card.updating to false and clear update form
+        this.updatePost(postUpdateData)
         post.updating = false
         this.clearForm()
       }
@@ -182,7 +167,7 @@ export default {
     // Delete Post
     handleDelete (post) {
       post.payload = 'deletePost'
-      this.mother(post)
+      this.deletePost(post)
     },
     // Resets updateData
     clearForm (post) {
@@ -193,24 +178,11 @@ export default {
       }
       this.$emit('resetForm')
     },
-    // Formats Post as Object
-    formatPost (post) {
-      const { title, text, id, active, updating, comments } = post
-      const cardPayload = {
-        title,
-        text,
-        id,
-        active,
-        updating,
-        comments
-      }
-      return cardPayload
-    },
     // Assigns updateData to validation prop
     validateCharCount () {
-      this.formChar.charCount = this.updateData.text.length
-      this.formChar.titleCount = this.updateData.title.length
-      this.isError = this.updateData.text.length > this.validation.charLimit || this.updateData.title.length > this.validation.titleLimit ? true : null
+      this.postList.formCounter.charCount = this.updateData.text.length
+      this.postList.formCounter.titleCount = this.updateData.title.length
+      this.isError = this.updateData.text.length > this.postList.formValidation.charLimit || this.updateData.title.length > this.postList.formValidation.titleLimit ? true : null
     },
     // Redirects links to URL
     redirect (link) {

@@ -1,95 +1,35 @@
-import * as firebase from '../../firebase'
-import { firestore } from 'firebase'
 import { login, fetchUserProfile, signUp, resetCredential } from './db-middleware/auth'
 import { logout } from './db-middleware/logout'
-import { fetchPosts, fetchRuleCollection, fetchImageAssets } from './db-middleware/fetch'
+import { fetchPosts, fetchPostSnapshot, fetchImageAssets } from './db-middleware/fetch'
 import { mapRes } from './db-middleware/mapRes'
-import { attachLink } from './db-middleware/attachLink'
+import { createPost } from './db-middleware/createPost'
+import { readPost } from './db-middleware/readPost'
+import { updatePost } from './db-middleware/updatePost'
+import { deletePost } from './db-middleware/deletePost'
+import { createComment } from './db-middleware/createComment'
+import { deleteComment } from './db-middleware/deleteComment'
+import { createLink } from './db-middleware/createLink'
+import { deleteLink } from './db-middleware/deleteLink'
+import { togglePostComponents } from './db-middleware/togglePostComponents'
 
 export default {
-  // MESSAGE BOARD CALL STACK
-  signUp,
-  login,
-  resetCredential,
-  fetchUserProfile,
-  logout,
-  fetchPosts,
-  fetchRuleCollection,
-  fetchImageAssets,
-  mapRes,
-  attachLink,
-  async mother ({ commit, dispatch }, data) {
-    // console.log('momma says: ', data)
-    if (data.payload === 'addRule') {
-      await firebase.rulesCollection.add({
-        createdOn: new Date(),
-        userId: firebase.auth.currentUser.uid,
-        userName: data.author,
-        title: data.title,
-        text: data.text,
-        active: data.active,
-        updating: data.updating,
-        comments: data.comments,
-        links: data.links,
-        displayComments: data.displayComments,
-        displayLinks: data.displayLinks
-      })
-      dispatch('fetchPosts')
-    }
-    dispatch('mapRes', data).then(async (res) => {
-      if (data.payload === 'deletePost') {
-        res.delete()
-      }
-      if (data.payload === 'toggleActive') {
-        if (data.active) {
-          await res.update({
-            active: true
-          })
-        } else {
-          await res.update({
-            active: false
-          })
-        }
-      }
-      // Toggles post title & text fields
-      if (data.payload === 'toggleUpdateFields') {
-        res.update({
-          updating: !data.updating
-        })
-      }
-      // Updates post title & text
-      if (data.payload === 'updatePost' && !data.commentType) {
-        res.update({
-          title: data.title,
-          text: data.text,
-          updating: !data.updating
-        })
-      }
-      // delete comment
-      if (!data.commentType && !data.ref && data.payload !== 'toggleUpdateFields') {
-        // if it's none of those things, then it must be a comment!
-        data.commentType = true
-        res.update({
-          comments: firestore.FieldValue.arrayRemove(data)
-        })
-        data.commentType = false
-      }
-      if (data.commentType && !data.ref) {
-        res.update({
-          comments: firestore.FieldValue.arrayUnion(data)
-        })
-      }
-      if (data.ref && !data.commentType) {
-        data.payload = 'addLink'
-        res.update({
-          links: firestore.FieldValue.arrayRemove(data)
-        })
-        data.payload = 'deleteLink'
-      }
-      if (data.payload === 'toggleLinkForm') {
-        data.displayLinks = !data.displayLinks
-      }
-      commit('updateState', data)
-    })
-  }
+  // MESSAGE BOARD FUNCTIONALITY
+  signUp, // SIGNS USER UP
+  login, // LOGS USER IN
+  resetCredential, // RESETS USER CRED in DB
+  fetchUserProfile, // FETCH USER OBJECT FROM DB
+  logout, // LOGOUT
+  fetchPosts, // FETCH POSTS FROM DB
+  fetchPostSnapshot, // FETCH POST SNAPSHOT FOR MAPPING OVER
+  fetchImageAssets, // RETRIEVE IMAGES FROM DB
+  mapRes, // RETRIEVE POST
+  createPost, // CREATE POST
+  readPost, // READ POST
+  updatePost, // UPDATE POST
+  deletePost, // DELETE POST
+  createComment, // CREATE COMMENT
+  deleteComment, // DELETE COMMENT
+  createLink, // CREATE LINK
+  deleteLink, // DELETE LINK
+  togglePostComponents // COMPONENT STATE TOGGLING
 }
