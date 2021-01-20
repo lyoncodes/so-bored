@@ -51,25 +51,23 @@ export default {
   },
   methods: {
     ...mapActions([
-      'attachLink',
-      'mother'
+      'createLink',
+      'deleteLink'
     ]),
     submitLink (linkData) {
       const id = this.$props.post.id
       const linkSerial = this.serialMaker()
       const author = this.userProfile.username
       const { ref, url } = this.linkData
-      const payload = 'addLink'
       const linkPayload = {
         ref,
         url,
         author,
         id,
-        linkSerial,
-        payload
+        linkSerial
       }
       if (this.linkData.ref.length && this.linkData.url.length) {
-        this.attachLink(linkPayload)
+        this.createLink(linkPayload)
       }
       this.linkData = {
         ref: '',
@@ -81,7 +79,7 @@ export default {
       window.location.href = `https://${link.url}`
     },
     handleDelete (link) {
-      this.mother(link)
+      this.deleteLink(link)
     },
     serialMaker () {
       const rando = Math.floor(Math.random() * 1000)

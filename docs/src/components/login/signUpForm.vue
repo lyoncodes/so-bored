@@ -66,7 +66,6 @@ export default {
       'signUp'
     ]),
     handleSignUp () {
-      console.log('handleSignUp')
       const { email, username, password } = this.signUpForm
       const signUpData = {
         email,
@@ -82,7 +81,6 @@ export default {
       this.$emit('toggle', this.toggleBoolean)
     },
     validateCharCount () {
-      console.log('')
     }
   }
 }

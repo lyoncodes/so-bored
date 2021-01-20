@@ -14,7 +14,6 @@ export default {
       this.selectedFile = event.target.files[0]
     },
     onUpload () {
-      console.log('hello')
     }
   }
 }
