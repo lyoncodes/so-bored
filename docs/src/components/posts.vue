@@ -13,11 +13,11 @@
             //- Time Stamp
             span.caption.ml-2 {{ post.dateToFormat.toLocaleDateString() }}
           //- Delete Post Button
-          b-button.icon-button.p-0.pr-3(v-if="userProfile.username === post.userName"
+          button#delete-button.pr-3(
+            v-if="userProfile.username === post.userName"
             @click="handleDelete(post)"
-          :disabled="updateData.updating"
-          )
-            img#delete-post-icon(src='../assets/delete.svg')
+            :disabled="updateData.updating"
+          ) Delete
         b-badge.post-form-error-badge#edit-post-error(v-if="isError" variant="danger") This title or comment is too long!
         //- POST TTILE -----------
         b-row
@@ -40,7 +40,7 @@
         //- POST TEXT -----------
         b-row(v-if="!post.updating")
           //- Post Text
-          b-card-text.post-text.pl-0.pr-0 {{post.text}}
+          p.post-text.pl-0.pr-0 {{post.text}}
         //- Update Text Form Fields (v-if="post.updating")
         b-row
           b-col.p-0(v-if="post.updating")
@@ -85,6 +85,7 @@
           )
 </template>
 <script>
+import { LayoutPlugin } from 'bootstrap-vue'
 import { mapActions, mapState } from 'vuex'
 import postComments from '../components/card/postComments'
 import postLinks from '../components/card/postLinks'
@@ -105,7 +106,8 @@ export default {
   components: {
     postComments,
     postLinks,
-    postNavigation
+    postNavigation,
+    LayoutPlugin
   },
   computed: {
     ...mapState([

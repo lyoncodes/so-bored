@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
 import { auth } from '../../firebase'
 
 Vue.use(VueRouter)
@@ -10,7 +8,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
     props: {},
     meta: {
       requiresAuth: true
@@ -19,7 +17,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   }
 ]
 // router stack

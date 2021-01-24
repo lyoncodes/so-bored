@@ -5,8 +5,6 @@
     .p-2
       b-col.mt-4
         b-row.justify-content-center
-          img.form-header-icon.mb-4(src='../../assets/tellTales.svg')
-        b-row.justify-content-center
           b-form-group#account-email.col-12.mb-0
             b-row
               a.validation-char.ml-1.mb-1 login email

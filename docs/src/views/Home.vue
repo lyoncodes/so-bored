@@ -1,12 +1,12 @@
 <template lang="pug">
   div.bg-image-container#app-content(v-bind:class="{ yellowBackground: togglePostForm }")
+    //- background image
+    img.bg-img(v-bind:src="imgFolder[0]")
     //- NAVBAR
     navBar(v-on:togglePostForm="showCreatePost()")
     //-
     //- CONTENT CONTAINER
     b-container(fluid="sm")
-      //- background image
-      //- img.bg-img(v-bind:src="imgFolder[0]")
       //- CREATE POST COMPONENT
       b-col.col-12.p-0
         #post-form
@@ -61,8 +61,6 @@ export default {
     }
   },
   methods: {
-    someMethod () {
-    },
     showCreatePost () {
       this.togglePostForm = !this.togglePostForm
     },
