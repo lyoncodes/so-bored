@@ -5,7 +5,7 @@
     b-row.justify-content-center
       span.caption Click
       span
-        img.inline-card-icon.pl-1.pr-1.pb-2(src='../assets/add-post-red.svg')
+        img.inline-card-icon.pl-1.pr-1.pb-2(v-bind:src="imgFolder[5]")
       span.caption to get started
 </template>
 
@@ -21,7 +21,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'userProfile'
+      'userProfile',
+      'imgFolder'
     ])
   }
 }

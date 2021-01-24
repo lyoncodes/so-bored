@@ -6,7 +6,6 @@
       .p-2
         b-col.mt-4
           b-row.justify-content-center
-            img.form-header-icon.mb-4(src='../../assets/tellTales.svg')
           b-row.justify-content-center
             h4 Password Recovery
           b-row.justify-content-center
@@ -22,7 +21,6 @@
           b-row.justify-content-center
             a.link-style-main.pt-5(@click="toggleSignUp") Back to Login
   div(v-else)
-    img.form-header-icon.mb-4(src='../../assets/doDoA.svg')
     h4 Success
     p.pt-1 okay I sent them.
     a.link-style-main(@click="toggleSignUp") Back to Login

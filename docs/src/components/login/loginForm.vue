@@ -5,7 +5,7 @@
     .p-2
       b-col.mt-4
         b-row.justify-content-center
-          img.form-header-icon.mb-4(src='../../assets/tellTales.svg')
+          img.form-header-icon.mb-4(v-bind:src="imgFolder[3]")
         b-row.justify-content-center
           b-form-group#login-email.col-12.mb-0
             b-row
@@ -33,7 +33,7 @@
           ) Sign Up
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -53,6 +53,11 @@ export default {
     toggleSignUp () {
       this.$emit('toggleBoolean')
     }
+  },
+  computed: {
+    ...mapState([
+      'imgFolder'
+    ])
   }
 }
 </script>

@@ -2,14 +2,14 @@
 #nav
   b-col.col-12
     b-row
-      b-col.col-2.mt-4
+      b-col.col-2.mt-4.pt-2
         a.link-style-main(@click="logout()") logout
-      b-col.mb-1.mt-2
-        img.nav-logo(src='../assets/tellTales.svg')
+      b-col.mb-1.mt-3
+        img.nav-logo(v-bind:src="imgFolder[3]")
       b-col.col-2.mt-3.p-0
         button.nav-icon-button.p-0(
         @click="toggleForm")
-          img#add-post-icon(src='../assets/add-post-red.svg')
+          img#add-post-icon(v-bind:src="imgFolder[5]")
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -24,13 +24,15 @@ export default {
     ...mapActions([
       'logout'
     ]),
-    ...mapState([
-      'userProfile'
-    ]),
     toggleForm () {
       this.showCardForm = !this.showCardForm
       this.$emit('togglePostForm', this.showCardForm)
     }
+  },
+  computed: {
+    ...mapState([
+      'imgFolder'
+    ])
   }
 }
 </script>

@@ -19,7 +19,7 @@
         b-row.justify-content-end.mt-2
           button#submit-annotation.m-0.mr-3(
             type="submit" variant="primary")
-            img#add-link-icon.inline-card-icon(src='../../assets/add-post-red.svg')
+            img#add-link-icon.inline-card-icon(v-bind:src="imgFolder[5]")
     b-col.col-12.comments-section.mt-2.mb-4(v-for="link in post.links")
       b-row.comments-container.text-left
         b-col.col-11.p-0
@@ -46,7 +46,8 @@ export default {
   computed: {
     ...mapState([
       'posts',
-      'userProfile'
+      'userProfile',
+      'imgFolder'
     ])
   },
   methods: {
