@@ -1,15 +1,15 @@
 <template lang="pug">
   b-row.mb-2
     //- handle update post data & cancel form update
-    b-button.icon-button.pr-2(@click="toggleUpdateForm(post)")
+    button.icon-button.pr-2(@click="toggleUpdateForm(post)")
       img.inline-card-icon(v-bind:src="imgFolder[1]")
     //- sets post.active & displays comment component
-    b-button.icon-button(@click="toggleCommentComponent(post)"
+    button.icon-button(@click="toggleCommentComponent(post)"
     :disabled="post.updating")
       img#post-nav-icon(v-bind:src="imgFolder[4]")
       span.caption.pl-1 {{post.comments.length}}
     //- sets post.showLinks & displays link component
-    b-button.icon-button(@click="toggleLinkForm(post)"
+    button.icon-button(@click="toggleLinkForm(post)"
     :disabled="post.updating")
       img#post-nav-icon(v-bind:src="imgFolder[2]")
       span.caption.pl-1 {{post.links.length}}
