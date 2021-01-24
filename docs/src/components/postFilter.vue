@@ -1,7 +1,7 @@
 <template lang="pug">
   b-container
     b-form-group(id="rule-filter")
-      b-button(
+      button(
         id="filter-button"
         v-for="(select, idx) in Menu"
         :key="idx"

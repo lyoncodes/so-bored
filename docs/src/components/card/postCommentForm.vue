@@ -1,6 +1,6 @@
 <template lang="pug">
 b-col.col-12.p-0
-  b-badge.post-form-error-badge(v-if="isError" variant="danger") This comment is too long!
+  .post-form-error-badge(v-if="isError" variant="danger") This comment is too long!
   b-form.mb-2(
     @submit.prevent="addComment(comment)"
     v-bind:class="errorObject")
