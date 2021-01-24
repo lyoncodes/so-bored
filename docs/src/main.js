@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import App from './App.vue'
@@ -9,7 +9,6 @@ import { auth } from '../firebase'
 
 // Install BootstrapVue & Icons
 Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
 
 Vue.config.productionTip = false
 
@@ -24,9 +23,11 @@ auth.onAuthStateChanged(user => {
     }).$mount('#app')
   }
   if (user) {
-    store.dispatch('fetchImageAssets')
     store.dispatch('fetchUserProfile', user)
     store.dispatch('fetchPosts')
     // trigger welcome animation here:
+  }
+  if (!store.state.imgFolder.length) {
+    store.dispatch('fetchImageAssets')
   }
 })

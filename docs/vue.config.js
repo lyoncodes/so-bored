@@ -8,10 +8,21 @@ module.exports = {
   },
   configureWebpack: {
     optimization: {
+      runtimeChunk: 'single',
       splitChunks: {
-        minSize: 10000,
-        maxSize: 250000
-      }
-    }
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        minSize: 0,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+              return `npm.${packageName.replace('@', '')}`;
+            },
+          },
+        },
+      },
+    },
   }
 };

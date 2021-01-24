@@ -33,7 +33,7 @@ export default {
       ruleEl.links = filteredArr
     }
   },
-  // update userProfile in the state to the user passed on login
+  // update userProfile in the state to the user passed on login / logout
   setUserProfile (state, val) {
     state.userProfile = val
   },
@@ -43,7 +43,8 @@ export default {
       return b.createdOn.seconds - a.createdOn.seconds
     })
   },
-  populateImages (state, asset) {
-    state.imgFolder.push(asset)
+  populateImages (state, assets) {
+    state.imgFolder.push(assets)
+    state.imgFolder = state.imgFolder.sort()
   }
 }

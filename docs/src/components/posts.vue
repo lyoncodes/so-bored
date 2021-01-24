@@ -13,11 +13,11 @@
             //- Time Stamp
             span.caption.ml-2 {{ post.dateToFormat.toLocaleDateString() }}
           //- Delete Post Button
-          b-button.icon-button.p-0.pr-3(v-if="userProfile.username === post.userName"
+          button#delete-button.pr-3(
+            v-if="userProfile.username === post.userName"
             @click="handleDelete(post)"
-          :disabled="updateData.updating"
-          )
-            img#delete-post-icon(src='../assets/delete.svg')
+            :disabled="updateData.updating"
+          ) Delete
         b-badge.post-form-error-badge#edit-post-error(v-if="isError" variant="danger") This title or comment is too long!
         //- POST TTILE -----------
         b-row
