@@ -17,7 +17,7 @@ b-col.col-12.p-0
       button#submit-comment-button.m-0.mr-3(
         type="submit"
         :disabled="!comment.text.length")
-        img#add-comment-icon.inline-card-icon(v-bind:src="imgFolder[5]")
+        img#add-comment-icon.inline-card-icon(v-bind:src="imgFolder[5]" width="640" height="360")
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'

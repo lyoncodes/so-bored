@@ -1,9 +1,10 @@
 <template lang="pug">
   div.bg-image-container#app-content(v-bind:class="{ yellowBackground: togglePostForm }")
     //- background image
-    img.bg-img(v-bind:src="imgFolder[0]")
+    img.bg-img(v-bind:src="imgFolder[0]" width="640" height="360")
     //- NAVBAR
-    navBar(v-on:togglePostForm="showCreatePost()")
+    navBar(
+      v-on:togglePostForm="showCreatePost()")
     //-
     //- CONTENT CONTAINER
     b-container(fluid="sm")
@@ -28,10 +29,9 @@
 
 <script>
 import navBar from '../components/navBar'
-import createPost from '../components/createPost'
 import posts from '../components/posts'
-import landingMsg from '../components/landingMsg'
 import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -85,9 +85,9 @@ export default {
   },
   components: {
     navBar,
-    createPost,
     posts,
-    landingMsg
+    createPost: () => import('../components/createPost'),
+    landingMsg: () => import('../components/landingMsg')
   },
   computed: {
     ...mapState([

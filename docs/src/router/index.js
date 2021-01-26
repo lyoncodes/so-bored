@@ -1,7 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { LayoutPlugin, FormPlugin, FormTextareaPlugin, FormGroupPlugin, FormInputPlugin } from 'bootstrap-vue'
 import { auth } from '../../firebase'
 
+Vue.use(LayoutPlugin)
+Vue.use(FormPlugin)
+Vue.use(FormTextareaPlugin)
+Vue.use(FormGroupPlugin)
+Vue.use(FormInputPlugin)
 Vue.use(VueRouter)
 
 const routes = [
