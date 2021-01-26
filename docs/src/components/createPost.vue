@@ -1,6 +1,6 @@
 <template lang="pug">
   b-col.col-12.mt-4.p-0.form-container
-    b-badge.post-form-error-badge(v-if="isError" variant="danger") This post's title or text is too long!
+    .post-form-error-badge(v-if="isError" variant="danger") This post's title or text is too long!
     b-form(@submit.prevent="handleSubmit" v-bind:class="errorObject")
       b-col.form-content
         b-form-group.mt-3(id="input-title")

@@ -119,20 +119,15 @@ button {
 .icon-button{
   border: 1px solid transparent;
   box-shadow: none;
-  padding-left: 0;
-  padding-top: 0;
+  background-color: transparent;
   &:active, :focus, :hover{
   border: none;
   outline: none;
   }
-  img {
+  #post-nav-icon{
     height: 1.5em;
+    width: auto;
   }
-}
-#post-nav-icon {
-  padding: 1px 0 0 0;
-  height: 20px;
-  width: 22px
 }
 #delete-button {
   background-color: $candy-red;
@@ -141,6 +136,12 @@ button {
   position: absolute;
   top: -15px;
   right: 0px;
+}
+#submit-annotation{
+  border: 0em;
+  box-shadow: none;
+  margin: 1em;
+  padding: .25em;
 }
 @media only screen and (min-width: 1045px) {
   .link-button {

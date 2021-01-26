@@ -20,7 +20,7 @@
                 ) delete
 </template>
 <script>
-import postCommentForm from '../card/postCommentForm'
+import postCommentForm from '../post/postCommentForm'
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'annotation',
@@ -73,19 +73,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-form {
-  textarea {
-    border: 1px solid $cotton-candy;
-    outline: none;
-    &:focus {
-      border: 1px solid $metallic-blue;
-    }
-  }
-}
-#submit-annotation{
-  border: 0em;
-  box-shadow: none;
-  margin: 1em;
-  padding: .25em;
-}
 </style>

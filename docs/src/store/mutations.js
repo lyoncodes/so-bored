@@ -38,10 +38,8 @@ export default {
     state.userProfile = val
   },
   // set posts in state to the posts retrieved from db
-  sortPosts (state, rulePayload) {
-    state.posts = rulePayload.sort((a, b) => {
-      return b.createdOn.seconds - a.createdOn.seconds
-    })
+  sortPosts (state, postData) {
+    state.posts = postData
   },
   populateImages (state, assets) {
     state.imgFolder.push(assets)

@@ -5,11 +5,11 @@
       b-col.col-2.mt-4.pt-2
         a.link-style-main(@click="logout()") logout
       b-col.mb-1.mt-3
-        img.nav-logo(v-bind:src="imgFolder[3]")
-      b-col.col-2.mt-3.p-0
+        img.nav-logo(v-bind:src="imgFolder[4]" width="640" height="360")
+      b-col.col-2.mt-4.p-0
         button.nav-icon-button.p-0(
         @click="toggleForm")
-          img#add-post-icon(v-bind:src="imgFolder[5]")
+          img#add-post-icon(v-bind:src="imgFolder[5]" width="640" height="360")
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'

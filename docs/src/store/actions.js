@@ -1,5 +1,5 @@
 import * as firebase from '../../firebase'
-import { firestore } from 'firebase'
+import { db } from '../../firebase'
 import router from '../router/index'
 import { readPost } from './db-middleware/readPost'
 import { updatePost } from './db-middleware/updatePost'
@@ -44,17 +44,18 @@ export default {
     router.push('/login')
   },
   // FETCHES POSTS FROM DB
-  async fetchPosts ({ commit }) {
-    const rule = firebase.rulesCollection
-    const snapshot = await rule.get()
-    const rulePayload = []
-    snapshot.forEach((el) => {
-      const rule = el.data()
-      rule.id = el.id
-      rule.dateToFormat = rule.createdOn.toDate()
-      rulePayload.push(rule)
+  fetchPosts ({ commit }) {
+    firebase.rulesCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
+      const dataStore = []
+
+      snapshot.forEach(el => {
+        const post = el.data()
+        post.id = el.id
+        post.dateToFormat = post.createdOn.toDate()
+        dataStore.push(post)
+      })
+      commit('sortPosts', dataStore)
     })
-    commit('sortPosts', rulePayload)
   },
   // GET() POST DATA
   async fetchPostSnapshot () {
@@ -72,12 +73,6 @@ export default {
         })
       })
     })
-    // const imgRef = ['neon-logo.png', 'bg-wash.png', 'edit-post.png']
-    // imgRef.forEach(async (el) => {
-    //   await imgStore.child(`images/${el}`).getDownloadURL().then((url) => {
-    //     commit('populateImages', url)
-    //   })
-    // })
   },
   // MAP DB RESPONSES FOR FRONT-END ARRAYS
   async mapRes ({ dispatch }, data) {
@@ -115,7 +110,7 @@ export default {
     dispatch('mapRes', data).then(async (res) => {
       if (data.commentType && !data.ref) {
         res.update({
-          comments: firestore.FieldValue.arrayUnion(data)
+          comments: db.FieldValue.arrayUnion(data)
         })
       }
     })
@@ -128,7 +123,7 @@ export default {
         // if it's none of those things, then it must be a comment!
         data.commentType = true
         res.update({
-          comments: firestore.FieldValue.arrayRemove(data)
+          comments: db.FieldValue.arrayRemove(data)
         })
         data.commentType = false
       }
@@ -139,7 +134,7 @@ export default {
   async createLink ({ commit, dispatch }, link) {
     dispatch('mapRes', link).then(async (res) => {
       res.update({
-        links: firestore.FieldValue.arrayUnion(link)
+        links: db.FieldValue.arrayUnion(link)
       })
     })
     link.payload = 'createLink'
@@ -150,7 +145,7 @@ export default {
     dispatch('mapRes', data).then(async (res) => {
       data.payload = 'createLink'
       res.update({
-        links: firestore.FieldValue.arrayRemove(data)
+        links: db.FieldValue.arrayRemove(data)
       })
     })
     data.payload = 'deleteLink'

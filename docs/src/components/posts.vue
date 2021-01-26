@@ -18,7 +18,7 @@
             @click="handleDelete(post)"
             :disabled="updateData.updating"
           ) Delete
-        b-badge.post-form-error-badge#edit-post-error(v-if="isError" variant="danger") This title or comment is too long!
+        .post-form-error-badge#edit-post-error(v-if="isError" variant="danger") This title or comment is too long!
         //- POST TTILE -----------
         b-row
           //- Post Title
@@ -47,7 +47,7 @@
             b-form.mt-3(@submit.prevent="submitUpdateData(post, updateData)" v-if="post.updating")
               //- Error Message
               b-row(v-if="postList.formValidation.charCount > postList.formValidation.charLimit")
-                b-badge(variant="danger") {{postList.formValidation.errorMsg}}
+                span {{postList.formValidation.errorMsg}}
               //- text area
               b-form-textarea.mt-3(
                 id="card-text"
@@ -85,11 +85,8 @@
           )
 </template>
 <script>
-import { LayoutPlugin } from 'bootstrap-vue'
 import { mapActions, mapState } from 'vuex'
-import postComments from '../components/card/postComments'
-import postLinks from '../components/card/postLinks'
-import postNavigation from '../components/card/postNavigation'
+import postNavigation from '../components/post/postNavigation'
 export default {
   name: 'posts',
   props: ['postList'],
@@ -104,10 +101,9 @@ export default {
     }
   },
   components: {
-    postComments,
-    postLinks,
-    postNavigation,
-    LayoutPlugin
+    postComments: () => import('../components/post/postComments'),
+    postLinks: () => import('../components/post/postLinks'),
+    postNavigation
   },
   computed: {
     ...mapState([
