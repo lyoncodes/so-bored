@@ -8,7 +8,8 @@ import state from './state'
 
 export default {
   // MESSAGE BOARD FUNCTIONALITY
-  // SIGNS USER UP
+
+  // Creates account; adding user object to usersCollection
   async signUp ({ dispatch }, form) {
     const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
     await firebase.usersCollection.doc(user.uid).set({
@@ -18,13 +19,15 @@ export default {
     })
     dispatch('fetchUserProfile', user)
   },
-  // LOGS USER IN
+
+  // Logs user in; dispatches methods to create user profile and retrieve application posts
   async login ({ dispatch }, form) {
     const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password)
     dispatch('fetchUserProfile', user)
     dispatch('fetchPosts')
   },
-  // GET() USER PROFILE
+
+  // Gets user profile; calls setUserProfile mutation and routes to home
   async fetchUserProfile ({ commit, dispatch }, user) {
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
     commit('setUserProfile', userProfile.data())
@@ -32,6 +35,7 @@ export default {
       router.push('/')
     }
   },
+
   // RESETS CREDENTIAL
   async resetCredential ({ commit }, email) {
     await firebase.auth.sendPasswordResetEmail(email)
@@ -107,7 +111,8 @@ export default {
     })
   },
 
-  // CREATES POST
+  // POST OPERATIONS
+  // Creates post in db
   async createPost ({ dispatch }, data) {
     await firebase.postsCollection.add({
       createdOn: new Date(),
@@ -118,7 +123,18 @@ export default {
     })
     dispatch('refreshPosts', data)
   },
-  // GET()s POSTS COLLECTION FOR UPDATING/REFRESHING STATE
+  // Delets post & post comments from db
+  async deletePost ({ commit }, data) {
+    // Deletes post from postsCollection in db & state
+    await firebase.postsCollection.doc(data.id).delete()
+    commit('removePost', data)
+    // Queries for comments belonging to post & deletes them
+    const commentsRef = await firebase.commentsCollection.where('reference', '==', data.id).get()
+    commentsRef.forEach((el) => {
+      el.ref.delete()
+    })
+  },
+  // Retrieves updated post collection and calls to update state
   async refreshPosts ({ commit }) {
     const postRef = await firebase.postsCollection.orderBy('createdOn', 'desc')
     commit('sortPosts', postRef)
@@ -126,11 +142,7 @@ export default {
 
   readPost, // READ POST
   updatePost, // UPDATE POST
-  // DELETE POST
-  async deletePost ({ commit }, data) {
-    await firebase.postsCollection.doc(data.id).delete()
-    commit('removePost', data)
-  },
+
   // CREATES COMMENT
   async createComment ({ commit, dispatch }, comment) {
     await firebase.commentsCollection.add({
@@ -142,21 +154,21 @@ export default {
     })
     dispatch('refreshComments', comment)
   },
+  // DELETES COMMENT
+  async deleteComment ({ commit, dispatch }, comment) {
+    await firebase.commentsCollection.doc(`${comment.id}`).delete()
+    commit('removeComment', comment)
+  },
   // GET()s COMMENTS COLLECTION FOR UPDATING/REFRESHING STATE
   async refreshComments ({ commit }, comment) {
     const commentsRef = await firebase.commentsCollection.where('serialId', '==', comment.serialId).get()
-    console.log(commentsRef)
 
     commentsRef.forEach((el) => {
       const comment = el.data()
       commit('sortComments', comment)
     })
   },
-  // DELETES COMMENT
-  async deleteComment ({ commit, dispatch }, comment) {
-    await firebase.commentsCollection.doc(`${comment.id}`).delete()
-    commit('removeComment', comment)
-  },
+
   // CREATES LINK
   createLink ({ commit, dispatch }, link) {
     dispatch('mapRes', link).then((res) => {

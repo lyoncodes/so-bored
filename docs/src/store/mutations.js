@@ -35,7 +35,6 @@ export default {
     state.posts = filteredArr
   },
   sortComments (state, comment) {
-    console.log(comment)
     const post = state.posts.find(el => el.id === comment.reference)
     post.comments.push(comment)
   },
