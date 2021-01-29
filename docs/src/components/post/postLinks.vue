@@ -59,11 +59,13 @@ export default {
       const reference = this.$props.post.id
       const userName = this.userProfile.username
       const { linkText, linkURL } = this.linkData
+      const serialId = this.serialMaker()
       const linkPayload = {
         linkText,
         linkURL,
         userName,
-        reference
+        reference,
+        serialId
       }
       if (this.linkData.linkText.length && this.linkData.linkURL.length) {
         this.createLink(linkPayload)
@@ -73,6 +75,10 @@ export default {
         linkURL: ''
       }
       // this.$emit('toggleLinkForm')
+    },
+    serialMaker () {
+      const rando = Math.floor(Math.random() * 100000)
+      return Math.floor(Math.random() * rando)
     },
     redirect (link) {
       window.location.href = `https://${link.linkURL}`

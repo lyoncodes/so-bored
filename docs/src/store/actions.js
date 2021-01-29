@@ -1,5 +1,4 @@
 import * as firebase from '../../firebase'
-import { firestore } from 'firebase'
 import router from '../router/index'
 import { readPost } from './db-middleware/readPost'
 import { updatePost } from './db-middleware/updatePost'
@@ -73,7 +72,9 @@ export default {
 
         const linksRef = await firebase.linksCollection.where('reference', '==', post.id).get()
         linksRef.forEach(doc => {
-          post.links.push(doc.data())
+          const link = doc.data()
+          link.id = doc.id
+          post.links.push(link)
         })
 
         dataStore.push(post)
@@ -123,7 +124,7 @@ export default {
     })
     dispatch('refreshPosts', data)
   },
-  // Delets post & post comments from db
+  // Deletes post & post comments from db
   async deletePost ({ commit }, data) {
     // Deletes post from postsCollection in db & state
     await firebase.postsCollection.doc(data.id).delete()
@@ -169,26 +170,29 @@ export default {
     })
   },
 
-  // CREATES LINK
-  createLink ({ commit, dispatch }, link) {
-    dispatch('mapRes', link).then((res) => {
-      res.update({
-        links: firestore.FieldValue.arrayUnion(link)
-      })
+  // Creates link in db
+  async createLink ({ dispatch }, link) {
+    await firebase.linksCollection.add({
+      linkText: link.linkText,
+      linkURL: link.linkURL,
+      userName: link.userName,
+      reference: link.reference
     })
-    link.payload = 'createLink'
-    commit('updateState', link)
+    dispatch('refreshLinks')
   },
   // DELETES LINK
-  deleteLink ({ commit, dispatch }, data) {
-    dispatch('mapRes', data).then((res) => {
-      data.payload = 'createLink'
-      res.update({
-        links: firestore.FieldValue.arrayRemove(data)
-      })
+  async deleteLink ({ commit }, link) {
+    await firebase.linksCollection.doc(`${link.id}`).delete()
+    commit('removeLink', link)
+  },
+  // Gets links collection fro updating/refreshing state
+  async refreshLinks ({ commit }, link) {
+    const linksRef = await firebase.linksCollection.where('reference', '==', link.reference).get()
+
+    linksRef.forEach((el) => {
+      const link = el.data()
+      commit('sortLinks', link)
     })
-    data.payload = 'deleteLink'
-    commit('updateState', data)
   },
   togglePostComponents // COMPONENT STATE TOGGLING
 }

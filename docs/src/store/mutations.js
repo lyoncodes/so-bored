@@ -45,6 +45,17 @@ export default {
     })
     post.comments = filteredArr
   },
+  sortLinks (state, link) {
+    const post = state.posts.find(el => el.id === link.reference)
+    post.links.push(link)
+  },
+  removeLink (state, link) {
+    const post = state.posts.find(el => el.id === link.reference)
+    const filteredLinks = post.links.filter((el) => {
+      return el.serialId !== link.serialId
+    })
+    post.links = filteredLinks
+  },
   populateImages (state, assets) {
     state.imgFolder.push(assets)
     state.imgFolder = state.imgFolder.sort()
