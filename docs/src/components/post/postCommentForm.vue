@@ -6,7 +6,7 @@ b-col.col-12.p-0
     v-bind:class="errorObject")
     b-form-textarea(
       autofocus
-      id="annotate-text"
+      id="comment-text-field"
       v-model="comment.text"
       @keyup="validateCharCount()"
       @keydown.enter.prevent="addComment(comment)"
@@ -28,8 +28,7 @@ export default {
     return {
       comment: {
         text: '',
-        commentSerial: null,
-        commentType: null
+        serialId: String
       },
       isError: null
     }
@@ -55,34 +54,32 @@ export default {
       'createComment'
     ]),
     addComment (comment) {
-      this.comment.commentType = true
-      const commentSerial = this.serialMaker()
-      const id = this.$props.post.id
-      const author = this.userProfile.username
-      const { text, commentType } = this.comment
+      const text = this.comment.text
+      const userName = this.userProfile.username
+      const reference = this.$props.post.id
+      const serialId = this.serialMaker()
       const commentPayload = {
         text,
-        author,
-        id,
-        commentSerial,
-        commentType
+        userName,
+        reference,
+        serialId
       }
       if (!this.isError) {
         this.createComment(commentPayload)
         this.clearComment()
       }
     },
+
     clearComment () {
       this.comment = {
         text: '',
-        author: '',
-        commentSerial: null,
-        commentType: false
+        userName: '',
+        serialId: String
       }
       this.isError = false
     },
     serialMaker () {
-      const rando = Math.floor(Math.random() * 1000)
+      const rando = Math.floor(Math.random() * 100000)
       return Math.floor(Math.random() * rando)
     },
     validateCharCount () {

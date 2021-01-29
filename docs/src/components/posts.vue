@@ -11,7 +11,7 @@
             //- Username
             span.caption.mb-1 {{post.userName}}
             //- Time Stamp
-            span.caption.ml-2 {{ post.dateToFormat.toLocaleDateString() }}
+            span.caption.ml-2 {{ post.createdOn.toLocaleDateString() }}
           //- Delete Post Button
           button#delete-button.pr-3(
             v-if="userProfile.username === post.userName"
@@ -164,7 +164,6 @@ export default {
     },
     // Delete Post
     handleDelete (post) {
-      post.payload = 'deletePost'
       this.deletePost(post)
     },
     // Resets updateData

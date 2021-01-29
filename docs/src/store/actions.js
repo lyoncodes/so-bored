@@ -1,10 +1,10 @@
 import * as firebase from '../../firebase'
-import { db } from '../../firebase'
+import { firestore } from 'firebase'
 import router from '../router/index'
 import { readPost } from './db-middleware/readPost'
 import { updatePost } from './db-middleware/updatePost'
-import { deletePost } from './db-middleware/deletePost'
 import { togglePostComponents } from './db-middleware/togglePostComponents'
+import state from './state'
 
 export default {
   // MESSAGE BOARD FUNCTIONALITY
@@ -25,7 +25,7 @@ export default {
     dispatch('fetchPosts')
   },
   // GET() USER PROFILE
-  async fetchUserProfile ({ commit }, user) {
+  async fetchUserProfile ({ commit, dispatch }, user) {
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
     commit('setUserProfile', userProfile.data())
     if (router.currentRoute.path === '/login') {
@@ -37,115 +37,142 @@ export default {
     await firebase.auth.sendPasswordResetEmail(email)
     commit('resetLoginState')
   },
-  // LOGS USER OUT
-  async logout ({ commit }) {
+  // LOGS USER
+  async logout ({ commit, dispatch }) {
     await firebase.auth.signOut()
     commit('setUserProfile', {})
+    commit('clearImages')
     router.push('/login')
   },
-  // FETCHES POSTS FROM DB
-  fetchPosts ({ commit }) {
-    firebase.rulesCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
+  // FETCHES POSTS FROM DB & ATTACHES COMMENTS
+  async fetchPosts ({ commit, dispatch }) {
+    await firebase.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
       const dataStore = []
 
-      snapshot.forEach(el => {
+      snapshot.forEach(async (el) => {
         const post = el.data()
+        post.createdOn = post.createdOn.toDate()
         post.id = el.id
-        post.dateToFormat = post.createdOn.toDate()
+        post.idx = snapshot.length + 1
+        post.active = null
+        post.updating = null
+        post.displayLinks = null
+        post.comments = []
+        post.links = []
+
+        const commentsRef = await firebase.commentsCollection.where('reference', '==', post.id).get()
+        commentsRef.forEach(doc => {
+          const comment = doc.data()
+          comment.id = doc.id
+          post.comments.push(comment)
+        })
+
+        const linksRef = await firebase.linksCollection.where('reference', '==', post.id).get()
+        linksRef.forEach(doc => {
+          post.links.push(doc.data())
+        })
+
         dataStore.push(post)
       })
       commit('sortPosts', dataStore)
     })
   },
-  // GET() POST DATA
-  async fetchPostSnapshot () {
-    const rule = firebase.rulesCollection
+  // GET() IMAGES
+  async fetchImageAssets ({ commit }) {
+    if (state.imgFolder.length < 6) {
+      const imgStore = await firebase.storage.refFromURL('gs://itoio-e3548.appspot.com/images/')
+      imgStore.list({ maxResults: 6 }).then((res) => {
+        res.items.forEach((el) => {
+          el.getDownloadURL().then((url) => {
+            commit('populateImages', url)
+          })
+        })
+      })
+    }
+  },
+  // GET() POST PROMISE DATA
+  async fetchCommentSnapshot () {
+    const rule = firebase.commentsCollection
     const snapshot = await rule.get()
     return snapshot.docs
   },
-  // GET() IMAGES
-  async fetchImageAssets ({ commit }) {
-    const imgStore = await firebase.storage.refFromURL('gs://itoio-e3548.appspot.com/images/')
-    imgStore.listAll().then((res) => {
-      res.items.forEach((el) => {
-        el.getDownloadURL().then((url) => {
-          commit('populateImages', url)
-        })
-      })
-    })
-  },
   // MAP DB RESPONSES FOR FRONT-END ARRAYS
   async mapRes ({ dispatch }, data) {
-    return new Promise((resolve, reject) => {
-      dispatch('fetchPostSnapshot').then((res) => {
+    return new Promise((resolve) => {
+      dispatch('fetchCommentSnapshot').then((res) => {
         res.map((el) => {
-          return el.id === data.id ? resolve(firebase.rulesCollection.doc(data.id)) : null
+          return el.id === data.id ? resolve(firebase.commentsCollection.doc(data.id)) : null
         })
       })
     })
   },
+
   // CREATES POST
   async createPost ({ dispatch }, data) {
-    await firebase.rulesCollection.add({
+    await firebase.postsCollection.add({
       createdOn: new Date(),
       userId: firebase.auth.currentUser.uid,
-      userName: data.author,
+      userName: data.userName,
       title: data.title,
-      text: data.text,
-      active: data.active,
-      updating: data.updating,
-      comments: data.comments,
-      links: data.links,
-      displayComments: data.displayComments,
-      displayLinks: data.displayLinks
+      text: data.text
     })
-    // Calls fetchPosts()
-    dispatch('fetchPosts')
+    dispatch('refreshPosts', data)
   },
+  // GET()s POSTS COLLECTION FOR UPDATING/REFRESHING STATE
+  async refreshPosts ({ commit }) {
+    const postRef = await firebase.postsCollection.orderBy('createdOn', 'desc')
+    commit('sortPosts', postRef)
+  },
+
   readPost, // READ POST
   updatePost, // UPDATE POST
-  deletePost, // DELETE POST
+  // DELETE POST
+  async deletePost ({ commit }, data) {
+    await firebase.postsCollection.doc(data.id).delete()
+    commit('removePost', data)
+  },
   // CREATES COMMENT
-  async createComment ({ commit, dispatch }, data) {
-    dispatch('mapRes', data).then(async (res) => {
-      if (data.commentType && !data.ref) {
-        res.update({
-          comments: db.FieldValue.arrayUnion(data)
-        })
-      }
+  async createComment ({ commit, dispatch }, comment) {
+    await firebase.commentsCollection.add({
+      createdOn: new Date(),
+      text: comment.text,
+      userName: comment.userName,
+      reference: comment.reference,
+      serialId: comment.serialId
     })
-    commit('updateState', data)
+    dispatch('refreshComments', comment)
+  },
+  // GET()s COMMENTS COLLECTION FOR UPDATING/REFRESHING STATE
+  async refreshComments ({ commit }, comment) {
+    const commentsRef = await firebase.commentsCollection.where('serialId', '==', comment.serialId).get()
+    console.log(commentsRef)
+
+    commentsRef.forEach((el) => {
+      const comment = el.data()
+      commit('sortComments', comment)
+    })
   },
   // DELETES COMMENT
-  async deleteComment ({ commit, dispatch }, data) {
-    dispatch('mapRes', data).then(async (res) => {
-      if (!data.commentType && !data.ref && data.payload !== 'togglePostEdit') {
-        // if it's none of those things, then it must be a comment!
-        data.commentType = true
-        res.update({
-          comments: db.FieldValue.arrayRemove(data)
-        })
-        data.commentType = false
-      }
-    })
-    commit('updateState', data)
+  async deleteComment ({ commit, dispatch }, comment) {
+    await firebase.commentsCollection.doc(`${comment.id}`).delete()
+    commit('removeComment', comment)
   },
   // CREATES LINK
-  async createLink ({ commit, dispatch }, link) {
-    dispatch('mapRes', link).then(async (res) => {
+  createLink ({ commit, dispatch }, link) {
+    dispatch('mapRes', link).then((res) => {
       res.update({
-        links: db.FieldValue.arrayUnion(link)
+        links: firestore.FieldValue.arrayUnion(link)
       })
     })
     link.payload = 'createLink'
     commit('updateState', link)
   },
   // DELETES LINK
-  async deleteLink ({ commit, dispatch }, data) {
-    dispatch('mapRes', data).then(async (res) => {
+  deleteLink ({ commit, dispatch }, data) {
+    dispatch('mapRes', data).then((res) => {
       data.payload = 'createLink'
       res.update({
-        links: db.FieldValue.arrayRemove(data)
+        links: firestore.FieldValue.arrayRemove(data)
       })
     })
     data.payload = 'deleteLink'

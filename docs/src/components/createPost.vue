@@ -57,23 +57,14 @@ export default {
       this.isError = this.postList.postData.title.length > this.postList.formValidation.titleLimit || this.postList.postData.text.length > this.postList.formValidation.charLimit ? true : null
     },
     handleSubmit () {
-      const { title, text, comments, links, active, updating, displayComments, displayLinks } = this.postList.postData
-      const author = this.userProfile.username
-      const idx = this.posts.length + 1
+      const { title, text } = this.postList.postData
+      const userName = this.userProfile.username
       const post = {
-        author,
+        userName,
         title,
-        text,
-        idx,
-        active,
-        updating,
-        comments,
-        links,
-        displayComments,
-        displayLinks
+        text
       }
       if (!this.isError || this.isError === null) {
-        post.payload = 'createPost'
         this.createPost(post)
         this.resetForm()
       }
