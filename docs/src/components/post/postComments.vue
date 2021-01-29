@@ -11,12 +11,12 @@
         b-col.col-12.mb-4(v-for="comment in post.comments").comments-section
           b-row.comments-container.text-left
             b-col.col-11.p-0
-              p.caption.pl-2.pt-2.mb-1 {{ comment.author }} says:
+              p.caption.pl-2.pt-2.mb-1 {{ comment.userName }} says:
               p.comment-text.pl-3.pt-1 {{ comment.text }}
             b-col.col-1.p-0
               button.link-button(
                 @click="handleDelete(comment)"
-                v-if="user===comment.author"
+                v-if="user===comment.userName"
                 ) delete
 </template>
 <script>
@@ -28,9 +28,7 @@ export default {
   data () {
     return {
       comment: {
-        text: '',
-        commentSerial: null,
-        commentType: null
+        text: ''
       }
     }
   },
@@ -45,20 +43,12 @@ export default {
       'deleteComment'
     ]),
     handleDelete (comment) {
-      comment.commentType = false
       this.deleteComment(comment)
     },
     clearComment () {
       this.comment = {
-        text: '',
-        author: '',
-        commentSerial: null,
-        commentType: false
+        text: ''
       }
-    },
-    serialMaker () {
-      const rando = Math.floor(Math.random() * 1000)
-      return Math.floor(Math.random() * rando)
     }
   },
   components: {
