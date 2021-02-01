@@ -23,7 +23,7 @@ b-col.col-12.p-0
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'postCommentForm',
-  props: ['post', 'show', 'validation', 'formCounter'],
+  props: ['post', 'validation', 'formCounter'],
   data () {
     return {
       comment: {

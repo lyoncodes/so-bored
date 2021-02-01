@@ -1,7 +1,5 @@
 import * as firebase from '../../firebase'
 import router from '../router/index'
-import { readPost } from './db-middleware/readPost'
-import { updatePost } from './db-middleware/updatePost'
 import { togglePostComponents } from './db-middleware/togglePostComponents'
 import state from './state'
 
@@ -47,7 +45,7 @@ export default {
     commit('clearImages')
     router.push('/login')
   },
-  // FETCHES POSTS FROM DB & ATTACHES COMMENTS
+  // Retrieves post data from database and formats front-end posts
   async fetchPosts ({ commit, dispatch }) {
     await firebase.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
       const dataStore = []
@@ -57,19 +55,17 @@ export default {
         post.createdOn = post.createdOn.toDate()
         post.id = el.id
         post.idx = snapshot.length + 1
-        post.active = null
-        post.updating = null
-        post.displayLinks = null
         post.comments = []
         post.links = []
 
+        // fetches post comments
         const commentsRef = await firebase.commentsCollection.where('reference', '==', post.id).get()
         commentsRef.forEach(doc => {
           const comment = doc.data()
           comment.id = doc.id
           post.comments.push(comment)
         })
-
+        // fetches post links
         const linksRef = await firebase.linksCollection.where('reference', '==', post.id).get()
         linksRef.forEach(doc => {
           const link = doc.data()
@@ -82,6 +78,7 @@ export default {
       commit('sortPosts', dataStore)
     })
   },
+
   // GET() IMAGES
   async fetchImageAssets ({ commit }) {
     if (state.imgFolder.length < 6) {
@@ -114,35 +111,36 @@ export default {
 
   // POST OPERATIONS
   // Creates post in db
-  async createPost ({ dispatch }, data) {
+  async createPost ({ dispatch, commit }, post) {
     await firebase.postsCollection.add({
-      createdOn: new Date(),
-      userId: firebase.auth.currentUser.uid,
-      userName: data.userName,
-      title: data.title,
-      text: data.text
+      title: post.title,
+      text: post.text,
+      serialId: post.serialId,
+      createdOn: post.createdOn,
+      userName: post.userName,
+      userId: firebase.auth.currentUser.uid
     })
-    dispatch('refreshPosts', data)
+  },
+  async updatePost ({ commit }, updateData) {
+    console.log(updateData)
+    const post = firebase.postsCollection.doc(updateData.id)
+    await post.update({
+      title: updateData.title,
+      text: updateData.text
+    })
   },
   // Deletes post & post comments from db
-  async deletePost ({ commit }, data) {
+  async deletePost ({ commit }, post) {
     // Deletes post from postsCollection in db & state
-    await firebase.postsCollection.doc(data.id).delete()
-    commit('removePost', data)
+    await firebase.postsCollection.doc(post.id).delete()
     // Queries for comments belonging to post & deletes them
-    const commentsRef = await firebase.commentsCollection.where('reference', '==', data.id).get()
-    commentsRef.forEach((el) => {
-      el.ref.delete()
+    const commentsRef = await firebase.commentsCollection.where('reference', '==', post.id).get()
+    commentsRef.forEach((comment) => {
+      comment.ref.delete()
     })
   },
-  // Retrieves updated post collection and calls to update state
-  async refreshPosts ({ commit }) {
-    const postRef = await firebase.postsCollection.orderBy('createdOn', 'desc')
-    commit('sortPosts', postRef)
-  },
 
-  readPost, // READ POST
-  updatePost, // UPDATE POST
+  // updatePost, // UPDATE POST
 
   // CREATES COMMENT
   async createComment ({ commit, dispatch }, comment) {

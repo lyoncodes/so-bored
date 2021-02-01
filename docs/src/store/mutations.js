@@ -2,21 +2,19 @@
 export default {
   // updateState function handles all dispatched actions, updating the state per the data's properties
   updateState (state, data) {
-    const ruleEl = state.posts.find(el => el.id === data.id)
+    const post = state.posts.find(el => el.id === data.id)
     if (data.payload === 'updatePost') {
-      ruleEl.title = data.title
-      ruleEl.text = data.text
-      ruleEl.updating = !data.updating
-    } else if (data.payload === 'togglePostEdit') {
-      ruleEl.updating = !data.updating
-    } else if (data.payload === 'createLink') {
-      ruleEl.links.push(data)
+      post.title = data.title
+      post.text = data.text
+      post.updating = !data.updating
+    } else if (data.payload === 'togglePostUpdateFields') {
+      post.updating = !data.updating
     }
     if (data.payload === 'deleteLink') {
-      const filteredArr = ruleEl.links.filter((el) => {
+      const filteredArr = post.links.filter((el) => {
         return (el.linkSerial !== data.linkSerial) ? el : null
       })
-      ruleEl.links = filteredArr
+      post.links = filteredArr
     }
   },
   // update userProfile in the state to the user passed on login / logout
@@ -26,13 +24,6 @@ export default {
   // set posts in state to the posts retrieved from db
   sortPosts (state, posts) {
     state.posts = posts
-  },
-  // removes post in state
-  removePost (state, post) {
-    const filteredArr = state.posts.filter((el) => {
-      return (el.id !== post.id) ? el : null
-    })
-    state.posts = filteredArr
   },
   sortComments (state, comment) {
     const post = state.posts.find(el => el.id === comment.reference)

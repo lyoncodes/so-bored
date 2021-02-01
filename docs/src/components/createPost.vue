@@ -5,22 +5,22 @@
       b-col.form-content
         b-form-group.mt-3(id="input-title")
           b-form-input#title-input(
-            v-model="postList.postData.title"
+            v-model="newPostInstance.title"
             @keyup="validateCharCount()"
             autofocus
             required
             contenteditable
             placeholder="Title"
           )
-          a.validation-char.ml-1 {{postList.formCounter.titleCount}} / {{postList.formValidation.titleLimit}}
+          a.validation-char.ml-1 {{newPostInstance.title.length}} / {{formValidation.titleLimit}}
         b-form-group(id="input-card-text")
           b-form-textarea#post-form-textarea(
             @keyup="validateCharCount()"
             @keydown.enter.prevent="handleSubmit"
-            v-model="postList.postData.text"
+            v-model="newPostInstance.text"
             placeholder="Input text here"
           )
-          a.validation-char.ml-1 {{postList.formCounter.charCount}} / {{postList.formValidation.charLimit}}
+          a.validation-char.ml-1 {{newPostInstance.text.length}} / {{formValidation.charLimit}}
         b-row.justify-content-center
           button.neu-c-button(type="reset" @click="resetForm") Nvm
           button.neu-c-button(type="submit") Post
@@ -30,9 +30,13 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'createPost',
-  props: ['postList'],
+  props: ['formValidation'],
   data () {
     return {
+      newPostInstance: {
+        title: '',
+        text: ''
+      },
       isError: false
     }
   },
@@ -43,7 +47,7 @@ export default {
     ]),
     errorObject: function () {
       return {
-        error: this.postList.postData.title.length > this.postList.formValidation.titleLimit || this.postList.postData.text.length > this.postList.formValidation.charLimit ? true : null
+        error: this.newPostInstance.title.length > this.formValidation.titleLimit || this.newPostInstance.text.length > this.formValidation.charLimit ? true : null
       }
     }
   },
@@ -52,17 +56,21 @@ export default {
       'createPost'
     ]),
     validateCharCount () {
-      this.postList.formCounter.charCount = this.postList.postData.text.length
-      this.postList.formCounter.titleCount = this.postList.postData.title.length
-      this.isError = this.postList.postData.title.length > this.postList.formValidation.titleLimit || this.postList.postData.text.length > this.postList.formValidation.charLimit ? true : null
+      this.formValidation.formCounter.charCount = this.newPostInstance.text.length
+      this.formValidation.formCounter.titleCount = this.newPostInstance.title.length
+      this.isError = this.newPostInstance.title.length > this.formValidation.titleLimit || this.newPostInstance.text.length > this.formValidation.charLimit ? true : null
     },
     handleSubmit () {
-      const { title, text } = this.postList.postData
+      const { title, text } = this.newPostInstance
+      const serialId = this.serialMaker()
+      const createdOn = new Date()
       const userName = this.userProfile.username
       const post = {
-        userName,
         title,
-        text
+        text,
+        serialId,
+        createdOn,
+        userName
       }
       if (!this.isError || this.isError === null) {
         this.createPost(post)
@@ -70,7 +78,15 @@ export default {
       }
     },
     resetForm () {
+      this.newPostInstance = {
+        title: '',
+        text: ''
+      }
       this.$emit('resetForm')
+    },
+    serialMaker () {
+      const rando = Math.floor(Math.random() * 100000)
+      return Math.floor(Math.random() * rando)
     }
   }
 }
