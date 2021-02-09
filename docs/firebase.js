@@ -1,4 +1,4 @@
-import firebase from 'firebase/app'
+import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
@@ -16,19 +16,23 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 // utils
-const db = firebase.firestore()
+const fs = firebase.firestore()
 const auth = firebase.auth()
 const storage = firebase.storage()
 
 // collection references
-const usersCollection = db.collection('users')
-const rulesCollection = db.collection('rules')
+const usersCollection = fs.collection('users')
+const postsCollection = fs.collection('posts')
+const commentsCollection = fs.collection('comments')
+const linksCollection = fs.collection('links')
 
 // export utils/refs
 export {
-  db,
+  fs,
   auth,
   storage,
   usersCollection,
-  rulesCollection
+  postsCollection,
+  commentsCollection,
+  linksCollection
 }

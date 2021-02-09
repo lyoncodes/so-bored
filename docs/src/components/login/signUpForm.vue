@@ -38,7 +38,8 @@
           a.link-style-main.pt-5(type="submit" @click="toggleForm()") Back to Login
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+
 export default {
   name: 'signUpForm',
   data () {
@@ -72,6 +73,7 @@ export default {
       }
       if (email && password && username) {
         this.signUp(signUpData)
+        this.toggleForm()
       }
     },
     toggleForm () {

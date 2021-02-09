@@ -6,7 +6,7 @@ b-col.col-12.p-0
     v-bind:class="errorObject")
     b-form-textarea(
       autofocus
-      id="annotate-text"
+      id="comment-text-field"
       v-model="comment.text"
       @keyup="validateCharCount()"
       @keydown.enter.prevent="addComment(comment)"
@@ -17,28 +17,26 @@ b-col.col-12.p-0
       button#submit-comment-button.m-0.mr-3(
         type="submit"
         :disabled="!comment.text.length")
-        img#add-comment-icon.inline-card-icon(v-bind:src="imgFolder[5]")
+        img#add-comment-icon.inline-card-icon(v-bind:src="imgStore[5]" width="640" height="360")
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { commentsCollection } from '../../../../firebase'
+import { mapState } from 'vuex'
 export default {
-  name: 'postCommentForm',
-  props: ['post', 'show', 'validation', 'formCounter'],
+  name: 'createComment',
+  props: ['post', 'validation', 'postList', 'postComments'],
   data () {
     return {
       comment: {
-        text: '',
-        commentSerial: null,
-        commentType: null
+        text: ''
       },
       isError: null
     }
   },
   computed: {
     ...mapState([
-      'posts',
       'userProfile',
-      'imgFolder'
+      'imgStore'
     ]),
     errorObject: function () {
       return {
@@ -51,43 +49,38 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'createComment'
-    ]),
     addComment (comment) {
-      this.comment.commentType = true
-      const commentSerial = this.serialMaker()
-      const id = this.$props.post.id
-      const author = this.userProfile.username
-      const { text, commentType } = this.comment
+      const text = this.comment.text
+      const userName = this.userProfile.username
+      const reference = this.$props.post.id
       const commentPayload = {
         text,
-        author,
-        id,
-        commentSerial,
-        commentType
+        userName,
+        reference
       }
       if (!this.isError) {
         this.createComment(commentPayload)
         this.clearComment()
       }
     },
+    async createComment (comment) {
+      await commentsCollection.add({
+        createdOn: new Date(),
+        text: comment.text,
+        userName: comment.userName,
+        reference: comment.reference
+      })
+      this.postComments.push(comment)
+    },
     clearComment () {
       this.comment = {
-        text: '',
-        author: '',
-        commentSerial: null,
-        commentType: false
+        text: ''
       }
       this.isError = false
     },
-    serialMaker () {
-      const rando = Math.floor(Math.random() * 1000)
-      return Math.floor(Math.random() * rando)
-    },
     validateCharCount () {
-      this.formCounter.charCount = this.comment.text.length
-      this.isError = this.formCounter.charCount > this.validation.commentLimit ? true : null
+      this.validation.charCount = this.comment.text.length
+      this.isError = this.validation.charCount > this.validation.commentLimit ? true : null
     }
   },
   mounted () {
@@ -99,15 +92,6 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-form {
-  textarea {
-    border: 1px solid $cotton-candy;
-    outline: none;
-    &:focus {
-      border: 1px solid $metallic-blue;
-    }
-  }
-}
 .error .validation-char {
   color: $candy-red!important;
 }

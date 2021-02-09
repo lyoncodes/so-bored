@@ -13,9 +13,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import signUpForm from '../components/login/signUpForm'
-import loginForm from '../components/login/loginForm'
-import passwordReset from '../components/login/passwordReset'
+
 export default {
   data () {
     return {
@@ -28,9 +26,9 @@ export default {
     }
   },
   components: {
-    signUpForm,
-    loginForm,
-    passwordReset
+    signUpForm: () => import('../components/login/signUpForm'),
+    loginForm: () => import('../components/login/loginForm'),
+    passwordReset: () => import('../components/login/passwordReset')
   },
   methods: {
     ...mapActions([

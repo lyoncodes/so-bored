@@ -5,7 +5,7 @@
     .p-2
       b-col.mt-4
         b-row.justify-content-center
-          img.form-header-icon.mb-4(v-bind:src="imgFolder[3]")
+          img.form-header-icon.mb-4(v-bind:src="imgStore[4]" width="640" height="360")
         b-row.justify-content-center
           b-form-group#login-email.col-12.mb-0
             b-row
@@ -34,6 +34,7 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -56,7 +57,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'imgFolder'
+      'imgStore'
     ])
   }
 }
