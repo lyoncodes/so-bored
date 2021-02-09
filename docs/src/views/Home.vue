@@ -2,7 +2,7 @@
   div.bg-image-container#app-content(v-bind:class="{ yellowBackground: togglePostForm }")
 
     //- background image
-    img.bg-img(v-bind:src="imgFolder[0]" width="640" height="360")
+    img.bg-img(v-bind:src="imgStore[0]" width="640" height="360")
 
     //- Navbar
     navBar(
@@ -15,13 +15,14 @@
           createPost(
             :formValidation="formValidation"
             v-if="togglePostForm"
+            v-on:resetForm="showCreatePost()"
           )
 
       //- Posts container
       b-col.col-12.mt-5.p-0
         #posts.pb-5
           posts(
-            v-on:resetForm="resetPostForm($event)"
+            :formValidation="formValidation"
             v-bind:class="{ hide: togglePostForm }"
           )
 
@@ -54,23 +55,6 @@ export default {
   methods: {
     showCreatePost () {
       this.togglePostForm = !this.togglePostForm
-    },
-    resetPostForm (data) {
-      this.postList.postData = {
-        title: '',
-        text: '',
-        active: false,
-        updating: false,
-        comments: [],
-        links: [],
-        displayComments: false,
-        displayLinks: false
-      }
-      this.postList.formCounter = {
-        titleCount: 0,
-        charCount: 0
-      }
-      this.togglePostForm = false
     }
   },
   components: {
@@ -81,9 +65,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'userProfile',
       'posts',
-      'imgFolder'
+      'imgStore'
     ])
   }
 }

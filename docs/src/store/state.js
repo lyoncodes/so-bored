@@ -1,5 +1,6 @@
 export default {
+  selectedPost: {},
   userProfile: {},
-  imgFolder: [],
+  imgStore: [],
   posts: []
 }

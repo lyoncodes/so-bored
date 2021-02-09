@@ -2,45 +2,56 @@
   b-row.mb-2
     //- handle update post data & cancel form update
     button.icon-button.pr-1.pl-1.pb-3(@click="toggleUpdateForm(post)")
-      img#post-nav-icon(v-bind:src="imgFolder[2]" width="640" height="360")
+      img#post-nav-icon(v-bind:src="imgStore[2]" width="640" height="360")
     //- sets postList.displayComments & displays comment component
     button.icon-button.pr-0(@click="toggleCommentComponent(post)"
     :disabled="postList.updating")
-      img#post-nav-icon(v-bind:src="imgFolder[1]" width="640" height="360")
-      span.caption.pl-1 {{post.comments.length}}
+      img#post-nav-icon(v-bind:src="imgStore[1]" width="640" height="360")
+      span.caption.pl-1 {{postList.commentStore.length}}
     //- sets postList.showLinks & displays link component
     button.icon-button(@click="toggleLinkForm(post)"
     :disabled="postList.updating")
-      img#post-nav-icon(v-bind:src="imgFolder[3]" width="640" height="360")
-      span.caption.pl-1 {{post.links.length}}
+      img#post-nav-icon(v-bind:src="imgStore[3]" width="640" height="360")
+      //- span.caption.pl-1 {{post.linkListSize}}
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 export default {
   name: 'postNav',
   props: ['post', 'postList'],
+  computed: {
+    ...mapState([
+      'imgStore'
+    ])
+  },
   methods: {
+    ...mapMutations([
+      'selectPost',
+      'deselectPost'
+    ]),
+    select (post) {
+      if (this.postList.updating || this.postList.displayComments) {
+        this.selectPost(post)
+      } else this.deselectPost()
+    },
     // Display / hide post editing form fields
     toggleUpdateForm (post) {
       this.postList.postUpdateData.title = post.title
       this.postList.postUpdateData.text = post.text
       this.postList.updating = !this.postList.updating
+      this.select(post)
     },
     // Display / Hide post comments
     toggleCommentComponent (post) {
-      this.postList.postData.displayComments = !this.postList.postData.displayComments
-      this.postList.postData.displayLinks = false
+      this.postList.displayComments = !this.postList.displayComments
+      this.postList.displayLinks = false
+      this.select(post)
     },
     // Display / Hide Link Section
     toggleLinkForm (post) {
-      this.postList.postData.displayComments = false
-      this.postList.postData.displayLinks = !this.postList.postData.displayLinks
+      this.postList.displayComments = false
+      this.postList.displayLinks = !this.postList.displayLinks
     }
-  },
-  computed: {
-    ...mapState([
-      'imgFolder'
-    ])
   }
 }
 </script>

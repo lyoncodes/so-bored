@@ -21,10 +21,9 @@ export default {
   async login ({ dispatch }, form) {
     const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password)
     dispatch('fetchUserProfile', user)
-    dispatch('fetchPosts')
   },
 
-  // Gets user profile; calls setUserProfile mutation and routes to home
+  // Gets user profile; calls setUserProfile mutation and routes to home, dispatches fetch Data
   async fetchUserProfile ({ commit, dispatch }, user) {
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
     commit('setUserProfile', userProfile.data())
@@ -45,43 +44,9 @@ export default {
     commit('clearImages')
     router.push('/login')
   },
-  // Retrieves post data from database and formats front-end posts
-  async fetchPosts ({ commit, dispatch }) {
-    await firebase.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
-      const dataStore = []
-
-      snapshot.forEach(async (el) => {
-        const post = el.data()
-        post.createdOn = post.createdOn.toDate()
-        post.id = el.id
-        post.idx = snapshot.length + 1
-        post.comments = []
-        post.links = []
-
-        // fetches post comments
-        const commentsRef = await firebase.commentsCollection.where('reference', '==', post.id).get()
-        commentsRef.forEach(doc => {
-          const comment = doc.data()
-          comment.id = doc.id
-          post.comments.push(comment)
-        })
-        // fetches post links
-        const linksRef = await firebase.linksCollection.where('reference', '==', post.id).get()
-        linksRef.forEach(doc => {
-          const link = doc.data()
-          link.id = doc.id
-          post.links.push(link)
-        })
-
-        dataStore.push(post)
-      })
-      commit('sortPosts', dataStore)
-    })
-  },
-
   // GET() IMAGES
   async fetchImageAssets ({ commit }) {
-    if (state.imgFolder.length < 6) {
+    if (state.imgStore.length < 6) {
       const imgStore = await firebase.storage.refFromURL('gs://itoio-e3548.appspot.com/images/')
       imgStore.list({ maxResults: 6 }).then((res) => {
         res.items.forEach((el) => {
@@ -111,26 +76,24 @@ export default {
 
   // POST OPERATIONS
   // Creates post in db
-  async createPost ({ dispatch, commit }, post) {
+  async createPost ({ dispatch }, post) {
     await firebase.postsCollection.add({
       title: post.title,
       text: post.text,
-      serialId: post.serialId,
       createdOn: post.createdOn,
       userName: post.userName,
       userId: firebase.auth.currentUser.uid
     })
   },
-  async updatePost ({ commit }, updateData) {
-    console.log(updateData)
-    const post = firebase.postsCollection.doc(updateData.id)
+  async updatePost ({ dispatch }, postUpdate) {
+    const post = firebase.postsCollection.doc(postUpdate.id)
     await post.update({
-      title: updateData.title,
-      text: updateData.text
+      title: postUpdate.title,
+      text: postUpdate.text
     })
   },
   // Deletes post & post comments from db
-  async deletePost ({ commit }, post) {
+  async deletePost ({ dispatch }, post) {
     // Deletes post from postsCollection in db & state
     await firebase.postsCollection.doc(post.id).delete()
     // Queries for comments belonging to post & deletes them
@@ -140,57 +103,24 @@ export default {
     })
   },
 
-  // updatePost, // UPDATE POST
-
-  // CREATES COMMENT
-  async createComment ({ commit, dispatch }, comment) {
-    await firebase.commentsCollection.add({
-      createdOn: new Date(),
-      text: comment.text,
-      userName: comment.userName,
-      reference: comment.reference,
-      serialId: comment.serialId
-    })
-    dispatch('refreshComments', comment)
-  },
-  // DELETES COMMENT
-  async deleteComment ({ commit, dispatch }, comment) {
-    await firebase.commentsCollection.doc(`${comment.id}`).delete()
-    commit('removeComment', comment)
-  },
-  // GET()s COMMENTS COLLECTION FOR UPDATING/REFRESHING STATE
-  async refreshComments ({ commit }, comment) {
-    const commentsRef = await firebase.commentsCollection.where('serialId', '==', comment.serialId).get()
-
-    commentsRef.forEach((el) => {
-      const comment = el.data()
-      commit('sortComments', comment)
-    })
-  },
-
   // Creates link in db
-  async createLink ({ dispatch }, link) {
+  async createLink ({ commit }, link) {
     await firebase.linksCollection.add({
       linkText: link.linkText,
       linkURL: link.linkURL,
       userName: link.userName,
       reference: link.reference
     })
-    dispatch('refreshLinks')
+    await firebase.postsCollection.doc(`${link.reference}`).update({
+      links: (state.selectedPost.linkListSize) + 1
+    })
+    commit('appendLink', link)
   },
   // DELETES LINK
   async deleteLink ({ commit }, link) {
     await firebase.linksCollection.doc(`${link.id}`).delete()
     commit('removeLink', link)
   },
-  // Gets links collection fro updating/refreshing state
-  async refreshLinks ({ commit }, link) {
-    const linksRef = await firebase.linksCollection.where('reference', '==', link.reference).get()
 
-    linksRef.forEach((el) => {
-      const link = el.data()
-      commit('sortLinks', link)
-    })
-  },
   togglePostComponents // COMPONENT STATE TOGGLING
 }

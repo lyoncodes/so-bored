@@ -1,7 +1,7 @@
 <template lang="pug">
   b-col.col-12.mt-4.p-0.form-container
     .post-form-error-badge(v-if="isError" variant="danger") This post's title or text is too long!
-    b-form(@submit.prevent="handleSubmit" v-bind:class="errorObject")
+    b-form(@submit.prevent="submitPost" v-bind:class="errorObject")
       b-col.form-content
         b-form-group.mt-3(id="input-title")
           b-form-input#title-input(
@@ -16,7 +16,7 @@
         b-form-group(id="input-card-text")
           b-form-textarea#post-form-textarea(
             @keyup="validateCharCount()"
-            @keydown.enter.prevent="handleSubmit"
+            @keydown.enter.prevent="submitPost"
             v-model="newPostInstance.text"
             placeholder="Input text here"
           )
@@ -60,15 +60,13 @@ export default {
       this.formValidation.formCounter.titleCount = this.newPostInstance.title.length
       this.isError = this.newPostInstance.title.length > this.formValidation.titleLimit || this.newPostInstance.text.length > this.formValidation.charLimit ? true : null
     },
-    handleSubmit () {
+    submitPost () {
       const { title, text } = this.newPostInstance
-      const serialId = this.serialMaker()
       const createdOn = new Date()
       const userName = this.userProfile.username
       const post = {
         title,
         text,
-        serialId,
         createdOn,
         userName
       }
@@ -83,10 +81,6 @@ export default {
         text: ''
       }
       this.$emit('resetForm')
-    },
-    serialMaker () {
-      const rando = Math.floor(Math.random() * 100000)
-      return Math.floor(Math.random() * rando)
     }
   }
 }
