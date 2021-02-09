@@ -7,6 +7,7 @@ import { auth } from '../firebase'
 Vue.config.productionTip = false
 
 let app
+
 // check app state for current user on page refresh
 auth.onAuthStateChanged(user => {
   if (!app) {
@@ -18,10 +19,9 @@ auth.onAuthStateChanged(user => {
   }
   if (user) {
     store.dispatch('fetchUserProfile', user)
-    store.dispatch('fetchPosts')
     // trigger welcome animation here:
   }
-  if (!store.state.imgFolder.length) {
+  if (!store.state.imgStore.length) {
     store.dispatch('fetchImageAssets')
   }
 })

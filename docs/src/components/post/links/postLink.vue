@@ -2,7 +2,7 @@
   b-row
     b-col.col-12.p-0(v-if="show")
       b-form(
-        @submit.prevent="submitLink(linkData)"
+        @submit.prevent="append(linkData)"
         v-if="show")
         b-form-textarea.mb-2(
           autofocus
@@ -14,27 +14,26 @@
           id="link-text-area"
           v-model="linkData.linkURL"
           placeholder="https://"
-          @keydown.enter.prevent="submitLink(linkData)"
+          @keydown.enter.prevent="append(linkData)"
         )
         b-row.justify-content-end.mt-2
           button#submit-annotation.m-0.mr-3(
             type="submit" variant="primary")
-            img#add-link-icon.inline-card-icon(v-bind:src="imgFolder[5]" width="640" height="360")
-    b-col.col-12.comments-section.mt-2.mb-4(v-for="link in post.links")
-      b-row.comments-container.text-left
-        b-col.col-11.p-0
-          p.caption.pl-2.pt-2.mb-1 {{ link.userName }} linked:
-          p.comment-text.link-style-main.pl-3.pt-1(@click="redirect(link)") {{link.ref}}
-        b-col.col-1.p-0
-          button.link-button(
-            @click="handleDelete(link)"
-            v-if="userProfile.username===link.userName") delete
+            img#add-link-icon.inline-card-icon(v-bind:src="imgStore[5]" width="640" height="360")
+    b-col.col-12.comments-section.mt-2.mb-4(v-for="link in postList.linkStore")
+      linkContent(
+        :link="link"
+        :post="post"
+        :userProfile="userProfile"
+        :links="postList.linkStore"
+      )
 </template>
 <script>
+import { linksCollection } from '../../../../firebase'
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'link-box',
-  props: ['post', 'show'],
+  props: ['post', 'show', 'postList'],
   data () {
     return {
       linkData: {
@@ -47,7 +46,7 @@ export default {
     ...mapState([
       'posts',
       'userProfile',
-      'imgFolder'
+      'imgStore'
     ])
   },
   methods: {
@@ -55,7 +54,7 @@ export default {
       'createLink',
       'deleteLink'
     ]),
-    submitLink (linkData) {
+    append (linkData) {
       const reference = this.$props.post.id
       const userName = this.userProfile.username
       const { linkText, linkURL } = this.linkData
@@ -72,18 +71,25 @@ export default {
         linkText: '',
         linkURL: ''
       }
-      // this.$emit('toggleLinkForm')
+    },
+    async createLink (link) {
+      await linksCollection.add({
+        linkText: link.linkText,
+        linkURL: link.linkURL,
+        userName: link.userName,
+        reference: link.reference
+      })
+      this.postList.linkStore.push(link)
     },
     redirect (link) {
       window.location.href = `https://${link.linkURL}`
     },
-    handleDelete (link) {
+    remove (link) {
       this.deleteLink(link)
     }
   },
-  mounted () {
-    const user = this.userProfile
-    this.user = user
+  components: {
+    linkContent: () => import('./linkComponent')
   }
 }
 </script>
