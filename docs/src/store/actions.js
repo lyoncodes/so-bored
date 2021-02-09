@@ -1,7 +1,19 @@
 import * as firebase from '../../firebase'
 import router from '../router/index'
-import { togglePostComponents } from './db-middleware/togglePostComponents'
 import state from './state'
+import mutations from './mutations'
+
+firebase.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
+  console.log('called')
+  const posts = []
+  snapshot.forEach(async (doc) => {
+    const post = doc.data()
+    post.id = doc.id
+
+    posts.push(post)
+  })
+  mutations.updatePosts(state, posts)
+})
 
 export default {
   // MESSAGE BOARD FUNCTIONALITY
@@ -14,7 +26,6 @@ export default {
       username: form.username,
       password: form.password
     })
-    dispatch('fetchUserProfile', user)
   },
 
   // Logs user in; dispatches methods to create user profile and retrieve application posts
@@ -37,6 +48,7 @@ export default {
     await firebase.auth.sendPasswordResetEmail(email)
     commit('resetLoginState')
   },
+
   // LOGS USER
   async logout ({ commit, dispatch }) {
     await firebase.auth.signOut()
@@ -44,6 +56,7 @@ export default {
     commit('clearImages')
     router.push('/login')
   },
+
   // GET() IMAGES
   async fetchImageAssets ({ commit }) {
     if (state.imgStore.length < 6) {
@@ -57,22 +70,6 @@ export default {
       })
     }
   },
-  // GET() POST PROMISE DATA
-  async fetchCommentSnapshot () {
-    const rule = firebase.commentsCollection
-    const snapshot = await rule.get()
-    return snapshot.docs
-  },
-  // MAP DB RESPONSES FOR FRONT-END ARRAYS
-  async mapRes ({ dispatch }, data) {
-    return new Promise((resolve) => {
-      dispatch('fetchCommentSnapshot').then((res) => {
-        res.map((el) => {
-          return el.id === data.id ? resolve(firebase.commentsCollection.doc(data.id)) : null
-        })
-      })
-    })
-  },
 
   // POST OPERATIONS
   // Creates post in db
@@ -85,6 +82,7 @@ export default {
       userId: firebase.auth.currentUser.uid
     })
   },
+  // Updates post in db
   async updatePost ({ dispatch }, postUpdate) {
     const post = firebase.postsCollection.doc(postUpdate.id)
     await post.update({
@@ -94,33 +92,11 @@ export default {
   },
   // Deletes post & post comments from db
   async deletePost ({ dispatch }, post) {
-    // Deletes post from postsCollection in db & state
     await firebase.postsCollection.doc(post.id).delete()
-    // Queries for comments belonging to post & deletes them
     const commentsRef = await firebase.commentsCollection.where('reference', '==', post.id).get()
     commentsRef.forEach((comment) => {
       comment.ref.delete()
     })
-  },
+  }
 
-  // Creates link in db
-  async createLink ({ commit }, link) {
-    await firebase.linksCollection.add({
-      linkText: link.linkText,
-      linkURL: link.linkURL,
-      userName: link.userName,
-      reference: link.reference
-    })
-    await firebase.postsCollection.doc(`${link.reference}`).update({
-      links: (state.selectedPost.linkListSize) + 1
-    })
-    commit('appendLink', link)
-  },
-  // DELETES LINK
-  async deleteLink ({ commit }, link) {
-    await firebase.linksCollection.doc(`${link.id}`).delete()
-    commit('removeLink', link)
-  },
-
-  togglePostComponents // COMPONENT STATE TOGGLING
 }

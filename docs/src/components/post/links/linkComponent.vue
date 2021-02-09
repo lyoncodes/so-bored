@@ -10,9 +10,10 @@ b-row.comments-container.text-left
 </template>
 <script>
 import { mapActions } from 'vuex'
+import { linksCollection } from '../../../../firebase'
 export default {
   name: 'linkComponent',
-  props: ['post', 'link', 'userProfile'],
+  props: ['post', 'links', 'link', 'userProfile'],
   methods: {
     ...mapActions([
       'deleteLink'
@@ -20,8 +21,10 @@ export default {
     linkTo (link) {
       window.location.href = `https://${link.linkURL}`
     },
-    remove (link) {
-      this.deleteLink(link)
+    async remove (link) {
+      await linksCollection.doc(`${link.id}`).delete()
+      const foundAt = this.links.findIndex(l => l === link)
+      this.links.splice(foundAt, 1)
     }
   }
 }

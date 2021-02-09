@@ -73,6 +73,7 @@ export default {
       }
       if (email && password && username) {
         this.signUp(signUpData)
+        this.toggleForm()
       }
     },
     toggleForm () {

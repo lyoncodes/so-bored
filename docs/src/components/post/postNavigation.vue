@@ -12,7 +12,7 @@
     button.icon-button(@click="toggleLinkForm(post)"
     :disabled="postList.updating")
       img#post-nav-icon(v-bind:src="imgStore[3]" width="640" height="360")
-      //- span.caption.pl-1 {{post.linkListSize}}
+      span.caption.pl-1 {{postList.linkStore.length}}
 </template>
 <script>
 import { mapMutations, mapState } from 'vuex'

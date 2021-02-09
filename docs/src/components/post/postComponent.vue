@@ -63,25 +63,25 @@
   )
   //- COMMENTS COMPONENT -----------
   b-col.p-0.mb-2(v-if="postList.displayComments && !postList.displayLinks")
-    b-col.col-12.p-0
-      commentSection(
-        :post="post"
-        :postList="postList"
-        :postComments="postList.commentStore"
-        :selectedPost="postList.selectedPost"
-        :user="userProfile.username"
-        :validation="formValidation"
-        :formCounter="formValidation.formCounter"
-      )
+    postComments(
+      :post="post"
+      :postList="postList"
+      :postComments="postList.commentStore"
+      :selectedPost="postList.selectedPost"
+      :user="userProfile.username"
+      :validation="formValidation"
+      :formCounter="formValidation.formCounter"
+    )
   //- LINKS COMPONENT -----------
   b-col.col-12.p-0.mb-2(v-if="postList.displayLinks && !postList.displayComments")
     postLinks(
       :post="post"
       :show="postList.displayLinks"
+      :postList="postList"
     )
 </template>
 <script>
-import { commentsCollection } from '../../../firebase'
+import { commentsCollection, linksCollection } from '../../../firebase'
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'post',
@@ -94,8 +94,8 @@ export default {
         displayLinks: false,
         updating: false,
         isError: null,
-        pos: 0,
         commentStore: [],
+        linkStore: [],
         postUpdateData: {
           title: String,
           text: String
@@ -106,8 +106,8 @@ export default {
 
   components: {
     postNavigation: () => import('./postNavigation'),
-    postLinks: () => import('./postLinks'),
-    commentSection: () => import('./comments/commentSection')
+    postLinks: () => import('./links/postLink'),
+    postComments: () => import('./comments/postComment')
   },
 
   computed: {
@@ -156,6 +156,7 @@ export default {
 
     // Resets postList.postUpdateData
     resetUpdateData () {
+      this.postList.updating = false
       this.postList.postUpdateData = {
         title: '',
         text: ''
@@ -179,6 +180,13 @@ export default {
       const comment = c.data()
       comment.id = c.id
       this.postList.commentStore.push(comment)
+    })
+
+    const links = await linksCollection.where('reference', '==', this.post.id).get()
+    links.forEach((l) => {
+      const link = l.data()
+      link.id = l.id
+      this.postList.linkStore.push(link)
     })
   }
 }
