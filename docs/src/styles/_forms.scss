@@ -1,13 +1,24 @@
 %forms{
+.form-container {
+  background-color: $light-slate-full;
+  border-radius: 5px;
+  box-shadow: $box-shadow-dark;
+  position: absolute;
+  z-index: 1;
+  top: -25
+}
 form {
-  #title-input {
+  .form-control {
+    height: 3em;
+  }
+  #new-post-title {
     font-size: $font-md !important;
     margin-top: 2em;
   }
-  #post-form-textarea {
+  #new-post-textarea {
     height: 10.5em;
     font-size: $font-sm !important;
-    font-weight: 100 !important;
+    font-weight: $font-fine !important;
   }
   textarea, input, .form-control, #card-text {
     color: $black-slate;
@@ -50,25 +61,12 @@ form {
   height: 3em!important;
 }
 }
-.form-container {
-  background-color: $white;
-  border-radius: 5px;
-  box-shadow: $box-shadow-dark;
-  position: absolute;
-  z-index: 1;
-  top: -25;
-  .form-content {
-    padding-bottom: 2em;
-  }
-}
+// styles update form text to match post title styling (h3 in fonts)
 #title-update-form {
   color: $black-slate;
   font-size: $font-lg;
   font-weight: $font-heavy;
   margin-bottom: 0;
-}
-.sign-up-form {
-  height: 3em;
 }
 .postFormActive{
   color: $lime-green;
@@ -87,7 +85,7 @@ form {
   text-align: left;
 }
 // Form Errors
-.post-form-error-badge{
+.error-badge{
   position: absolute;
   padding-top: 12;
   top: -20;

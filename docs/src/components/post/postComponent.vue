@@ -1,49 +1,73 @@
 <template lang="pug">
-//- Post Content Padding
+//- Post content padding
 .pt-3.pl-2.pr-2.pt-lg-3.pr-lg-4.pb-lg-2.pl-lg-4
-  //- POST HEADING -----------
+  //- Post Heading -----------
   b-row.justify-content-between.mb-3
+
     b-col.p-0.text-left
-      //- Username
-      span.caption.mb-1 {{post.userName}}
-      //- Time Stamp
+      //- Post author
+      span.caption {{ post.userName }}
+      //- Post date
       span.caption.ml-2 {{ post.createdOn.toDate().toLocaleDateString() }}
-    //- Delete Post Button
-    button#delete-button.pr-3(
+
+    //- Delete post button
+    button#delete-post.neu-c-button(
       v-if="userProfile.username === post.userName"
-      @click="destroy(post)"
       :disabled="postList.updating"
+      @click="destroy(post)"
     ) Delete
-  .post-form-error-badge#edit-post-error(v-if="postList.isError" variant="danger") This title or comment is too long!
-  //- POST TTILE -----------
+
+  //- error badge
+  .error-badge#edit-post-error(v-if="postList.isError" variant="danger") This title or comment is too long!
+
+  //- Post Title -----------
   b-row
-    //- Post Title
-    h3.card-title(v-if="!postList.updating") {{post.title}}
-    //- Update Title Form Fields (v-if="postList.updating")
+
+    //- Title
+    h3.mb-0(v-if="!postList.updating") {{post.title}}
+
+    //- Update form fields (title)
     b-col.p-0.mb-0
-      b-form#title-update-form(@submit.prevent="updatePostHeader(post, postList.postUpdateData)" v-if="postList.updating")
+      //- title form field
+      b-form#title-update-form(
+        @submit.prevent="updatePostHeader(post, postList.postUpdateData)"
+        v-if="postList.updating"
+        v-bind:class="titleErrorObject"
+      )
+        //- title text area
         b-form-textarea(
         id="title-update-text"
+        autofocus
         v-model="postList.postUpdateData.title"
+        :placeholder="postList.postUpdateData.title"
         @keyup="validateForm()"
         @keydown.enter.prevent="updatePostHeader(post, postList.postUpdateData)"
-        :placeholder="postList.postUpdateData.title"
-        autofocus
         )
-        //- Input Validation
+
+        //- input validation
         b-row.justify-content-start
           a.validation-char(v-bind:class="titleErrorObject") {{postList.postUpdateData.title.length}} / {{formValidation.titleLimit}}
-  //- POST TEXT -----------
+
+  //- Post Text -----------
   b-row(v-if="!postList.updating")
-    //- Post Text
-    p.post-text.pl-0.pr-0 {{post.text}}
-  //- Update Text Form Fields (v-if="postList.updating")
+
+    //- Text content
+    p.post-text {{post.text}}
+
+  //- Update text form fields
   b-row
+
     b-col.p-0(v-if="postList.updating")
-      b-form.mt-3(@submit.prevent="updatePostHeader(post, postList.postUpdateData)" v-if="postList.updating")
-        //- Error Message
+      //- Form
+      b-form.mt-3(
+        @submit.prevent="updatePostHeader(post, postList.postUpdateData)"
+        v-bind:class="textErrorObject"
+      )
+
+        //- Error message
         b-row(v-if="formValidation.charCount > formValidation.charLimit")
           span {{formValidation.errorMsg}}
+
         //- text area
         b-form-textarea.mt-3(
           id="card-text"
@@ -53,15 +77,23 @@
           :placeholder="postList.postUpdateData.text"
         )
         //- character counter and edit button
-        b-row.justify-content-between.mr-1
-          a.validation-char(v-bind:class="textErrorObject") {{postList.postUpdateData.text.length}} / {{formValidation.charLimit}}
-          button.mb-1#edit-post-button.neu-c-button.mt-2(type="submit" variant="primary" :disabled="!postList.postUpdateData.text.length && !postList.postUpdateData.title.length") edit
-  //- POST NAVIGATION ROW -----------
+        b-row.justify-content-between
+          a.validation-char(
+          ) {{postList.postUpdateData.text.length}} / {{formValidation.charLimit}}
+
+          button#update-post.neu-c-button(
+            type="submit"
+            variant="primary"
+            :disabled="!postList.postUpdateData.text.length && !postList.postUpdateData.title.length"
+          ) edit
+
+  //- Post navigation -----------
   postNavigation(
     :post="post"
     :postList="postList"
   )
-  //- COMMENTS COMPONENT -----------
+
+  //- Comments section -----------
   b-col.p-0.mb-2(v-if="postList.displayComments && !postList.displayLinks")
     postComments(
       :post="post"
@@ -70,14 +102,14 @@
       :selectedPost="postList.selectedPost"
       :user="userProfile.username"
       :validation="formValidation"
-      :formCounter="formValidation.formCounter"
     )
-  //- LINKS COMPONENT -----------
+
+  //- Links section -----------
   b-col.col-12.p-0.mb-2(v-if="postList.displayLinks && !postList.displayComments")
     postLinks(
       :post="post"
-      :show="postList.displayLinks"
       :postList="postList"
+      :show="postList.displayLinks"
     )
 </template>
 <script>
@@ -85,7 +117,7 @@ import { commentsCollection, linksCollection } from '../../../firebase'
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'post',
-  props: ['post', 'userProfile', 'formValidation'],
+  props: ['post', 'formValidation'],
 
   data () {
     return {
@@ -93,7 +125,7 @@ export default {
         displayComments: false,
         displayLinks: false,
         updating: false,
-        isError: null,
+        isError: false,
         commentStore: [],
         linkStore: [],
         postUpdateData: {
@@ -112,9 +144,10 @@ export default {
 
   computed: {
     ...mapState([
+      'userProfile',
       'posts'
     ]),
-    // Handles Form Entry Errors
+    // Handle form entry errors
     textErrorObject: function () {
       return {
         textError: this.postList.postUpdateData.text.length > this.formValidation.charLimit
@@ -132,6 +165,7 @@ export default {
       'updatePost',
       'deletePost'
     ]),
+
     // Updates Post Title & Text in dB and Front End
     updatePostHeader (post) {
       const { title, text } = this.postList.postUpdateData
@@ -167,6 +201,7 @@ export default {
     validateForm () {
       this.formValidation.formCounter.charCount = this.postList.postUpdateData.text.length
       this.formValidation.formCounter.titleCount = this.postList.postUpdateData.title.length
+
       this.postList.isError = this.postList.postUpdateData.text.length > this.formValidation.charLimit || this.postList.postUpdateData.title.length > this.formValidation.titleLimit ? true : null
     }
 
@@ -174,14 +209,14 @@ export default {
   async mounted () {
     const user = this.user
     this.user = user
-
+    // Assigns post comments
     const comments = await commentsCollection.where('reference', '==', this.post.id).get()
     comments.forEach((c) => {
       const comment = c.data()
       comment.id = c.id
       this.postList.commentStore.push(comment)
     })
-
+    // Assigns post links
     const links = await linksCollection.where('reference', '==', this.post.id).get()
     links.forEach((l) => {
       const link = l.data()
@@ -192,5 +227,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
+.textError .validation-char, .titleError .validation-char{
+  color: $candy-red!important;
+}
 </style>

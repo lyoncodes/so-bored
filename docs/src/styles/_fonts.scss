@@ -7,6 +7,7 @@ $font-caption: Arial;
 $font-heavy: 700;
 $font-med: 600;
 $font-light: 300;
+$font-fine: 100;
 // ============= font sizes =================
 $font-lg: 1.25em;
 $font-md: 1em;
@@ -39,12 +40,10 @@ $font-sm: .75em;
     font-size: $font-sm;
     font-style: italic;
   }
-  .card-title, .post-text{
+  .post-text{
     margin-bottom: 0;
     text-align: left;
-  }
-  .post-text{
-    padding: 1em;
+    padding: 1em 0 1em 0;
     font-weight: $font-light;
     font-size: $font-sm;
   }

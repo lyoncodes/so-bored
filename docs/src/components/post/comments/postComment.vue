@@ -1,5 +1,6 @@
 <template lang="pug">
-  b-row.justify-content-center
+  b-row
+
     b-col.col-12.p-0
         createComment(
           :post="post"
@@ -7,34 +8,27 @@
           :postComments="postComments"
           :postList="postList"
         )
-        //- COMMENT
-        b-col.col-12.mb-4(v-for="comment in postComments").comments-section
-          b-row.comments-container.text-left
-            b-col.col-11.p-0
-              p.caption.pl-2.pt-2.mb-1 {{ comment.userName }} says:
-              p.comment-text.pl-3.pt-1 {{ comment.text }}
-            b-col.col-1.p-0
-              button.link-button(
+
+        //- Array Iteration (comment in postComments prop, passed from postsHome parent component)
+        b-col.col-12.mb-4(v-for="comment in postComments" :key="comment.id").comments-section
+
+          //- post comment
+          b-row.comment-container.text-left
+            b-col.col-9.p-0
+              p.caption.pl-2.pt-2.mb-0 {{ comment.userName }} says:
+              p.post-text.pl-3.pt-1 {{ comment.text }}
+            b-col.col-3.p-0
+              button#delete-comment.neu-c-button(
                 @click="deleteComment(comment)"
                 v-if="user===comment.userName"
-                ) delete
+              ) delete
 </template>
 <script>
 import { commentsCollection } from '../../../../firebase'
 import createComment from './createComment'
-import { mapState } from 'vuex'
 export default {
   name: 'comments-container',
   props: ['post', 'postList', 'postComments', 'validation', 'user'],
-  data () {
-    return {
-    }
-  },
-  computed: {
-    ...mapState([
-      'posts'
-    ])
-  },
   methods: {
     async deleteComment (comment) {
       await commentsCollection.doc(`${comment.id}`).delete()

@@ -15,7 +15,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
-    props: {},
     meta: {
       requiresAuth: true
     }
@@ -33,7 +32,7 @@ const router = new VueRouter({
   routes
 })
 
-// Check if the user exists and requires auth. Create reference to the current user and authentication routes
+// Check if the user exists and requires auth for every route with meta data !!requiresAuth. Create reference to the current user and authentication routes
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
