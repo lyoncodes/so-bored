@@ -1,22 +1,19 @@
-.custom-control {
-  // border: 3px solid $lime-green;
-  color: $lime-green;
-  display: inline-block;
-  padding: .5em;
-  transition: 0.3s ease;
-  ::after, ::before {
-    display: none;
-  }
-  &:hover, &:visited, &:active, &:focus {
-    color: $true-blue;
-  }
-}
 input[type="radio"]:checked+label {
   color: $true-blue;
 }
 .link-style-main {
   color: $candy-red-opaque !important;
-  transition: ease 0.4s all;
+  font-size: $font-sm;
+  transition: ease 0.2s all;
+  &:hover{
+    color: $candy-red!important;
+    cursor: pointer;
+  }
+}
+.link-style-alt {
+  color: $candy-red-opaque !important;
+  font-size: $font-md;
+  transition: ease 0.2s all;
   &:hover{
     color: $candy-red!important;
     cursor: pointer;

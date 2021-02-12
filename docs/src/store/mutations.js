@@ -54,8 +54,10 @@ export default {
     state.selectPost.linksListSize = state.selectPost.pos = 0
   },
   populateImages (state, assets) {
-    state.imgStore.push(assets)
-    state.imgStore = state.imgStore.sort()
+    setTimeout(() => {
+      state.imgStore.push(assets)
+      state.imgStore = state.imgStore.sort()
+    }, 500)
   },
   clearImages (state) {
     state.imgStore = []

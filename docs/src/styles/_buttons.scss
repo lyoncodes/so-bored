@@ -1,5 +1,4 @@
 button {
-  // background-color: #fff;
   color: $background-slate;
   font-size: $font-md;
   font-weight: $font-heavy;
@@ -9,6 +8,54 @@ button {
     background-color: none;
     outline: none;
   }
+}
+#toggle-post-button{
+  border: none;
+  background-color: transparent;
+  color: $terra-red;
+  padding: 0;
+  font-size: $font-sm;
+  &:focus {
+    outline: none!important;
+  }
+  img {
+    height: 40px;
+    width: 40px;
+  }
+}
+#submit-comment-button, #submit-link, #update-post{
+  background: none;
+  border: 0em;
+  box-shadow: none;
+  font-size: $font-sm!important ; //overrides neu-c-button font-size style
+  padding: .75em;
+  position: absolute;
+  right: -10;
+  bottom: -19;
+  &:focus {
+    outline: none;
+  }
+}
+#submit-link{
+  border: 0em;
+  bottom: 5!important; //overrides parent style
+  box-shadow: none;
+  margin: 1em;
+  padding: .25em;
+}
+#update-post{
+  background-color: $candy-red;
+  margin: 2em 0 1em 0;
+  position: absolute;
+  bottom: -15px;
+  right: 0px
+}
+#delete-post, #delete-comment, #delete-link {
+  font-size: $font-sm!important; //overrides neu-c-button font-size style
+  padding: .5em;
+  position: absolute;
+  top: 10px;
+  right: 0px
 }
 .neu-a-button{
   -webkit-appearance: none;
@@ -73,78 +120,17 @@ button {
   border: 1px solid transparent;
   box-shadow: none
 }
-.login-btn {
-  color: $metallic-blue;
-  border: 1px solid $metallic-blue;
-  &:hover{
-    color: #fff;
-    background: $metallic-blue !important;
-  }
-}
-.signUp-btn {
-  background: #fff;
-  border: 1px solid $metallic-blue;
-  box-shadow: $box-shadow-light-fade;
-  color: $metallic-blue;
-  &:hover {
-    background: #fff;
-    border: 1px solid $cotton-candy;
-    box-shadow: $box-shadow-light-fade;
-    color: $cotton-candy;
-  }
-}
-.link-button {
-  color: $white;
-  font-size: $font-sm;
-  border: none;
-  border-radius: 5px;
-  padding: 5 8 5 8;
-  position: absolute;
-  bottom: -10;
-  left: -28;
-  background-color: $candy-red;
-  &:focus {
-    outline: none!important;
-  }
-}
-.nav-icon-button{
-  color: $terra-red;
-  font-size: $font-sm;
-  border: none;
-  background-color: transparent;
-  &:focus {
-    outline: none!important;
-  }
-}
 .icon-button{
   border: 1px solid transparent;
   box-shadow: none;
   background-color: transparent;
+  padding-top: 0;
   &:active, :focus, :hover{
   border: none;
   outline: none;
   }
   #post-nav-icon{
-    height: 1.5em;
+    height: 1.25em;
     width: auto;
-  }
-}
-#delete-button {
-  background-color: $candy-red;
-  border-radius: 4px;
-  border: 1px solid transparent;
-  position: absolute;
-  top: -15px;
-  right: 0px;
-}
-#submit-annotation{
-  border: 0em;
-  box-shadow: none;
-  margin: 1em;
-  padding: .25em;
-}
-@media only screen and (min-width: 1045px) {
-  .link-button {
-    left: 0;
   }
 }
