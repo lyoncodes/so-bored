@@ -23,15 +23,10 @@ b-col.col-12.p-0
         v-bind:class="errorObject"
       ) {{comment.text.length}} / {{ validation.commentLimit}}
 
-      button#submit-comment-button.m-0.mr-3(
+      button#submit-comment.neu-b-button.m-0.mt-2.mr-3(
         type="submit"
         :disabled="!comment.text.length"
-      )
-        img#add-comment-icon.inline-icon(
-          v-bind:src="imgStore[5]"
-          width="640"
-          height="360"
-        )
+      ) Comment
 </template>
 <script>
 import { commentsCollection } from '../../../../firebase'

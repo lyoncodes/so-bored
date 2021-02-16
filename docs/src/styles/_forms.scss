@@ -3,27 +3,16 @@
   background-color: $light-slate-full;
   border-radius: 5px;
   box-shadow: $box-shadow-dark;
-  position: absolute;
-  z-index: 1;
-  top: -25
+  max-width: 700px;
 }
 form {
   .form-control {
-    height: 3em;
+    height: 4em;
   }
-  #new-post-title {
-    font-size: $font-md !important;
-    margin-top: 2em;
-  }
-  #new-post-textarea {
-    height: 10.5em;
-    font-size: $font-sm !important;
-    font-weight: $font-fine !important;
-  }
-  textarea, input, .form-control, #card-text {
+  textarea, input, .form-control {
     color: $black-slate;
     background: $background-slate;
-    border: 1px solid $creme;
+    border: 1px solid $light-slate;
     border-radius: 0.5;
     font-size: $font-md;
     font-weight: $font-heavy;
@@ -37,25 +26,33 @@ form {
     }
     &:hover, :active, :focus {
       transform: scale(1.01);
-      border: 1px solid $creme;
+      border: 1px solid $royal;
       box-shadow: none!important;
     }
     &:focus {
       box-shadow: none!important;
     }
   }
-  #title-update-text, #card-text {
-    padding: 0;
+  #post-form-textarea{
+    line-height: 1.2;
+  }
+  #new-post-title, #title-update-text {
+    line-height: 1.2;
     border: none;
+    padding: 0;
     &:hover {
       border: none;
     }
   }
 }
-#comment-text-field, #card-text, #link-text-area {
+#comment-text-field, #post-form-textarea, #link-text-area {
   font-size: $font-sm !important;
   font-weight: 100 !important;
   height: 7.25em;
+  &::placeholder {
+    color: $caption-slate;
+    font-style: italic;
+  }
 }
 #link-text-area {
   height: 3em!important;
@@ -64,15 +61,9 @@ form {
 // styles update form text to match post title styling (h3 in fonts)
 #title-update-form {
   color: $black-slate;
-  font-size: $font-lg;
+  font-size: $font-md-abs;
   font-weight: $font-heavy;
   margin-bottom: 0;
-}
-.postFormActive{
-  color: $lime-green;
-  -webkit-appearance: none;
-  background-color: $background-slate;
-  box-shadow: $box-shadow-light-inset;
 }
 .bv-no-focus-ring{
   text-align: left;
@@ -83,6 +74,11 @@ form {
   font-weight: $font-heavy;
   margin: .75em 0 0 2em;
   text-align: left;
+}
+#update-validation-char {
+  position: absolute;
+  bottom: -10px;
+  color: $royal-dark;
 }
 // Form Errors
 .error-badge{

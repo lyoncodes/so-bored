@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(v-bind:class="{ bgHighlight: showCreatePost }")
+  div
 
     //- background image
     img.bg-img(v-bind:src="imgStore[0]" width="640" height="360")
@@ -9,12 +9,12 @@
       v-on:toggleCreatePost="toggleCreatePost()")
 
     //- new post form (CREATE)
+    createPost(
+      :formValidation="formValidation"
+      v-if="showCreatePost"
+      v-on:hideCreatePost="toggleCreatePost()"
+    )
     b-col.col-12.p-0
-      createPost(
-        :formValidation="formValidation"
-        v-if="showCreatePost"
-        v-on:hideCreatePost="toggleCreatePost()"
-      )
 
       //- Posts
       postsHome(

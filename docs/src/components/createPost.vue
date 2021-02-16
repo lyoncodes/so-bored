@@ -1,38 +1,55 @@
 <template lang="pug">
-  b-col.col-12.mt-4.p-0.form-container
+b-container
+  b-col.post.col-12.ml-0
+    .pt-3.pl-2.pr-2.pt-lg-3.pr-lg-4.pb-lg-2.pl-lg-4
+      //- Post Heading -----------
+      b-row.justify-content-between.mb-3
 
-    //- error badge
-    div.error-badge(v-if="isError" variant="danger") This post's title or text is too long!
+        b-col.p-0.text-left
+          //- Post author
+          span.caption {{ userProfile.username }}'s new post:
+        //- Reset new post form
+        button#reset-post-form.neu-c-button(
+          type="reset"
+          @click="resetForm"
+        ) Back
+      //- error badge
+      .error-badge(v-if="isError" variant="danger") This post's title or text is too long!
 
-    //- create post form
-    b-form(@submit.prevent="submitPost" v-bind:class="errorObject")
+      //- New Post title form
+      b-row
+        b-col.p-0.mb-0
+          //- create post form
+          b-form(@submit.prevent="submitPost" v-bind:class="errorObject")
+            b-form-textarea#new-post-title(
+              v-model="newPostData.title"
+              @keyup="validateCharCount()"
+              autofocus
+              required
+              contenteditable
+              placeholder="Title"
+            )
+            b-row.justify-content-start
+              a.validation-char.ml-3 {{newPostData.title.length}} / {{formValidation.titleLimit}}
 
-      b-col.pb-4
-
-        b-form-group.mt-3
-          b-form-input#new-post-title(
-            v-model="newPostData.title"
-            @keyup="validateCharCount()"
-            autofocus
-            required
-            contenteditable
-            placeholder="Title"
+      //- New Post text field
+      b-row
+        b-col.col-12.p-0
+          b-form.mt-3(
+            @submit.prevent="submitPost" v-bind:class="errorObject"
           )
-          a.validation-char.ml-1 {{newPostData.title.length}} / {{formValidation.titleLimit}}
 
-        b-form-group
-          b-form-textarea#new-post-textarea(
-            @keyup="validateCharCount()"
-            @keydown.enter.prevent="submitPost"
-            v-model="newPostData.text"
-            placeholder="Input text here"
-          )
-          a.validation-char.ml-1 {{newPostData.text.length}} / {{formValidation.charLimit}}
+            b-form-textarea#post-form-textarea(
+              @keyup="validateCharCount()"
+              @keydown.enter.prevent="submitPost"
+              v-model="newPostData.text"
+              placeholder="Post text (optional)"
+            )
 
-        b-row.justify-content-center
+            b-row.justify-content-between
+              a.validation-char.ml-3 {{newPostData.text.length}} / {{formValidation.charLimit}}
 
-          button.neu-c-button(type="reset" @click="resetForm") Nvm
-          button.neu-c-button(type="submit") Post
+              button#create-post.neu-b-button.mr-3(type="submit") Post
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'

@@ -1,7 +1,7 @@
 <template lang="pug">
 #nav.col-12
   b-row
-    b-col.col-2.mt-4.pt-2
+    b-col.col-2.mt-2.pt-2
 
       a.link-style-main(@click="logout()") logout
 
@@ -9,7 +9,7 @@
 
       img#nav-logo(v-bind:src="imgStore[4]" width="640" height="360")
 
-    b-col.col-2.mt-4.p-0
+    b-col.col-2.mt-3.p-0
 
       button#toggle-post-button(@click="toggleCreatePost")
         img(v-bind:src="imgStore[5]" width="640" height="360")
