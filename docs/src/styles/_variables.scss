@@ -1,18 +1,15 @@
 // COLORS
-$lime-green: #72e896;
-$canary-yellow: #fff383;
 $candy-red: #F23545;
 $candy-red-dark: #ee2c3c;
 $candy-red-opaque: #f23545a1;
-$terra-red: #F27557;
-$sherbert: #ffd65c;
-$sherbert-opaque: #ec8f64e7;
-$cotton-candy: #ffa5d8;
-$creme: #ffeae6;
+$plastic-pink: #FC38AC;
+$proton-light: #DD3EE6;
+$proton-deep: #BD38FC;
+$royal: #8235F2;
+$royal-dark: #541aaa;
+$royal-matte: #4A3669;
 $sky-pink: #F2E4DC;
-$tert-blue: #021859;
 $true-blue: #0B9ED9;
-$metallic-blue: #2c0f1e;
 
 // Slates & Shadows
 $slate: #374049;
@@ -24,9 +21,10 @@ $light-slate-tr: rgba(0,0,0,0.15);
 $dark-slate: rgba(70,70,70,0.12);
 $background-slate: #fcfafa;
 $metallic-slate: rgba(70, 77, 81, 0.247);
+$caption-slate: #88898a;
 
-$border-g: linear-gradient(90deg, $sherbert-opaque 16%, $terra-red 40%, $cotton-candy 68%, $sherbert 100%);
-// BOX SHADOWS
+$border-g: linear-gradient(90deg, $plastic-pink 16%, $proton-deep 40%, $plastic-pink 68%, $royal 100%);
+
 $box-shadow-light: 10px 10px 22px -1px rgba($slate,0.35);
 
 $box-shadow-light-fade: 8px 8px 20px -3px rgba($metallic-slate,0.25);
@@ -54,5 +52,6 @@ inset -2px -2px 8px $light-slate-full,
 inset -2px -2px 12px $light-slate,
 inset 2px 2px 4px $light-slate-op,
 inset 2px 2px 8px $light-slate-tr;
+
 // SHAPES
 $border-radius-lg: .75em;

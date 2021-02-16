@@ -11,6 +11,7 @@ $font-fine: 100;
 // ============= font sizes =================
 $font-lg: 1.25em;
 $font-md: 1em;
+$font-md-abs: 16px;
 $font-sm: .75em;
 
 %body-fonts {
@@ -28,7 +29,7 @@ $font-sm: .75em;
   }
   h3,h4,h5,h6 {
     color: $black-slate;
-    font-size: $font-lg;
+    font-size: $font-md;
     font-weight: $font-heavy;
   }
   .caption {

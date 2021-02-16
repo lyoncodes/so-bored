@@ -24,7 +24,7 @@
   b-row
 
     //- Title
-    h3.mb-0(v-if="!postList.updating") {{post.title}}
+    h3#post-title.mb-0.text-left(v-if="!postList.updating") {{post.title}}
 
     //- Update form fields (title)
     b-col.p-0.mb-0
@@ -46,7 +46,7 @@
 
         //- input validation
         b-row.justify-content-start
-          a.validation-char(v-bind:class="titleErrorObject") {{postList.postUpdateData.title.length}} / {{formValidation.titleLimit}}
+          a.validation-char#update-validation-char(v-bind:class="titleErrorObject") {{postList.postUpdateData.title.length}} / {{formValidation.titleLimit}}
 
   //- Post Text -----------
   b-row(v-if="!postList.updating")
@@ -70,18 +70,19 @@
 
         //- text area
         b-form-textarea.mt-3(
-          id="card-text"
+          id="post-form-textarea"
           v-model="postList.postUpdateData.text"
           @keyup="validateForm()"
           @keydown.enter.prevent="updatePostHeader(post, postList.postUpdateData)"
           :placeholder="postList.postUpdateData.text"
         )
+
         //- character counter and edit button
         b-row.justify-content-between
-          a.validation-char(
+          a.validation-char#update-validation-char(
           ) {{postList.postUpdateData.text.length}} / {{formValidation.charLimit}}
 
-          button#update-post.neu-c-button(
+          button#update-post.neu-b-button(
             type="submit"
             variant="primary"
             :disabled="!postList.postUpdateData.text.length && !postList.postUpdateData.title.length"

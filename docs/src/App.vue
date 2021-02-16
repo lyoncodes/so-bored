@@ -22,7 +22,6 @@ export default {
 </script>
 <style lang="scss">
 body {
-  background-color: $sky-pink;
   margin-left: auto;
   margin-right: auto;
 }

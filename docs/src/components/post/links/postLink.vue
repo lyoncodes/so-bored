@@ -19,16 +19,11 @@
           @keydown.enter.prevent="append(linkData)"
         )
 
-        b-row.justify-content-end.mt-2
-          button#submit-link.m-0.mr-3(
+        b-row.justify-content-end.mb-2
+          button#submit-link.neu-b-button.m-0.mt-2.mr-3(
             type="submit"
             variant="primary"
-          )
-            img#add-link-icon.inline-icon(
-              v-bind:src="imgStore[5]"
-              width="640"
-              height="360"
-            )
+          ) Add Link
 
     b-col.col-12.comments-section.mt-2.mb-4(v-for="link in postList.linkStore" :key="link.id")
       linkContent(
