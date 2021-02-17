@@ -1,6 +1,5 @@
 <template lang="pug">
 b-row.comments-container.text-left
-
   b-col.col-11.p-0
     p.caption.pl-2.pt-2.mb-1 {{ link.userName }} linked:
     p.comment-text.link-style-main.pl-3.pt-1(@click="linkTo(link)") {{link.linkText}}
@@ -20,6 +19,9 @@ export default {
     ...mapActions([
       'deleteLink'
     ]),
+    toggleLinkForm () {
+      this.postList.displayLinkForm = !this.postList.displayLinkForm
+    },
     linkTo (link) {
       window.location.href = `https://${link.linkURL}`
     },

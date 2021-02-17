@@ -8,11 +8,6 @@ b-container
         b-col.p-0.text-left
           //- Post author
           span.caption {{ userProfile.username }}'s new post:
-        //- Reset new post form
-        button#reset-post-form.neu-c-button(
-          type="reset"
-          @click="resetForm"
-        ) Back
       //- error badge
       .error-badge(v-if="isError" variant="danger") This post's title or text is too long!
 
@@ -30,7 +25,7 @@ b-container
               placeholder="Title"
             )
             b-row.justify-content-start
-              a.validation-char.ml-3 {{newPostData.title.length}} / {{formValidation.titleLimit}}
+              a.validation-char#new-post-validation.ml-3 {{newPostData.title.length}} / {{formValidation.titleLimit}}
 
       //- New Post text field
       b-row
@@ -39,7 +34,7 @@ b-container
             @submit.prevent="submitPost" v-bind:class="errorObject"
           )
 
-            b-form-textarea#post-form-textarea(
+            b-form-textarea#new-post-textarea(
               @keyup="validateCharCount()"
               @keydown.enter.prevent="submitPost"
               v-model="newPostData.text"
@@ -47,7 +42,7 @@ b-container
             )
 
             b-row.justify-content-between
-              a.validation-char.ml-3 {{newPostData.text.length}} / {{formValidation.charLimit}}
+              a.validation-char#new-post-validation.ml-3 {{newPostData.text.length}} / {{formValidation.charLimit}}
 
               button#create-post.neu-b-button.mr-3(type="submit") Post
 </template>

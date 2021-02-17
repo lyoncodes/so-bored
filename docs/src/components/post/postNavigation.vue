@@ -2,19 +2,21 @@
   b-row.mb-2.mt-3.pt-2.pb-2
 
     //- handle update post data & cancel form update
-    button.icon-button(
+    button.post-navigation-button(
       @click="toggleUpdateForm(post)"
     )
       img#post-nav-icon(v-bind:src="imgStore[2]" width="640" height="360")
 
     //- sets postList.displayComments & displays comment component
-    button.icon-button(@click="toggleCommentComponent(post)"
-    :disabled="postList.updating")
+    button.post-navigation-button(
+      @click="toggleCommentComponent(post)"
+      :disabled="postList.updating"
+    )
       img#post-nav-icon(v-bind:src="imgStore[1]" width="640" height="360")
       span.caption.pl-1 {{postList.commentStore.length}}
 
     //- sets postList.showLinks & displays link component
-    button.icon-button(@click="toggleLinkForm(post)"
+    button.post-navigation-button(@click="toggleLinkForm(post)"
     :disabled="postList.updating")
       img#post-nav-icon(v-bind:src="imgStore[3]" width="640" height="360")
       span.caption.pl-1 {{postList.linkStore.length}}

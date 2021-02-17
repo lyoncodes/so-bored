@@ -1,6 +1,6 @@
 <template lang="pug">
 //- Post content padding
-.pt-3.pl-2.pr-2.pt-lg-3.pr-lg-4.pb-lg-2.pl-lg-4
+.pt-3.pl-2.pr-2
   //- Post Heading -----------
   b-row.justify-content-between.mb-3
 
@@ -124,7 +124,9 @@ export default {
     return {
       postList: {
         displayComments: false,
+        displayCommentForm: true,
         displayLinks: false,
+        displayLinkForm: true,
         updating: false,
         isError: false,
         commentStore: [],

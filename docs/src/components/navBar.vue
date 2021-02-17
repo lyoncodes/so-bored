@@ -1,18 +1,13 @@
 <template lang="pug">
 #nav.col-12
-  b-row
+  b-row.justify-content-between
     b-col.col-2.mt-2.pt-2
 
       a.link-style-main(@click="logout()") logout
 
-    b-col.mb-1.mt-3
+    b-col.col-4.mt-2.p-0
 
-      img#nav-logo(v-bind:src="imgStore[4]" width="640" height="360")
-
-    b-col.col-2.mt-3.p-0
-
-      button#toggle-post-button(@click="toggleCreatePost")
-        img(v-bind:src="imgStore[5]" width="640" height="360")
+      button#toggle-post-button.neu-b-button(@click="toggleCreatePost") New Post
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
