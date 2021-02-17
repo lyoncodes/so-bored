@@ -1,5 +1,9 @@
 <template lang="pug">
   b-row
+    button#show-link-form.post-navigation-button(
+    @click="toggleLinkForm"
+    )
+      img#post-nav-icon(v-bind:src="imgStore[5]" width="640" height="360")
     b-col.col-12.p-0(v-if="show")
 
       b-form(
@@ -58,6 +62,9 @@ export default {
       'createLink',
       'deleteLink'
     ]),
+    toggleLinkForm () {
+      this.show = !this.show
+    },
 
     append (linkData) {
       const reference = this.$props.post.id

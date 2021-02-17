@@ -1,127 +1,93 @@
 button {
-  color: $background-slate;
-  font-size: $font-md;
+  border-radius: $border-radius-reg;
+  font-size: $font-sm;
   font-weight: $font-heavy;
   padding: .75em;
+  text-transform: uppercase;
+  text-decoration: none;
   transition: ease-in-out 0.4s all;
   &:active, &:focus, &:hover{
     background-color: none;
     outline: none!important;
   }
 }
-#toggle-post-button{
-  border: none;
-  background-color: transparent;
-  padding: 0;
-  font-size: $font-sm;
-  &:focus {
-    outline: none!important;
-  }
-  img {
-    height: 22px;
-    width: auto;
-  }
-}
-#submit-comment, #submit-link, #update-post, #create-post{
-  margin: 1em 0 1em 0;
-}
-#update-post{
-  position: absolute;
-  bottom: -40px;
-  right: 0
-}
-#delete-post, #delete-comment, #delete-link, #reset-post-form {
-  font-size: $font-sm!important; //overrides neu-c-button font-size style
-  padding: .5em;
-  position: absolute;
-  top: 10px;
-  right: 0px
-}
-.icon-button{
+.post-navigation-button{
   background-color: $background-slate;
-  box-shadow: $box-shadow-dark;
+  box-shadow: $shadow-low-contrast;
   border-radius: 18px;
   border: 2px solid $background-slate;
   line-height: 16px;
   margin: 0 .15em .25em .15em;
   outline: none;
   padding: 6px 8px;
+  transition: ease 0.4s box-shadow;
   -webkit-appearance: none;
   width: auto;
-  &:active, :focus, :hover{
+  &:active, &:focus, &:hover{
     outline: none;
-    }
+  }
     #post-nav-icon{
       height: 16px;
       width: auto;
     }
 }
-.neu-b-button{
+.neu-b-button, .neu-c-button{
   background-color: $background-slate;
   -webkit-appearance: none;
-  box-shadow: $box-shadow-button-inset;
-  border-radius: 5px;
+  box-shadow: $shadow-low-contrast;
   border: none;
-  color: $royal-matte;
-  font-size: $font-sm;
   letter-spacing: .1em;
   margin: 0 .75em 0 .75em;
   outline: none;
   padding: 1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: ease-in-out 0.4s all;
+}
+.neu-b-button{
+  color: $royal;
   &:hover {
-    color: $proton-deep;
-    background-color: $background-slate;
-    transform: scale(0.98);
+    color: $background-slate;
+    background-color: $royal;
   }
-  &:focus{
-    outline: none;
-  }
-
 }
 .neu-c-button{
-  background-color: $candy-red;
-  -webkit-appearance: none;
-  box-shadow: $box-shadow-button-inset;
-  border-radius: 5px;
-  border: none;
-  font-size: $font-lg;
-  letter-spacing: .1em;
-  margin: 0 .75em 0 .75em;
-  outline: none;
-  padding: 1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: ease-in-out 0.4s all;
+  color: $candy-red-opaque;
+  font-size: $font-lg; //overrides default button font size
   &:hover {
-    background-color: $candy-red-dark;
-    transform: scale(0.98);
-  }
-  &:focus{
-    outline: none;
+    background-color: $candy-red;
+    color: $background-slate;
   }
 }
-.btn-secondary:not(:disabled):not(.disabled):active:focus {
-  box-shadow: none;
+#update-post, #create-post, #submit-comment, #submit-link{
+  margin: 1em 0 1em 0;
 }
-.btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active {
-  background: none;
-  border: 1px solid transparent;
-  box-shadow: none;
-  &:active, :focus{
-    background: none !important;
-    outline: none;
+#update-post, #create-post {
+  background-color: $royal;
+  color: $background-slate;
+  &:hover{
+    background-color: $proton-deep;
   }
 }
-.btn-secondary:focus, .btn-secondary:hover {
-  background-color: transparent !important;
-  border: 1px solid transparent;
-  box-shadow: none
+#update-post{
+  position: absolute;
+  bottom: -73px;
+  right: 0;
 }
-.btn-secondary.disabled, .btn-secondary:disabled {
-  background-color: transparent !important;
-  border: 1px solid transparent;
-  box-shadow: none
+#delete-post, #delete-comment, #delete-link, #reset-post-form, #show-comment-form{
+  font-size: $font-sm!important; //resets neu-c-button's override
+  padding: .5em 1em .5em 1em!important; //overrides default button padding
+}
+#delete-post, #delete-link, #reset-post-form{
+  position: absolute;
+  right: 0px;
+  top: 10px
+}
+#delete-comment{
+  position: absolute;
+  right: -8px;
+  top: -10px
+}
+#show-comment-form , #show-link-form{
+  color: $proton-light;
+  position: absolute;
+  right: 0px;
+  top: -52px
 }

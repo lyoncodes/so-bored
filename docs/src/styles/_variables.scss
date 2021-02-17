@@ -8,46 +8,54 @@ $proton-deep: #BD38FC;
 $royal: #8235F2;
 $royal-dark: #541aaa;
 $royal-matte: #4A3669;
-$sky-pink: #F2E4DC;
-$true-blue: #0B9ED9;
 
 // Slates & Shadows
 $slate: #374049;
 $black-slate: #2c3e50;
+$background-slate: #fcfafa;
+$caption-slate: #88898a;
 $light-slate: rgba(255,255,255,0.5);
 $light-slate-full: rgba(255,255,255,1);
 $light-slate-op: rgba(255,255,255,0.1);
 $light-slate-tr: rgba(0,0,0,0.15);
 $dark-slate: rgba(70,70,70,0.12);
-$background-slate: #fcfafa;
 $metallic-slate: rgba(70, 77, 81, 0.247);
-$caption-slate: #88898a;
 
-$border-g: linear-gradient(90deg, $plastic-pink 16%, $proton-deep 40%, $plastic-pink 68%, $royal 100%);
+// Gradients
+$border-g: linear-gradient(90deg,
+  $plastic-pink 16%,
+  $proton-deep 40%,
+  $plastic-pink 68%,
+  $royal 100%
+);
 
-$box-shadow-light: 10px 10px 22px -1px rgba($slate,0.35);
+$shadow-high-contrast: 10px 10px 22px -1px rgba($slate,0.35);
 
-$box-shadow-light-fade: 8px 8px 20px -3px rgba($metallic-slate,0.25);
+$shadow-high-contrast-fade: 8px 8px 20px -3px rgba($metallic-slate,0.25);
 
-$box-shadow-dark: -10px -10px 15px $light-slate,
+$box-shadow-dark: 
+-10px -10px 15px $light-slate,
 10px 10px 15px $dark-slate;
 
-$box-shadow-dark-inset: -10px -10px 15px $light-slate,
+$box-shadow-dark-inset: 
+-10px -10px 15px $light-slate,
 10px 10px 15px $dark-slate,
 inset -10px -10px 15px $light-slate,
 inset 10px 10px 15px $dark-slate;
 
-$box-shadow-light-inset: -10px -10px 15px $light-slate,
+$shadow-high-contrast-inset: 
+-10px -10px 15px $light-slate,
 10px 10px 15px $dark-slate,
 inset -5px -5px 10px $light-slate,
 inset 5px 5px 10px $dark-slate;
 
-$box-shadow-button-inset: -2px -2px 8px $light-slate-full,
+$shadow-low-contrast: 
+-2px -2px 8px $light-slate-full,
 -2px -2px 12px $light-slate,
 inset 2px 2px 4px $light-slate-op,
 2px 2px 8px $light-slate-tr;
 
-$box-shadow-button-inset-hover: 
+$shadow-low-contrast-hover: 
 inset -2px -2px 8px $light-slate-full,
 inset -2px -2px 12px $light-slate,
 inset 2px 2px 4px $light-slate-op,
@@ -55,3 +63,4 @@ inset 2px 2px 8px $light-slate-tr;
 
 // SHAPES
 $border-radius-lg: .75em;
+$border-radius-reg: 5px;

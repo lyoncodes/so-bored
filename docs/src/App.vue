@@ -24,6 +24,7 @@ export default {
 body {
   margin-left: auto;
   margin-right: auto;
+  max-width: 500px;
 }
 body::-webkit-scrollbar {
   display: none;
