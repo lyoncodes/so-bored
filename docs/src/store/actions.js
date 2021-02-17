@@ -3,7 +3,7 @@ import router from '../router/index'
 import state from './state'
 import mutations from './mutations'
 
-firebase.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
+firebase.postsCollection.orderBy('createdOn', 'desc').limit(50).onSnapshot(snapshot => {
   const posts = []
   snapshot.forEach(async (doc) => {
     const post = doc.data()

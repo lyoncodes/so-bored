@@ -150,6 +150,7 @@ export default {
       'userProfile',
       'posts'
     ]),
+
     // Handle form entry errors
     textErrorObject: function () {
       return {
@@ -207,20 +208,22 @@ export default {
 
       this.postList.isError = this.postList.postUpdateData.text.length > this.formValidation.charLimit || this.postList.postUpdateData.title.length > this.formValidation.titleLimit ? true : null
     }
-
   },
+
   async mounted () {
     const user = this.user
     this.user = user
+
     // Assigns post comments
-    const comments = await commentsCollection.where('reference', '==', this.post.id).get()
+    const comments = await commentsCollection.where('reference', '==', this.post.id).limit(50).get()
     comments.forEach((c) => {
       const comment = c.data()
       comment.id = c.id
       this.postList.commentStore.push(comment)
     })
+
     // Assigns post links
-    const links = await linksCollection.where('reference', '==', this.post.id).get()
+    const links = await linksCollection.where('reference', '==', this.post.id).limit(50).get()
     links.forEach((l) => {
       const link = l.data()
       link.id = l.id
