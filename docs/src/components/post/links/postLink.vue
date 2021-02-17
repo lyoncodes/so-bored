@@ -3,7 +3,12 @@
     button#show-link-form.post-navigation-button(
     @click="toggleLinkForm"
     )
-      img#post-nav-icon(v-bind:src="imgStore[5]" width="640" height="360")
+      img#post-nav-icon(
+        v-bind:src="imgStore[5]"
+        width="640"
+        height="360"
+        :class="flipThis"
+      )
     b-col.col-12.p-0(v-if="show")
 
       b-form(
@@ -55,7 +60,12 @@ export default {
     ...mapState([
       'userProfile',
       'imgStore'
-    ])
+    ]),
+    flipThis: function () {
+      return {
+        flip: !this.show
+      }
+    }
   },
   methods: {
     ...mapActions([
