@@ -89,5 +89,11 @@ button {
   color: $proton-light;
   position: absolute;
   right: 0px;
-  top: -52px
+  top: -52px;
+  #post-nav-icon{
+    &:focus{
+      transform: rotate(180deg);
+      outline: none;
+    }
+  }
 }
