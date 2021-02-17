@@ -19,7 +19,7 @@
         )
 
         //- Array Iteration (comment in postComments prop, passed from postsHome parent component)
-        b-col.col-12.mb-4(v-for="comment in postComments" :key="comment.id").comments-section
+        b-col.col-12.mb-2.mt-2(v-for="comment in postComments" :key="comment.id").comments-section
 
           //- post comment
           b-row.comment-container.text-left
@@ -30,7 +30,11 @@
                 @click="deleteComment(comment)"
                 v-if="user===comment.userName"
               )
-                img#post-nav-icon(v-bind:src="imgStore[5]" width="640" height="360")
+                IconBase(
+                  icon-name="caret"
+                  iconColor="rgba(221, 62, 230, 0.5)"
+                )
+                  IconDelete
 
 </template>
 <script>
@@ -61,7 +65,9 @@ export default {
     }
   },
   components: {
-    createComment
+    createComment,
+    IconBase: () => import('../../IconBase'),
+    IconDelete: () => import('../../icons/IconDelete')
   },
   async mounted () {
     const user = this.user
