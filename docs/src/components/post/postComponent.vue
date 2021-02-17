@@ -221,6 +221,7 @@ export default {
       comment.id = c.id
       this.postList.commentStore.push(comment)
     })
+    this.postList.commentStore.sort((a, b) => a.createdOn - b.createdOn)
 
     // Assigns post links
     const links = await linksCollection.where('reference', '==', this.post.id).limit(50).get()
