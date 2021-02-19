@@ -21,7 +21,6 @@
         :formValidation="formValidation"
         v-bind:class="{ hide: showCreatePost }"
       )
-
       //- Landing message when posts are empty
       b-row.justify-content-center(v-if="!posts.length && !showCreatePost")
         landingMsg

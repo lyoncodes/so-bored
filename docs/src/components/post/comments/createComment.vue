@@ -3,7 +3,7 @@ b-col.col-12.p-0
 
   .error-badge(v-if="isError") This comment is too long!
 
-  b-form.mb-2(
+  b-form.mb-3(
     @submit.prevent="addComment(comment)"
     v-bind:class="errorObject"
   )
@@ -25,7 +25,7 @@ b-col.col-12.p-0
 
       button#submit-comment.neu-b-button.m-0.mt-2.mr-3(
         type="submit"
-        :disabled="!comment.text.length"
+        :disabled="this.isError"
       ) Comment
 </template>
 <script>
