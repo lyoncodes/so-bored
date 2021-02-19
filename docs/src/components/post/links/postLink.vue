@@ -1,14 +1,14 @@
 <template lang="pug">
   b-row
-    button#show-link-form.post-navigation-button(
-    @click="toggleLinkForm"
+    button#show-comment-form.post-navigation-button(
+      @click="toggleLinkForm"
     )
-      img#post-nav-icon(
-        v-bind:src="imgStore[5]"
-        width="640"
-        height="360"
+      IconBase#show-form-icon(
+        icon-name="caret"
+        iconColor="rgba(130, 53, 242, 0.85)"
         :class="flipThis"
       )
+        IconCaret
     b-col.col-12.p-0(v-if="show")
 
       b-form(
@@ -48,6 +48,11 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'link-box',
   props: ['post', 'show', 'postList'],
+  components: {
+    linkContent: () => import('./linkComponent'),
+    IconBase: () => import('../../IconBase'),
+    IconCaret: () => import('../../icons/IconCaret')
+  },
   data () {
     return {
       linkData: {
@@ -112,9 +117,6 @@ export default {
     remove (link) {
       this.deleteLink(link)
     }
-  },
-  components: {
-    linkContent: () => import('./linkComponent')
   }
 }
 </script>

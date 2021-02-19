@@ -10,7 +10,7 @@
       button#toggle-post-button.neu-b-button(@click="toggleCreatePost") New Post
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: 'navigation',
   data () {
@@ -26,11 +26,6 @@ export default {
       this.showCreatePost = !this.showCreatePost
       this.$emit('toggleCreatePost', this.showCreatePost)
     }
-  },
-  computed: {
-    ...mapState([
-      'imgStore'
-    ])
   }
 }
 </script>

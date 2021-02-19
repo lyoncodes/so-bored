@@ -2,15 +2,24 @@ svg {
   display: inline-block;
   vertical-align: baseline;
   margin-bottom: -4px; /* yes, I'm that particular about formatting */
-  margin-left: 2px; /* yes, I'm that particular about formatting */
+  margin-left: auto;
+  margin-right: auto;
+  transition: ease 0.3s all
 }
 .inline-icon {
   display: inline;
   height: 22px;
   width: 22px;
 }
-#add-comment-icon, #add-link-icon {
+#show-form-icon{
+  margin-bottom: -7px!important;
+  margin-left: 2px
+}
+#add-link-icon {
   background: none;
+}
+#create-comment-icon, #create-link-icon{
+  margin-top: 2px;
 }
 #add-link-icon{
   bottom: 10px;

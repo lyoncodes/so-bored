@@ -5,27 +5,49 @@
     button.post-navigation-button(
       @click="toggleUpdateForm(post)"
     )
-      img#post-nav-icon(v-bind:src="imgStore[2]" width="640" height="360")
+      IconBase#update-post-icon(
+        icon-name="edit"
+        iconColor="rgba(242, 53, 69, 0.75)"
+      )
+        IconEdit
 
     //- sets postList.displayComments & displays comment component
     button.post-navigation-button(
       @click="toggleCommentComponent(post)"
       :disabled="postList.updating"
     )
-      img#post-nav-icon(v-bind:src="imgStore[1]" width="640" height="360")
-      span.caption.pl-1 {{postList.commentStore.length}}
+      IconBase#create-comment-icon(
+        icon-name="comment"
+        iconColor="rgba(242, 53, 69, 0.75)"
+        height="16"
+        width="16"
+      )
+        IconComment
+      span.caption {{postList.commentStore.length}}
 
     //- sets postList.showLinks & displays link component
     button.post-navigation-button(@click="toggleLinkForm(post)"
     :disabled="postList.updating")
-      img#post-nav-icon(v-bind:src="imgStore[3]" width="640" height="360")
-      span.caption.pl-1 {{postList.linkStore.length}}
+      IconBase#create-link-icon(
+        icon-name="link"
+        iconColor="rgba(242, 53, 69, 0.75)"
+        height="16"
+        width="16"
+      )
+        IconLink
+      span.caption {{postList.linkStore.length}}
 </template>
 <script>
 import { mapMutations, mapState } from 'vuex'
 export default {
   name: 'postNav',
   props: ['post', 'postList'],
+  components: {
+    IconBase: () => import('../IconBase'),
+    IconEdit: () => import('../icons/IconEdit'),
+    IconComment: () => import('../icons/IconComment'),
+    IconLink: () => import('../icons/IconLink')
+  },
   computed: {
     ...mapState([
       'imgStore'

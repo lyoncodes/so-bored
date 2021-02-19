@@ -19,17 +19,17 @@ button {
   line-height: 16px;
   margin: 0 .15em .25em .15em;
   outline: none;
-  padding: 6px 8px;
+  padding: 3px 8px;
   transition: ease 0.4s box-shadow;
   -webkit-appearance: none;
   width: auto;
   &:active, &:focus, &:hover{
     outline: none;
   }
-    #post-nav-icon{
-      height: 16px;
-      width: auto;
-    }
+  #update-post-icon{
+    margin-left: 2px;
+    fill: $plastic-pink;
+  }
 }
 .neu-b-button, .neu-c-button{
   background-color: $background-slate;
@@ -59,6 +59,11 @@ button {
 #update-post, #create-post, #submit-comment, #submit-link{
   margin: 1em 0 1em 0;
 }
+#submit-comment {
+  &:disabled {
+    color: $candy-red-opaque
+  }
+}
 #update-post, #create-post {
   background-color: $royal;
   color: $background-slate;
@@ -68,10 +73,10 @@ button {
 }
 #update-post{
   position: absolute;
-  bottom: -73px;
+  bottom: -65px;
   right: 0;
 }
-#delete-post, #delete-comment, #delete-link, #reset-post-form, #show-comment-form{
+#delete-post, #delete-link, #reset-post-form, #show-comment-form{
   font-size: $font-sm!important; //resets neu-c-button's override
   padding: .5em 1em .5em 1em!important; //overrides default button padding
 }
@@ -81,19 +86,14 @@ button {
   top: 10px
 }
 #delete-comment{
+  padding: 3px 8px 2px 10px;
   position: absolute;
   right: -8px;
-  top: -10px
+  top: -5px
 }
-#show-comment-form , #show-link-form{
-  color: $proton-light;
+#show-comment-form{
+  margin-bottom: 0;
   position: absolute;
-  right: 0px;
-  top: -52px;
-  #post-nav-icon{
-    &:focus{
-      transform: rotate(180deg);
-      outline: none;
-    }
-  }
+  right: 50px;
+  top: -52px
 }

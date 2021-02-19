@@ -3,12 +3,12 @@
     button#show-comment-form.post-navigation-button(
       @click="toggleCommentForm"
     )
-      img#post-nav-icon(
-        v-bind:src="imgStore[5]"
-        width="640"
-        height="360"
+      IconBase#show-form-icon(
+        icon-name="caret"
+        iconColor="rgba(130, 53, 242, 0.85)"
         :class="flipThis"
       )
+        IconCaret
     b-col.col-12.p-0
         createComment(
           :post="post"
@@ -31,8 +31,8 @@
                 v-if="user===comment.userName"
               )
                 IconBase(
-                  icon-name="caret"
-                  iconColor="rgba(221, 62, 230, 0.5)"
+                  icon-name="delete"
+                  iconColor="rgba(242, 53, 71, 0.65)"
                 )
                   IconDelete
 
@@ -67,7 +67,8 @@ export default {
   components: {
     createComment,
     IconBase: () => import('../../IconBase'),
-    IconDelete: () => import('../../icons/IconDelete')
+    IconDelete: () => import('../../icons/IconDelete'),
+    IconCaret: () => import('../../icons/IconCaret')
   },
   async mounted () {
     const user = this.user
