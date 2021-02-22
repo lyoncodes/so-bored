@@ -34,6 +34,10 @@ export default {
   deselectPost (state) {
     state.selectedPost = {}
   },
+  updateComments (state, comment) {
+    const post = state.posts.find(el => el.id === comment.reference)
+    console.log(post)
+  },
   sortLinks (state, links) {
     state.posts.links = links
   },
@@ -61,5 +65,8 @@ export default {
   },
   clearImages (state) {
     state.imgStore = []
+  },
+  handleError (state, error) {
+    state.errorMsg = error
   }
 }

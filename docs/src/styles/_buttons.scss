@@ -59,16 +59,18 @@ button {
 #update-post, #create-post, #submit-comment, #submit-link{
   margin: 1em 0 1em 0;
 }
-#submit-comment {
+#create-post, #submit-comment, #submit-link {
   &:disabled {
+    background-color: $background-slate;
     color: $candy-red-opaque
   }
 }
 #update-post, #create-post {
-  background-color: $royal;
-  color: $background-slate;
-  &:hover{
+  background-color: $background-slate;
+  color: $proton-deep;
+  &:hover:not(:disabled){
     background-color: $proton-deep;
+    color: $background-slate
   }
 }
 #update-post{

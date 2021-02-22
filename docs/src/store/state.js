@@ -2,5 +2,6 @@ export default {
   selectedPost: {},
   userProfile: {},
   imgStore: [],
-  posts: []
+  posts: [],
+  errorMsg: ''
 }

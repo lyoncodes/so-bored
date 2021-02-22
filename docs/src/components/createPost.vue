@@ -8,9 +8,6 @@ b-container
         b-col.p-0.text-left
           //- Post author
           span.caption {{ userProfile.username }}'s new post:
-      //- error badge
-      .error-badge(v-if="isError" variant="danger") This post's title or text is too long!
-
       //- New Post title form
       b-row
         b-col.p-0.mb-0
@@ -44,7 +41,10 @@ b-container
             b-row.justify-content-between
               a.validation-char#new-post-validation.ml-3 {{newPostData.text.length}} / {{formValidation.charLimit}}
 
-              button#create-post.neu-b-button.mr-3(type="submit") Post
+              button#create-post.neu-b-button.mr-3(
+                :disabled="isError"
+                type="submit"
+              ) Post
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'

@@ -2,6 +2,7 @@
   //- login container
   b-container
     b-row.justify-content-center.pt-5
+      p.validation-char(v-if="errorMsg.length") {{errorMsg}}
 
       b-col.col-11.col-lg-4(v-if="showLoginForm && !toggleCredentials")
         loginForm(v-on:toggleBoolean="toggleSignUp")
@@ -17,7 +18,7 @@
           a.link-style-alt(@click="toggleResetForm") forgot password
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
 
@@ -54,6 +55,12 @@ export default {
         this.showLoginForm = true
       }
     }
+  },
+
+  computed: {
+    ...mapState([
+      'errorMsg'
+    ])
   }
 }
 </script>

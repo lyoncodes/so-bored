@@ -17,9 +17,6 @@
       @click="destroy(post)"
     ) Delete
 
-  //- error badge
-  .error-badge#edit-post-error(v-if="postList.isError" variant="danger") This title or comment is too long!
-
   //- Post Title -----------
   b-row
 
@@ -111,11 +108,13 @@
       :post="post"
       :postList="postList"
       :show="postList.displayLinks"
+      :validation="formValidation"
     )
 </template>
 <script>
 import { commentsCollection, linksCollection } from '../../../firebase'
 import { mapActions, mapState } from 'vuex'
+
 export default {
   name: 'post',
   props: ['post', 'formValidation'],
@@ -216,6 +215,7 @@ export default {
 
     // Assigns post comments
     const comments = await commentsCollection.where('reference', '==', this.post.id).limit(50).get()
+    console.log('called on mount:' + comments)
     comments.forEach((c) => {
       const comment = c.data()
       comment.id = c.id
