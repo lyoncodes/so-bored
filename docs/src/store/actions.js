@@ -19,18 +19,21 @@ export default {
 
   // Creates account; adding user object to usersCollection
   async signUp ({ dispatch }, form) {
-    const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
+    const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password).catch(error => dispatch('handleError', error.message))
+
     await firebase.usersCollection.doc(user.uid).set({
       email: form.email,
       username: form.username,
       password: form.password
     })
+
     dispatch('fetchUserProfile', user)
   },
 
   // Logs user in; dispatches methods to create user profile and retrieve application posts
-  async login ({ dispatch }, form) {
-    const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password)
+  async login ({ dispatch, commit }, form) {
+    const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password).catch(error => commit('handleError', error.message))
+
     dispatch('fetchUserProfile', user)
   },
 
@@ -42,7 +45,7 @@ export default {
     if (!state.posts.length) {
       firebase.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
         const posts = []
-        snapshot.forEach(async (doc) => {
+        snapshot.forEach((doc) => {
           const post = doc.data()
           post.id = doc.id
           posts.push(post)
@@ -109,5 +112,4 @@ export default {
       comment.ref.delete()
     })
   }
-
 }

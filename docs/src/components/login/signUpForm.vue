@@ -31,9 +31,10 @@
               @keyup="validateCharCount()"
               @keydown.enter.prevent="handleSignUp(signUpForm)"
               v-model="signUpForm.password"
-              type="text"
+              type="password"
             )
           a.validation-char.ml-1.mb-1(
+            :class="errorObject"
           ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
 
         button.neu-c-button.mt-3(type="submit") Join
@@ -62,7 +63,12 @@ export default {
   computed: {
     ...mapState([
       'userProfile'
-    ])
+    ]),
+    errorObject: function () {
+      return {
+        valid: this.signUpForm.password.length > this.formChar.passwordLength ? true : null
+      }
+    }
   },
   methods: {
     ...mapActions([
@@ -92,5 +98,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
 </style>

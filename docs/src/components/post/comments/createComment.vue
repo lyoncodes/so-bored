@@ -1,10 +1,8 @@
 <template lang="pug">
 b-col.col-12.p-0
 
-  .error-badge(v-if="isError") This comment is too long!
-
   b-form.mb-3(
-    @submit.prevent="addComment(comment)"
+    @submit.prevent="append(comment)"
     v-bind:class="errorObject"
   )
 
@@ -13,7 +11,7 @@ b-col.col-12.p-0
       id="comment-text-field"
       v-model="comment.text"
       @keyup="validateCharCount()"
-      @keydown.enter.prevent="addComment(comment)"
+      @keydown.enter.prevent="append(comment)"
       placeholder="add a comment..."
     )
 
@@ -57,11 +55,14 @@ export default {
   },
 
   methods: {
-    addComment (comment) {
+
+    append (comment) {
+      const createdOn = new Date()
       const text = this.comment.text
       const userName = this.userProfile.username
       const reference = this.$props.post.id
       const commentPayload = {
+        createdOn,
         text,
         userName,
         reference
@@ -74,10 +75,18 @@ export default {
 
     async createComment (comment) {
       await commentsCollection.add({
-        createdOn: new Date(),
+        createdOn: comment.createdOn,
         text: comment.text,
         userName: comment.userName,
         reference: comment.reference
+      })
+      this.getCommentId(comment)
+    },
+
+    async getCommentId (comment) {
+      const commentRef = await commentsCollection.where('createdOn', '==', comment.createdOn).get()
+      commentRef.forEach((c) => {
+        comment.id = c.id
       })
       this.postComments.push(comment)
     },
@@ -104,7 +113,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.error .validation-char {
-  color: $candy-red!important;
-}
 </style>

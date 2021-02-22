@@ -4,7 +4,6 @@
   )
       b-col.mt-4.pt-2
         b-row.justify-content-center
-
           b-form-group#login-email.col-12.mb-0
             b-row
               a.validation-char.ml-1.mb-1 email

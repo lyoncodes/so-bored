@@ -41,6 +41,7 @@
 import { commentsCollection } from '../../../../firebase'
 import createComment from './createComment'
 import { mapState } from 'vuex'
+
 export default {
   name: 'comments-container',
   props: ['post', 'postList', 'postComments', 'validation', 'user'],
