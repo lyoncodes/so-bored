@@ -1,29 +1,50 @@
 <template lang="pug">
-  b-col.col-12.mt-4.p-0.form-container
-    .post-form-error-badge(v-if="isError" variant="danger") This post's title or text is too long!
-    b-form(@submit.prevent="submitPost" v-bind:class="errorObject")
-      b-col.form-content
-        b-form-group.mt-3(id="input-title")
-          b-form-input#title-input(
-            v-model="newPostInstance.title"
-            @keyup="validateCharCount()"
-            autofocus
-            required
-            contenteditable
-            placeholder="Title"
+b-container
+  b-col.post.col-12.ml-0
+    .pt-3.pl-2.pr-2.pt-lg-3.pr-lg-4.pb-lg-2.pl-lg-4
+      //- Post Heading -----------
+      b-row.justify-content-between.mb-3
+
+        b-col.p-0.text-left
+          //- Post author
+          span.caption {{ userProfile.username }}'s new post:
+      //- New Post title form
+      b-row
+        b-col.p-0.mb-0
+          //- create post form
+          b-form(@submit.prevent="submitPost" v-bind:class="errorObject")
+            b-form-textarea#new-post-title(
+              v-model="newPostData.title"
+              @keyup="validateCharCount()"
+              autofocus
+              required
+              contenteditable
+              placeholder="Title"
+            )
+            b-row.justify-content-start
+              a.validation-char#new-post-validation.ml-3 {{newPostData.title.length}} / {{formValidation.titleLimit}}
+
+      //- New Post text field
+      b-row
+        b-col.col-12.p-0
+          b-form.mt-3(
+            @submit.prevent="submitPost" v-bind:class="errorObject"
           )
-          a.validation-char.ml-1 {{newPostInstance.title.length}} / {{formValidation.titleLimit}}
-        b-form-group(id="input-card-text")
-          b-form-textarea#post-form-textarea(
-            @keyup="validateCharCount()"
-            @keydown.enter.prevent="submitPost"
-            v-model="newPostInstance.text"
-            placeholder="Input text here"
-          )
-          a.validation-char.ml-1 {{newPostInstance.text.length}} / {{formValidation.charLimit}}
-        b-row.justify-content-center
-          button.neu-c-button(type="reset" @click="resetForm") Nvm
-          button.neu-c-button(type="submit") Post
+
+            b-form-textarea#new-post-textarea(
+              @keyup="validateCharCount()"
+              @keydown.enter.prevent="submitPost"
+              v-model="newPostData.text"
+              placeholder="Post text (optional)"
+            )
+
+            b-row.justify-content-between
+              a.validation-char#new-post-validation.ml-3 {{newPostData.text.length}} / {{formValidation.charLimit}}
+
+              button#create-post.neu-b-button.mr-3(
+                :disabled="isError"
+                type="submit"
+              ) Post
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -33,7 +54,7 @@ export default {
   props: ['formValidation'],
   data () {
     return {
-      newPostInstance: {
+      newPostData: {
         title: '',
         text: ''
       },
@@ -45,9 +66,10 @@ export default {
       'userProfile',
       'posts'
     ]),
+
     errorObject: function () {
       return {
-        error: this.newPostInstance.title.length > this.formValidation.titleLimit || this.newPostInstance.text.length > this.formValidation.charLimit ? true : null
+        error: this.newPostData.title.length > this.formValidation.titleLimit || this.newPostData.text.length > this.formValidation.charLimit ? true : null
       }
     }
   },
@@ -55,13 +77,16 @@ export default {
     ...mapActions([
       'createPost'
     ]),
+
     validateCharCount () {
-      this.formValidation.formCounter.charCount = this.newPostInstance.text.length
-      this.formValidation.formCounter.titleCount = this.newPostInstance.title.length
-      this.isError = this.newPostInstance.title.length > this.formValidation.titleLimit || this.newPostInstance.text.length > this.formValidation.charLimit ? true : null
+      this.formValidation.formCounter.charCount = this.newPostData.text.length
+      this.formValidation.formCounter.titleCount = this.newPostData.title.length
+
+      this.isError = this.newPostData.title.length > this.formValidation.titleLimit || this.newPostData.text.length > this.formValidation.charLimit ? true : null
     },
+
     submitPost () {
-      const { title, text } = this.newPostInstance
+      const { title, text } = this.newPostData
       const createdOn = new Date()
       const userName = this.userProfile.username
       const post = {
@@ -70,17 +95,18 @@ export default {
         createdOn,
         userName
       }
-      if (!this.isError || this.isError === null) {
+      if (!this.isError) {
         this.createPost(post)
         this.resetForm()
       }
     },
+
     resetForm () {
-      this.newPostInstance = {
+      this.newPostData = {
         title: '',
         text: ''
       }
-      this.$emit('resetForm')
+      this.$emit('hideCreatePost')
     }
   }
 }

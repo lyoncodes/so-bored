@@ -34,6 +34,10 @@ export default {
   deselectPost (state) {
     state.selectedPost = {}
   },
+  updateComments (state, comment) {
+    const post = state.posts.find(el => el.id === comment.reference)
+    console.log(post)
+  },
   sortLinks (state, links) {
     state.posts.links = links
   },
@@ -54,10 +58,15 @@ export default {
     state.selectPost.linksListSize = state.selectPost.pos = 0
   },
   populateImages (state, assets) {
-    state.imgStore.push(assets)
-    state.imgStore = state.imgStore.sort()
+    setTimeout(() => {
+      state.imgStore.push(assets)
+      state.imgStore = state.imgStore.sort()
+    }, 500)
   },
   clearImages (state) {
     state.imgStore = []
+  },
+  handleError (state, error) {
+    state.errorMsg = error
   }
 }

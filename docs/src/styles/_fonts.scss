@@ -7,10 +7,13 @@ $font-caption: Arial;
 $font-heavy: 700;
 $font-med: 600;
 $font-light: 300;
+$font-fine: 100;
 // ============= font sizes =================
 $font-lg: 1.25em;
 $font-md: 1em;
+$font-md-abs: 16px;
 $font-sm: .75em;
+$font-sm-abs: 12px;
 
 %body-fonts {
   font: 100% $font-body;
@@ -18,7 +21,7 @@ $font-sm: .75em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $black-slate;
   h1 {
     background: $border-g;
     background-clip: text;
@@ -27,24 +30,19 @@ $font-sm: .75em;
   }
   h3,h4,h5,h6 {
     color: $black-slate;
-    font-size: $font-lg;
+    font-size: $font-md;
     font-weight: $font-heavy;
   }
   .caption {
-    // background: $border-g;
-    // background-clip: text;
-    // -webkit-background-clip: text;
-    // -webkit-text-fill-color: transparent;
     color: $candy-red-opaque;
     font-size: $font-sm;
     font-style: italic;
-  }
-  .card-title, .post-text{
-    margin-bottom: 0;
-    text-align: left;
+    transition: ease 0.3s all;
   }
   .post-text{
-    padding: 1em;
+    margin-bottom: 0;
+    text-align: left;
+    padding: 1em 0 1em 0;
     font-weight: $font-light;
     font-size: $font-sm;
   }

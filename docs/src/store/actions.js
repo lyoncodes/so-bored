@@ -3,8 +3,7 @@ import router from '../router/index'
 import state from './state'
 import mutations from './mutations'
 
-firebase.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
-  console.log('called')
+firebase.postsCollection.orderBy('createdOn', 'desc').limit(50).onSnapshot(snapshot => {
   const posts = []
   snapshot.forEach(async (doc) => {
     const post = doc.data()
@@ -20,17 +19,21 @@ export default {
 
   // Creates account; adding user object to usersCollection
   async signUp ({ dispatch }, form) {
-    const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
+    const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password).catch(error => dispatch('handleError', error.message))
+
     await firebase.usersCollection.doc(user.uid).set({
       email: form.email,
       username: form.username,
       password: form.password
     })
+
+    dispatch('fetchUserProfile', user)
   },
 
   // Logs user in; dispatches methods to create user profile and retrieve application posts
-  async login ({ dispatch }, form) {
-    const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password)
+  async login ({ dispatch, commit }, form) {
+    const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password).catch(error => commit('handleError', error.message))
+
     dispatch('fetchUserProfile', user)
   },
 
@@ -38,6 +41,19 @@ export default {
   async fetchUserProfile ({ commit, dispatch }, user) {
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
     commit('setUserProfile', userProfile.data())
+
+    if (!state.posts.length) {
+      firebase.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
+        const posts = []
+        snapshot.forEach((doc) => {
+          const post = doc.data()
+          post.id = doc.id
+          posts.push(post)
+        })
+        commit('updatePosts', posts)
+      })
+    }
+
     if (router.currentRoute.path === '/login') {
       router.push('/')
     }
@@ -59,16 +75,14 @@ export default {
 
   // GET() IMAGES
   async fetchImageAssets ({ commit }) {
-    if (state.imgStore.length < 6) {
-      const imgStore = await firebase.storage.refFromURL('gs://itoio-e3548.appspot.com/images/')
-      imgStore.list({ maxResults: 6 }).then((res) => {
-        res.items.forEach((el) => {
-          el.getDownloadURL().then((url) => {
-            commit('populateImages', url)
-          })
+    const imgRef = await firebase.storage.refFromURL('gs://itoio-e3548.appspot.com/images/')
+    imgRef.list({ maxResults: 6 }).then((res) => {
+      res.items.forEach((el) => {
+        el.getDownloadURL().then((url) => {
+          commit('populateImages', url)
         })
       })
-    }
+    })
   },
 
   // POST OPERATIONS
@@ -83,11 +97,11 @@ export default {
     })
   },
   // Updates post in db
-  async updatePost ({ dispatch }, postUpdate) {
-    const post = firebase.postsCollection.doc(postUpdate.id)
+  async updatePost ({ dispatch }, postUpdateData) {
+    const post = firebase.postsCollection.doc(postUpdateData.id)
     await post.update({
-      title: postUpdate.title,
-      text: postUpdate.text
+      title: postUpdateData.title,
+      text: postUpdateData.text
     })
   },
   // Deletes post & post comments from db
@@ -98,5 +112,4 @@ export default {
       comment.ref.delete()
     })
   }
-
 }

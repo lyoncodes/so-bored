@@ -2,57 +2,38 @@
   .post {
     background: $background-slate;
     border: 0;
-    border-radius: 5px;
+    border-radius: $border-radius-reg;
     box-shadow: $box-shadow-dark;
     margin: 1em;
     transition: ease-in-out 0.4s all;
     &:hover {
       box-shadow: none;
     }
-    .comments-section{
+    .comments-section {
       margin: 1.5em 0 .25em 0;
-      .comments-container, .links-container {
+      .comment-container, .links-container {
         border: 1px solid $dark-slate;
-        border-radius: 5px;
-      }
-      .links-container {
-        color: $true-blue;
+        border-radius: $border-radius-reg;
       }
       .comment-text {
         font-size: $font-sm;
         font-weight: $font-light;
       }
     }
-    #handle-update{
-      border: 0em;
-      box-shadow: none;
-      padding: .25em 0 0 .25em;
-      margin: 0 0 0 .5em;
+    #post-title {
+      font-size: $font-md-abs;
     }
-    #handle-cancel{
+    #handle-update, #handle-cancel {
       border: 0em;
       box-shadow: none;
+    }
+    #handle-update {
+      margin: 0 0 0 .5em;
+      padding: .25em 0 0 .25em;
+    }
+    #handle-cancel {
       margin: 0;
       padding: .25em .25em .25em 2.6em;
-    }
-    #submit-comment-button, #submit-annotation, #edit-post-button{
-      background: none;
-      border: 0em;
-      box-shadow: none;
-      font-size: $font-sm!important;
-      padding: .75em;
-      position: absolute;
-      right: -10;
-      bottom: -19;
-      &:focus {
-        outline: none;
-      }
-    }
-    #submit-annotation{
-      bottom: 5;
-    }
-    #edit-post-button{
-      background-color: $candy-red;
     }
   }
 }

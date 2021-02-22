@@ -1,23 +1,13 @@
 .bg-img{
+  height: 110vh;
   position: fixed;
-  top: -10px;
-  left: -15px;
-  height: 100vh;
-  width: 115vw;
-  z-index: -1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1000
 }
-@media only screen and (min-width: 1045px) {
-  .bg-image-container{
-  height: 100vh;
-  position: relative;
-  .bg-img{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1000
+@media only screen and (min-width: 600px) {
+  .bg-img {
+    display: none;
   }
-}
 }

@@ -1,150 +1,101 @@
 button {
-  // background-color: #fff;
-  color: $background-slate;
-  font-size: $font-md;
+  border-radius: $border-radius-reg;
+  font-size: $font-sm;
   font-weight: $font-heavy;
   padding: .75em;
+  text-transform: uppercase;
+  text-decoration: none;
   transition: ease-in-out 0.4s all;
-  &:active, :focus, :hover{
+  &:active, &:focus, &:hover{
     background-color: none;
-    outline: none;
+    outline: none!important;
   }
 }
-.neu-a-button{
-  -webkit-appearance: none;
-  height: 100px;
-  width: 100px;
+.post-navigation-button{
   background-color: $background-slate;
-  box-shadow: $box-shadow-dark;
-  border-radius: 50%;
-  border: 8px solid $background-slate;
+  box-shadow: $shadow-low-contrast;
+  border-radius: 18px;
+  border: 2px solid $background-slate;
+  line-height: 16px;
+  margin: 0 .15em .25em .15em;
   outline: none;
-}
-.neu-b-button{
+  padding: 3px 8px;
+  transition: ease 0.4s box-shadow;
   -webkit-appearance: none;
-  height: 50px;
-  width: 50px;
-  box-shadow: $box-shadow-dark;
-  border-radius: 50%;
-  border: 8px solid $background-slate;
-  outline: none;
+  width: auto;
+  &:active, &:focus, &:hover{
+    outline: none;
+  }
+  #update-post-icon{
+    margin-left: 2px;
+    fill: $plastic-pink;
+  }
 }
-.neu-c-button{
-  background-color: $candy-red;
+.neu-b-button, .neu-c-button{
+  background-color: $background-slate;
   -webkit-appearance: none;
-  box-shadow: $box-shadow-button-inset;
-  border-radius: 5px;
+  box-shadow: $shadow-low-contrast;
   border: none;
-  font-size: $font-lg;
   letter-spacing: .1em;
   margin: 0 .75em 0 .75em;
   outline: none;
   padding: 1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: ease-in-out 0.4s all;
+}
+.neu-b-button{
+  color: $royal;
   &:hover {
-    background-color: $candy-red-dark;
-    transform: scale(0.98);
-  }
-  &:focus{
-    outline: none;
+    color: $background-slate;
+    background-color: $royal;
   }
 }
-.btn-secondary:not(:disabled):not(.disabled):active:focus {
-  box-shadow: none;
-}
-.btn-primary, .btn-secondary, .btn-secondary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active {
-  background: none;
-  border: 1px solid transparent;
-  box-shadow: none;
-  &:active, :focus{
-    background: none !important;
-    outline: none;
-  }
-}
-.btn-secondary:focus, .btn-secondary:hover {
-  background-color: transparent !important;
-  border: 1px solid transparent;
-  box-shadow: none
-}
-.btn-secondary.disabled, .btn-secondary:disabled {
-  background-color: transparent !important;
-  border: 1px solid transparent;
-  box-shadow: none
-}
-.login-btn {
-  color: $metallic-blue;
-  border: 1px solid $metallic-blue;
-  &:hover{
-    color: #fff;
-    background: $metallic-blue !important;
-  }
-}
-.signUp-btn {
-  background: #fff;
-  border: 1px solid $metallic-blue;
-  box-shadow: $box-shadow-light-fade;
-  color: $metallic-blue;
+.neu-c-button{
+  color: $candy-red-opaque;
+  font-size: $font-lg; //overrides default button font size
   &:hover {
-    background: #fff;
-    border: 1px solid $cotton-candy;
-    box-shadow: $box-shadow-light-fade;
-    color: $cotton-candy;
+    background-color: $candy-red;
+    color: $background-slate;
   }
 }
-.link-button {
-  color: $white;
-  font-size: $font-sm;
-  border: none;
-  border-radius: 5px;
-  padding: 5 8 5 8;
+#update-post, #create-post, #submit-comment, #submit-link{
+  margin: 1em 0 1em 0;
+}
+#create-post, #submit-comment, #submit-link {
+  &:disabled {
+    background-color: $background-slate;
+    color: $candy-red-opaque
+  }
+}
+#update-post, #create-post {
+  background-color: $background-slate;
+  color: $proton-deep;
+  &:hover:not(:disabled){
+    background-color: $proton-deep;
+    color: $background-slate
+  }
+}
+#update-post{
   position: absolute;
-  bottom: -10;
-  left: -28;
-  background-color: $candy-red;
-  &:focus {
-    outline: none!important;
-  }
+  bottom: -65px;
+  right: 0;
 }
-.nav-icon-button{
-  color: $terra-red;
-  font-size: $font-sm;
-  border: none;
-  background-color: transparent;
-  &:focus {
-    outline: none!important;
-  }
+#delete-post, #delete-link, #reset-post-form, #show-comment-form{
+  font-size: $font-sm!important; //resets neu-c-button's override
+  padding: .5em 1em .5em 1em!important; //overrides default button padding
 }
-.icon-button{
-  border: 1px solid transparent;
-  box-shadow: none;
-  background-color: transparent;
-  &:active, :focus, :hover{
-  border: none;
-  outline: none;
-  }
-  #post-nav-icon{
-    height: 1.5em;
-    width: auto;
-  }
-}
-#delete-button {
-  background-color: $candy-red;
-  border-radius: 4px;
-  border: 1px solid transparent;
+#delete-post, #delete-link, #reset-post-form{
   position: absolute;
-  top: -15px;
   right: 0px;
+  top: 10px
 }
-#submit-annotation{
-  border: 0em;
-  box-shadow: none;
-  margin: 1em;
-  padding: .25em;
+#delete-comment{
+  padding: 3px 8px 2px 10px;
+  position: absolute;
+  right: -8px;
+  top: -5px
 }
-@media only screen and (min-width: 1045px) {
-  .link-button {
-    left: 0;
-  }
+#show-comment-form{
+  margin-bottom: 0;
+  position: absolute;
+  right: 50px;
+  top: -52px
 }

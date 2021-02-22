@@ -4,7 +4,7 @@ b-row.comments-container.text-left
     p.caption.pl-2.pt-2.mb-1 {{ link.userName }} linked:
     p.comment-text.link-style-main.pl-3.pt-1(@click="linkTo(link)") {{link.linkText}}
   b-col.col-1.p-0
-    button.link-button(
+    button#delete-link.neu-c-button(
       @click="remove(link)"
       v-if="userProfile.username===post.userName") delete
 </template>
@@ -13,11 +13,14 @@ import { mapActions } from 'vuex'
 import { linksCollection } from '../../../../firebase'
 export default {
   name: 'linkComponent',
-  props: ['post', 'links', 'link', 'userProfile'],
+  props: ['link', 'links', 'post', 'userProfile'],
   methods: {
     ...mapActions([
       'deleteLink'
     ]),
+    toggleLinkForm () {
+      this.postList.displayLinkForm = !this.postList.displayLinkForm
+    },
     linkTo (link) {
       window.location.href = `https://${link.linkURL}`
     },

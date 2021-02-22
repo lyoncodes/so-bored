@@ -12,7 +12,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'userProfile'
+      'userProfile',
+      'errorMsg'
     ]),
     showNav () {
       return Object.keys(this.userProfile).length > 1
@@ -22,9 +23,9 @@ export default {
 </script>
 <style lang="scss">
 body {
-  background-color: $sky-pink;
   margin-left: auto;
   margin-right: auto;
+  max-width: 500px;
 }
 body::-webkit-scrollbar {
   display: none;

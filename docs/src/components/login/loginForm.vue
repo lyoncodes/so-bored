@@ -2,33 +2,35 @@
   b-form(
     @submit.prevent="handleLogin(loginData)"
   )
-    .p-2
-      b-col.mt-4
-        b-row.justify-content-center
-          img.form-header-icon.mb-4(v-bind:src="imgStore[4]" width="640" height="360")
+      b-col.mt-4.pt-2
         b-row.justify-content-center
           b-form-group#login-email.col-12.mb-0
             b-row
               a.validation-char.ml-1.mb-1 email
             b-row
-              b-form-input.sign-up-form(
+              b-form-input(
                 v-model="loginData.email"
                 type="text"
               )
+
           b-form-group#login-password.col-12
             b-row
               a.validation-char.ml-1.mb-1 password
             b-row
-              b-form-input.sign-up-form(
+              b-form-input(
                 @keydown.enter.prevent="handleLogin(loginData)"
                 v-model="loginData.password"
                 type="password"
               )
+
         b-row.justify-content-center
           button.neu-c-button.mt-3(type="submit") Login
-        b-row.justify-content-center.pt-5
+
+        b-row.justify-content-center.mt-5
           span New user?
-          a.pl-1.link-style-main(
+
+        b-row.justify-content-center.pt-1
+          a.link-style-alt(
             @click="toggleSignUp"
           ) Sign Up
 </template>

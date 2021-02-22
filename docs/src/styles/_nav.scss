@@ -1,25 +1,11 @@
 %nav {
   #nav {
     background: none;
-    height: 70px;
+    height: 50px;
     width: 100%;
-    a {
-      color: white;
-      padding: .5em;
-      font-weight: bold;
-      font-size: $font-sm;
-      &.router-link-exact-active, &:hover {
-        color: white;
-        text-decoration: none;
-      }
-    }
-    .nav-logo {
-      height: auto;
-      width: 100%;
-    }
-    .post-icon {
-      margin: 1em 0 0 0;
-      height: 1.5em;
+    #nav-logo {
+      height: 22px;
+      width: auto
     }
   }
 }

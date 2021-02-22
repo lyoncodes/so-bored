@@ -1,18 +1,18 @@
 %forms{
+.form-container {
+  background-color: $light-slate-full;
+  border-radius: $border-radius-reg;
+  box-shadow: $box-shadow-dark;
+  max-width: 700px;
+}
 form {
-  #title-input {
-    font-size: $font-md !important;
-    margin-top: 2em;
+  .form-control {
+    height: 4em;
   }
-  #post-form-textarea {
-    height: 10.5em;
-    font-size: $font-sm !important;
-    font-weight: 100 !important;
-  }
-  textarea, input, .form-control, #card-text {
+  textarea, input, .form-control {
     color: $black-slate;
     background: $background-slate;
-    border: 1px solid $creme;
+    border: 1px solid $light-slate;
     border-radius: 0.5;
     font-size: $font-md;
     font-weight: $font-heavy;
@@ -24,76 +24,90 @@ form {
     &::-webkit-scrollbar {
       display: none;
     }
-    &:hover, :active, :focus {
-      transform: scale(1.01);
-      border: 1px solid $creme;
+    &:hover, &:active, &:focus {
+      border: 1px solid $royal;
       box-shadow: none!important;
     }
     &:focus {
       box-shadow: none!important;
     }
   }
-  #title-update-text, #card-text {
-    padding: 0;
+  #post-form-textarea{
+    line-height: 1.2;
+    &:hover, &:active, &:focus {
+      border: 1px solid transparent
+    }
+  }
+  #new-post-textarea{
+    line-height: 1.2;
+    &:active, &:focus {
+      border: 1px solid $proton-deep
+    }
+  }
+  #new-post-title, #title-update-text {
+    line-height: 1.2;
+  }
+  #new-post-title {
+    line-height: 1.2;
+    border: 1px solid transparent;
+    border-radius: .25em;
+    &:hover, &:focus {
+      border: 1px solid $proton-deep;
+    }
+  }
+  #title-update-text {
+    line-height: 1.2;
     border: none;
+    padding: 0;
     &:hover {
       border: none;
     }
   }
 }
-#comment-text-field, #card-text, #link-text-area {
+#new-post-textarea, #post-form-textarea, #comment-text-field, #link-text-area {
   font-size: $font-sm !important;
   font-weight: 100 !important;
   height: 7.25em;
+  &::placeholder {
+    color: $caption-slate;
+    font-style: italic;
+  }
 }
 #link-text-area {
   height: 3em!important;
 }
 }
-.form-container {
-  background-color: $white;
-  border-radius: 5px;
-  box-shadow: $box-shadow-dark;
-  position: absolute;
-  z-index: 1;
-  top: -25;
-  .form-content {
-    padding-bottom: 2em;
-  }
-}
+// styles update form text to match post title styling (h3 in fonts)
 #title-update-form {
   color: $black-slate;
-  font-size: $font-lg;
+  font-size: $font-md-abs;
   font-weight: $font-heavy;
   margin-bottom: 0;
-}
-.sign-up-form {
-  height: 3em;
-}
-.postFormActive{
-  color: $lime-green;
-  -webkit-appearance: none;
-  background-color: $background-slate;
-  box-shadow: $box-shadow-light-inset;
 }
 .bv-no-focus-ring{
   text-align: left;
 }
 .validation-char {
-  color: $black-slate;
   font-size: 10px!important;
   font-weight: $font-heavy;
   margin: .75em 0 0 2em;
   text-align: left;
 }
-// Form Errors
-.post-form-error-badge{
+#new-post-validation, #update-validation-char {
+  color: $black-slate;
+}
+#update-validation-char {
   position: absolute;
-  padding-top: 12;
-  top: -20;
-  bottom: 360;
-  right: 50;
-  left: 50;
+  bottom: -13px;
+}
+// Form Errors
+.error-badge{
+  color: $candy-red;
+  font-size: $font-sm-abs;
+  position: absolute;
+  padding-top: 12px;
+  bottom: 26px;
+  left: 50px;
   z-index: 1
 }
 #edit-post-error{

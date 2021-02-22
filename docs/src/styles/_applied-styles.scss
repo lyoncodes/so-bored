@@ -1,11 +1,18 @@
-.yellowBackground{
-  height: 100vh;
-  background-color: $sherbert;
-  transition: background-color 0.3s ease-in-out;
-}
 .hide{
   display: none;
 }
-.error, .titleError, .textError {
-  color: $candy-red;
+.flip {
+  transform: rotate(180deg)translateY(45%)translateX(15%);
+}
+.error {
+  color: $candy-red!important;
+}
+.error .validation-char {
+  color: $candy-red!important;
+}
+.valid {
+  color: $proton-light!important;
+}
+.valid .validation-char {
+  color: $proton-light!important;
 }
