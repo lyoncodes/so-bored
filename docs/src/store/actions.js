@@ -2,7 +2,6 @@ import * as firebase from '../../firebase'
 import router from '../router/index'
 
 export default {
-  // MESSAGE BOARD FUNCTIONALITY
 
   // Creates account; adding user object to usersCollection
   async signUp ({ dispatch }, form) {
@@ -16,48 +15,46 @@ export default {
 
     dispatch('fetchUserProfile', user)
   },
-
   // Logs user in; dispatches methods to create user profile and retrieve application posts
   async login ({ dispatch, commit }, form) {
     await firebase.auth.signInWithEmailAndPassword(form.email, form.password).catch(error => commit('handleError', error.message))
   },
-
   // Gets user profile; calls setUserProfile mutation and routes to home, dispatches fetch Data
-  async fetchUserProfile ({ commit }, user) {
+  async fetchUserProfile ({ commit, dispatch }, user) {
     const userProfile = await firebase.usersCollection.doc(user.uid).get()
     commit('setUserProfile', userProfile.data())
-
-    firebase.postsCollection.orderBy('createdOn', 'desc').limit(50).onSnapshot(snapshot => {
-      console.log('realtime db function called: ' + snapshot)
-      const posts = []
-      snapshot.forEach(async (doc) => {
-        const post = doc.data()
-        post.id = doc.id
-
-        posts.push(post)
-      })
-      commit('updatePosts', posts)
-    })
-
+    dispatch('readPosts')
     if (router.currentRoute.path === '/login') {
       router.push('/')
     }
   },
-
-  // RESETS CREDENTIAL
+  // Resets password
   async resetCredential ({ commit }, email) {
     await firebase.auth.sendPasswordResetEmail(email)
     commit('resetLoginState')
   },
-
-  // LOGS USER
+  // Logs user out
   async logout ({ commit, dispatch }) {
     await firebase.auth.signOut()
     commit('setUserProfile', {})
     router.push('/login')
   },
 
-  // POST OPERATIONS
+  // POST CRUD OPERATIONS
+  // Read posts
+  readPosts ({ commit }) {
+    firebase.postsCollection.orderBy('createdOn', 'desc').limit(50).onSnapshot(snapshot => {
+      const posts = []
+
+      snapshot.forEach(async (doc) => {
+        const post = doc.data()
+        post.id = doc.id
+        posts.push(post)
+      })
+
+      commit('updatePosts', posts)
+    })
+  },
   // Creates post in db
   async createPost ({ commit }, post) {
     await firebase.postsCollection.add({
