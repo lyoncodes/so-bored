@@ -1,6 +1,7 @@
 <template lang="pug">
 //- Post content padding
 .pt-3.pl-2.pr-2
+
   //- Post Heading -----------
   b-row.justify-content-between.mb-3
 
@@ -61,10 +62,6 @@
         v-bind:class="textErrorObject"
       )
 
-        //- Error message
-        b-row(v-if="formValidation.charCount > formValidation.charLimit")
-          span {{formValidation.errorMsg}}
-
         //- text area
         b-form-textarea.mt-3(
           id="post-form-textarea"
@@ -76,8 +73,7 @@
 
         //- character counter and edit button
         b-row.justify-content-between
-          a.validation-char#update-validation-char(
-          ) {{postList.postUpdateData.text.length}} / {{formValidation.charLimit}}
+          a.validation-char#update-validation-char {{postList.postUpdateData.text.length}} / {{formValidation.charLimit}}
 
           button#update-post.neu-b-button(
             type="submit"
@@ -97,7 +93,6 @@
       :post="post"
       :postList="postList"
       :postComments="postList.commentStore"
-      :selectedPost="postList.selectedPost"
       :user="userProfile.username"
       :validation="formValidation"
     )
@@ -140,8 +135,8 @@ export default {
 
   components: {
     postNavigation: () => import('./postNavigation'),
-    postLinks: () => import('./links/postLink'),
-    postComments: () => import('./comments/postComment')
+    postLinks: () => import('./links/postLinks'),
+    postComments: () => import('./comments/postComments')
   },
 
   computed: {
@@ -210,12 +205,8 @@ export default {
   },
 
   async mounted () {
-    const user = this.user
-    this.user = user
-
     // Assigns post comments
     const comments = await commentsCollection.where('reference', '==', this.post.id).limit(50).get()
-    console.log('called on mount:' + comments)
     comments.forEach((c) => {
       const comment = c.data()
       comment.id = c.id
@@ -234,7 +225,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.textError .validation-char, .titleError .validation-char{
-  color: $candy-red!important;
-}
 </style>

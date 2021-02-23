@@ -35,7 +35,7 @@
           ) Sign Up
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   data () {
@@ -54,13 +54,8 @@ export default {
       this.login(loginData)
     },
     toggleSignUp () {
-      this.$emit('toggleBoolean')
+      this.$emit('toggleSignUp')
     }
-  },
-  computed: {
-    ...mapState([
-      'imgStore'
-    ])
   }
 }
 </script>

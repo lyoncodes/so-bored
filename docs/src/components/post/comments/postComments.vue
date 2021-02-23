@@ -18,14 +18,16 @@
           v-if="postList.displayCommentForm"
         )
 
-        //- Array Iteration (comment in postComments prop, passed from postsHome parent component)
+        //- List iteration (comment in postComments)
         b-col.col-12.mb-2.mt-2(v-for="comment in postComments" :key="comment.id").comments-section
 
           //- post comment
           b-row.comment-container.text-left
             b-col.col-12.p-0
+
               p.caption.pl-2.pt-2.mb-0 {{ comment.userName }} says:
               p.post-text.pl-3.pt-1 {{ comment.text }}
+
               button#delete-comment.post-navigation-button(
                 @click="deleteComment(comment)"
                 v-if="user===comment.userName"
@@ -39,16 +41,11 @@
 </template>
 <script>
 import { commentsCollection } from '../../../../firebase'
-import createComment from './createComment'
-import { mapState } from 'vuex'
 
 export default {
-  name: 'comments-container',
-  props: ['post', 'postList', 'postComments', 'validation', 'user'],
+  name: 'post-comments',
+  props: ['post', 'postList', 'postComments', 'user', 'validation'],
   computed: {
-    ...mapState([
-      'imgStore'
-    ]),
     flipThis: function () {
       return {
         flip: !this.postList.displayCommentForm
@@ -66,7 +63,7 @@ export default {
     }
   },
   components: {
-    createComment,
+    createComment: () => import('../comments/createComment'),
     IconBase: () => import('../../IconBase'),
     IconDelete: () => import('../../icons/IconDelete'),
     IconCaret: () => import('../../icons/IconCaret')

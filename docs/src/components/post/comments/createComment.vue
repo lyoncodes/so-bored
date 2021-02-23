@@ -2,7 +2,7 @@
 b-col.col-12.p-0
 
   b-form.mb-3(
-    @submit.prevent="append(comment)"
+    @submit.prevent="append()"
     v-bind:class="errorObject"
   )
 
@@ -11,7 +11,7 @@ b-col.col-12.p-0
       id="comment-text-field"
       v-model="comment.text"
       @keyup="validateCharCount()"
-      @keydown.enter.prevent="append(comment)"
+      @keydown.enter.prevent="append()"
       placeholder="add a comment..."
     )
 
@@ -44,8 +44,7 @@ export default {
 
   computed: {
     ...mapState([
-      'userProfile',
-      'imgStore'
+      'userProfile'
     ]),
     errorObject: function () {
       return {
@@ -56,7 +55,7 @@ export default {
 
   methods: {
 
-    append (comment) {
+    append () {
       const createdOn = new Date()
       const text = this.comment.text
       const userName = this.userProfile.username
@@ -102,13 +101,6 @@ export default {
       this.validation.charCount = this.comment.text.length
       this.isError = this.validation.charCount > this.validation.commentLimit ? true : null
     }
-  },
-
-  mounted () {
-    const ruleData = this.comment
-    this.ruleData = ruleData
-    const user = this.user
-    this.user = user
   }
 }
 </script>

@@ -1,9 +1,5 @@
 <template lang="pug">
   div
-
-    //- background image
-    img.bg-img(v-bind:src="imgStore[0]" width="640" height="360")
-
     //- Navbar
     navBar(
       v-on:toggleCreatePost="toggleCreatePost()")
@@ -38,7 +34,6 @@ export default {
         titleLimit: 140,
         charLimit: 300,
         commentLimit: 160,
-        errorMsg: String,
         formCounter: {
           titleCount: 0,
           charCount: 0
@@ -55,8 +50,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'posts',
-      'imgStore'
+      'posts'
     ])
   },
   methods: {

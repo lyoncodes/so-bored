@@ -38,7 +38,6 @@
       span.caption {{postList.linkStore.length}}
 </template>
 <script>
-import { mapMutations, mapState } from 'vuex'
 export default {
   name: 'postNav',
   props: ['post', 'postList'],
@@ -48,33 +47,17 @@ export default {
     IconComment: () => import('../icons/IconComment'),
     IconLink: () => import('../icons/IconLink')
   },
-  computed: {
-    ...mapState([
-      'imgStore'
-    ])
-  },
   methods: {
-    ...mapMutations([
-      'selectPost',
-      'deselectPost'
-    ]),
-    select (post) {
-      if (this.postList.updating || this.postList.displayComments) {
-        this.selectPost(post)
-      } else this.deselectPost()
-    },
     // Display / hide post editing form fields
     toggleUpdateForm (post) {
       this.postList.postUpdateData.title = post.title
       this.postList.postUpdateData.text = post.text
       this.postList.updating = !this.postList.updating
-      this.select(post)
     },
     // Display / Hide post comments
     toggleCommentComponent (post) {
       this.postList.displayComments = !this.postList.displayComments
       this.postList.displayLinks = false
-      this.select(post)
     },
     // Display / Hide Link Section
     toggleLinkForm (post) {

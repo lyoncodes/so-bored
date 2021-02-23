@@ -19,9 +19,5 @@ auth.onAuthStateChanged(user => {
   }
   if (user) {
     store.dispatch('fetchUserProfile', user)
-    // trigger welcome animation here:
-  }
-  if (!store.state.imgStore.length) {
-    store.dispatch('fetchImageAssets')
   }
 })

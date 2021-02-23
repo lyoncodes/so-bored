@@ -1,13 +1,13 @@
 // COLORS
 $candy-red: #F23545; // rgba(242, 53, 71)
-$candy-red-dark: #ee2c3c; // rgba()
-$candy-red-opaque: #f23545a1; // rgba()
+$candy-red-dark: #ee2c3c;
+$candy-red-opaque: #f23545a1;
 $plastic-pink: #FC38AC; // rgba(252, 56, 172)
 $proton-light: #DD3EE6; // rgba(221, 62, 230)
 $proton-deep: #BD38FC; // rgba(189, 56, 252)
 $royal: #8235F2; // rgba(130, 53, 242)
-$royal-dark: #541aaa; // rgba()
-$royal-matte: #4A3669; // rgba()
+$royal-dark: #541aaa;
+$royal-matte: #4A3669;
 
 // Slates & Shadows
 $slate: #374049;
@@ -62,5 +62,6 @@ inset 2px 2px 4px $light-slate-op,
 inset 2px 2px 8px $light-slate-tr;
 
 // SHAPES
-$border-radius-lg: .75em;
-$border-radius-reg: 5px;
+$border-radius-sm: 5px;
+$border-radius-lg: 18px;
+$border-radius-rel: .25em;
