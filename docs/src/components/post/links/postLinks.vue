@@ -13,7 +13,7 @@
     b-col.col-12.p-0(v-if="show")
 
       b-form(
-        @submit.prevent="append(linkData)"
+        @submit.prevent="appendLink()"
         v-if="show")
         b-form-textarea.mb-2(
           autofocus
@@ -26,7 +26,7 @@
           id="link-text-area"
           v-model="linkData.linkURL"
           placeholder="https://"
-          @keydown.enter.prevent="append(linkData)"
+          @keydown.enter.prevent="appendLink()"
         )
 
         b-row.justify-content-between.mb-2
@@ -68,8 +68,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'userProfile',
-      'imgStore'
+      'userProfile'
     ]),
     flipThis: function () {
       return {
@@ -90,7 +89,7 @@ export default {
       this.show = !this.show
     },
 
-    append (linkData) {
+    appendLink () {
       const createdOn = new Date()
       const reference = this.$props.post.id
       const userName = this.userProfile.username
@@ -137,7 +136,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.error{
-  color: $candy-red!important;
-}
 </style>

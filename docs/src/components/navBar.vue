@@ -30,10 +30,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  #nav {
-    @extend %nav;
-    @extend %body-fonts;
-    @extend %forms;
-    @extend %posts
-  }
 </style>

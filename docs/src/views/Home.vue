@@ -34,7 +34,6 @@ export default {
         titleLimit: 140,
         charLimit: 300,
         commentLimit: 160,
-        errorMsg: String,
         formCounter: {
           titleCount: 0,
           charCount: 0

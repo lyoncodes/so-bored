@@ -4,13 +4,13 @@
     b-row.justify-content-center.pt-5
       p.validation-char(v-if="errorMsg.length") {{errorMsg}}
 
-      b-col.col-11.col-lg-4(v-if="showLoginForm && !toggleCredentials")
-        loginForm(v-on:toggleBoolean="toggleSignUp")
+      b-col(v-if="showLoginForm && !toggleCredentials")
+        loginForm(v-on:toggleSignUp="toggleSignUp")
 
-      b-col.col-11.col-lg-4(v-if="!showLoginForm && !toggleCredentials")
-        signUpForm(v-on:toggle="toggleSignUp")
+      b-col(v-if="!showLoginForm && !toggleCredentials")
+        signUpForm(v-on:toggleForm="toggleSignUp")
 
-      b-col.col-11.col-lg-4(v-if="toggleCredentials")
+      b-col(v-if="toggleCredentials")
         passwordReset(v-on:resetForms="toggleResetForm")
 
       b-col.col-11.col-lg-12(v-if="!toggleCredentials")

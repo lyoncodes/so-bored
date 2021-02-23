@@ -2,7 +2,7 @@
   .post {
     background: $background-slate;
     border: 0;
-    border-radius: $border-radius-reg;
+    border-radius: $border-radius-sm;
     box-shadow: $box-shadow-dark;
     margin: 1em;
     transition: ease-in-out 0.4s all;
@@ -13,7 +13,7 @@
       margin: 1.5em 0 .25em 0;
       .comment-container, .links-container {
         border: 1px solid $dark-slate;
-        border-radius: $border-radius-reg;
+        border-radius: $border-radius-sm;
       }
       .comment-text {
         font-size: $font-sm;

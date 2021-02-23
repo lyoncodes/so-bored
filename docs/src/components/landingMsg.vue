@@ -5,9 +5,7 @@
       h5 hello {{userProfile.username}}!
 
     b-row.justify-content-center
-      span.caption Click
-      span
-      span.caption to get started
+      span.caption Click + to get started
 </template>
 
 <script>
@@ -22,8 +20,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'userProfile',
-      'imgStore'
+      'userProfile'
     ])
   }
 }
