@@ -89,7 +89,7 @@ export default {
 
     toggleForm () {
       this.toggleBoolean = !this.toggleBoolean
-      this.$emit('toggle', this.toggleBoolean)
+      this.$emit('toggleForm', this.toggleBoolean)
     },
 
     validateCharCount () {

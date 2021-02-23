@@ -1,5 +1,5 @@
 button {
-  border-radius: $border-radius-reg;
+  border-radius: $border-radius-sm;
   font-size: $font-sm;
   font-weight: $font-heavy;
   padding: .75em;
@@ -14,7 +14,7 @@ button {
 .post-navigation-button{
   background-color: $background-slate;
   box-shadow: $shadow-low-contrast;
-  border-radius: 18px;
+  border-radius: $border-radius-lg!important;
   border: 2px solid $background-slate;
   line-height: 16px;
   margin: 0 .15em .25em .15em;

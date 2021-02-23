@@ -12,7 +12,7 @@ b-container
       b-row
         b-col.p-0.mb-0
           //- create post form
-          b-form(@submit.prevent="submitPost" v-bind:class="errorObject")
+          b-form(@submit.prevent="newPost" v-bind:class="errorObject")
             b-form-textarea#new-post-title(
               v-model="newPostData.title"
               @keyup="validateCharCount()"
@@ -28,12 +28,12 @@ b-container
       b-row
         b-col.col-12.p-0
           b-form.mt-3(
-            @submit.prevent="submitPost" v-bind:class="errorObject"
+            @submit.prevent="newPost" v-bind:class="errorObject"
           )
 
             b-form-textarea#new-post-textarea(
               @keyup="validateCharCount()"
-              @keydown.enter.prevent="submitPost"
+              @keydown.enter.prevent="newPost"
               v-model="newPostData.text"
               placeholder="Post text (optional)"
             )
@@ -85,7 +85,7 @@ export default {
       this.isError = this.newPostData.title.length > this.formValidation.titleLimit || this.newPostData.text.length > this.formValidation.charLimit ? true : null
     },
 
-    submitPost () {
+    newPost () {
       const { title, text } = this.newPostData
       const createdOn = new Date()
       const userName = this.userProfile.username
@@ -112,7 +112,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.error .validation-char {
-  color: $candy-red!important;
-}
 </style>

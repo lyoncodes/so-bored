@@ -2,7 +2,7 @@ import * as firebase from '../../firebase'
 import router from '../router/index'
 
 export default {
-
+  // LOGIN OPERATIONS
   // Creates account; adding user object to usersCollection
   async signUp ({ dispatch }, form) {
     const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password).catch(error => dispatch('handleError', error.message))
@@ -31,7 +31,6 @@ export default {
   // Resets password
   async resetCredential ({ commit }, email) {
     await firebase.auth.sendPasswordResetEmail(email)
-    commit('resetLoginState')
   },
   // Logs user out
   async logout ({ commit, dispatch }) {
@@ -66,7 +65,7 @@ export default {
     })
   },
   // Updates post in db
-  async updatePost ({ dispatch }, postUpdateData) {
+  async updatePost ({ commit }, postUpdateData) {
     const post = firebase.postsCollection.doc(postUpdateData.id)
     await post.update({
       title: postUpdateData.title,
@@ -74,7 +73,7 @@ export default {
     })
   },
   // Deletes post & post comments from db
-  async deletePost ({ dispatch }, post) {
+  async deletePost ({ commit }, post) {
     await firebase.postsCollection.doc(post.id).delete()
     const commentsRef = await firebase.commentsCollection.where('reference', '==', post.id).get()
     commentsRef.forEach((comment) => {

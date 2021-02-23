@@ -1,7 +1,7 @@
 %forms{
 .form-container {
   background-color: $light-slate-full;
-  border-radius: $border-radius-reg;
+  border-radius: $border-radius-sm;
   box-shadow: $box-shadow-dark;
   max-width: 700px;
 }
@@ -13,7 +13,7 @@ form {
     color: $black-slate;
     background: $background-slate;
     border: 1px solid $light-slate;
-    border-radius: 0.5;
+    border-radius: $border-radius-sm;
     font-size: $font-md;
     font-weight: $font-heavy;
     resize: none;
@@ -50,7 +50,7 @@ form {
   #new-post-title {
     line-height: 1.2;
     border: 1px solid transparent;
-    border-radius: .25em;
+    border-radius: $border-radius-rel;
     &:hover, &:focus {
       border: 1px solid $proton-deep;
     }
