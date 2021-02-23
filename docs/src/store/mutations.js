@@ -17,8 +17,8 @@ export default {
     }
   },
   // update userProfile in the state to the user passed on login / logout
-  setUserProfile (state, val) {
-    state.userProfile = val
+  setUserProfile (state, userProfile) {
+    state.userProfile = userProfile
   },
   // set posts in state to the posts retrieved from db
   sortPosts (state, data) {
@@ -33,10 +33,6 @@ export default {
   },
   deselectPost (state) {
     state.selectedPost = {}
-  },
-  updateComments (state, comment) {
-    const post = state.posts.find(el => el.id === comment.reference)
-    console.log(post)
   },
   sortLinks (state, links) {
     state.posts.links = links
@@ -56,15 +52,6 @@ export default {
     delete state.selectPost.links
     state.selectPost.links = []
     state.selectPost.linksListSize = state.selectPost.pos = 0
-  },
-  populateImages (state, assets) {
-    setTimeout(() => {
-      state.imgStore.push(assets)
-      state.imgStore = state.imgStore.sort()
-    }, 500)
-  },
-  clearImages (state) {
-    state.imgStore = []
   },
   handleError (state, error) {
     state.errorMsg = error

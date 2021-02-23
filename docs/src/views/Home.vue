@@ -1,9 +1,5 @@
 <template lang="pug">
   div
-
-    //- background image
-    img.bg-img(v-bind:src="imgStore[0]" width="640" height="360")
-
     //- Navbar
     navBar(
       v-on:toggleCreatePost="toggleCreatePost()")
@@ -55,8 +51,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'posts',
-      'imgStore'
+      'posts'
     ])
   },
   methods: {

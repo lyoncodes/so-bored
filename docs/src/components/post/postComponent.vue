@@ -215,7 +215,6 @@ export default {
 
     // Assigns post comments
     const comments = await commentsCollection.where('reference', '==', this.post.id).limit(50).get()
-    console.log('called on mount:' + comments)
     comments.forEach((c) => {
       const comment = c.data()
       comment.id = c.id

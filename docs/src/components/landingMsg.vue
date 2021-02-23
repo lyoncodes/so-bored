@@ -7,7 +7,6 @@
     b-row.justify-content-center
       span.caption Click
       span
-        img.inline-icon.pl-1.pr-1.pb-2(v-bind:src="imgStore[5]" width="640" height="360")
       span.caption to get started
 </template>
 
