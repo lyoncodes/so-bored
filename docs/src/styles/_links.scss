@@ -1,18 +1,18 @@
 .link-style-main {
-  color: $candy-red-opaque !important;
+  color: $plastic-pink !important;
   font-size: $font-sm;
-  transition: ease 0.2s all;
+  transition: ease 0.4s all;
   &:hover{
-    color: $candy-red!important;
+    color: $royal!important;
     cursor: pointer;
   }
 }
 .link-style-alt {
-  color: $candy-red-opaque !important;
+  color: $proton-light !important;
   font-size: $font-md;
   transition: ease 0.2s all;
   &:hover{
-    color: $candy-red!important;
+    color: $plastic-pink!important;
     cursor: pointer;
   }
 }

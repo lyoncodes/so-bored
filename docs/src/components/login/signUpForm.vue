@@ -37,7 +37,7 @@
             :class="errorObject"
           ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
 
-        button.neu-c-button.mt-3(type="submit") Join
+        button.neu-a-button.mt-3(type="submit") Join
 
       b-row.justify-content-center
         a.link-style-alt.pt-5(type="submit" @click="toggleForm()") Back to Login

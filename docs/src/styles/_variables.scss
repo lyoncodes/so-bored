@@ -2,9 +2,12 @@
 $candy-red: #F23545; // rgba(242, 53, 71)
 $candy-red-dark: #ee2c3c;
 $candy-red-opaque: #f23545a1;
-$plastic-pink: #FC38AC; // rgba(252, 56, 172)
-$proton-light: #DD3EE6; // rgba(221, 62, 230)
+$plastic-pink: rgb(252, 56, 172); // rgba(252, 56, 172)
+$plastic-pink-opaque: rgb(255, 152, 214); // rgba(252, 56, 172)
+$proton-light: rgb(221, 62, 230); // rgba(221, 62, 230)
+$proton-light-opaque: rgba(248, 122, 255, 0.502); // rgba(221, 62, 230)
 $proton-deep: #BD38FC; // rgba(189, 56, 252)
+$proton-deep-opaque: #c552faab; // rgba(189, 56, 252)
 $royal: #8235F2; // rgba(130, 53, 242)
 $royal-dark: #541aaa;
 $royal-matte: #4A3669;
@@ -12,7 +15,7 @@ $royal-matte: #4A3669;
 // Slates & Shadows
 $slate: #374049;
 $black-slate: #2c3e50;
-$background-slate: #fcfafa;
+$background-slate: rgb(252, 250, 250);
 $caption-slate: #88898a;
 $light-slate: rgba(255,255,255,0.5);
 $light-slate-full: rgba(255,255,255,1);
@@ -27,6 +30,10 @@ $border-g: linear-gradient(90deg,
   $proton-deep 40%,
   $proton-light 68%,
   $royal 100%
+);
+$subtle-g: linear-gradient(80deg,
+  $plastic-pink 15%,
+  $proton-light 68%
 );
 
 $shadow-high-contrast: 10px 10px 22px -1px rgba($slate,0.35);
@@ -44,8 +51,8 @@ inset -10px -10px 15px $light-slate,
 inset 10px 10px 15px $dark-slate;
 
 $shadow-high-contrast-inset: 
--10px -10px 15px $light-slate,
-10px 10px 15px $dark-slate,
+-10px -10px 18px $light-slate,
+10px 10px 18px $dark-slate,
 inset -5px -5px 10px $light-slate,
 inset 5px 5px 10px $dark-slate;
 

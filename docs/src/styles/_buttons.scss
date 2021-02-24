@@ -14,16 +14,17 @@ button {
 .post-navigation-button{
   background-color: $background-slate;
   box-shadow: $shadow-low-contrast;
-  border-radius: $border-radius-lg!important;
-  border: 2px solid $background-slate;
+  border-radius: $border-radius-sm!important;
+  border: 0;
   line-height: 16px;
   margin: 0 .15em .25em .15em;
   outline: none;
-  padding: 3px 8px;
-  transition: ease 0.4s box-shadow;
+  padding: 7px 10px;
+  transition: ease 0.7s all;
   -webkit-appearance: none;
   width: auto;
-  &:active, &:focus, &:hover{
+  &:active, &:hover{
+    background-color: $proton-light-opaque;
     outline: none;
   }
   #update-post-icon{
@@ -31,7 +32,7 @@ button {
     fill: $plastic-pink;
   }
 }
-.neu-b-button, .neu-c-button{
+.neu-a-button, .neu-b-button, .neu-c-button{
   background-color: $background-slate;
   -webkit-appearance: none;
   box-shadow: $shadow-low-contrast;
@@ -41,11 +42,20 @@ button {
   outline: none;
   padding: 1em;
 }
+.neu-a-button {
+  background-color: $royal!important;
+  color: $background-slate;
+  font-size: $font-lg;
+  &:hover{
+    color: $plastic-pink;
+    background-color: $royal-dark!important;
+  }
+}
 .neu-b-button{
   color: $royal;
-  &:hover {
-    color: $background-slate;
-    background-color: $royal;
+  &:hover{
+    color: $plastic-pink;
+    background-color: $royal-dark!important;
   }
 }
 .neu-c-button{
@@ -78,14 +88,20 @@ button {
   bottom: -65px;
   right: 0;
 }
-#delete-post, #delete-link, #reset-post-form, #show-comment-form{
+#delete-link, #reset-post-form, #show-comment-form{
   font-size: $font-sm!important; //resets neu-c-button's override
   padding: .5em 1em .5em 1em!important; //overrides default button padding
 }
-#delete-post, #delete-link, #reset-post-form{
+#delete-link, #reset-post-form{
   position: absolute;
   right: 0px;
   top: 10px
+}
+#delete-post{
+  padding: 3px 8px 2px 10px;
+  position: absolute;
+  top: -8px;
+  right: -8px
 }
 #delete-comment{
   padding: 3px 8px 2px 10px;
@@ -97,5 +113,5 @@ button {
   margin-bottom: 0;
   position: absolute;
   right: 50px;
-  top: -52px
+  top: -52px;
 }
