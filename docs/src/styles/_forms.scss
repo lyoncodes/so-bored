@@ -25,35 +25,31 @@ form {
       display: none;
     }
     &:hover, &:active, &:focus {
-      border: 1px solid $royal;
+      border: 1px solid $proton-light-opaque;
+      box-shadow: none!important;
+    }
+    &:focus {
+      border: 1px solid $plastic-pink-opaque;
       box-shadow: none!important;
     }
     &:focus {
       box-shadow: none!important;
     }
   }
+  #login-form-textarea, #login-form-password{
+    color: $royal-dark!important;
+  }
+  #post-form-textarea, #new-post-textarea, #new-post-title, #title-update-text{
+    line-height: 1.2em;
+  }
   #post-form-textarea{
-    line-height: 1.2;
     &:hover, &:active, &:focus {
       border: 1px solid transparent
     }
   }
-  #new-post-textarea{
-    line-height: 1.2;
-    &:active, &:focus {
-      border: 1px solid $proton-deep
-    }
-  }
-  #new-post-title, #title-update-text {
-    line-height: 1.2;
-  }
-  #new-post-title {
-    line-height: 1.2;
-    border: 1px solid transparent;
+  #new-post-title, #new-post-textarea{
     border-radius: $border-radius-rel;
-    &:hover, &:focus {
-      border: 1px solid $proton-deep;
-    }
+    padding-left: 6px;
   }
   #title-update-text {
     line-height: 1.2;

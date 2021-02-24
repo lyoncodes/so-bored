@@ -17,7 +17,7 @@
                 v-model="resetData"
                 type="email"
               )
-          button.neu-c-button.mt-3(type="submit" @click="resetPassword(resetData)") Send
+          button.neu-a-button.mt-3(type="submit" @click="resetPassword(resetData)") Send
 
         b-row.justify-content-center
           a.link-style-main.pt-5(@click="toggleSignUp") Back to Login

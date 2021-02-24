@@ -9,7 +9,7 @@
         :class="flipThis"
       )
         IconCaret
-    b-col.col-12.p-0
+    b-col.col-12.p-0.mb-3
         createComment(
           :post="post"
           :validation="validation"
@@ -19,13 +19,13 @@
         )
 
         //- List iteration (comment in postComments)
-        b-col.col-12.mb-2.mt-2(v-for="comment in postComments" :key="comment.id").comments-section
+        b-col.col-12.mt-2(v-for="comment in postComments" :key="comment.id").comments-section
 
           //- post comment
           b-row.comment-container.text-left
             b-col.col-12.p-0
 
-              p.caption.pl-2.pt-2.mb-0 {{ comment.userName }} says:
+              span.caption.pl-2.pt-2.mb-0 {{ comment.userName }} says:
               p.post-text.pl-3.pt-1 {{ comment.text }}
 
               button#delete-comment.post-navigation-button(
@@ -34,7 +34,7 @@
               )
                 IconBase(
                   icon-name="delete"
-                  iconColor="rgba(242, 53, 71, 0.65)"
+                  iconColor="rgba(252, 56, 172)"
                 )
                   IconDelete
 

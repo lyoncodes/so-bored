@@ -1,7 +1,7 @@
 <template lang="pug">
-#nav.col-12
+#nav
   b-row.justify-content-between
-    b-col.col-2.mt-2.pt-2
+    b-col.col-2.mt-2.pt-2.pl-4
 
       a.link-style-main(@click="logout()") logout
 
