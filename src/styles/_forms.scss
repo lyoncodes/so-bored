@@ -1,0 +1,114 @@
+%forms{
+.form-container {
+  background-color: $light-slate-full;
+  border-radius: $border-radius-sm;
+  box-shadow: $box-shadow-dark;
+  max-width: 700px;
+}
+form {
+  .form-control {
+    height: 4em;
+  }
+  textarea, input, .form-control {
+    color: $black-slate;
+    background: $background-slate;
+    border: 1px solid $light-slate;
+    border-radius: $border-radius-sm;
+    font-size: $font-md;
+    font-weight: $font-heavy;
+    resize: none;
+    transition: all .4s ease-in;
+    &::placeholder{
+      color: $slate;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &:hover, &:active, &:focus {
+      border: 1px solid $proton-light-opaque;
+      box-shadow: none!important;
+    }
+    &:focus {
+      border: 1px solid $plastic-pink-opaque;
+      box-shadow: none!important;
+    }
+    &:focus {
+      box-shadow: none!important;
+    }
+  }
+  #login-form-textarea, #login-form-password{
+    color: $royal-dark!important;
+  }
+  #post-form-textarea, #new-post-textarea, #new-post-title, #title-update-text{
+    line-height: 1.2em;
+  }
+  #post-form-textarea{
+    &:hover, &:active, &:focus {
+      border: 1px solid transparent
+    }
+  }
+  #new-post-title, #new-post-textarea{
+    border-radius: $border-radius-rel;
+    padding-left: 6px;
+  }
+  #title-update-text {
+    line-height: 1.2;
+    border: none;
+    padding: 0;
+    &:hover {
+      border: none;
+    }
+  }
+}
+#new-post-textarea, #post-form-textarea, #comment-text-field, #link-text-area {
+  font-size: $font-sm !important;
+  font-weight: 100 !important;
+  height: 7.25em;
+  &::placeholder {
+    color: $caption-slate;
+    font-style: italic;
+  }
+}
+#link-text-area {
+  height: 3em!important;
+}
+}
+// styles update form text to match post title styling (h3 in fonts)
+#title-update-form {
+  color: $black-slate;
+  font-size: $font-md-abs;
+  font-weight: $font-heavy;
+  margin-bottom: 0;
+}
+.bv-no-focus-ring{
+  text-align: left;
+}
+.validation-char {
+  font-size: 10px!important;
+  font-weight: $font-heavy;
+  margin: .75em 0 0 2em;
+  text-align: left;
+}
+#new-post-validation, #update-validation-char {
+  color: $black-slate;
+}
+#update-validation-char {
+  position: absolute;
+  bottom: -13px;
+}
+// Form Errors
+.error-badge{
+  color: $candy-red;
+  font-size: $font-sm-abs;
+  position: absolute;
+  padding-top: 12px;
+  bottom: 26px;
+  left: 50px;
+  z-index: 1
+}
+#edit-post-error{
+  top: -10;
+  bottom: 292;
+  right: 50;
+  left: 50;
+}

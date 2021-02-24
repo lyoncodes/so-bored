@@ -1,0 +1,117 @@
+button {
+  border-radius: $border-radius-sm;
+  font-size: $font-sm;
+  font-weight: $font-heavy;
+  padding: .75em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: ease-in-out 0.4s all;
+  &:active, &:focus, &:hover{
+    background-color: none;
+    outline: none!important;
+  }
+}
+.post-navigation-button{
+  background-color: $background-slate;
+  box-shadow: $shadow-low-contrast;
+  border-radius: $border-radius-sm!important;
+  border: 0;
+  line-height: 16px;
+  margin: 0 .15em .25em .15em;
+  outline: none;
+  padding: 7px 10px;
+  transition: ease 0.7s all;
+  -webkit-appearance: none;
+  width: auto;
+  &:active, &:hover{
+    background-color: $proton-light-opaque;
+    outline: none;
+  }
+  #update-post-icon{
+    margin-left: 2px;
+    fill: $plastic-pink;
+  }
+}
+.neu-a-button, .neu-b-button, .neu-c-button{
+  background-color: $background-slate;
+  -webkit-appearance: none;
+  box-shadow: $shadow-low-contrast;
+  border: none;
+  letter-spacing: .1em;
+  margin: 0 .75em 0 .75em;
+  outline: none;
+  padding: 1em;
+}
+.neu-a-button {
+  background-color: $royal!important;
+  color: $background-slate;
+  font-size: $font-lg;
+  &:hover{
+    color: $plastic-pink;
+    background-color: $royal-dark!important;
+  }
+}
+.neu-b-button{
+  color: $royal;
+  &:hover{
+    color: $plastic-pink;
+    background-color: $royal-dark!important;
+  }
+}
+.neu-c-button{
+  color: $candy-red-opaque;
+  font-size: $font-lg; //overrides default button font size
+  &:hover {
+    background-color: $candy-red;
+    color: $background-slate;
+  }
+}
+#update-post, #create-post, #submit-comment, #submit-link{
+  margin: 1em 0 1em 0;
+}
+#create-post, #submit-comment, #submit-link {
+  &:disabled {
+    background-color: $background-slate;
+    color: $candy-red-opaque
+  }
+}
+#update-post, #create-post {
+  background-color: $background-slate;
+  color: $proton-deep;
+  &:hover:not(:disabled){
+    background-color: $proton-deep;
+    color: $background-slate
+  }
+}
+#update-post{
+  position: absolute;
+  bottom: -65px;
+  right: 0;
+}
+#delete-link, #reset-post-form, #show-comment-form{
+  font-size: $font-sm!important; //resets neu-c-button's override
+  padding: .5em 1em .5em 1em!important; //overrides default button padding
+}
+#delete-link, #reset-post-form{
+  position: absolute;
+  right: 0px;
+  top: 10px
+}
+#delete-post{
+  padding: 3px 8px 2px 10px;
+  position: absolute;
+  top: -8px;
+  right: -8px
+}
+#delete-comment{
+  padding: 3px 8px 2px 10px;
+  position: absolute;
+  right: -8px;
+  top: -5px
+}
+#show-comment-form{
+  margin-bottom: 0;
+  position: absolute;
+  right: 50px;
+  top: -52px;
+}

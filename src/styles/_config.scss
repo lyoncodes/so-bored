@@ -1,0 +1,32 @@
+@import './variables';
+// GRID
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+// @import '~bootstrap/scss/root';
+@import '~bootstrap/scss/reboot';
+@import '~bootstrap/scss/type';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/tables';
+@import '~bootstrap/scss/forms';
+@import '~bootstrap/scss/input-group';
+@import '~bootstrap/scss/pagination';
+@import '~bootstrap/scss/modal';
+@import '~bootstrap/scss/utilities';
+// FONTS
+@import './fonts';
+// IMAGES
+@import './images';
+// BUTTONS
+@import './buttons';
+@import './links';
+// NAV
+@import './nav';
+// CARDS
+@import './posts';
+// ICONS
+@import './icons';
+// TEXT AREAS
+@import './forms';
+// APPLIED STYLES
+@import './applied-styles'

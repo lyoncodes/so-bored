@@ -1,0 +1,18 @@
+.hide{
+  display: none;
+}
+.flip {
+  transform: rotate(180deg)translateY(45%)translateX(15%);
+}
+.error {
+  color: $candy-red!important;
+}
+.error .validation-char {
+  color: $candy-red!important;
+}
+.valid {
+  color: $proton-light!important;
+}
+.valid .validation-char {
+  color: $proton-light!important;
+}
