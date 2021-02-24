@@ -40,7 +40,7 @@
           ) Add Link
 
     b-col.col-12.comments-section.mt-2.mb-4(v-for="link in postList.linkStore" :key="link.id")
-      linkContent(
+      linkComponent(
         :link="link"
         :links="postList.linkStore"
         :post="post"
@@ -54,7 +54,7 @@ export default {
   name: 'link-box',
   props: ['post', 'postList', 'show', 'validation'],
   components: {
-    linkContent: () => import('./linkComponent'),
+    linkComponent: () => import('./linkComponent'),
     IconBase: () => import('../../IconBase'),
     IconCaret: () => import('../../icons/IconCaret')
   },

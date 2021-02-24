@@ -8,7 +8,7 @@
             b-row
               a.validation-char.ml-1.mb-1 email
             b-row
-              b-form-input(
+              b-form-input#login-form-textarea(
                 v-model="loginData.email"
                 type="text"
               )
@@ -17,19 +17,16 @@
             b-row
               a.validation-char.ml-1.mb-1 password
             b-row
-              b-form-input(
+              b-form-input#login-form-password(
                 @keydown.enter.prevent="handleLogin(loginData)"
                 v-model="loginData.password"
                 type="password"
               )
 
         b-row.justify-content-center
-          button.neu-c-button.mt-3(type="submit") Login
+          button.neu-a-button.mt-5(type="submit") Login
 
-        b-row.justify-content-center.mt-5
-          span New user?
-
-        b-row.justify-content-center.pt-1
+        b-row.justify-content-center.pt-5
           a.link-style-alt(
             @click="toggleSignUp"
           ) Sign Up

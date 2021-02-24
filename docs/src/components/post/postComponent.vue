@@ -1,9 +1,9 @@
 <template lang="pug">
 //- Post content padding
-.pt-3.pl-2.pr-2
+.pt-1.pl-2.pr-2
 
   //- Post Heading -----------
-  b-row.justify-content-between.mb-3
+  b-row.justify-content-between.mb-1
 
     b-col.p-0.text-left
       //- Post author
@@ -12,11 +12,16 @@
       span.caption.ml-2 {{ post.createdOn.toDate().toLocaleDateString() }}
 
     //- Delete post button
-    button#delete-post.neu-c-button(
+    button#delete-post.post-navigation-button(
       v-if="userProfile.username === post.userName"
       :disabled="postList.updating"
       @click="destroy(post)"
-    ) Delete
+    )
+      IconBase(
+        icon-name="delete"
+        iconColor="rgb(252, 56, 172)"
+      )
+        IconDelete
 
   //- Post Title -----------
   b-row
@@ -88,7 +93,7 @@
   )
 
   //- Comments section -----------
-  b-col.p-0.mb-2(v-if="postList.displayComments && !postList.displayLinks")
+  b-col(v-if="postList.displayComments && !postList.displayLinks")
     postComments(
       :post="post"
       :postList="postList"
@@ -136,7 +141,9 @@ export default {
   components: {
     postNavigation: () => import('./postNavigation'),
     postLinks: () => import('./links/postLinks'),
-    postComments: () => import('./comments/postComments')
+    postComments: () => import('./comments/postComments'),
+    IconBase: () => import('../IconBase'),
+    IconDelete: () => import('../icons/IconDelete')
   },
 
   computed: {

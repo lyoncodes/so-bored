@@ -6,9 +6,6 @@
     box-shadow: $box-shadow-dark;
     margin: 1em;
     transition: ease-in-out 0.4s all;
-    &:hover {
-      box-shadow: none;
-    }
     .comments-section {
       margin: 1.5em 0 .25em 0;
       .comment-container, .links-container {

@@ -2,7 +2,8 @@
   //- login container
   b-container
     b-row.justify-content-center.pt-5
-      p.validation-char(v-if="errorMsg.length") {{errorMsg}}
+      p.link-style-alt(v-if="errorMsg.length") {{errorMsg}} 🤕
+    b-row.justify-content-center.pt-2
 
       b-col(v-if="showLoginForm && !toggleCredentials")
         loginForm(v-on:toggleSignUp="toggleSignUp")

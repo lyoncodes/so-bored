@@ -6,14 +6,11 @@ export default {
   // Creates account; adding user object to usersCollection
   async signUp ({ dispatch }, form) {
     const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password).catch(error => dispatch('handleError', error.message))
-
     await firebase.usersCollection.doc(user.uid).set({
       email: form.email,
       username: form.username,
       password: form.password
     })
-
-    dispatch('fetchUserProfile', user)
   },
   // Logs user in; dispatches methods to create user profile and retrieve application posts
   async login ({ dispatch, commit }, form) {
@@ -50,7 +47,6 @@ export default {
         post.id = doc.id
         posts.push(post)
       })
-
       commit('updatePosts', posts)
     })
   },

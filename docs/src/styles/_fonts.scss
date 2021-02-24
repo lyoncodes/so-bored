@@ -14,6 +14,7 @@ $font-md: 1em;
 $font-md-abs: 16px;
 $font-sm: .75em;
 $font-sm-abs: 12px;
+$font-caption: 8px;
 
 %body-fonts {
   font: 100% $font-body;
@@ -21,7 +22,7 @@ $font-sm-abs: 12px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: $black-slate;
+  color: $slate;
   h1 {
     background: $border-g;
     background-clip: text;
@@ -29,15 +30,21 @@ $font-sm-abs: 12px;
     -webkit-text-fill-color: transparent;
   }
   h3,h4,h5,h6 {
-    color: $black-slate;
+    color: $royal-dark;
     font-size: $font-md;
     font-weight: $font-heavy;
   }
-  .caption {
-    color: $candy-red-opaque;
-    font-size: $font-sm;
+  span{
+    background: $subtle-g;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: $font-caption;
     font-style: italic;
     transition: ease 0.3s all;
+    &:hover{
+      cursor: default;
+    }
   }
   .post-text{
     margin-bottom: 0;
@@ -45,5 +52,8 @@ $font-sm-abs: 12px;
     padding: 1em 0 1em 0;
     font-weight: $font-light;
     font-size: $font-sm;
+  }
+  &:hover{
+    cursor: default;
   }
 }

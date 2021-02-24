@@ -12,8 +12,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'userProfile',
-      'errorMsg'
+      'userProfile'
     ]),
     showNav () {
       return Object.keys(this.userProfile).length > 1
