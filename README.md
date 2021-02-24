@@ -44,3 +44,4 @@ The store holds the posts array, which is hydrated on auth state changes. Each p
 The rest of the lists functions (append, remove, moveTo, find, etc.) are sprinkled throughout the component tree where they are most immediately applicable.
 
 The list has some boolean switches to handle toggleability within an instantiated post. Things like form display and error messages are handled by these values.
+```
