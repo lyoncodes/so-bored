@@ -6,7 +6,7 @@
     )
       IconBase#show-form-icon(
         icon-name="cancel"
-        iconColor="rgba(130, 53, 242, 0.85)"
+        iconColor="rgba(252, 56, 172)"
       )
         IconDelete
     b-col.col-12.p-0
@@ -45,7 +45,7 @@
             icon-name="comment"
             iconColor="rgba(130, 53, 242, 0.85)"
           )
-            IconComment
+            IconCaret
 
 </template>
 <script>
@@ -100,8 +100,7 @@ export default {
     createComment: () => import('../comments/createComment'),
     IconBase: () => import('../../IconBase'),
     IconDelete: () => import('../../icons/IconDelete'),
-    IconCaret: () => import('../../icons/IconCaret'),
-    IconComment: () => import('../../icons/IconComment')
+    IconCaret: () => import('../../icons/IconCaret')
   },
   async mounted () {
     const user = this.user

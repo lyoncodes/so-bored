@@ -88,7 +88,7 @@ button {
   bottom: -65px;
   right: 0;
 }
-#delete-link, #reset-post-form, #show-comment-form, #hide-comment-form{
+#delete-link, #reset-post-form, #show-comment-form{
   font-size: $font-sm!important; //resets neu-c-button's override
   padding: .5em 1em .5em 1em!important; //overrides default button padding
 }
@@ -112,6 +112,7 @@ button {
 #hide-comment-form{
   margin-bottom: 0;
   position: absolute;
+  padding: .5em 1em .55em 1em!important;
   right: 100px;
   bottom: 20px;
   z-index: 1;
@@ -120,6 +121,6 @@ button {
   margin-bottom: 8px;
   right: 100px;
   bottom: 17px;
-  width: 80%;
+  width: 100%;
   z-index: 1;
 }
