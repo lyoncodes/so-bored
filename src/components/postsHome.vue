@@ -14,17 +14,12 @@ import { mapState } from 'vuex'
 export default {
   name: 'posts',
   props: ['formValidation'],
-  data () {
-    return {
-    }
-  },
   components: {
     postComponent: () => import('../components/post/postComponent')
   },
   computed: {
     ...mapState([
-      'posts',
-      'userProfile'
+      'posts'
     ])
   }
 }

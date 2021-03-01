@@ -112,7 +112,6 @@
     )
 </template>
 <script>
-import { commentsCollection, linksCollection } from '../../../firebase'
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -149,9 +148,9 @@ export default {
   computed: {
     ...mapState([
       'userProfile',
-      'posts'
+      'posts',
+      'comments'
     ]),
-
     // Handle form entry errors
     textErrorObject: function () {
       return {
@@ -213,21 +212,17 @@ export default {
 
   async mounted () {
     // Assigns post comments
-    const comments = await commentsCollection.where('reference', '==', this.post.id).limit(50).get()
-    comments.forEach((c) => {
-      const comment = c.data()
-      comment.id = c.id
-      this.postList.commentStore.push(comment)
-    })
+    const comments = this.comments.filter(c => c.reference === this.post.id)
+    this.postList.commentStore = comments
     this.postList.commentStore.sort((a, b) => a.createdOn - b.createdOn)
 
-    // Assigns post links
-    const links = await linksCollection.where('reference', '==', this.post.id).limit(50).get()
-    links.forEach((l) => {
-      const link = l.data()
-      link.id = l.id
-      this.postList.linkStore.push(link)
-    })
+    // // Assigns post links
+    // const links = await linksCollection.where('reference', '==', this.post.id).limit(50).get()
+    // links.forEach((l) => {
+    //   const link = l.data()
+    //   link.id = l.id
+    //   this.postList.linkStore.push(link)
+    // })
   }
 }
 </script>

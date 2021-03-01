@@ -5,6 +5,7 @@ import store from './store'
 import { auth } from '../firebase'
 
 Vue.config.productionTip = false
+Vue.config.devtools = true
 
 let app
 

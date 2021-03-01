@@ -16,6 +16,7 @@
           :postComments="postComments"
           :postList="postList"
           v-if="postList.displayCommentForm"
+          @append="appendComment"
         )
 
         //- List iteration (comment in postComments)
@@ -40,6 +41,7 @@
 
 </template>
 <script>
+import { mapActions } from 'vuex'
 import { commentsCollection } from '../../../../firebase'
 
 export default {
@@ -53,15 +55,39 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'createComment'
+    ]),
+
     toggleCommentForm () {
       this.postList.displayCommentForm = !this.postList.displayCommentForm
     },
+
+    async appendComment (commentData) {
+      const comment = {
+        ...commentData.comment,
+        reference: this.$props.post.id
+      }
+      this.postList.commentStore.push(comment)
+
+      this.createComment(comment)
+      this.getCommentId(comment)
+    },
+
+    async getCommentId (comment) {
+      const commentRef = await commentsCollection.where('createdOn', '==', comment.createdOn).get()
+      commentRef.forEach((c) => {
+        comment.id = c.id
+      })
+    },
+
     async deleteComment (comment) {
       await commentsCollection.doc(`${comment.id}`).delete()
       const foundAt = this.postComments.findIndex(c => c === comment)
       this.postComments.splice(foundAt, 1)
     }
   },
+
   components: {
     createComment: () => import('../comments/createComment'),
     IconBase: () => import('../../IconBase'),

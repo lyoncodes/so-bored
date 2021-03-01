@@ -27,7 +27,6 @@ b-col.col-12.p-0
       ) Comment
 </template>
 <script>
-import { commentsCollection } from '../../../../firebase'
 import { mapState } from 'vuex'
 export default {
   name: 'createComment',
@@ -59,36 +58,35 @@ export default {
       const createdOn = new Date()
       const text = this.comment.text
       const userName = this.userProfile.username
-      const reference = this.$props.post.id
-      const commentPayload = {
+      const comment = {
         createdOn,
-        text,
         userName,
-        reference
+        text
       }
+      console.log(comment)
       if (!this.isError) {
-        this.createComment(commentPayload)
+        this.$emit('append', { comment })
         this.clearComment()
       }
     },
 
-    async createComment (comment) {
-      await commentsCollection.add({
-        createdOn: comment.createdOn,
-        text: comment.text,
-        userName: comment.userName,
-        reference: comment.reference
-      })
-      this.getCommentId(comment)
-    },
+    // async createComment (comment) {
+    //   await commentsCollection.add({
+    //     createdOn: comment.createdOn,
+    //     text: comment.text,
+    //     userName: comment.userName,
+    //     reference: comment.reference
+    //   })
+    //   this.getCommentId(comment)
+    // },
 
-    async getCommentId (comment) {
-      const commentRef = await commentsCollection.where('createdOn', '==', comment.createdOn).get()
-      commentRef.forEach((c) => {
-        comment.id = c.id
-      })
-      this.postComments.push(comment)
-    },
+    // async getCommentId (comment) {
+    //   const commentRef = await commentsCollection.where('createdOn', '==', comment.createdOn).get()
+    //   commentRef.forEach((c) => {
+    //     comment.id = c.id
+    //   })
+    //   this.postComments.push(comment)
+    // },
 
     clearComment () {
       this.comment = {

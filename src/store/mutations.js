@@ -9,5 +9,8 @@ export default {
   },
   updatePosts (state, data) {
     state.posts = data
+  },
+  updateComments (state, data) {
+    state.comments = data
   }
 }

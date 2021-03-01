@@ -38,18 +38,36 @@ export default {
 
   // POST CRUD OPERATIONS
   // Read posts
-  readPosts ({ commit }) {
+  readPosts ({ commit, dispatch }) {
     firebase.postsCollection.orderBy('createdOn', 'desc').limit(50).onSnapshot(snapshot => {
       const posts = []
 
-      snapshot.forEach(async (doc) => {
+      snapshot.forEach((doc) => {
         const post = doc.data()
         post.id = doc.id
         posts.push(post)
       })
+      console.log('this')
       commit('updatePosts', posts)
     })
+    dispatch('readPostComments')
   },
+
+  readPostComments ({ commit }) {
+    firebase.commentsCollection.limit(250).onSnapshot(snapshot => {
+      console.log(snapshot)
+      const comments = []
+
+      snapshot.forEach((c) => {
+        const comment = c.data()
+        comment.id = c.id
+        comments.push(comment)
+      })
+
+      commit('updateComments', comments)
+    })
+  },
+
   // Creates post in db
   async createPost ({ commit }, post) {
     await firebase.postsCollection.add({
@@ -74,6 +92,14 @@ export default {
     const commentsRef = await firebase.commentsCollection.where('reference', '==', post.id).get()
     commentsRef.forEach((comment) => {
       comment.ref.delete()
+    })
+  },
+  async createComment ({ commit }, comment) {
+    await firebase.commentsCollection.add({
+      createdOn: comment.createdOn,
+      text: comment.text,
+      userName: comment.userName,
+      reference: comment.reference
     })
   }
 }
