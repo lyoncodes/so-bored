@@ -47,7 +47,6 @@ export default {
         post.id = doc.id
         posts.push(post)
       })
-      console.log('this')
       commit('updatePosts', posts)
     })
     dispatch('readPostComments')
