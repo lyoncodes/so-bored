@@ -97,7 +97,7 @@
     postComments(
       :post="post"
       :postList="postList"
-      :postComments="postList.commentStore"
+      :postComments="getPostComments"
       :user="userProfile.username"
       :validation="formValidation"
     )
@@ -151,6 +151,11 @@ export default {
       'posts',
       'comments'
     ]),
+    getPostComments: function () {
+      const comments = this.comments.filter(c => c.reference === this.post.id)
+      comments.sort((a, b) => a.createdOn - b.createdOn)
+      return comments
+    },
     // Handle form entry errors
     textErrorObject: function () {
       return {

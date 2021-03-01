@@ -1,24 +1,15 @@
 <template lang="pug">
   b-row
-    button#show-comment-form.post-navigation-button(
+    button#hide-comment-form.post-navigation-button(
       @click="toggleCommentForm"
+      :class="hideThis"
     )
       IconBase#show-form-icon(
-        icon-name="caret"
+        icon-name="cancel"
         iconColor="rgba(130, 53, 242, 0.85)"
-        :class="flipThis"
       )
-        IconCaret
-    b-col.col-12.p-0.mb-3
-        createComment(
-          :post="post"
-          :validation="validation"
-          :postComments="postComments"
-          :postList="postList"
-          v-if="postList.displayCommentForm"
-          @append="appendComment"
-        )
-
+        IconDelete
+    b-col.col-12.p-0
         //- List iteration (comment in postComments)
         b-col.col-12.mt-2(v-for="comment in postComments" :key="comment.id").comments-section
 
@@ -38,6 +29,23 @@
                   iconColor="rgba(252, 56, 172)"
                 )
                   IconDelete
+        createComment(
+          :post="post"
+          :validation="validation"
+          :postComments="postComments"
+          :postList="postList"
+          v-if="postList.displayCommentForm"
+          @append="appendComment"
+        )
+        button#show-comment-form.post-navigation-button(
+          v-if="!this.postList.displayCommentForm"
+          @click="toggleCommentForm"
+        )
+          IconBase#show-form-icon(
+            icon-name="comment"
+            iconColor="rgba(130, 53, 242, 0.85)"
+          )
+            IconComment
 
 </template>
 <script>
@@ -48,9 +56,9 @@ export default {
   name: 'post-comments',
   props: ['post', 'postList', 'postComments', 'user', 'validation'],
   computed: {
-    flipThis: function () {
+    hideThis: function () {
       return {
-        flip: !this.postList.displayCommentForm
+        hide: !this.postList.displayCommentForm
       }
     }
   },
@@ -68,7 +76,7 @@ export default {
         ...commentData.comment,
         reference: this.$props.post.id
       }
-      this.postList.commentStore.push(comment)
+      this.postComments.push(comment)
 
       this.createComment(comment)
       this.getCommentId(comment)
@@ -92,7 +100,8 @@ export default {
     createComment: () => import('../comments/createComment'),
     IconBase: () => import('../../IconBase'),
     IconDelete: () => import('../../icons/IconDelete'),
-    IconCaret: () => import('../../icons/IconCaret')
+    IconCaret: () => import('../../icons/IconCaret'),
+    IconComment: () => import('../../icons/IconComment')
   },
   async mounted () {
     const user = this.user

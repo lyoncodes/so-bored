@@ -57,6 +57,7 @@ export default {
     // Display / Hide post comments
     toggleCommentComponent (post) {
       this.postList.displayComments = !this.postList.displayComments
+      this.postList.displayCommentForm = true
       this.postList.displayLinks = false
     },
     // Display / Hide Link Section
