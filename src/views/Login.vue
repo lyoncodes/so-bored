@@ -1,9 +1,16 @@
 <template lang="pug">
   //- login container
   b-container
-    b-row.justify-content-center.pt-5
+    b-row.mt-3.mb-3
+      IconBase#main-logo(
+        icon-name="Comment"
+        height="100"
+        width="100"
+      )
+        IconLogo
+    b-row.justify-content-center.pt-3
       p.link-style-alt(v-if="errorMsg.length") {{errorMsg}} 🤕
-    b-row.justify-content-center.pt-2
+    b-row.justify-content-center
 
       b-col(v-if="showLoginForm && !toggleCredentials")
         loginForm(v-on:toggleSignUp="toggleSignUp")
@@ -19,6 +26,7 @@
           a.link-style-alt(@click="toggleResetForm") forgot password
 </template>
 <script>
+import signUpForm from '../components/login/signUpForm'
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -35,9 +43,11 @@ export default {
   },
 
   components: {
-    signUpForm: () => import('../components/login/signUpForm'),
+    signUpForm,
     loginForm: () => import('../components/login/loginForm'),
-    passwordReset: () => import('../components/login/passwordReset')
+    passwordReset: () => import('../components/login/passwordReset'),
+    IconBase: () => import('../components/IconBase'),
+    IconLogo: () => import('../components/icons/IconLogo')
   },
 
   methods: {

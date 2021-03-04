@@ -4,7 +4,7 @@
       @click="toggleCommentForm"
       :class="hideThis"
     )
-      IconBase#show-form-icon(
+      IconBase#hide-form-icon(
         icon-name="cancel"
         iconColor="rgba(252, 56, 172)"
       )
@@ -42,10 +42,10 @@
           @click="toggleCommentForm"
         )
           IconBase#show-form-icon(
-            icon-name="comment"
+            icon-name="loading"
             iconColor="rgba(130, 53, 242, 0.85)"
           )
-            IconCaret
+            IconLoading
 
 </template>
 <script>
@@ -100,7 +100,8 @@ export default {
     createComment: () => import('../comments/createComment'),
     IconBase: () => import('../../IconBase'),
     IconDelete: () => import('../../icons/IconDelete'),
-    IconCaret: () => import('../../icons/IconCaret')
+    IconCaret: () => import('../../icons/IconCaret'),
+    IconLoading: () => import('../../icons/IconLoading')
   },
   async mounted () {
     const user = this.user

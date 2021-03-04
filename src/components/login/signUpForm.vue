@@ -2,21 +2,20 @@
   b-form(
     @submit.prevent="handleSignUp(signUpForm)"
   )
-    b-col.mt-4.pt-2
+    b-col
       b-row.justify-content-center
-
-        b-form-group#account-email.col-12.mb-0
+        b-form-group#account-email.col-12.mb-2
           b-row
-            a.validation-char.ml-1.mb-1 login email
+            a.link-style-alt.ml-1.mb-1 login email
           b-row
             b-form-input(
               v-model="signUpForm.email"
               type="text"
             )
 
-        b-form-group#account-username.col-12.mb-0
+        b-form-group#account-username.col-12.mb-2
           b-row
-            a.validation-char.ml-1.mb-1 tell tales username
+            a.link-style-alt.ml-1.mb-1 screen name
           b-row
             b-form-input(
               v-model="signUpForm.username"
@@ -25,7 +24,7 @@
 
         b-form-group#account-password.col-12
           b-row
-            a.validation-char.ml-1.mb-1 password
+            a.link-style-alt.ml-1.mb-1 password
           b-row
             b-form-input(
               @keyup="validateCharCount()"
@@ -33,7 +32,7 @@
               v-model="signUpForm.password"
               type="password"
             )
-          a.validation-char.ml-1.mb-1(
+          a.link-style-alt.ml-1.mb-1(
             :class="errorObject"
           ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
 

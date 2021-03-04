@@ -1,8 +1,8 @@
 // ============= font families ================
-$font-header: Arial;
-$font-title: Arial;
-$font-body: Arial;
-$font-caption: Arial;
+$font-header: "Arial";
+$font-title: "Arial";
+$font-body: "Arial";
+$font-caption: "Arial";
 // ============= font weights =================
 $font-heavy: 700;
 $font-med: 600;
@@ -24,6 +24,8 @@ $font-caption: 8px;
   text-align: center;
   color: $slate;
   h1 {
+    font-size: $font-md-abs;
+    font-weight: $font-heavy;
     background: $border-g;
     background-clip: text;
     -webkit-background-clip: text;
