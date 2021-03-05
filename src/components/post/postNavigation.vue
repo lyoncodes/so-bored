@@ -8,7 +8,6 @@
     )
       IconBase#update-post-icon(
         icon-name="edit"
-        iconColor="rgba(242, 53, 69, 0.75)"
       )
         IconEdit
 
@@ -17,26 +16,26 @@
       @click="toggleCommentComponent(post)"
       :disabled="postList.updating"
     )
-      IconBase#create-comment-icon(
+      IconBase(
         icon-name="comment"
-        iconColor="rgba(242, 53, 69, 0.75)"
-        height="16"
-        width="16"
+        height="20"
+        width="20"
       )
-        IconComment
-      span.caption {{postList.commentStore.length}}
+        IconChat
+      span.caption.pl-1.pr-1 {{postList.commentStore.length}}
 
     //- sets postList.showLinks & displays link component
-    button.post-navigation-button(@click="toggleLinkForm(post)"
-    :disabled="postList.updating")
-      IconBase#create-link-icon(
+    button.post-navigation-button(
+      @click="toggleLinkForm(post)"
+      :disabled="postList.updating"
+    )
+      IconBase(
         icon-name="link"
-        iconColor="rgba(242, 53, 69, 0.75)"
-        height="16"
-        width="16"
+        height="19"
+        width="19"
       )
         IconLink
-      span.caption {{postList.linkStore.length}}
+      span.caption.pl-1.pr-1 {{postList.linkStore.length}}
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -46,7 +45,7 @@ export default {
   components: {
     IconBase: () => import('../IconBase'),
     IconEdit: () => import('../icons/IconEdit'),
-    IconComment: () => import('../icons/IconComment'),
+    IconChat: () => import('../icons/IconChat'),
     IconLink: () => import('../icons/IconLink')
   },
   computed: {

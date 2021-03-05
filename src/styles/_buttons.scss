@@ -24,7 +24,7 @@ button {
   -webkit-appearance: none;
   width: auto;
   &:active, &:hover{
-    background-color: $proton-light-opaque;
+    background-color: $light-slate;
     outline: none;
   }
   #update-post-icon{
@@ -113,7 +113,7 @@ button {
   margin-bottom: 0;
   position: absolute;
   padding: .5em 1em .55em 1em!important;
-  right: 100px;
+  right: 110px;
   bottom: 20px;
   z-index: 1;
 }
