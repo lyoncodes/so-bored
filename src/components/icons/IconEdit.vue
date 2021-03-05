@@ -1,7 +1,7 @@
 <template>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 113.95 113.28">
 <defs>
-  <linearGradient id="linear-gradient" x1="15.25" y1="59.42" x2="91.48" y2="59.42" gradientUnits="userSpaceOnUse"><stop offset="0.08" stop-color="#fc38ac" stop-opacity="0.9"/><stop offset="0.35" stop-color="#f93790" stop-opacity="0.93"/><stop offset="0.91" stop-color="#f23549"/><stop offset="0.92" stop-color="#f23547"/>
+  <linearGradient id="pencil-linear-gradient" x1="15.25" y1="59.42" x2="91.48" y2="59.42" gradientUnits="userSpaceOnUse"><stop offset="0.08" stop-color="#fc38ac" stop-opacity="0.9"/><stop offset="0.35" stop-color="#f93790" stop-opacity="0.93"/><stop offset="0.91" stop-color="#f23549"/><stop offset="0.92" stop-color="#f23547"/>
   </linearGradient>
 </defs>
 <g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><g id="Small_Pencil" data-name="Small Pencil">
@@ -13,7 +13,7 @@
 </svg>
 </template>
 <style scoped>
-.cls-1{opacity:0.8;fill:url(#linear-gradient);}
+.cls-1{opacity:0.8;fill:url(#pencil-linear-gradient);}
 .cls-2{fill:#ffeae6;}
 .cls-3{fill:#f2f2f2;}
 .cls-4{fill:#1a1a1a;}

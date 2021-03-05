@@ -1,7 +1,7 @@
 <template>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 139.14 135.11">
 <defs>
-  <radialGradient id="radial-gradient" cx="2735.69" cy="218.12" r="61.92" gradientTransform="matrix(-0.99, -0.11, -0.11, 0.99, 2820.41, 153.75)" gradientUnits="userSpaceOnUse"><stop offset="0.11" stop-color="#fc38ac" stop-opacity="0.7"/><stop offset="0.39" stop-color="#fb38ae" stop-opacity="0.69"/><stop offset="0.54" stop-color="#f839b3" stop-opacity="0.67"/><stop offset="0.66" stop-color="#f43abc" stop-opacity="0.62"/><stop offset="0.76" stop-color="#ed3bc8" stop-opacity="0.55"/><stop offset="0.85" stop-color="#e43dd8" stop-opacity="0.47"/><stop offset="0.91" stop-color="#dd3ee6" stop-opacity="0.4"/></radialGradient><radialGradient id="radial-gradient-2" cx="125.56" cy="115.44" r="126.78" gradientUnits="userSpaceOnUse"><stop offset="0.11" stop-color="#fc38ac"/><stop offset="0.23" stop-color="#fc38a8" stop-opacity="0.99"/><stop offset="0.37" stop-color="#fa389d" stop-opacity="0.95"/><stop offset="0.52" stop-color="#f93789" stop-opacity="0.9"/><stop offset="0.68" stop-color="#f6366f" stop-opacity="0.82"/><stop offset="0.84" stop-color="#f3354d" stop-opacity="0.72"/><stop offset="0.86" stop-color="#f23547" stop-opacity="0.7"/>
+  <radialGradient id="comment-radial-gradient" cx="2735.69" cy="218.12" r="61.92" gradientTransform="matrix(-0.99, -0.11, -0.11, 0.99, 2820.41, 153.75)" gradientUnits="userSpaceOnUse"><stop offset="0.11" stop-color="#fc38ac" stop-opacity="0.7"/><stop offset="0.39" stop-color="#fb38ae" stop-opacity="0.69"/><stop offset="0.54" stop-color="#f839b3" stop-opacity="0.67"/><stop offset="0.66" stop-color="#f43abc" stop-opacity="0.62"/><stop offset="0.76" stop-color="#ed3bc8" stop-opacity="0.55"/><stop offset="0.85" stop-color="#e43dd8" stop-opacity="0.47"/><stop offset="0.91" stop-color="#dd3ee6" stop-opacity="0.4"/></radialGradient><radialGradient id="comment-radial-gradient-2" cx="125.56" cy="115.44" r="126.78" gradientUnits="userSpaceOnUse"><stop offset="0.11" stop-color="#fc38ac"/><stop offset="0.23" stop-color="#fc38a8" stop-opacity="0.99"/><stop offset="0.37" stop-color="#fa389d" stop-opacity="0.95"/><stop offset="0.52" stop-color="#f93789" stop-opacity="0.9"/><stop offset="0.68" stop-color="#f6366f" stop-opacity="0.82"/><stop offset="0.84" stop-color="#f3354d" stop-opacity="0.72"/><stop offset="0.86" stop-color="#f23547" stop-opacity="0.7"/>
   </radialGradient>
 </defs>
 <g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2">
@@ -12,7 +12,7 @@
 </svg>
 </template>
 <style scoped>
-.cls-1{fill:url(#radial-gradient);}
-.cls-2{fill:url(#radial-gradient-2);}
+.cls-1{fill:url(#comment-radial-gradient);}
+.cls-2{fill:url(#comment-radial-gradient-2);}
 .cls-3{fill:#fff;}
 </style>

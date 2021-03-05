@@ -93,7 +93,7 @@
   )
 
   //- Comments section -----------
-  b-col(v-if="postList.displayComments && !postList.displayLinks")
+  div(v-if="postList.displayComments && !postList.displayLinks")
     postComments(
       :post="post"
       :postList="postList"

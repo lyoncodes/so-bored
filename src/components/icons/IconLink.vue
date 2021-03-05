@@ -1,9 +1,9 @@
 <template>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 139.67 109.43">
 <defs>
-  <linearGradient id="linear-gradient" x1="42.08" y1="48.79" x2="139.67" y2="48.79" gradientUnits="userSpaceOnUse"><stop offset="0.08" stop-color="#fc38ac" stop-opacity="0.9"/><stop offset="0.35" stop-color="#f93790" stop-opacity="0.93"/><stop offset="0.91" stop-color="#f23549"/><stop offset="0.92" stop-color="#f23547"/>
+  <linearGradient id="link-linear-gradient" x1="42.08" y1="48.79" x2="139.67" y2="48.79" gradientUnits="userSpaceOnUse"><stop offset="0.08" stop-color="#fc38ac" stop-opacity="0.9"/><stop offset="0.35" stop-color="#f93790" stop-opacity="0.93"/><stop offset="0.91" stop-color="#f23549"/><stop offset="0.92" stop-color="#f23547"/>
   </linearGradient>
-  <linearGradient id="linear-gradient-2" x1="63.77" y1="27.47" x2="85.88" y2="27.47" xlink:href="#linear-gradient"/>
+  <linearGradient id="link-linear-gradient-2" x1="63.77" y1="27.47" x2="85.88" y2="27.47" xlink:href="#link-linear-gradient"/>
 </defs>
 <g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><g class="cls-1">
   <path class="cls-2" d="M62,90.26,49.42,77.69a25.1,25.1,0,0,1,0-35.46l34.9-34.9a25.1,25.1,0,0,1,35.45,0L132.34,19.9a25.1,25.1,0,0,1,0,35.46l-34.9,34.9A25.11,25.11,0,0,1,62,90.26Zm47-72.13a9.8,9.8,0,0,0-13.85,0L60.22,53a9.81,9.81,0,0,0,0,13.86L72.78,79.46a9.81,9.81,0,0,0,13.86,0l34.9-34.9a9.81,9.81,0,0,0,0-13.86Z"/></g>
@@ -15,10 +15,10 @@
 </template>
 <style scoped>
 .cls-1,.cls-4{opacity:0.8;}
-.cls-2{fill:url(#linear-gradient);}
+.cls-2{fill:url(#link-linear-gradient);}
 
 .cls-3,.cls-5{fill:#fc38ac;}
-.cls-4{fill:url(#linear-gradient-2);}
+.cls-4{fill:url(#link-linear-gradient-2);}
 
 .cls-5{opacity:0.85;}
 </style>

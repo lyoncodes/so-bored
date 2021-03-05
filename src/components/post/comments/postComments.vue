@@ -1,51 +1,40 @@
 <template lang="pug">
   b-row
-    button#hide-comment-form.post-navigation-button(
-      @click="toggleCommentForm"
-      :class="hideThis"
-    )
-      IconBase#hide-form-icon(
-        icon-name="cancel"
-        iconColor="rgba(252, 56, 172)"
-      )
-        IconDelete
-    b-col.col-12.p-0
-        //- List iteration (comment in postComments)
-        b-col.col-12.mt-2(v-for="comment in postComments" :key="comment.id").comments-section
+    //- List iteration (comment in postComments)
+    b-col.col-12.mt-2(v-for="comment in postComments" :key="comment.id").comments-section
 
-          //- post comment
-          b-row.comment-container.text-left
-            b-col.col-12.p-0
+      //- post comment
+      b-row.comment-container.text-left
+        b-col.col-12.p-0
 
-              span.caption.pl-2.pt-2.mb-0 {{ comment.userName }} says:
-              p.post-text.pl-3.pt-1 {{ comment.text }}
+          span.caption.pl-2.pt-2.mb-0 {{ comment.userName }} says:
+          p.post-text.pl-3.pt-1 {{ comment.text }}
 
-              button#delete-comment.post-navigation-button(
-                @click="deleteComment(comment)"
-                v-if="user===comment.userName"
-              )
-                IconBase(
-                  icon-name="delete"
-                  iconColor="rgba(252, 56, 172)"
-                )
-                  IconDelete
-        createComment(
-          :post="post"
-          :validation="validation"
-          :postComments="postComments"
-          :postList="postList"
-          v-if="postList.displayCommentForm"
-          @append="appendComment"
-        )
-        button#show-comment-form.post-navigation-button(
-          v-if="!this.postList.displayCommentForm"
-          @click="toggleCommentForm"
-        )
-          IconBase#show-form-icon(
-            icon-name="loading"
-            iconColor="rgba(130, 53, 242, 0.85)"
+          button#delete-comment.post-navigation-button(
+            @click="deleteComment(comment)"
+            v-if="user===comment.userName"
           )
-            IconLoading
+            IconBase(
+              icon-name="delete"
+              iconColor="rgba(252, 56, 172)"
+            )
+              IconDelete
+    button#show-comment-form.post-navigation-button(
+      @click="toggleCommentForm"
+    )
+      IconBase(
+        icon-name="caret"
+        :class="flipThis"
+      )
+        IconCaret
+    createComment(
+      :post="post"
+      :validation="validation"
+      :postComments="postComments"
+      :postList="postList"
+      v-if="postList.displayCommentForm"
+      @append="appendComment"
+    )
 
 </template>
 <script>
@@ -56,9 +45,9 @@ export default {
   name: 'post-comments',
   props: ['post', 'postList', 'postComments', 'user', 'validation'],
   computed: {
-    hideThis: function () {
+    flipThis: function () {
       return {
-        hide: !this.postList.displayCommentForm
+        flip: !this.postList.displayCommentForm
       }
     }
   },
@@ -100,8 +89,7 @@ export default {
     createComment: () => import('../comments/createComment'),
     IconBase: () => import('../../IconBase'),
     IconDelete: () => import('../../icons/IconDelete'),
-    IconCaret: () => import('../../icons/IconCaret'),
-    IconLoading: () => import('../../icons/IconLoading')
+    IconCaret: () => import('../../icons/IconCaret')
   },
   async mounted () {
     const user = this.user

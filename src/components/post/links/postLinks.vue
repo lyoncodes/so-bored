@@ -3,7 +3,7 @@
     button#show-comment-form.post-navigation-button(
       @click="toggleLinkForm"
     )
-      IconBase#show-form-icon(
+      IconBase(
         icon-name="caret"
         iconColor="rgba(130, 53, 242, 0.85)"
         :class="flipThis"

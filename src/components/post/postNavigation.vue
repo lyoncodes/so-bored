@@ -25,12 +25,14 @@
       span.caption.pl-1.pr-1 {{postList.commentStore.length}}
 
     //- sets postList.showLinks & displays link component
-    button.post-navigation-button(@click="toggleLinkForm(post)"
-    :disabled="postList.updating")
+    button.post-navigation-button(
+      @click="toggleLinkForm(post)"
+      :disabled="postList.updating"
+    )
       IconBase(
         icon-name="link"
-        height="20"
-        width="20"
+        height="19"
+        width="19"
       )
         IconLink
       span.caption.pl-1.pr-1 {{postList.linkStore.length}}
