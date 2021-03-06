@@ -17,13 +17,9 @@
         :formValidation="formValidation"
         v-bind:class="{ hide: showCreatePost }"
       )
-      //- Landing message when posts are empty
-      b-row.justify-content-center(v-if="!posts.length && !showCreatePost")
-        landingMsg
 </template>
 
 <script>
-import { mapState } from 'vuex'
 
 export default {
   data () {
@@ -45,13 +41,7 @@ export default {
   components: {
     navBar: () => import('../components/navBar'),
     postsHome: () => import('../components/postsHome'),
-    createPost: () => import('../components/createPost'),
-    landingMsg: () => import('../components/landingMsg')
-  },
-  computed: {
-    ...mapState([
-      'posts'
-    ])
+    createPost: () => import('../components/createPost')
   },
   methods: {
     toggleCreatePost () {

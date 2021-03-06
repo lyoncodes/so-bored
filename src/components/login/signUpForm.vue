@@ -42,7 +42,7 @@
         a.link-style-alt.pt-5(type="submit" @click="toggleForm()") Back to Login
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'signUpForm',
@@ -60,9 +60,6 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'userProfile'
-    ]),
     errorObject: function () {
       return {
         valid: this.signUpForm.password.length > this.formChar.passwordLength ? true : null

@@ -90,6 +90,9 @@
   postNavigation(
     :post="post"
     :postList="postList"
+    :postComments="getPostComments"
+    :postLinks="getPostLinks"
+    :user="userProfile.username"
   )
 
   //- Comments section -----------
@@ -103,11 +106,12 @@
     )
 
   //- Links section -----------
-  b-col.col-12.p-0.mb-2(v-if="postList.displayLinks && !postList.displayComments")
+  div(v-if="postList.displayLinks && !postList.displayComments")
     postLinks(
       :post="post"
       :postList="postList"
-      :show="postList.displayLinks"
+      :postLinks="getPostLinks"
+      :user="userProfile.username"
       :validation="formValidation"
     )
 </template>
@@ -127,8 +131,6 @@ export default {
         displayLinkForm: true,
         updating: false,
         isError: false,
-        commentStore: [],
-        linkStore: [],
         postUpdateData: {
           title: String,
           text: String
@@ -149,12 +151,19 @@ export default {
     ...mapState([
       'userProfile',
       'posts',
-      'comments'
+      'comments',
+      'links'
     ]),
     getPostComments: function () {
       const comments = this.comments.filter(c => c.reference === this.post.id)
+      console.log(comments)
       comments.sort((a, b) => a.createdOn - b.createdOn)
       return comments
+    },
+    getPostLinks: function () {
+      const links = this.links.filter(c => c.reference === this.post.id)
+      links.sort((a, b) => a.createdOn - b.createdOn)
+      return links
     },
     // Handle form entry errors
     textErrorObject: function () {
@@ -176,7 +185,7 @@ export default {
     ]),
 
     // Updates Post Title & Text in dB and Front End
-    updatePostHeader (post) {
+    updatePostHeader () {
       const { title, text } = this.postList.postUpdateData
       const id = this.post.id
 
@@ -213,21 +222,6 @@ export default {
 
       this.postList.isError = this.postList.postUpdateData.text.length > this.formValidation.charLimit || this.postList.postUpdateData.title.length > this.formValidation.titleLimit ? true : null
     }
-  },
-
-  async mounted () {
-    // Assigns post comments
-    const comments = this.comments.filter(c => c.reference === this.post.id)
-    this.postList.commentStore = comments
-    this.postList.commentStore.sort((a, b) => a.createdOn - b.createdOn)
-
-    // // Assigns post links
-    // const links = await linksCollection.where('reference', '==', this.post.id).limit(50).get()
-    // links.forEach((l) => {
-    //   const link = l.data()
-    //   link.id = l.id
-    //   this.postList.linkStore.push(link)
-    // })
   }
 }
 </script>

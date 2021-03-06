@@ -1,62 +1,50 @@
 <template lang="pug">
-  b-row
-    button#show-comment-form.post-navigation-button(
-      @click="toggleLinkForm"
+b-row
+  b-col.col-12.comments-section.mt-2.mb-4(v-for="link in postLinks" :key="link.id")
+    b-row.comments-container.text-left
+      b-col.col-11.p-0
+        span.caption.pl-2.pt-2.mb-1 {{ link.userName }} linked:
+        p.comment-text.link-style-main.pl-3.pt-1(@click="redirect(link)") {{link.linkText}}
+      b-col.col-1.p-0
+        button#delete-link.post-navigation-button(
+          @click="remove(link)"
+          v-if="user===link.userName")
+          IconBase(
+            icon-name="delete"
+            iconColor="rgb(252, 56, 172)"
+          )
+            IconDelete
+  button#show-comment-form.post-navigation-button(
+    @click="toggleLinkForm"
+  )
+    IconBase(
+      icon-name="caret"
+      :class="flipThis"
     )
-      IconBase(
-        icon-name="caret"
-        iconColor="rgba(130, 53, 242, 0.85)"
-        :class="flipThis"
-      )
-        IconCaret
-
-    b-col.col-12.p-0(v-if="show")
-
-      b-form(
-        @submit.prevent="appendLink()"
-        v-if="show")
-        b-form-textarea.mb-2(
-          autofocus
-          id="link-text-area"
-          v-model="linkData.linkText"
-          placeholder="link text"
-        )
-
-        b-form-textarea(
-          id="link-text-area"
-          v-model="linkData.linkURL"
-          placeholder="https://"
-          @keydown.enter.prevent="appendLink()"
-        )
-
-        b-row.justify-content-between.mb-2
-          a.validation-char.mt-2.mb-0.ml-3(
-            :class="errorObject"
-          ) {{this.linkData.linkText.length}} / {{ validation.commentLimit}}
-
-          button#submit-link.neu-b-button.m-0.mt-2.mr-3(
-            type="submit"
-            :disabled="this.linkData.linkText.length > this.validation.commentLimit"
-          ) Add Link
-
-    b-col.col-12.comments-section.mt-2.mb-4(v-for="link in postList.linkStore" :key="link.id")
-      linkComponent(
-        :link="link"
-        :links="postList.linkStore"
-        :post="post"
-        :userProfile="userProfile"
-      )
+      IconCaret
+  createLink(
+    :post="post"
+    :postList="postList"
+    :validation="validation"
+    v-if="postList.displayLinkForm"
+    @append="appendLink"
+  )
 </template>
 <script>
 import { linksCollection } from '../../../../firebase'
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: 'link-box',
-  props: ['post', 'postList', 'show', 'validation'],
+  props: ['post', 'postList', 'postLinks', 'user', 'validation'],
   components: {
-    linkComponent: () => import('./linkComponent'),
+    createLink: () => import('./createLink'),
     IconBase: () => import('../../IconBase'),
+    IconDelete: () => import('../../icons/IconDelete'),
     IconCaret: () => import('../../icons/IconCaret')
+  },
+  async mounted () {
+    const user = this.user
+    this.user = user
   },
   data () {
     return {
@@ -67,17 +55,14 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'userProfile'
-    ]),
-    flipThis: function () {
-      return {
-        flip: !this.show
-      }
-    },
     errorObject: function () {
       return {
         error: this.linkData.linkText.length > this.validation.commentLimit ? true : null
+      }
+    },
+    flipThis: function () {
+      return {
+        flip: !this.postList.displayLinkForm
       }
     }
   },
@@ -85,24 +70,22 @@ export default {
     ...mapActions([
       'createLink'
     ]),
+
     toggleLinkForm () {
-      this.show = !this.show
+      this.postList.displayLinkForm = !this.postList.displayLinkForm
     },
 
-    appendLink () {
-      const createdOn = new Date()
-      const reference = this.$props.post.id
-      const userName = this.userProfile.username
-      const { linkText, linkURL } = this.linkData
-      const linkPayload = {
-        createdOn,
-        linkText,
-        linkURL,
-        userName,
-        reference
+    async appendLink (linkData) {
+      const link = {
+        ...linkData.linkData,
+        reference: this.$props.post.id,
+        userName: this.$props.user
       }
-      if (this.linkData.linkText.length && this.linkData.linkURL.length) {
-        this.createLink(linkPayload)
+      if (link.linkText.length && link.linkURL.length) {
+        this.postLinks.push(link)
+
+        this.createLink(link)
+        this.getLinkId(link)
       }
       this.linkData = {
         linkText: '',
@@ -110,27 +93,21 @@ export default {
       }
     },
 
-    async createLink (link) {
-      await linksCollection.add({
-        createdOn: link.createdOn,
-        linkText: link.linkText,
-        linkURL: link.linkURL,
-        userName: link.userName,
-        reference: link.reference
-      })
-      this.getLinkId(link)
-    },
-
     async getLinkId (link) {
       const linksRef = await linksCollection.where('createdOn', '==', link.createdOn).get()
       linksRef.forEach((l) => {
         link.id = l.id
       })
-      this.postList.linkStore.push(link)
     },
 
     redirect (link) {
       window.location.href = `https://${link.linkURL}`
+    },
+
+    async remove (link) {
+      await linksCollection.doc(`${link.id}`).delete()
+      const foundAt = this.postLinks.findIndex(l => l === link)
+      this.postLinks.splice(foundAt, 1)
     }
   }
 }
