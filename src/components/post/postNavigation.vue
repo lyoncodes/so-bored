@@ -3,7 +3,7 @@
 
     //- handle update post data & cancel form update
     button.post-navigation-button(
-      v-if="this.userProfile.username === post.userName"
+      v-if="user === post.userName"
       @click="toggleUpdateForm(post)"
     )
       IconBase#update-post-icon(
@@ -22,7 +22,7 @@
         width="20"
       )
         IconChat
-      span.caption.pl-1.pr-1 {{postList.commentStore.length}}
+      span.caption.pl-1.pr-1 {{postComments.length}}
 
     //- sets postList.showLinks & displays link component
     button.post-navigation-button(
@@ -35,23 +35,17 @@
         width="19"
       )
         IconLink
-      span.caption.pl-1.pr-1 {{postList.linkStore.length}}
+      span.caption.pl-1.pr-1 {{postLinks.length}}
 </template>
 <script>
-import { mapState } from 'vuex'
 export default {
   name: 'postNav',
-  props: ['post', 'postList'],
+  props: ['post', 'user', 'postList', 'postComments', 'postLinks'],
   components: {
     IconBase: () => import('../IconBase'),
     IconEdit: () => import('../icons/IconEdit'),
     IconChat: () => import('../icons/IconChat'),
     IconLink: () => import('../icons/IconLink')
-  },
-  computed: {
-    ...mapState([
-      'userProfile'
-    ])
   },
   methods: {
     // Display / hide post editing form fields
