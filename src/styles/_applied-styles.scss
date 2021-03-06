@@ -2,6 +2,7 @@
   display: none;
 }
 .flip {
+  margin-bottom: -10px;
   transform: rotate(180deg)translateY(45%)translateX(15%);
 }
 .error {

@@ -24,7 +24,7 @@ button {
   -webkit-appearance: none;
   width: auto;
   &:active, &:hover{
-    background-color: $proton-light-opaque;
+    background-color: $light-slate;
     outline: none;
   }
   #update-post-icon{
@@ -109,9 +109,18 @@ button {
   right: -8px;
   top: -5px
 }
-#show-comment-form{
+#hide-comment-form{
   margin-bottom: 0;
   position: absolute;
-  right: 50px;
-  top: -52px;
+  padding: .5em 1em .55em 1em!important;
+  right: 110px;
+  bottom: 20px;
+  z-index: 1;
+}
+#show-comment-form{
+  margin-bottom: 8px;
+  right: 100px;
+  bottom: 17px;
+  width: 100%;
+  z-index: 1;
 }

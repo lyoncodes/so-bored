@@ -9,5 +9,11 @@ export default {
   },
   updatePosts (state, data) {
     state.posts = data
+  },
+  updateLinks (state, data) {
+    state.links = data
+  },
+  updateComments (state, data) {
+    state.comments = data
   }
 }

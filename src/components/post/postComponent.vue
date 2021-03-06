@@ -90,29 +90,32 @@
   postNavigation(
     :post="post"
     :postList="postList"
+    :postComments="getPostComments"
+    :postLinks="getPostLinks"
+    :user="userProfile.username"
   )
 
   //- Comments section -----------
-  b-col(v-if="postList.displayComments && !postList.displayLinks")
+  div(v-if="postList.displayComments && !postList.displayLinks")
     postComments(
       :post="post"
       :postList="postList"
-      :postComments="postList.commentStore"
+      :postComments="getPostComments"
       :user="userProfile.username"
       :validation="formValidation"
     )
 
   //- Links section -----------
-  b-col.col-12.p-0.mb-2(v-if="postList.displayLinks && !postList.displayComments")
+  div(v-if="postList.displayLinks && !postList.displayComments")
     postLinks(
       :post="post"
       :postList="postList"
-      :show="postList.displayLinks"
+      :postLinks="getPostLinks"
+      :user="userProfile.username"
       :validation="formValidation"
     )
 </template>
 <script>
-import { commentsCollection, linksCollection } from '../../../firebase'
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -128,8 +131,6 @@ export default {
         displayLinkForm: true,
         updating: false,
         isError: false,
-        commentStore: [],
-        linkStore: [],
         postUpdateData: {
           title: String,
           text: String
@@ -149,9 +150,21 @@ export default {
   computed: {
     ...mapState([
       'userProfile',
-      'posts'
+      'posts',
+      'comments',
+      'links'
     ]),
-
+    getPostComments: function () {
+      const comments = this.comments.filter(c => c.reference === this.post.id)
+      console.log(comments)
+      comments.sort((a, b) => a.createdOn - b.createdOn)
+      return comments
+    },
+    getPostLinks: function () {
+      const links = this.links.filter(c => c.reference === this.post.id)
+      links.sort((a, b) => a.createdOn - b.createdOn)
+      return links
+    },
     // Handle form entry errors
     textErrorObject: function () {
       return {
@@ -172,7 +185,7 @@ export default {
     ]),
 
     // Updates Post Title & Text in dB and Front End
-    updatePostHeader (post) {
+    updatePostHeader () {
       const { title, text } = this.postList.postUpdateData
       const id = this.post.id
 
@@ -209,25 +222,6 @@ export default {
 
       this.postList.isError = this.postList.postUpdateData.text.length > this.formValidation.charLimit || this.postList.postUpdateData.title.length > this.formValidation.titleLimit ? true : null
     }
-  },
-
-  async mounted () {
-    // Assigns post comments
-    const comments = await commentsCollection.where('reference', '==', this.post.id).limit(50).get()
-    comments.forEach((c) => {
-      const comment = c.data()
-      comment.id = c.id
-      this.postList.commentStore.push(comment)
-    })
-    this.postList.commentStore.sort((a, b) => a.createdOn - b.createdOn)
-
-    // Assigns post links
-    const links = await linksCollection.where('reference', '==', this.post.id).limit(50).get()
-    links.forEach((l) => {
-      const link = l.data()
-      link.id = l.id
-      this.postList.linkStore.push(link)
-    })
   }
 }
 </script>
