@@ -13,6 +13,8 @@ b-col.col-12.p-0
       @keyup="validateCharCount()"
       @keydown.enter.prevent="append()"
       placeholder="add a comment..."
+      rows="1"
+      max-rows="3"
     )
 
     b-row.justify-content-between

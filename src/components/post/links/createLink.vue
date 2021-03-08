@@ -7,7 +7,7 @@ b-col.col-12.p-0
       autofocus
       id="link-text-area"
       v-model="link.linkText"
-      placeholder="link text"
+      placeholder="link title"
     )
 
     b-form-textarea(

@@ -4,18 +4,12 @@
     navBar(
       v-on:toggleCreatePost="toggleCreatePost()")
 
-    //- new post form (CREATE)
-    createPost(
-      :formValidation="formValidation"
-      v-if="showCreatePost"
-      v-on:hideCreatePost="toggleCreatePost()"
-    )
     b-col.col-12.p-0
 
       //- Posts
       postsHome(
         :formValidation="formValidation"
-        v-bind:class="{ hide: showCreatePost }"
+        :showCreatePost="showCreatePost"
       )
 </template>
 

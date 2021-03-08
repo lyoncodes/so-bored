@@ -126,9 +126,7 @@ export default {
     return {
       postList: {
         displayComments: false,
-        displayCommentForm: true,
         displayLinks: false,
-        displayLinkForm: true,
         updating: false,
         isError: false,
         postUpdateData: {

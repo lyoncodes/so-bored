@@ -13,7 +13,7 @@
         IconLogo
     b-col.col-4.mt-2.pr-0
 
-      button#toggle-post.neu-b-button(@click="toggleCreatePost")
+      button#toggle-post.neu-c-button(@click="toggleCreatePost")
         IconBase(
           icon-name="comment"
           height="20"

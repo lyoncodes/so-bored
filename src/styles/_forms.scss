@@ -37,7 +37,7 @@ form {
       box-shadow: none!important;
     }
   }
-  #login-form-textarea, #login-form-password{
+  #login-form-textarea, #login-form-password, #new-post-title{
     color: $royal-dark!important;
   }
   #post-form-textarea, #new-post-textarea, #new-post-title, #title-update-text{
@@ -52,6 +52,13 @@ form {
     border-radius: $border-radius-rel;
     padding-left: 6px;
   }
+  #new-post-title{
+    padding-top: 2.5px;
+    &::placeholder{
+      color: $caption-slate;
+      font-style: italic;
+    }
+  }
   #title-update-text {
     line-height: 1.2;
     border: none;
@@ -61,9 +68,16 @@ form {
     }
   }
 }
-#new-post-textarea, #post-form-textarea, #comment-text-field, #link-text-area {
+#new-post-textarea, #post-form-textarea, #link-text-area, #comment-text-field {
   font-size: $font-sm !important;
   font-weight: 100 !important;
+  &::placeholder {
+    color: $caption-slate;
+    font-style: italic;
+    padding-top: .75px;
+  }
+}
+#new-post-textarea, #post-form-textarea, #link-text-area {
   height: 7.25em;
   &::placeholder {
     color: $caption-slate;
@@ -96,16 +110,6 @@ form {
 #update-validation-char {
   position: absolute;
   bottom: -13px;
-}
-// Form Errors
-.error-badge{
-  color: $candy-red;
-  font-size: $font-sm-abs;
-  position: absolute;
-  padding-top: 12px;
-  bottom: 26px;
-  left: 50px;
-  z-index: 1
 }
 #edit-post-error{
   top: -10;

@@ -1,12 +1,12 @@
 <template lang="pug">
 b-row
-  b-col.col-12.comments-section.mt-2.mb-4(v-for="link in postLinks" :key="link.id")
-    b-row.comments-container.text-left
-      b-col.col-11.p-0
-        span.caption.pl-2.pt-2.mb-1 {{ link.userName }} linked:
-        p.comment-text.link-style-main.pl-3.pt-1(@click="redirect(link)") {{link.linkText}}
-      b-col.col-1.p-0
-        button#delete-link.post-navigation-button(
+  b-col.col-12.comments-section.mt-2(v-for="link in postLinks" :key="link.id")
+    b-row.comment-container.text-left
+      b-col.col-12.p-0
+        span.caption.pl-2.pt-2.mb-0 {{ link.userName }} linked:
+        p.post-text.link-style-main.pl-3.pt-1(@click="redirect(link)") {{link.linkText}}
+
+        button#delete-comment.post-navigation-button(
           @click="remove(link)"
           v-if="user===link.userName")
           IconBase(
@@ -14,19 +14,10 @@ b-row
             iconColor="rgb(252, 56, 172)"
           )
             IconDelete
-  button#show-comment-form.post-navigation-button(
-    @click="toggleLinkForm"
-  )
-    IconBase(
-      icon-name="caret"
-      :class="flipThis"
-    )
-      IconCaret
   createLink(
     :post="post"
     :postList="postList"
     :validation="validation"
-    v-if="postList.displayLinkForm"
     @append="appendLink"
   )
 </template>
@@ -70,10 +61,6 @@ export default {
     ...mapActions([
       'createLink'
     ]),
-
-    toggleLinkForm () {
-      this.postList.displayLinkForm = !this.postList.displayLinkForm
-    },
 
     async appendLink (linkData) {
       const link = {
