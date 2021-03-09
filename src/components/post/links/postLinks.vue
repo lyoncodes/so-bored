@@ -62,7 +62,8 @@ export default {
       'createLink'
     ]),
 
-    async appendLink (linkData) {
+    appendLink (linkData) {
+      console.log('called')
       const link = {
         ...linkData.linkData,
         reference: this.$props.post.id,

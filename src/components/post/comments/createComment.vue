@@ -1,11 +1,11 @@
 <template lang="pug">
-b-col.col-12.p-0
+b-col.col-12.mt-1.p-0
 
-  b-form.mb-3(
+  b-form(
+    inline
     @submit.prevent="append()"
     v-bind:class="errorObject"
   )
-
     b-form-textarea(
       autofocus
       id="comment-text-field"
@@ -16,23 +16,30 @@ b-col.col-12.p-0
       rows="1"
       max-rows="3"
     )
+    button#create-comment.post-navigation-button.m-0(
+      type="submit"
+      :disabled="this.isError"
+    )
+      IconBase(
+        icon-name="comment"
+        height="15"
+        width="15"
+      )
+        IconComment
+  b-row.mb-2
+    a.validation-char.mt-1(
+      v-bind:class="errorObject"
+    ) {{comment.text.length}} / {{ validation.commentLimit}}
 
-    b-row.justify-content-between
-
-      a.validation-char.mt-2.mb-0.ml-3(
-        v-bind:class="errorObject"
-      ) {{comment.text.length}} / {{ validation.commentLimit}}
-
-      button#submit-comment.neu-b-button.m-0.mt-2.mr-3(
-        type="submit"
-        :disabled="this.isError"
-      ) Comment
 </template>
 <script>
 export default {
   name: 'createComment',
   props: ['post', 'postList', 'validation'],
-
+  components: {
+    IconBase: () => import('../../IconBase'),
+    IconComment: () => import('../../icons/IconComment')
+  },
   data () {
     return {
       comment: {

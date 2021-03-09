@@ -10,7 +10,7 @@
             b-row
               a.link-style-alt.ml-1.mb-1 recovery email
             b-row
-              b-form-input(
+              b-form-input.login-input(
                 v-model="resetData"
                 type="email"
               )

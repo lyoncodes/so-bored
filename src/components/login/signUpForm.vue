@@ -8,7 +8,7 @@
           b-row
             a.link-style-alt.ml-1.mb-1 login email
           b-row
-            b-form-input(
+            b-form-input.login-input(
               v-model="signUpForm.email"
               type="text"
             )
@@ -17,7 +17,7 @@
           b-row
             a.link-style-alt.ml-1.mb-1 screen name
           b-row
-            b-form-input(
+            b-form-input.login-input(
               v-model="signUpForm.username"
               type="text"
             )
@@ -26,13 +26,13 @@
           b-row
             a.link-style-alt.ml-1.mb-1 password
           b-row
-            b-form-input(
+            b-form-input.login-input(
               @keyup="validateCharCount()"
               @keydown.enter.prevent="handleSignUp(signUpForm)"
               v-model="signUpForm.password"
               type="password"
             )
-          a.link-style-alt.ml-1.mb-1(
+          a.link-style-alt(
             :class="errorObject"
           ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
 

@@ -43,14 +43,15 @@ button {
   }
 }
 .neu-c-button{
+  background-color: $light-slate-full;
   color: $candy-red-opaque;
   &:hover {
-    background-color: $lavender-cloud;
+    background-color: $background-slate;
     color: $background-slate;
   }
 }
 .post-navigation-button{
-  background-color: $light-slate;
+  background-color: $light-slate-full;
   box-shadow: $shadow-low-contrast;
   border-radius: $border-radius-sm!important;
   border: 0;
@@ -78,42 +79,29 @@ button {
     color: $background-slate
   }
 }
-#update-post, #delete-post, #delete-link, #delete-comment, #hide-comment-form, #reset-post-form {
+#create-post, #update-post, #delete-post, #create-link, #delete-link, #create-comment, #delete-comment, #hide-comment-form, #reset-post-form {
   position: absolute;
 }
 #update-post{
   bottom: -65px;
   right: 0;
 }
-#delete-link, #reset-post-form, #show-comment-form{
+#delete-link, #reset-post-form{
   font-size: $font-sm!important; //resets neu-c-button's override
   padding: .5em 1em .5em 1em!important; //overrides default button padding
-}
-#delete-link, #reset-post-form{
   right: 0px;
   top: 10px
 }
-#delete-post{
+#delete-post, #delete-comment{
   padding: 3px 8px 2px 10px;
-  top: -8px;
-  right: -8px
+  top: 2px;
+  right: 0px
 }
-#delete-comment{
-  padding: 3px 8px 2px 10px;
-  right: -8px;
-  top: -5px
+#create-post, #create-comment{
+  right: 4px;
+  top: 4px
 }
-#hide-comment-form{
-  margin-bottom: 0;
-  padding: .5em 1em .55em 1em!important;
-  right: 110px;
-  bottom: 20px;
-  z-index: 1;
-}
-#show-comment-form{
-  margin-bottom: 8px;
-  right: 100px;
-  bottom: 17px;
-  width: 100%;
-  z-index: 1;
+#create-link{
+  right: 0px;
+  bottom: 28px
 }

@@ -69,7 +69,7 @@
 
         //- text area
         b-form-textarea.mt-3(
-          id="post-form-textarea"
+          id="post-update-textarea"
           v-model="postList.postUpdateData.text"
           @keyup="validateForm()"
           @keydown.enter.prevent="updatePostHeader(post, postList.postUpdateData)"

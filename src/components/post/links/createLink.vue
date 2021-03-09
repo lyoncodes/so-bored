@@ -1,31 +1,38 @@
 <template lang="pug">
 b-col.col-12.p-0
   b-form(
+    inline
     @submit.prevent="append()"
   )
     b-form-textarea.mb-2(
       autofocus
-      id="link-text-area"
+      id="link-textarea"
       v-model="link.linkText"
       placeholder="link title"
     )
 
     b-form-textarea(
-      id="link-text-area"
+      @keydown.enter.prevent="append()"
+      id="link-textarea"
       v-model="link.linkURL"
       placeholder="https://"
-      @keydown.enter.prevent="append()"
     )
+    button#create-link.post-navigation-button(
+      type="submit"
+      :disabled="this.link.linkText.length > this.validation.commentLimit"
+    )
+      IconBase(
+        icon-name="link"
+        height="19"
+        width="19"
+      )
+        IconLink
 
   b-row.justify-content-between.mb-2
     a.validation-char.mt-2.mb-0.ml-3(
       :class="errorObject"
     ) {{this.link.linkText.length}} / {{ validation.commentLimit}}
 
-    button#submit-link.neu-b-button.m-0.mt-2.mr-3(
-      type="submit"
-      :disabled="this.link.linkText.length > this.validation.commentLimit"
-    ) Add Link
 </template>
 <script>
 import { linksCollection } from '../../../../firebase'
@@ -34,6 +41,8 @@ export default {
   name: 'link-box',
   props: ['post', 'postList', 'validation'],
   components: {
+    IconBase: () => import('../../IconBase'),
+    IconLink: () => import('../../icons/IconLink'),
     postLinks: () => import('./postLinks')
   },
   data () {
