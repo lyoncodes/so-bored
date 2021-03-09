@@ -1,7 +1,7 @@
 <template lang="pug">
   //- login container
   b-container
-    b-row.mt-3.mb-3
+    b-row.mb-3
       IconBase#main-logo(
         icon-name="Comment"
         height="100"

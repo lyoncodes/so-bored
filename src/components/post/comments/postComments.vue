@@ -19,20 +19,11 @@ b-row
             iconColor="rgba(252, 56, 172)"
           )
             IconDelete
-  //- button#show-comment-form.post-navigation-button(
-  //-   @click="toggleCommentForm"
-  //- )
-  //-   IconBase(
-  //-     icon-name="caret"
-  //-     :class="flipThis"
-  //-   )
-  //-     IconCaret
   createComment(
     :post="post"
     :postList="postList"
     :postComments="postComments"
     :validation="validation"
-    v-if="postList.displayCommentForm"
     @append="appendComment"
   )
 
@@ -54,21 +45,10 @@ export default {
     const user = this.user
     this.user = user
   },
-  computed: {
-    flipThis: function () {
-      return {
-        flip: !this.postList.displayCommentForm
-      }
-    }
-  },
   methods: {
     ...mapActions([
       'createComment'
     ]),
-
-    toggleCommentForm () {
-      this.postList.displayCommentForm = !this.postList.displayCommentForm
-    },
 
     async appendComment (commentData) {
       const comment = {

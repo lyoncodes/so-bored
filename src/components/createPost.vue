@@ -1,50 +1,63 @@
 <template lang="pug">
-b-container
-  b-col.post.col-12.ml-0
-    .pt-3.pl-2.pr-2.pt-lg-3.pr-lg-4.pb-lg-2.pl-lg-4
-      //- Post Heading -----------
-      b-row.justify-content-between.mb-3
+b-col.post.col-12.ml-0
+  .pt-1.pl-2.pr-2
 
-        b-col.p-0.text-left
-          //- Post author
-          span.caption {{ userProfile.username }}'s new post:
-      //- New Post title form
-      b-row
-        b-col.p-0.mb-0
-          //- create post form
-          b-form(@submit.prevent="newPost" v-bind:class="errorObject")
-            b-form-textarea#new-post-title(
-              v-model="newPostData.title"
-              @keyup="validateCharCount()"
-              autofocus
-              required
-              contenteditable
-              placeholder="Title"
-            )
-            b-row.justify-content-start
-              a.validation-char#new-post-validation.ml-3 {{newPostData.title.length}} / {{formValidation.titleLimit}}
-
-      //- New Post text field
-      b-row
-        b-col.col-12.p-0
-          b-form.mt-3(
-            @submit.prevent="newPost" v-bind:class="errorObject"
+    //- Post Heading -----------
+    b-row.justify-content-between.mb-1
+      b-col.p-0.text-left
+        //- Post author
+        span.caption {{ userProfile.username }}'s says:
+    //- New Post title form
+    b-row
+      b-col.p-0.mb-0
+        //- create post form
+        b-form(
+          @submit.prevent="newPost"
+          v-bind:class="errorObject"
+        )
+          b-form-textarea#new-post-title(
+            v-model="newPostData.title"
+            @keyup="validateCharCount()"
+            autofocus
+            required
+            contenteditable
+            placeholder="Title"
+            rows="1"
+            max-rows="3"
           )
+          b-row.justify-content-start
+            a.validation-char#new-post-validation.ml-3.mt-1 {{newPostData.title.length}} / {{formValidation.titleLimit}}
 
-            b-form-textarea#new-post-textarea(
-              @keyup="validateCharCount()"
-              @keydown.enter.prevent="newPost"
-              v-model="newPostData.text"
-              placeholder="Post text (optional)"
+    //- New Post text field
+    b-row
+      b-col.col-12.p-0
+        b-form.mt-1(
+          inline
+          @submit.prevent="newPost"
+          v-bind:class="errorObject"
+        )
+
+          b-form-textarea#new-post-textarea(
+            @keyup="validateCharCount()"
+            @keydown.enter.prevent="newPost"
+            v-model="newPostData.text"
+            placeholder="Post text (optional)"
+            rows="1"
+            max-rows="6"
+          )
+          button#create-post.post-navigation-button.m-0.mt-1(
+            :disabled="isError"
+            type="submit"
+          )
+            IconBase(
+              icon-name="comment"
+              height="15"
+              width="15"
             )
+              IconComment
+      b-row.justify-content-between.mb-2
+        a.validation-char#new-post-validation.ml-3.mt-1 {{newPostData.text.length}} / {{formValidation.charLimit}}
 
-            b-row.justify-content-between
-              a.validation-char#new-post-validation.ml-3 {{newPostData.text.length}} / {{formValidation.charLimit}}
-
-              button#create-post.neu-b-button.mr-3(
-                :disabled="isError"
-                type="submit"
-              ) Post
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -52,6 +65,10 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'createPost',
   props: ['formValidation'],
+  components: {
+    IconBase: () => import('./IconBase'),
+    IconComment: () => import('./icons/IconComment')
+  },
   data () {
     return {
       newPostData: {

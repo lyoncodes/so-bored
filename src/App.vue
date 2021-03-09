@@ -9,9 +9,11 @@ export default {
 </script>
 <style lang="scss">
 body {
+  background-color: $lavender-cloud;
   margin-left: auto;
   margin-right: auto;
   max-width: 500px;
+  overflow-x: hidden;
 }
 body::-webkit-scrollbar {
   display: none;
