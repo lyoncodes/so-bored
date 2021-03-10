@@ -154,7 +154,6 @@ export default {
     ]),
     getPostComments: function () {
       const comments = this.comments.filter(c => c.reference === this.post.id)
-      console.log(comments)
       comments.sort((a, b) => a.createdOn - b.createdOn)
       return comments
     },

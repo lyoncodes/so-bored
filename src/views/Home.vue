@@ -9,7 +9,8 @@
       //- Posts
       postsHome(
         :formValidation="formValidation"
-        :showCreatePost="showCreatePost"
+        :showForm="showForm"
+        @hideForm="toggleCreatePost()"
       )
 </template>
 
@@ -18,7 +19,7 @@
 export default {
   data () {
     return {
-      showCreatePost: false,
+      showForm: false,
 
       formValidation: {
         titleLimit: 140,
@@ -39,7 +40,7 @@ export default {
   },
   methods: {
     toggleCreatePost () {
-      this.showCreatePost = !this.showCreatePost
+      this.showForm = !this.showForm
     }
   }
 }

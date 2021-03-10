@@ -123,7 +123,7 @@ export default {
         title: '',
         text: ''
       }
-      this.$emit('hideCreatePost')
+      this.$emit('hideCreatePost', false)
     }
   }
 }
