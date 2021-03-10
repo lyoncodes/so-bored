@@ -7,16 +7,13 @@
 }
 form {
   -webkit-appearance: none;
-  .form-control {
-    height: 4em;
-  }
   textarea, input, .form-control {
     color: $black-slate;
     background: $background-slate;
     border: 1px solid $light-slate;
     border-radius: $border-radius-sm;
-    font-size: $font-md;
     font-weight: $font-heavy;
+    font-size: $font-md;
     resize: none;
     transition: all .4s ease-in;
     &::placeholder{
@@ -31,26 +28,36 @@ form {
     }
     &:focus {
       border: 1px solid $plastic-pink-opaque;
-      box-shadow: none!important;
-    }
-    &:focus {
-      box-shadow: none!important;
     }
   }
-  #login-form-textarea, #login-form-password{
+  .login-input{
+    height: 3.25em;
+  }
+  #login-form-textarea, #login-form-password {
+    height: 3em;
+  }
+  #login-form-textarea, #login-form-password, #new-post-title{
     color: $royal-dark!important;
   }
-  #post-form-textarea, #new-post-textarea, #new-post-title, #title-update-text{
+  #new-post-title, #title-update-text{
     line-height: 1.2em;
   }
-  #post-form-textarea{
+  #post-update-textarea{
     &:hover, &:active, &:focus {
-      border: 1px solid transparent
+      border: 1px solid transparent //overrides the default 1px border applied on form field pseudo-states to keep the "feel" of directly editing the post instead of creating a new one
     }
+    padding-left: 0px;
   }
   #new-post-title, #new-post-textarea{
     border-radius: $border-radius-rel;
     padding-left: 6px;
+  }
+  #new-post-title{
+    padding-top: 2.75px;
+    &::placeholder{
+      color: $caption-slate;
+      font-style: italic;
+    }
   }
   #title-update-text {
     line-height: 1.2;
@@ -61,17 +68,25 @@ form {
     }
   }
 }
-#new-post-textarea, #post-form-textarea, #comment-text-field, #link-text-area {
+#new-post-textarea, #post-update-textarea, #link-textarea, #comment-text-field {
   font-size: $font-sm !important;
   font-weight: 100 !important;
+  &::placeholder {
+    color: $caption-slate;
+    font-style: italic;
+    padding-top: .75px;
+  }
+}
+#post-update-textarea{
   height: 7.25em;
   &::placeholder {
     color: $caption-slate;
     font-style: italic;
   }
 }
-#link-text-area {
-  height: 3em!important;
+#new-post-textarea, #comment-text-field, #link-textarea {
+  margin-right: 4em;
+  line-height: 1em;
 }
 }
 // styles update form text to match post title styling (h3 in fonts)
@@ -81,35 +96,30 @@ form {
   font-weight: $font-heavy;
   margin-bottom: 0;
 }
-.bv-no-focus-ring{
-  text-align: left;
+// password input validation characters
+.bv-no-focus-ring {
+  text-align: left; //overrrides parent container's text-align center
 }
 .validation-char {
+  color: $royal!important;
   font-size: 10px!important;
   font-weight: $font-heavy;
   margin: .75em 0 0 2em;
   text-align: left;
 }
-#new-post-validation, #update-validation-char {
-  color: $black-slate;
-}
 #update-validation-char {
   position: absolute;
   bottom: -13px;
-}
-// Form Errors
-.error-badge{
-  color: $candy-red;
-  font-size: $font-sm-abs;
-  position: absolute;
-  padding-top: 12px;
-  bottom: 26px;
-  left: 50px;
-  z-index: 1
 }
 #edit-post-error{
   top: -10;
   bottom: 292;
   right: 50;
   left: 50;
+}
+
+@media (min-width: 576px) {
+  .form-inline .form-control {
+    width: 100%
+  }
 }

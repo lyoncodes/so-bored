@@ -11,27 +11,6 @@ button {
     outline: none!important;
   }
 }
-.post-navigation-button{
-  background-color: $background-slate;
-  box-shadow: $shadow-low-contrast;
-  border-radius: $border-radius-sm!important;
-  border: 0;
-  line-height: 16px;
-  margin: 0 .15em .25em .15em;
-  outline: none;
-  padding: 7px 10px;
-  transition: ease 0.7s all;
-  -webkit-appearance: none;
-  width: auto;
-  &:active, &:hover{
-    background-color: $light-slate;
-    outline: none;
-  }
-  #update-post-icon{
-    margin-left: 2px;
-    fill: $plastic-pink;
-  }
-}
 .neu-a-button, .neu-b-button, .neu-c-button{
   background-color: $background-slate;
   -webkit-appearance: none;
@@ -41,6 +20,10 @@ button {
   margin: 0 .75em 0 .75em;
   outline: none;
   padding: 1em;
+  &:disabled {
+    background-color: $background-slate;
+    color: $candy-red-opaque
+  }
 }
 .neu-a-button {
   background-color: $royal!important;
@@ -53,26 +36,39 @@ button {
 }
 .neu-b-button{
   color: $royal;
+  margin: 1em 0 1em 0;
   &:hover{
-    color: $plastic-pink;
+    color: $plastic-pink!important;
     background-color: $royal-dark!important;
   }
 }
 .neu-c-button{
+  background-color: $light-slate-full;
   color: $candy-red-opaque;
-  font-size: $font-lg; //overrides default button font size
   &:hover {
-    background-color: $candy-red;
+    background-color: $background-slate;
     color: $background-slate;
   }
 }
-#update-post, #create-post, #submit-comment, #submit-link{
-  margin: 1em 0 1em 0;
-}
-#create-post, #submit-comment, #submit-link {
-  &:disabled {
+.post-navigation-button{
+  background-color: $light-slate-full;
+  box-shadow: $shadow-low-contrast;
+  border-radius: $border-radius-sm!important;
+  border: 0;
+  line-height: 16px;
+  margin: 0 .15em .25em .15em;
+  outline: none;
+  padding: 7px 10px;
+  transition: ease 0.7s all;
+  -webkit-appearance: none;
+  width: auto;
+  &:active, &:hover{
     background-color: $background-slate;
-    color: $candy-red-opaque
+    outline: none;
+  }
+  #update-post-icon{
+    margin-left: 2px;
+    fill: $plastic-pink;
   }
 }
 #update-post, #create-post {
@@ -83,44 +79,29 @@ button {
     color: $background-slate
   }
 }
-#update-post{
+#create-post, #update-post, #delete-post, #create-link, #delete-link, #create-comment, #delete-comment, #hide-comment-form, #reset-post-form {
   position: absolute;
+}
+#update-post{
   bottom: -65px;
   right: 0;
 }
-#delete-link, #reset-post-form, #show-comment-form{
+#delete-link, #reset-post-form{
   font-size: $font-sm!important; //resets neu-c-button's override
   padding: .5em 1em .5em 1em!important; //overrides default button padding
-}
-#delete-link, #reset-post-form{
-  position: absolute;
   right: 0px;
   top: 10px
 }
-#delete-post{
+#delete-post, #delete-comment{
   padding: 3px 8px 2px 10px;
-  position: absolute;
-  top: -8px;
-  right: -8px
+  top: 2px;
+  right: 0px
 }
-#delete-comment{
-  padding: 3px 8px 2px 10px;
-  position: absolute;
-  right: -8px;
-  top: -5px
+#create-post, #create-comment{
+  right: 4px;
+  top: 4px
 }
-#hide-comment-form{
-  margin-bottom: 0;
-  position: absolute;
-  padding: .5em 1em .55em 1em!important;
-  right: 110px;
-  bottom: 20px;
-  z-index: 1;
-}
-#show-comment-form{
-  margin-bottom: 8px;
-  right: 100px;
-  bottom: 17px;
-  width: 100%;
-  z-index: 1;
+#create-link{
+  right: 0px;
+  bottom: 28px
 }

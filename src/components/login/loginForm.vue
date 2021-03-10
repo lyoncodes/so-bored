@@ -8,7 +8,7 @@
           b-row
             a.link-style-alt.ml-1.mb-1 email
           b-row
-            b-form-input#login-form-textarea(
+            b-form-input#login-form-textarea.login-input(
               v-model="loginData.email"
               type="text"
             )
@@ -17,7 +17,7 @@
           b-row
             a.link-style-alt.ml-1.mb-1 password
           b-row
-            b-form-input#login-form-password(
+            b-form-input#login-form-password.login-input(
               @keydown.enter.prevent="handleLogin(loginData)"
               v-model="loginData.password"
               type="password"
