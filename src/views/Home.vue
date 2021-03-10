@@ -10,6 +10,7 @@
       postsHome(
         :formValidation="formValidation"
         :showCreatePost="showCreatePost"
+        @hideForm="toggleCreatePost"
       )
 </template>
 
@@ -34,8 +35,7 @@ export default {
   },
   components: {
     navBar: () => import('../components/navBar'),
-    postsHome: () => import('../components/postsHome'),
-    createPost: () => import('../components/createPost')
+    postsHome: () => import('../components/postsHome')
   },
   methods: {
     toggleCreatePost () {
