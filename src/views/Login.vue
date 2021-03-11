@@ -1,6 +1,7 @@
 <template lang="pug">
   //- login container
   b-container
+    //- Logo and login error msg
     b-row.mb-3
       IconBase#main-logo(
         icon-name="Comment"
@@ -10,8 +11,8 @@
         IconLogo
     b-row.justify-content-center.pt-3
       p.link-style-alt(v-if="errorMsg.length") {{errorMsg}} 🤕
-    b-row.justify-content-center
 
+    b-row.justify-content-center
       b-col(v-if="showLoginForm && !toggleCredentials")
         loginForm(v-on:toggleSignUp="toggleSignUp")
 
@@ -22,6 +23,8 @@
         passwordReset(v-on:resetForms="toggleResetForm")
 
       b-col.col-11.col-lg-12(v-if="!toggleCredentials")
+        b-row.justify-content-center.mt-3
+          a.link-style-alt(@click="googleLogin") Sign in with Google
         b-row.justify-content-center.mt-3
           a.link-style-alt(@click="toggleResetForm") forgot password
 </template>
@@ -52,10 +55,10 @@ export default {
 
   methods: {
     ...mapActions([
-      'login'
+      'loginWithGoogle'
     ]),
-    handleLogin (loginData) {
-      this.login(loginData)
+    googleLogin () {
+      this.loginWithGoogle()
     },
     toggleSignUp () {
       this.showLoginForm = !this.showLoginForm

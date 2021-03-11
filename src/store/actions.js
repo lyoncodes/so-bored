@@ -3,25 +3,32 @@ import router from '../router/index'
 
 export default {
   // LOGIN OPERATIONS
-  // Creates account; adding user object to usersCollection
-  async signUp ({ dispatch }, form) {
-    const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password).catch(error => dispatch('handleError', error.message))
-    await firebase.usersCollection.doc(user.uid).set({
-      email: form.email,
-      username: form.username,
-      password: form.password
-    })
+  // Creates authenticated account
+  signUp ({ dispatch }, form) {
+    firebase.auth.createUserWithEmailAndPassword(form.email, form.password).catch(error => dispatch('handleError', error.message))
   },
   // Logs user in; dispatches methods to create user profile and retrieve application posts
-  async login ({ dispatch, commit }, form) {
-    await firebase.auth.signInWithEmailAndPassword(form.email, form.password).catch(error => commit('handleError', error.message))
+  login ({ dispatch, commit }, form) {
+    firebase.auth.signInWithEmailAndPassword(form.email, form.password)
+      .catch(error => {
+        commit('handleError', error.message)
+      })
   },
-  // Gets user profile; calls setUserProfile mutation and routes to home, dispatches fetch Data
+  // Logs user in w/ Google 3PA; triggers onAuthStateChanged in main.js
+  loginWithGoogle ({ dispatch, commit }) {
+    const provider = new firebase.authObj.GoogleAuthProvider()
+    firebase.auth.signInWithPopup(provider)
+      .catch(error => dispatch('handleError', error.message))
+      .then(data => {
+        dispatch('fetchUserProfile', data)
+      })
+  },
+  // Sets user profile to current user, fetches data & re-routes to Home
   async fetchUserProfile ({ commit, dispatch }, user) {
-    const userProfile = await firebase.usersCollection.doc(user.uid).get()
-    commit('setUserProfile', userProfile.data())
     dispatch('readPosts')
-    if (router.currentRoute.path === '/login') {
+    if (router.currentRoute.path === '/login' && user.additionalUserInfo.isNewUser) {
+      router.push('/accountProfile')
+    } else if (router.currentRoute.path === '/login') {
       router.push('/')
     }
   },

@@ -4,8 +4,9 @@ export default {
     state.errorMsg = error
   },
   // update userProfile in the state to the user passed on login / logout
-  setUserProfile (state, userProfile) {
-    state.userProfile = userProfile
+  setUserProfile (state, user) {
+    console.log(user)
+    state.userProfile = user
   },
   updatePosts (state, data) {
     state.posts = data

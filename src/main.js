@@ -19,6 +19,6 @@ auth.onAuthStateChanged(user => {
     }).$mount('#app')
   }
   if (user) {
-    store.dispatch('fetchUserProfile', user)
+    store.userProfile = user
   }
 })
