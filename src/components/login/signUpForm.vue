@@ -1,6 +1,6 @@
 <template lang="pug">
   b-form(
-    @submit.prevent="handleSignUp(signUpForm)"
+    @submit.prevent="handleSignUp"
   )
     b-col
       b-row.justify-content-center
@@ -13,28 +13,19 @@
               type="text"
             )
 
-        b-form-group#account-username.col-12.mb-2
-          b-row
-            a.link-style-alt.ml-1.mb-1 screen name
-          b-row
-            b-form-input.login-input(
-              v-model="signUpForm.username"
-              type="text"
-            )
-
         b-form-group#account-password.col-12
           b-row
             a.link-style-alt.ml-1.mb-1 password
           b-row
             b-form-input.login-input(
-              @keyup="validateCharCount()"
-              @keydown.enter.prevent="handleSignUp(signUpForm)"
+              @keydown.enter.prevent="handleSignUp()"
               v-model="signUpForm.password"
               type="password"
             )
-          a.link-style-alt(
-            :class="errorObject"
-          ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
+          b-row
+            a.link-style-alt.mt-1(
+              :class="errorObject"
+            ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
 
         button.neu-a-button.mt-3(type="submit") Join
 
@@ -50,7 +41,6 @@ export default {
     return {
       signUpForm: {
         email: '',
-        username: '',
         password: ''
       },
       formChar: {
@@ -72,23 +62,19 @@ export default {
     ]),
 
     handleSignUp () {
-      const { email, username, password } = this.signUpForm
-      const signUpData = {
+      const { email, password } = this.signUpForm
+      const newUser = {
         email,
-        username,
         password
       }
-      if (email && password && username) {
-        this.signUp(signUpData)
+      if (email && password) {
+        this.signUp(newUser)
       }
     },
 
     toggleForm () {
       this.toggleBoolean = !this.toggleBoolean
       this.$emit('toggleForm', this.toggleBoolean)
-    },
-
-    validateCharCount () {
     }
   }
 }

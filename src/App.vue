@@ -15,7 +15,7 @@ body {
   max-width: 500px;
   overflow-x: hidden;
 }
-body::-webkit-scrollbar {
+html::-webkit-scrollbar, body::-webkit-scrollbar {
   display: none;
 }
 #app {

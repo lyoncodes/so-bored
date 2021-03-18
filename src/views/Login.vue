@@ -2,7 +2,7 @@
   //- login container
   b-container
     //- Logo and login error msg
-    b-row.mb-3
+    b-row
       IconBase#main-logo(
         icon-name="Comment"
         height="100"
@@ -22,15 +22,19 @@
       b-col(v-if="toggleCredentials")
         passwordReset(v-on:resetForms="toggleResetForm")
 
-      b-col.col-11.col-lg-12(v-if="!toggleCredentials")
-        b-row.justify-content-center.mt-3
-          a.link-style-alt(@click="googleLogin") Sign in with Google
-        b-row.justify-content-center.mt-3
-          a.link-style-alt(@click="toggleResetForm") forgot password
+      b-col.col-11.col-lg-12.mt-5(v-if="!toggleCredentials")
+        b-row.justify-content-center
+          a.link-style-alt.mr-4(
+            v-if="showLoginForm"
+            @click="toggleSignUp"
+          ) sign up
+          a.link-style-alt(
+            @click="toggleResetForm"
+          ) forgot password
 </template>
 <script>
 import signUpForm from '../components/login/signUpForm'
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
 
@@ -54,12 +58,6 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'loginWithGoogle'
-    ]),
-    googleLogin () {
-      this.loginWithGoogle()
-    },
     toggleSignUp () {
       this.showLoginForm = !this.showLoginForm
     },

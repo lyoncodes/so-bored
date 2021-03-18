@@ -25,9 +25,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   },
   {
-    path: '/accountProfile',
+    path: '/login/:user',
     name: 'AccountProfile',
-    component: () => import(/* webpackChunkName: "AccountProfile" */ '../views/AccountProfile.vue')
+    component: () => import(/* webpackChunkName: "AccountProfile" */ '../views/AccountProfile.vue'),
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: (to, from, next) => {
+      if (auth.currentUser.metadata.creationTime === auth.currentUser.metadata.lastSignInTime) {
+        next()
+      } else {
+        next(false)
+      }
+    }
   },
   {
     path: '/:pathMatch(.*)*',
@@ -41,7 +51,7 @@ const router = new VueRouter({
   routes
 })
 
-// Check if the user exists and requires auth for every route with meta data !!requiresAuth. Create reference to the current user and authentication routes
+// Check if the user exists and requires auth for every route where meta data requiresAuth.
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)

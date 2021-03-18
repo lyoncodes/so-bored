@@ -8,7 +8,7 @@
         b-row.justify-content-between.mb-1
           b-col.p-0.text-left
             //- Post author
-            span.caption {{ userProfile.displayName }}  says:
+            span.caption {{ userProfile.displayName || userProfile.email }}  says:
         //- ------ New post title form ------
         b-row
           b-col.p-0.mb-0

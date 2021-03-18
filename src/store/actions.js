@@ -3,47 +3,52 @@ import router from '../router/index'
 
 export default {
   // LOGIN OPERATIONS
-  // Creates authenticated account
-  signUp ({ dispatch }, form) {
-    firebase.auth.createUserWithEmailAndPassword(form.email, form.password).catch(error => dispatch('handleError', error.message))
+  // Creates authenticated account - ML
+  signUp ({ commit, dispatch }, data) {
+    firebase.auth.createUserWithEmailAndPassword(data.email, data.password)
+      .catch(error => commit('handleError', error.message))
+      .then(user => {
+        if (!user.user.displayName) {
+          router.push('/login/newUserName')
+        }
+      })
   },
-  // Logs user in; dispatches methods to create user profile and retrieve application posts
-  login ({ dispatch, commit }, form) {
-    firebase.auth.signInWithEmailAndPassword(form.email, form.password)
+  // Logs auth user in - ML
+  login ({ commit }, data) {
+    firebase.auth.signInWithEmailAndPassword(data.email, data.password)
       .catch(error => {
         commit('handleError', error.message)
       })
+    router.push('/')
   },
-  // Logs user in w/ Google 3PA; triggers onAuthStateChanged in main.js
-  loginWithGoogle ({ dispatch, commit }) {
+  // Creates user in firebase user collection - ML
+  createUser ({ commit }, data) {
+    firebase.usersCollection.doc(data.uid).set({
+      createdOn: new Date(),
+      email: data.email,
+      displayName: data.displayName
+    })
+  },
+  // Logs user in w/ Google 3PA; triggers onAuthStateChanged in main.js - ML
+  loginWithGoogle ({ commit }) {
     const provider = new firebase.authObj.GoogleAuthProvider()
     firebase.auth.signInWithPopup(provider)
-      .catch(error => dispatch('handleError', error.message))
+      .catch(error => commit('handleError', error.message))
       .then(data => {
-        dispatch('fetchUserProfile', data)
+        data.additionalUserInfo.isNewUser ? router.push(`/login/${data.user.displayName}`) : router.push('/')
       })
   },
-  // Sets user profile to current user, fetches data & re-routes to Home
-  async fetchUserProfile ({ commit, dispatch }, user) {
-    dispatch('readPosts')
-    if (router.currentRoute.path === '/login' && user.additionalUserInfo.isNewUser) {
-      router.push('/accountProfile')
-    } else if (router.currentRoute.path === '/login') {
-      router.push('/')
-    }
-  },
-  // Resets password
+  // Sends password recovery to auth email - ML
   async resetCredential ({ commit }, email) {
     await firebase.auth.sendPasswordResetEmail(email)
   },
-  // Logs user out
+  // Logs auth user out - ML
   async logout ({ commit, dispatch }) {
     await firebase.auth.signOut()
-    commit('setUserProfile', {})
     router.push('/login')
   },
 
-  // POST CRUD OPERATIONS
+  // DATA FETCH OPERATIONS
   // Read posts
   readPosts ({ commit, dispatch }) {
     firebase.postsCollection.orderBy('createdOn', 'desc').limit(50).onSnapshot(snapshot => {
@@ -59,7 +64,7 @@ export default {
     dispatch('readPostComments')
     dispatch('readPostLinks')
   },
-
+  // Read posts comments
   readPostComments ({ commit }) {
     firebase.commentsCollection.limit(500).onSnapshot(snapshot => {
       const comments = []
@@ -73,7 +78,7 @@ export default {
       commit('updateComments', comments)
     })
   },
-
+  // Read posts links
   readPostLinks ({ commit }) {
     firebase.linksCollection.limit(250).onSnapshot(snapshot => {
       const links = []
@@ -88,7 +93,8 @@ export default {
     })
   },
 
-  // Creates post in db
+  // POST CRUD OPERATIONS
+  // Creates post in db collection - ML
   async createPost ({ commit }, post) {
     await firebase.postsCollection.add({
       title: post.title,
@@ -98,7 +104,7 @@ export default {
       userId: firebase.auth.currentUser.uid
     })
   },
-  // Updates post in db
+  // Updates post in db collection - ML
   async updatePost ({ commit }, postUpdateData) {
     const post = firebase.postsCollection.doc(postUpdateData.id)
     await post.update({
@@ -106,7 +112,7 @@ export default {
       text: postUpdateData.text
     })
   },
-  // Deletes post & post comments from db
+  // Deletes post & post comments from db collection - ML
   async deletePost ({ commit }, post) {
     await firebase.postsCollection.doc(post.id).delete()
     const commentsRef = await firebase.commentsCollection.where('reference', '==', post.id).get()
@@ -114,6 +120,7 @@ export default {
       comment.ref.delete()
     })
   },
+  // Creates comment in db collection - ML
   async createComment ({ commit }, comment) {
     await firebase.commentsCollection.add({
       createdOn: comment.createdOn,
@@ -122,6 +129,7 @@ export default {
       reference: comment.reference
     })
   },
+  // Creates link in db collection - ML
   async createLink ({ commit }, link) {
     await firebase.linksCollection.add({
       createdOn: link.createdOn,

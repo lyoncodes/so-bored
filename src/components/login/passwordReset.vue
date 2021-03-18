@@ -1,7 +1,7 @@
 <template lang="pug">
   div(v-if="!showSuccess")
     b-form(
-      @submit.prevent
+      @submit.prevent="resetPassword(resetData)"
     )
       b-col
         b-row.justify-content-center

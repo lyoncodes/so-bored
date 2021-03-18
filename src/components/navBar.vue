@@ -1,10 +1,10 @@
 <template lang="pug">
-#nav
-  b-row.justify-content-between
+b-container#nav
+  b-row
     b-col.col-4.mt-1.pt-4.pl-0
 
       a.link-style-main(@click="logout()") logout
-    b-col.col-4
+    b-col.col-4.p-0
       IconBase#main-logo(
         icon-name="Comment"
         height="60"

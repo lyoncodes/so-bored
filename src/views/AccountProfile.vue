@@ -1,32 +1,43 @@
 <template lang="pug">
-//- Update Alias Form ============
-b-col.post.col-12.ml-0
-  h1 Before posting, you'll need a pseudonym...
-  b-form(
-    @submit.prevent="updateProfile"
-  )
-    b-form-textarea#update-profile-textarea(
-      v-model="updateProfileData.displayName"
-      placeholder="alias"
+b-container
+  //- Logo and login error msg
+  b-row
+    IconBase#main-logo(
+      icon-name="Comment"
+      height="100"
+      width="100"
     )
-    button#update-profile.post-navigation-button.m-0.mt-1(
-      type="submit"
-    )
-      IconBase(
-        icon-name="comment"
-        height="15"
-        width="15"
+      IconLogo
+  //- Update Alias Form ============
+  b-col.post.col-12.ml-0
+    .pt-1.pl-2.pr-2
+      b-row.pl-4.pt-3
+          h1 Welcome, {{this.userProfile.displayName || 'friend'}}!
+      b-form(
+        @submit.prevent="updateProfile"
       )
-        IconComment
+        b-form-textarea#update-profile-textarea.mt-2.mb-3(
+          v-model="updateProfileData.displayName"
+          @keydown.enter.prevent="updateProfile()"
+          placeholder="what's your username?"
+          autofocus
+          rows="1"
+          max-rows="1"
+        )
+        button.neu-a-button.mt-1.mb-3(
+          type="submit"
+        ) GO
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+import router from '../router/index'
 export default {
   name: 'AccountProfile',
   components: {
+    router,
     postComponent: () => import('../components/post/postComponent'),
     IconBase: () => import('../components/IconBase'),
-    IconComment: () => import('../components/icons/IconComment')
+    IconLogo: () => import('../components/icons/IconLogo')
   },
   data () {
     return {
@@ -41,10 +52,18 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'createUser'
+    ]),
     updateProfile () {
       this.userProfile.updateProfile({
         displayName: this.updateProfileData.displayName
       })
+      this.userProfile.displayName = this.updateProfileData.displayName
+      this.createUser(this.userProfile)
+      if (this.updateProfileData.displayName.length) {
+        router.push('/')
+      }
     }
   }
 }

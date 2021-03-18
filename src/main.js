@@ -19,6 +19,6 @@ auth.onAuthStateChanged(user => {
     }).$mount('#app')
   }
   if (user) {
-    store.userProfile = user
+    store.state.userProfile = user
   }
 })
