@@ -19,6 +19,7 @@ firebase.initializeApp(firebaseConfig)
 const fs = firebase.firestore()
 const auth = firebase.auth()
 const storage = firebase.storage()
+const authObj = firebase.auth
 
 // collection references
 const usersCollection = fs.collection('users')
@@ -30,6 +31,7 @@ const linksCollection = fs.collection('links')
 export {
   fs,
   auth,
+  authObj,
   storage,
   usersCollection,
   postsCollection,

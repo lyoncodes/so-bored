@@ -13,7 +13,7 @@
 
     //- Delete post button
     button#delete-post.post-navigation-button(
-      v-if="userProfile.username === post.userName"
+      v-if="userProfile.displayName === post.userName"
       :disabled="postList.updating"
       @click="destroy(post)"
     )
@@ -92,7 +92,7 @@
     :postList="postList"
     :postComments="getPostComments"
     :postLinks="getPostLinks"
-    :user="userProfile.username"
+    :user="userProfile.displayName"
   )
 
   //- Comments section -----------
@@ -101,7 +101,7 @@
       :post="post"
       :postList="postList"
       :postComments="getPostComments"
-      :user="userProfile.username"
+      :user="userProfile.displayName"
       :validation="formValidation"
     )
 
@@ -111,7 +111,7 @@
       :post="post"
       :postList="postList"
       :postLinks="getPostLinks"
-      :user="userProfile.username"
+      :user="userProfile.displayName"
       :validation="formValidation"
     )
 </template>
@@ -154,7 +154,6 @@ export default {
     ]),
     getPostComments: function () {
       const comments = this.comments.filter(c => c.reference === this.post.id)
-      console.log(comments)
       comments.sort((a, b) => a.createdOn - b.createdOn)
       return comments
     },
@@ -215,9 +214,6 @@ export default {
 
     // Assigns postList.postUpdateData to validation prop
     validateForm () {
-      this.formValidation.formCounter.charCount = this.postList.postUpdateData.text.length
-      this.formValidation.formCounter.titleCount = this.postList.postUpdateData.title.length
-
       this.postList.isError = this.postList.postUpdateData.text.length > this.formValidation.charLimit || this.postList.postUpdateData.title.length > this.formValidation.titleLimit ? true : null
     }
   }

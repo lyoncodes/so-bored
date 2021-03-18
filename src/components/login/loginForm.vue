@@ -24,13 +24,21 @@
             )
 
       b-row.justify-content-center
-        button.neu-a-button.mt-5(
+        button.neu-b-button(
           type="submit"
         ) Login
-      b-row.justify-content-center.pt-5
-        a.link-style-alt(
-          @click="toggleSignUp"
-        ) Sign Up
+      b-row.justify-content-center.hr
+      b-row.justify-content-center
+        button.neu-b-button#google-button(
+          @click="googleLogin"
+        )
+          IconBase#google-logo.mr-2(
+            icon-name="Google"
+            height="20"
+            width="20"
+          )
+            IconGoogle
+          a Continue with Google
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -46,17 +54,19 @@ export default {
   },
   components: {
     IconBase: () => import('../IconBase'),
-    IconLogo: () => import('../icons/IconLogo')
+    IconLogo: () => import('../icons/IconLogo'),
+    IconGoogle: () => import('../icons/IconGoogle')
   },
   methods: {
     ...mapActions([
-      'login'
+      'login',
+      'loginWithGoogle'
     ]),
+    googleLogin () {
+      this.loginWithGoogle()
+    },
     handleLogin (loginData) {
       this.login(loginData)
-    },
-    toggleSignUp () {
-      this.$emit('toggleSignUp')
     }
   }
 }
