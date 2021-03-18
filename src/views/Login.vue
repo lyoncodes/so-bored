@@ -1,7 +1,8 @@
 <template lang="pug">
   //- login container
   b-container
-    b-row.mb-3
+    //- Logo and login error msg
+    b-row
       IconBase#main-logo(
         icon-name="Comment"
         height="100"
@@ -10,8 +11,8 @@
         IconLogo
     b-row.justify-content-center.pt-3
       p.link-style-alt(v-if="errorMsg.length") {{errorMsg}} 🤕
-    b-row.justify-content-center
 
+    b-row.justify-content-center
       b-col(v-if="showLoginForm && !toggleCredentials")
         loginForm(v-on:toggleSignUp="toggleSignUp")
 
@@ -21,13 +22,19 @@
       b-col(v-if="toggleCredentials")
         passwordReset(v-on:resetForms="toggleResetForm")
 
-      b-col.col-11.col-lg-12(v-if="!toggleCredentials")
-        b-row.justify-content-center.mt-3
-          a.link-style-alt(@click="toggleResetForm") forgot password
+      b-col.col-11.col-lg-12.mt-5(v-if="!toggleCredentials")
+        b-row.justify-content-center
+          a.link-style-alt.mr-4(
+            v-if="showLoginForm"
+            @click="toggleSignUp"
+          ) sign up
+          a.link-style-alt(
+            @click="toggleResetForm"
+          ) forgot password
 </template>
 <script>
 import signUpForm from '../components/login/signUpForm'
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
 
@@ -51,12 +58,6 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'login'
-    ]),
-    handleLogin (loginData) {
-      this.login(loginData)
-    },
     toggleSignUp () {
       this.showLoginForm = !this.showLoginForm
     },

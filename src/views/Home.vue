@@ -15,7 +15,6 @@
 </template>
 
 <script>
-
 export default {
   data () {
     return {
@@ -24,14 +23,13 @@ export default {
       formValidation: {
         titleLimit: 140,
         charLimit: 300,
-        commentLimit: 160,
-        formCounter: {
-          titleCount: 0,
-          charCount: 0
-        }
+        commentLimit: 160
       }
 
     }
+  },
+  created: function () {
+    this.$store.dispatch('readPosts') // fetch posts when Home is created - ML
   },
   components: {
     navBar: () => import('../components/navBar'),

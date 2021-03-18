@@ -4,8 +4,8 @@ export default {
     state.errorMsg = error
   },
   // update userProfile in the state to the user passed on login / logout
-  setUserProfile (state, userProfile) {
-    state.userProfile = userProfile
+  setUserProfile (state, data) {
+    state.userProfile.displayName = data
   },
   updatePosts (state, data) {
     state.posts = data

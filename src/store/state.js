@@ -1,5 +1,5 @@
 export default {
-  userProfile: {},
+  userProfile: null,
   posts: [],
   comments: [],
   links: [],

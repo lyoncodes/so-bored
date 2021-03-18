@@ -63,7 +63,6 @@ export default {
     ]),
 
     appendLink (linkData) {
-      console.log('called')
       const link = {
         ...linkData.linkData,
         reference: this.$props.post.id,
