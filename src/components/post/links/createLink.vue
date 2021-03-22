@@ -1,10 +1,11 @@
 <template lang="pug">
 b-col.col-12.p-0
+  b-row.justify-content-center.hr
   b-form(
     inline
     @submit.prevent="append()"
   )
-    b-form-textarea.mb-2(
+    b-form-textarea(
       autofocus
       id="link-textarea"
       v-model="link.linkText"
@@ -17,7 +18,12 @@ b-col.col-12.p-0
       v-model="link.linkURL"
       placeholder="https://"
     )
-    button#create-link.post-navigation-button(
+
+  b-row.justify-content-between.mb-2
+    a.validation-char.mt-1(
+      :class="errorObject"
+    ) {{this.link.linkText.length}} / {{ validation.commentLimit}}
+    button#create-link.neu-c-button.m-0.mr-3.mt-1.pt-1.pr-3.pb-1.pl-3(
       type="submit"
       :disabled="this.link.linkText.length > this.validation.commentLimit"
     )
@@ -27,11 +33,6 @@ b-col.col-12.p-0
         width="19"
       )
         IconLink
-
-  b-row.justify-content-between.mb-2
-    a.validation-char.mt-2.mb-0.ml-3(
-      :class="errorObject"
-    ) {{this.link.linkText.length}} / {{ validation.commentLimit}}
 
 </template>
 <script>

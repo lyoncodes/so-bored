@@ -18,10 +18,10 @@
     )
       IconBase(
         icon-name="comment"
-        height="20"
-        width="20"
+        height="19"
+        width="19"
       )
-        IconChat
+        IconComment
       span.caption.pl-1.pr-1 {{postComments.length}}
 
     //- sets postList.showLinks & displays link component
@@ -31,8 +31,8 @@
     )
       IconBase(
         icon-name="link"
-        height="19"
-        width="19"
+        height="23"
+        width="23"
       )
         IconLink
       span.caption.pl-1.pr-1 {{postLinks.length}}
@@ -44,7 +44,7 @@ export default {
   components: {
     IconBase: () => import('../IconBase'),
     IconEdit: () => import('../icons/IconEdit'),
-    IconChat: () => import('../icons/IconChat'),
+    IconComment: () => import('../icons/IconComment'),
     IconLink: () => import('../icons/IconLink')
   },
   methods: {

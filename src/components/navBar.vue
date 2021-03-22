@@ -13,13 +13,14 @@ b-container#nav
         IconLogo
     b-col.col-4.mt-2.pr-0
 
-      button#toggle-post.neu-c-button(@click="toggleCreatePost")
+      button#toggle-post.neu-b-button(@click="toggleCreatePost")
         IconBase(
           icon-name="comment"
           height="20"
           width="20"
+          iconColor="#fc38ac"
         )
-          IconComment
+          IconPost
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -28,7 +29,7 @@ export default {
   components: {
     IconBase: () => import('./IconBase'),
     IconLogo: () => import('./icons/IconLogo'),
-    IconComment: () => import('./icons/IconComment')
+    IconPost: () => import('./icons/IconPost')
   },
   data () {
     return {
