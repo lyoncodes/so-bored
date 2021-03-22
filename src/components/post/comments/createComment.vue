@@ -1,8 +1,7 @@
 <template lang="pug">
-b-col.col-12.mt-1.p-0
-
+b-col.col-12.p-0
+  b-row.justify-content-center.hr
   b-form(
-    inline
     @submit.prevent="append()"
     v-bind:class="errorObject"
   )
@@ -16,7 +15,11 @@ b-col.col-12.mt-1.p-0
       rows="1"
       max-rows="3"
     )
-    button#create-comment.post-navigation-button.m-0(
+  b-row.justify-content-between.mb-2
+    a.validation-char.mt-1(
+      v-bind:class="errorObject"
+    ) {{comment.text.length}} / {{ validation.commentLimit}}
+    button#create-comment.neu-c-button.m-0.mr-3.mt-1.pt-1.pr-3.pb-2.pl-3(
       type="submit"
       :disabled="this.isError"
     )
@@ -25,11 +28,7 @@ b-col.col-12.mt-1.p-0
         height="15"
         width="15"
       )
-        IconComment
-  b-row.mb-2
-    a.validation-char.mt-1(
-      v-bind:class="errorObject"
-    ) {{comment.text.length}} / {{ validation.commentLimit}}
+        IconAddComment
 
 </template>
 <script>
@@ -38,7 +37,7 @@ export default {
   props: ['post', 'postList', 'validation'],
   components: {
     IconBase: () => import('../../IconBase'),
-    IconComment: () => import('../../icons/IconComment')
+    IconAddComment: () => import('../../icons/IconAddComment')
   },
   data () {
     return {

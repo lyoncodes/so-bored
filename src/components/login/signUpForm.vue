@@ -14,23 +14,22 @@
             )
 
         b-form-group#account-password.col-12
-          b-row
+          b-row.justify-content-between
             a.link-style-alt.ml-1.mb-1 password
+            a.link-style-alt(
+              :class="errorObject"
+            ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
           b-row
             b-form-input.login-input(
               @keydown.enter.prevent="handleSignUp()"
               v-model="signUpForm.password"
               type="password"
             )
-          b-row
-            a.link-style-alt.mt-1(
-              :class="errorObject"
-            ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
-
-        button.neu-a-button.mt-3(type="submit") Join
-
       b-row.justify-content-center
-        a.link-style-alt.pt-5(type="submit" @click="toggleForm()") Back to Login
+        button.neu-b-button(
+          type="submit"
+        ) Create Account
+
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -45,8 +44,7 @@ export default {
       },
       formChar: {
         passwordLength: 6
-      },
-      toggleBoolean: false
+      }
     }
   },
   computed: {
@@ -70,11 +68,6 @@ export default {
       if (email && password) {
         this.signUp(newUser)
       }
-    },
-
-    toggleForm () {
-      this.toggleBoolean = !this.toggleBoolean
-      this.$emit('toggleForm', this.toggleBoolean)
     }
   }
 }

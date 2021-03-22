@@ -1,6 +1,6 @@
 <template lang="pug">
   //- Post Container ============
-  b-container
+  b-container.mt-4
 
     //- Create Post Form ============
     b-col.post.col-12.ml-0(v-if="showCreatePost")
@@ -27,13 +27,12 @@
                 max-rows="3"
               )
               b-row.justify-content-start
-                a.validation-char#new-post-validation.ml-3.mt-1 {{newPostData.title.length}} / {{formValidation.titleLimit}}
+                a.validation-char.ml-3.mt-2 {{newPostData.title.length}} / {{formValidation.titleLimit}}
 
         //- ------ New post text form ------
         b-row
-          b-col.col-12.p-0
+          b-col.col-12.p-0.mt-2
             b-form.mt-1(
-              inline
               @submit.prevent="newPost"
               v-bind:class="errorObject"
             )
@@ -46,19 +45,13 @@
                 rows="1"
                 max-rows="6"
               )
-              button#create-post.post-navigation-button.m-0.mt-1(
-                :disabled="isError"
-                type="submit"
-              )
-                IconBase(
-                  icon-name="comment"
-                  height="15"
-                  width="15"
-                )
-                  IconComment
-          //- ------ New post validation ------
-          b-row.justify-content-between.mb-2
-            a.validation-char#new-post-validation.ml-3.mt-1 {{newPostData.text.length}} / {{formValidation.charLimit}}
+        //- ------ New post validation ------
+        b-row.justify-content-between.mb-2
+          a.validation-char.ml-0.mt-2 {{newPostData.text.length}} / {{formValidation.charLimit}}
+          button#create-post.neu-b-button.m-0.mt-1.mb-2(
+            :disabled="isError"
+            type="submit"
+          ) Submit
 
     //- Array Iteration (post in posts, mounted() from 'posts' in state object)
     b-col.post.col-12.ml-0(v-for="post in posts" :key="post.id")
@@ -76,7 +69,7 @@ export default {
   components: {
     postComponent: () => import('../components/post/postComponent'),
     IconBase: () => import('./IconBase'),
-    IconComment: () => import('./icons/IconComment')
+    IconAddComment: () => import('./icons/IconAddComment')
   },
   data () {
     return {

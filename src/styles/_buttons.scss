@@ -11,7 +11,7 @@ button {
     outline: none!important;
   }
 }
-.neu-a-button, .neu-b-button, .neu-c-button{
+.neu-a-button, .neu-b-button, .neu-c-button, #toggle-post{
   background-color: $background-slate;
   -webkit-appearance: none;
   box-shadow: $shadow-low-contrast;
@@ -74,7 +74,13 @@ button {
 #google-button{
   padding-top: 15px;
 }
-#update-post, #create-post {
+#toggle-post{
+  &:active{
+    color: $plastic-pink!important;
+    background-color: $royal-dark!important;
+  }
+}
+#update-post {
   background-color: $background-slate;
   color: $proton-deep;
   &:hover:not(:disabled){
@@ -82,20 +88,12 @@ button {
     color: $background-slate
   }
 }
-#create-post, #update-post, #delete-post, #create-link, #delete-link, #create-comment, #create-username, #delete-comment, #hide-comment-form, #reset-post-form {
+#update-post, #delete-post, #delete-link, #create-username, #delete-comment, #hide-comment-form, #reset-post-form {
   position: absolute;
 }
 #create-username {
   right: 2px;
   bottom: 10px;
-}
-#create-post, #create-comment{
-  right: 4px;
-  top: 4px
-}
-#create-link{
-  right: 0px;
-  bottom: 28px
 }
 #update-post{
   bottom: -65px;

@@ -32,15 +32,12 @@ form {
   }
   .login-input{
     height: 3.25em;
-  }
-  #login-form-textarea, #login-form-password, #update-profile-textarea {
-    height: 3em;
     &::placeholder{
       color: $caption-slate;
       font-style: italic;
     }
   }
-  #login-form-textarea, #login-form-password, #new-post-title{
+  #login-form-password, #new-post-title{
     color: $royal-dark!important;
   }
   #new-post-title, #title-update-text{
@@ -89,7 +86,6 @@ form {
   }
 }
 #new-post-textarea, #comment-text-field, #link-textarea, #update-profile-textarea {
-  margin-right: 4em;
   line-height: 1em;
 }
 }
