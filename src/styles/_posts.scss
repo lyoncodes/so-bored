@@ -1,5 +1,5 @@
 %posts {
-  .post {
+  .card {
     background: $background-slate;
     border: 0;
     border-radius: $border-radius-sm;
@@ -7,30 +7,16 @@
     margin: 1em;
     transition: ease-in-out 0.4s all;
     .comments-section {
-      margin: 1.5em 0 .25em 0;
       .comment-container, .links-container {
-        border: 1px solid $dark-slate;
+        background-color: $light-slate;
+        border: 1px solid $light-slate;
         border-radius: $border-radius-sm;
+        margin-top: .25em;
       }
       .comment-text {
         font-size: $font-sm;
         font-weight: $font-light;
       }
-    }
-    #post-title {
-      font-size: $font-md-abs;
-    }
-    #handle-update, #handle-cancel {
-      border: 0em;
-      box-shadow: none;
-    }
-    #handle-update {
-      margin: 0 0 0 .5em;
-      padding: .25em 0 0 .25em;
-    }
-    #handle-cancel {
-      margin: 0;
-      padding: .25em .25em .25em 2.6em;
     }
   }
 }

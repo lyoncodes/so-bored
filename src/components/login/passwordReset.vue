@@ -10,12 +10,12 @@
             b-row
               a.link-style-alt.ml-1.mb-1 recovery email
             b-row
-              b-form-input.login-input(
+              b-form-input.inline-input-lg(
                 v-model="resetData"
                 type="email"
               )
         b-row.justify-content-center
-          button.neu-b-button(
+          button.action-button-lg(
             type="submit"
             @click="resetPassword(resetData)"
           ) Send

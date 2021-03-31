@@ -1,44 +1,32 @@
 <template lang="pug">
-b-col.col-12.p-0
-  b-row.justify-content-center.hr
+b-col.col-12.p-0.mt-2
   b-form(
-    @submit.prevent="append()"
+    @submit.prevent="append"
     v-bind:class="errorObject"
   )
-    b-form-textarea(
+    b-form-textarea.inline-input(
       autofocus
-      id="comment-text-field"
       v-model="comment.text"
       @keyup="validateCharCount()"
       @keydown.enter.prevent="append()"
-      placeholder="add a comment..."
+      placeholder="write back..."
       rows="1"
       max-rows="3"
     )
-  b-row.justify-content-between.mb-2
-    a.validation-char.mt-1(
-      v-bind:class="errorObject"
-    ) {{comment.text.length}} / {{ validation.commentLimit}}
-    button#create-comment.neu-c-button.m-0.mr-3.mt-1.pt-1.pr-3.pb-2.pl-3(
-      type="submit"
-      :disabled="this.isError"
-    )
-      IconBase(
-        icon-name="comment"
-        height="15"
-        width="15"
-      )
-        IconAddComment
+    b-row.justify-content-between
+      a.validation-char.mt-1(
+        v-bind:class="errorObject"
+      ) {{comment.text.length}} / {{ validation.commentLimit}}
+      button.pill-button.mr-3(
+        type="submit"
+        :disabled="this.isError"
+      ) chat
 
 </template>
 <script>
 export default {
   name: 'createComment',
-  props: ['post', 'postList', 'validation'],
-  components: {
-    IconBase: () => import('../../IconBase'),
-    IconAddComment: () => import('../../icons/IconAddComment')
-  },
+  props: ['validation'],
   data () {
     return {
       comment: {
@@ -78,8 +66,7 @@ export default {
     },
 
     validateCharCount () {
-      this.validation.charCount = this.comment.text.length
-      this.isError = this.validation.charCount > this.validation.commentLimit ? true : null
+      this.isError = this.comment.text.length > this.validation.commentLimit ? true : null
     }
   }
 }

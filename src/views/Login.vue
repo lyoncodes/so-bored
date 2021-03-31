@@ -21,7 +21,7 @@
 
     b-row.justify-content-center.hr
     b-row.justify-content-center
-      button.neu-b-button#google-button(
+      button.action-button-lg.logo-button(
         @click="googleLogin"
       )
         IconBase#google-logo.mr-2(
@@ -36,8 +36,8 @@
         a(
           @click="toggleSignUp"
         )
-          p.link-style-alt(v-if="showLoginForm") Sign Up
-          p.link-style-alt(v-if="!showLoginForm") Back to Login
+          p.link-style-main(v-if="showLoginForm") Sign Up
+          p.link-style-main(v-if="!showLoginForm") Back to Login
 </template>
 <script>
 import signUpForm from '../components/login/signUpForm'

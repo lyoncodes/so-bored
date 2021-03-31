@@ -1,125 +1,56 @@
 %forms{
-.form-container {
-  background-color: $light-slate-full;
-  border-radius: $border-radius-sm;
-  box-shadow: $box-shadow-dark;
-  max-width: 700px;
-}
-form {
-  -webkit-appearance: none;
-  textarea, input, .form-control {
-    color: $black-slate;
-    background: $background-slate;
-    border: 1px solid $light-slate;
-    border-radius: $border-radius-sm;
-    font-weight: $font-heavy;
-    font-size: $font-md;
-    resize: none;
-    transition: all .4s ease-in;
-    &::placeholder{
-      color: $slate;
+  form {
+    -webkit-appearance: none;
+    textarea, input, .form-control {
+      color: $black-slate;
+      background: $light-slate;
+      border: 1px solid $light-slate-full; //overrides default
+      border-radius: $border-radius-sm;
+      box-shadow: $shadow-low-contrast; //overrides default
+      font-weight: $font-heavy;
+      font-size: $font-md;
+      resize: none;
+      transition: all .4s ease-in;
+      &::placeholder{
+        color: $caption-slate;
+        font-style: italic
+      }
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
-    &::-webkit-scrollbar {
-      display: none;
+    .free-textarea, .inline-input {
+      font-size: $font-sm !important; //overrides textarea default
+      font-weight: $font-fine !important //overrides textarea default 
     }
-    &:hover, &:active, &:focus {
-      border: 1px solid $proton-light-opaque;
-      box-shadow: none!important;
+    .inline-input{
+      box-shadow: $shadow-low-contrast;
+      line-height: 1em;
     }
-    &:focus {
-      border: 1px solid $plastic-pink-opaque;
+    .inline-input-lg{
+      height: 50px;
     }
-  }
-  .login-input{
-    height: 3.25em;
-    &::placeholder{
-      color: $caption-slate;
-      font-style: italic;
-    }
-  }
-  #login-form-password, #new-post-title{
-    color: $royal-dark!important;
-  }
-  #new-post-title, #title-update-text{
-    line-height: 1.2em;
-  }
-  #post-update-textarea{
-    &:hover, &:active, &:focus {
-      border: 1px solid transparent //overrides the default 1px border applied on form field pseudo-states to keep the "feel" of directly editing the post instead of creating a new one
-    }
-    padding-left: 0px;
-  }
-  #new-post-title, #new-post-textarea{
-    border-radius: $border-radius-rel;
-    padding-left: 6px;
-  }
-  #new-post-title{
-    padding-top: 2.75px;
-    &::placeholder{
-      color: $caption-slate;
-      font-style: italic;
-    }
-  }
-  #title-update-text {
-    line-height: 1.2;
-    border: none;
-    padding: 0;
-    &:hover {
+    .free-textarea, #new-post-title, #title-update-text, #post-update-text{ //overrides default updating forms to be style free
+      background-color: transparent;
+      box-shadow: none;
       border: none;
+      &:hover, &:focus, &:active {
+        border: none!important;
+      }
+    }
+    #title-update-text {
+      line-height: 1.2; //places upate text in exact pixel location as post title
+      padding: 0;
+    }
+    #new-post-title{
+      &::placeholder{
+        font-size: $font-md-abs!important;
+        font-weight: $font-heavy;
+      }
     }
   }
-}
-#new-post-textarea, #post-update-textarea, #link-textarea, #comment-text-field {
-  font-size: $font-sm !important;
-  font-weight: 100 !important;
-  &::placeholder {
-    color: $caption-slate;
-    font-style: italic;
-    padding-top: .75px;
-  }
-}
-#post-update-textarea{
-  height: 7.25em;
-  &::placeholder {
-    color: $caption-slate;
-    font-style: italic;
-  }
-}
-#new-post-textarea, #comment-text-field, #link-textarea, #update-profile-textarea {
-  line-height: 1em;
-}
-}
-// styles update form text to match post title styling (h3 in fonts)
-#title-update-form {
-  color: $black-slate;
-  font-size: $font-md-abs;
-  font-weight: $font-heavy;
-  margin-bottom: 0;
 }
 // password input validation characters
 .bv-no-focus-ring {
   text-align: left; //overrrides parent container's text-align center
-}
-.validation-char {
-  color: $royal!important;
-  font-size: 10px!important;
-  font-weight: $font-heavy;
-  margin: .75em 0 0 2em;
-  text-align: left;
-}
-#update-validation-char {
-  position: absolute;
-  bottom: -13px;
-}
-#edit-post-error{
-  top: -10;
-  bottom: 292;
-  right: 50;
-  left: 50;
-}
-
-@media (min-width: 576px) {
-  .form-inline .form-control {
-    width: 100%
-  }
 }

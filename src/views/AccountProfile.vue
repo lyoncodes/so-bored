@@ -9,14 +9,14 @@ b-container
     )
       IconLogo
   //- Update Alias Form ============
-  b-col.post.col-12.ml-0
+  b-col.card.col-12.ml-0
     .pt-1.pl-2.pr-2
       b-row.pl-4.pt-3
           h1 Welcome, {{this.userProfile.displayName || 'friend'}}!
       b-form(
         @submit.prevent="updateProfile"
       )
-        b-form-textarea#update-profile-textarea.mt-2.mb-3(
+        b-form-input.mt-2.mb-3(
           v-model="updateProfileData.displayName"
           @keydown.enter.prevent="updateProfile()"
           placeholder="what's your username?"
@@ -24,7 +24,7 @@ b-container
           rows="1"
           max-rows="1"
         )
-        button.neu-a-button.mt-1.mb-3(
+        button.action-button-lg.mt-1.mb-3(
           type="submit"
         ) GO
 </template>

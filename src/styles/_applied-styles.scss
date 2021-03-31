@@ -1,7 +1,6 @@
 .hr{
   margin: 1rem 0 1rem 0;
-  border-top: 1px solid $light-slate;
-  box-shadow: $box-shadow-dark;
+  border-top: .25px solid $lavender-cloud;
 }
 .hide{
   display: none;
@@ -10,8 +9,10 @@
   margin-bottom: -10px;
   transform: rotate(180deg)translateY(45%)translateX(15%);
 }
-.error {
-  color: $candy-red!important;
+.textError {
+  #post-update-text, #title-update-text{
+    color: $candy-red;
+  }
 }
 .error .validation-char {
   color: $candy-red!important;
@@ -21,4 +22,10 @@
 }
 .valid .validation-char {
   color: $proton-light!important;
+}
+.no-border{
+  &:hover, &:active, &:focus {
+    border: 1px solid transparent!important//overrides the default 1px border applied on form field pseudo-states to keep the "feel" of directly editing the post instead of creating a new one
+  }
+  padding-left: 0px;
 }

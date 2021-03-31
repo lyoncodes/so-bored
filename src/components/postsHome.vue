@@ -3,7 +3,7 @@
   b-container.mt-4
 
     //- Create Post Form ============
-    b-col.post.col-12.ml-0(v-if="showCreatePost")
+    b-col.card.col-12.ml-0(v-if="showCreatePost")
       .pt-1.pl-2.pr-2
         b-row.justify-content-between.mb-1
           b-col.p-0.text-left
@@ -16,45 +16,46 @@
               @submit.prevent="newPost"
               v-bind:class="errorObject"
             )
-              b-form-textarea#new-post-title(
-                v-model="newPostData.title"
-                @keyup="validateCharCount()"
+              b-form-textarea(
+                id="new-post-title"
                 autofocus
                 required
                 contenteditable
                 placeholder="Title"
                 rows="1"
                 max-rows="3"
+                v-model="newPostData.title"
+                @keyup="validateCharCount()"
               )
               b-row.justify-content-start
-                a.validation-char.ml-3.mt-2 {{newPostData.title.length}} / {{formValidation.titleLimit}}
+                a.validation-char.ml-3.mt-1 {{newPostData.title.length}} / {{formValidation.titleLimit}}
 
         //- ------ New post text form ------
         b-row
-          b-col.col-12.p-0.mt-2
-            b-form.mt-1(
+          b-col.p-0.mt-1
+            b-form(
               @submit.prevent="newPost"
               v-bind:class="errorObject"
             )
 
-              b-form-textarea#new-post-textarea(
+              b-form-textarea.free-textarea(
+                placeholder="Post text (optional)"
+                rows="4"
+                max-rows="6"
+                v-model="newPostData.text"
                 @keyup="validateCharCount()"
                 @keydown.enter.prevent="newPost"
-                v-model="newPostData.text"
-                placeholder="Post text (optional)"
-                rows="1"
-                max-rows="6"
               )
-        //- ------ New post validation ------
-        b-row.justify-content-between.mb-2
-          a.validation-char.ml-0.mt-2 {{newPostData.text.length}} / {{formValidation.charLimit}}
-          button#create-post.neu-b-button.m-0.mt-1.mb-2(
-            :disabled="isError"
-            type="submit"
-          ) Submit
+              //- ------ New post validation ------
+              b-row.justify-content-between
+                a.validation-char.ml-3.mt-1(v-bind:class="errorObject") {{newPostData.text.length}} / {{formValidation.charLimit}}
+                button.pill-button.mr-3.mt-1.mb-2(
+                  :disabled="isError"
+                  type="submit"
+                ) post
 
     //- Array Iteration (post in posts, mounted() from 'posts' in state object)
-    b-col.post.col-12.ml-0(v-for="post in posts" :key="post.id")
+    b-col.card.col-12.ml-0(v-for="post in posts" :key="post.id")
 
       postComponent(
         :post="post"
@@ -90,7 +91,7 @@ export default {
     ]),
     errorObject: function () {
       return {
-        error: this.newPostData.title.length > this.formValidation.titleLimit || this.newPostData.text.length > this.formValidation.charLimit ? true : null
+        error: this.newPostData.title.length > this.formValidation.titleLimit ? true : null
       }
     }
   },

@@ -1,18 +1,28 @@
-.link-style-main {
-  color: $plastic-pink !important;
-  font-size: $font-sm;
-  transition: ease 0.4s all;
+.link-style-main, .link-style-alt {
+  transition: ease 0.3s all;
   &:hover{
-    color: $royal!important;
     cursor: pointer;
+    text-decoration: none;
+  }  
+}
+.link-style-main {
+  color: $royal!important;
+  font-size: $font-sm;
+  &:hover{
+    color: $plastic-pink!important
   }
 }
 .link-style-alt {
   color: $royal !important;
   font-size: $font-md-abs;
-  transition: ease 0.2s all;
   &:hover{
-    color: $royal-dark!important;
-    cursor: pointer;
+    color: $royal-dark!important
+  }
+}
+.link-disabled{
+  color: $royal !important;
+  font-size: $font-md-abs;
+  &:hover{
+    text-decoration: none;
   }
 }
