@@ -8,10 +8,12 @@ $proton-light: rgb(221, 62, 230); // rgba(221, 62, 230)
 $proton-light-opaque: rgba(248, 122, 255, 0.502); // rgba(221, 62, 230)
 $proton-deep: #BD38FC; // rgba(189, 56, 252)
 $proton-deep-opaque: #c552faab; // rgba(189, 56, 252)
+$proton-deep-light: #ecc8fd3b; // rgba(189, 56, 252)
 $royal: #8235F2; // rgba(130, 53, 242)
 $royal-dark: #541aaa;
 $royal-matte: #4A3669;
 $lavender-cloud: rgba(239, 239, 250, 0.801);
+$metallic-cloud: rgba(231, 231, 231, 0.349);
 // Slates & Shadows
 $slate: #374049;
 $black-slate: #2c3e50;
@@ -57,13 +59,13 @@ inset -5px -5px 10px $light-slate,
 inset 5px 5px 10px $dark-slate;
 
 $shadow-low-contrast: 
--2px -2px 8px $light-slate-full,
+-2px -2px 4px $light-slate,
 -2px -2px 12px $light-slate,
 inset 2px 2px 4px $light-slate-op,
 2px 2px 8px $light-slate-tr;
 
 $shadow-low-contrast-hover: 
-inset -2px -2px 8px $light-slate-full,
+inset -1px -2px 4px $background-slate,
 inset -2px -2px 12px $light-slate,
 inset 2px 2px 4px $light-slate-op,
 inset 2px 2px 8px $light-slate-tr;

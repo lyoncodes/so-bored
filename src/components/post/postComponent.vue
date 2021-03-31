@@ -12,7 +12,7 @@
       span.caption.ml-2 {{ post.createdOn.toDate().toLocaleDateString() }}
 
     //- Delete post button
-    button#delete-post.post-navigation-button(
+    button.tab-button.square-pad-button(
       v-if="userProfile.displayName === post.userName"
       :disabled="postList.updating"
       @click="destroy(post)"
@@ -24,15 +24,15 @@
         IconDelete
 
   //- Post Title -----------
-  b-row
-
-    //- Title
-    h3#post-title.mb-0.text-left(v-if="!postList.updating") {{post.title}}
+  b-row.mt-2
+    b-col.col-12.p-0.mt-1(v-if="!postList.updating")
+      //- Title
+      h3.mb-0.text-left {{post.title}}
 
     //- Update form fields (title)
     b-col.p-0.mb-0
       //- title form field
-      b-form#title-update-form(
+      b-form.text-left(
         @submit.prevent="updatePostHeader(post, postList.postUpdateData)"
         v-if="postList.updating"
         v-bind:class="titleErrorObject"
@@ -48,14 +48,14 @@
         )
 
         //- input validation
-        b-row.justify-content-start
-          a.validation-char#update-validation-char(v-bind:class="titleErrorObject") {{postList.postUpdateData.title.length}} / {{formValidation.titleLimit}}
+        b-row.justify-content-start.mt-2
+          a.validation-char-fixed(v-bind:class="titleErrorObject") {{postList.postUpdateData.title.length}} / {{formValidation.titleLimit}}
 
   //- Post Text -----------
   b-row(v-if="!postList.updating")
 
     //- Text content
-    p.post-text {{post.text}}
+    p.main-text {{post.text}}
 
   //- Update text form fields
   b-row
@@ -68,8 +68,10 @@
       )
 
         //- text area
-        b-form-textarea.mt-3(
-          id="post-update-textarea"
+        b-form-textarea.mt-3.free-textarea.no-border(
+          id="post-update-text"
+          rows="1"
+          max-rows="6"
           v-model="postList.postUpdateData.text"
           @keyup="validateForm()"
           @keydown.enter.prevent="updatePostHeader(post, postList.postUpdateData)"
@@ -78,9 +80,9 @@
 
         //- character counter and edit button
         b-row.justify-content-between
-          a.validation-char#update-validation-char {{postList.postUpdateData.text.length}} / {{formValidation.charLimit}}
+          a.validation-char-fixed {{postList.postUpdateData.text.length}} / {{formValidation.charLimit}}
 
-          button#update-post.neu-b-button(
+          button#update-post.pill-button(
             type="submit"
             variant="primary"
             :disabled="!postList.postUpdateData.text.length && !postList.postUpdateData.title.length"
@@ -99,7 +101,6 @@
   div(v-if="postList.displayComments && !postList.displayLinks")
     postComments(
       :post="post"
-      :postList="postList"
       :postComments="getPostComments"
       :user="userProfile.displayName"
       :validation="formValidation"

@@ -4,27 +4,27 @@
   )
     b-col
       b-row.justify-content-center
-        b-form-group#login-email.col-12.mb-2
+        b-form-group.col-12.mb-2
           b-row
-            a.link-style-alt.ml-1.mb-1 email
+            a.link-disabled.ml-1.mb-1 email
           b-row
-            b-form-input#login-form-email.login-input(
+            b-form-input.inline-input-lg(
               v-model="userCredentials.email"
               type="text"
             )
 
-        b-form-group#login-password.col-12
+        b-form-group.col-12
           b-row
-            a.link-style-alt.ml-1.mb-1 password
+            a.link-disabled.ml-1.mb-1 password
           b-row
-            b-form-input#login-form-password.login-input(
+            b-form-input.inline-input-lg(
               @keydown.enter.prevent="handleLogin(userCredentials)"
               v-model="userCredentials.password"
               type="password"
             )
 
       b-row.justify-content-center
-        button.neu-b-button(
+        button.action-button-lg(
           type="submit"
         ) Login
 </template>

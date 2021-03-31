@@ -14,7 +14,6 @@ $font-md: 1em;
 $font-md-abs: 16px;
 $font-sm: .75em;
 $font-sm-abs: 12px;
-$font-caption: 8px;
 
 %body-fonts {
   font: 100% $font-body;
@@ -31,31 +30,48 @@ $font-caption: 8px;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  h3,h4,h5,h6 {
+  h3,h4,h5,h6,.inline-input-lg, #title-update-form {
     color: $royal-dark;
+  }
+  h3,h4,h5,h6 {
     font-size: $font-md;
     font-weight: $font-heavy;
   }
-  span{
+  span.caption {
     background: $subtle-g;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: $font-caption;
-    font-style: italic;
+    font-size: $font-sm-abs;
+    font-weight: $font-heavy;
     transition: ease 0.3s all;
     &:hover{
       cursor: default;
     }
   }
-  .post-text{
+  .main-text{
     margin-bottom: 0;
     text-align: left;
+    line-height: 1.5;
     padding: 1em 0 1em 0;
     font-weight: $font-light;
     font-size: $font-sm;
   }
   &:hover{
     cursor: default;
+  }
+  .validation-char, .validation-char-fixed {
+    color: $royal;
+    font-size: 10px!important;
+    font-weight: $font-heavy;
+    margin: .75em 0 0 2em;
+    text-align: left;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+  .validation-char-fixed {
+    position: absolute;
+    bottom: -13px;
   }
 }

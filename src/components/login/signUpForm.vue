@@ -4,29 +4,29 @@
   )
     b-col
       b-row.justify-content-center
-        b-form-group#account-email.col-12.mb-2
+        b-form-group.col-12.mb-2
           b-row
-            a.link-style-alt.ml-1.mb-1 login email
+            a.link-disabled.ml-1.mb-1 login email
           b-row
-            b-form-input.login-input(
+            b-form-input.inline-input-lg(
               v-model="signUpForm.email"
               type="text"
             )
 
-        b-form-group#account-password.col-12
+        b-form-group.col-12
           b-row.justify-content-between
-            a.link-style-alt.ml-1.mb-1 password
-            a.link-style-alt(
+            a.link-disabled.ml-1.mb-1 password
+            a.link-disabled(
               :class="errorObject"
             ) {{signUpForm.password.length}} / {{formChar.passwordLength}}
           b-row
-            b-form-input.login-input(
+            b-form-input.inline-input-lg(
               @keydown.enter.prevent="handleSignUp()"
               v-model="signUpForm.password"
               type="password"
             )
       b-row.justify-content-center
-        button.neu-b-button(
+        button.action-button-lg(
           type="submit"
         ) Create Account
 

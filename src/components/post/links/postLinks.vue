@@ -1,12 +1,13 @@
 <template lang="pug">
 b-row
-  b-col.col-12.comments-section.mt-2(v-for="link in postLinks" :key="link.id")
-    b-row.comment-container.text-left
-      b-col.col-12.p-0
-        span.caption.pl-2.pt-2.mb-0 {{ link.userName }} linked:
-        p.post-text.link-style-main.pl-3.pt-1(@click="redirect(link)") {{link.linkText}}
+  b-col.col-12.comments-section.mt-0(v-for="link in postLinks" :key="link.id")
+    b-row.comment-container
+      b-col.col-12.p-0.text-left
 
-        button#delete-comment.post-navigation-button(
+        span.caption.pl-2.pt-2.mb-0 {{ link.userName }} linked:
+        p.main-text.link-style-main.pl-3.pt-1(@click="redirect(link)") {{link.linkText}}
+
+        button.tab-button.square-pad-button(
           @click="remove(link)"
           v-if="user===link.userName")
           IconBase(
@@ -15,8 +16,6 @@ b-row
           )
             IconDelete
   createLink(
-    :post="post"
-    :postList="postList"
     :validation="validation"
     @append="appendLink"
   )
@@ -30,8 +29,7 @@ export default {
   components: {
     createLink: () => import('./createLink'),
     IconBase: () => import('../../IconBase'),
-    IconDelete: () => import('../../icons/IconDelete'),
-    IconCaret: () => import('../../icons/IconCaret')
+    IconDelete: () => import('../../icons/IconDelete')
   },
   async mounted () {
     const user = this.user
