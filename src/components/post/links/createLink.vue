@@ -1,37 +1,28 @@
 <template lang="pug">
-b-col.col-12.p-0
+b-col.col-12.p-0.mt-2
   b-form(
-    inline
-    @submit.prevent="append()"
+    @submit.prevent="append"
   )
-    b-form-textarea.mb-2(
+    b-form-textarea.inline-input(
       autofocus
-      id="link-textarea"
       v-model="link.linkText"
       placeholder="link title"
     )
 
-    b-form-textarea(
+    b-form-textarea.inline-input.mt-1(
       @keydown.enter.prevent="append()"
-      id="link-textarea"
       v-model="link.linkURL"
       placeholder="https://"
     )
-    button#create-link.post-navigation-button(
-      type="submit"
-      :disabled="this.link.linkText.length > this.validation.commentLimit"
-    )
-      IconBase(
-        icon-name="link"
-        height="19"
-        width="19"
-      )
-        IconLink
 
-  b-row.justify-content-between.mb-2
-    a.validation-char.mt-2.mb-0.ml-3(
-      :class="errorObject"
-    ) {{this.link.linkText.length}} / {{ validation.commentLimit}}
+    b-row.justify-content-between
+      a.validation-char.mt-1(
+        :class="errorObject"
+      ) {{this.link.linkText.length}} / {{ validation.commentLimit}}
+      button.pill-button.mr-3(
+        type="submit"
+        :disabled="this.link.linkText.length > this.validation.commentLimit"
+      ) Link
 
 </template>
 <script>
@@ -39,10 +30,8 @@ import { linksCollection } from '../../../../firebase'
 import { mapActions } from 'vuex'
 export default {
   name: 'link-box',
-  props: ['post', 'postList', 'validation'],
+  props: ['validation'],
   components: {
-    IconBase: () => import('../../IconBase'),
-    IconLink: () => import('../../icons/IconLink'),
     postLinks: () => import('./postLinks')
   },
   data () {

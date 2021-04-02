@@ -2,37 +2,37 @@
   b-row.mb-2.mt-3.pt-2.pb-2
 
     //- handle update post data & cancel form update
-    button.post-navigation-button(
+    button.square-pad-button.pt-1(
       v-if="user === post.userName"
       @click="toggleUpdateForm(post)"
     )
-      IconBase#update-post-icon(
+      IconBase(
         icon-name="edit"
       )
         IconEdit
 
     //- sets postList.displayComments & displays comment component
-    button.post-navigation-button(
+    button.square-pad-button(
       @click="toggleCommentComponent(post)"
       :disabled="postList.updating"
     )
       IconBase(
         icon-name="comment"
-        height="20"
-        width="20"
+        height="18"
+        width="18"
       )
-        IconChat
+        IconComment
       span.caption.pl-1.pr-1 {{postComments.length}}
 
     //- sets postList.showLinks & displays link component
-    button.post-navigation-button(
+    button.square-pad-button(
       @click="toggleLinkForm(post)"
       :disabled="postList.updating"
     )
       IconBase(
         icon-name="link"
-        height="19"
-        width="19"
+        height="20"
+        width="20"
       )
         IconLink
       span.caption.pl-1.pr-1 {{postLinks.length}}
@@ -44,7 +44,7 @@ export default {
   components: {
     IconBase: () => import('../IconBase'),
     IconEdit: () => import('../icons/IconEdit'),
-    IconChat: () => import('../icons/IconChat'),
+    IconComment: () => import('../icons/IconComment'),
     IconLink: () => import('../icons/IconLink')
   },
   methods: {

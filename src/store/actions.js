@@ -15,11 +15,12 @@ export default {
   },
   // Logs auth user in - ML
   login ({ commit }, data) {
+    console.log(data)
     firebase.auth.signInWithEmailAndPassword(data.email, data.password)
       .catch(error => {
         commit('handleError', error.message)
       })
-    router.push('/')
+      .then(router.push('/'))
   },
   // Creates user in firebase user collection - ML
   createUser ({ commit }, data) {

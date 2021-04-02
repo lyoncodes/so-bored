@@ -1,44 +1,32 @@
 <template lang="pug">
   b-form(
-    @submit.prevent="handleLogin(loginData)"
+    @submit.prevent="handleLogin(userCredentials)"
   )
     b-col
       b-row.justify-content-center
-        b-form-group#login-email.col-12.mb-2
+        b-form-group.col-12.mb-2
           b-row
-            a.link-style-alt.ml-1.mb-1 email
+            a.link-disabled.ml-1.mb-1 email
           b-row
-            b-form-input#login-form-textarea.login-input(
-              v-model="loginData.email"
+            b-form-input.inline-input-lg(
+              v-model="userCredentials.email"
               type="text"
             )
 
-        b-form-group#login-password.col-12
+        b-form-group.col-12
           b-row
-            a.link-style-alt.ml-1.mb-1 password
+            a.link-disabled.ml-1.mb-1 password
           b-row
-            b-form-input#login-form-password.login-input(
-              @keydown.enter.prevent="handleLogin(loginData)"
-              v-model="loginData.password"
+            b-form-input.inline-input-lg(
+              @keydown.enter.prevent="handleLogin(userCredentials)"
+              v-model="userCredentials.password"
               type="password"
             )
 
       b-row.justify-content-center
-        button.neu-b-button(
+        button.action-button-lg(
           type="submit"
         ) Login
-      b-row.justify-content-center.hr
-      b-row.justify-content-center
-        button.neu-b-button#google-button(
-          @click="googleLogin"
-        )
-          IconBase#google-logo.mr-2(
-            icon-name="Google"
-            height="20"
-            width="20"
-          )
-            IconGoogle
-          a Continue with Google
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -46,7 +34,7 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      loginData: {
+      userCredentials: {
         email: '',
         password: ''
       }
@@ -59,14 +47,10 @@ export default {
   },
   methods: {
     ...mapActions([
-      'login',
-      'loginWithGoogle'
+      'login'
     ]),
-    googleLogin () {
-      this.loginWithGoogle()
-    },
-    handleLogin (loginData) {
-      this.login(loginData)
+    handleLogin (userCredentials) {
+      this.login(userCredentials)
     }
   }
 }

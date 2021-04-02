@@ -13,59 +13,62 @@
       p.link-style-alt(v-if="errorMsg.length") {{errorMsg}} 🤕
 
     b-row.justify-content-center
-      b-col(v-if="showLoginForm && !toggleCredentials")
-        loginForm(v-on:toggleSignUp="toggleSignUp")
+      b-col(v-if="showLoginForm")
+        loginForm()
 
-      b-col(v-if="!showLoginForm && !toggleCredentials")
+      b-col(v-if="!showLoginForm")
         signUpForm(v-on:toggleForm="toggleSignUp")
 
-      b-col(v-if="toggleCredentials")
-        passwordReset(v-on:resetForms="toggleResetForm")
-
-      b-col.col-11.col-lg-12.mt-5(v-if="!toggleCredentials")
-        b-row.justify-content-center
-          a.link-style-alt.mr-4(
-            v-if="showLoginForm"
-            @click="toggleSignUp"
-          ) sign up
-          a.link-style-alt(
-            @click="toggleResetForm"
-          ) forgot password
+    b-row.justify-content-center.hr
+    b-row.justify-content-center
+      button.action-button-lg.logo-button(
+        @click="googleLogin"
+      )
+        IconBase#google-logo.mr-2(
+          icon-name="Google"
+          height="20"
+          width="20"
+        )
+          IconGoogle
+        a Continue with Google
+    b-col.mt-4
+      b-row.justify-content-center
+        a(
+          @click="toggleSignUp"
+        )
+          p.link-style-main(v-if="showLoginForm") Sign Up
+          p.link-style-main(v-if="!showLoginForm") Back to Login
 </template>
 <script>
 import signUpForm from '../components/login/signUpForm'
-import { mapState } from 'vuex'
+import loginForm from '../components/login/loginForm'
+import { mapState, mapActions } from 'vuex'
 
 export default {
 
   data () {
     return {
-      loginData: {
-        email: '',
-        password: ''
-      },
-      showLoginForm: true,
-      toggleCredentials: false
+      showLoginForm: true
     }
   },
 
   components: {
     signUpForm,
-    loginForm: () => import('../components/login/loginForm'),
-    passwordReset: () => import('../components/login/passwordReset'),
+    loginForm,
     IconBase: () => import('../components/IconBase'),
-    IconLogo: () => import('../components/icons/IconLogo')
+    IconLogo: () => import('../components/icons/IconLogo'),
+    IconGoogle: () => import('../components/icons/IconGoogle')
   },
 
   methods: {
+    ...mapActions([
+      'loginWithGoogle'
+    ]),
+    googleLogin () {
+      this.loginWithGoogle()
+    },
     toggleSignUp () {
       this.showLoginForm = !this.showLoginForm
-    },
-    toggleResetForm () {
-      this.toggleCredentials = !this.toggleCredentials
-      if (!this.showLoginForm) {
-        this.showLoginForm = true
-      }
     }
   },
 
