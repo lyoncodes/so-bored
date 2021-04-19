@@ -67,7 +67,7 @@ export default {
   },
   // Read posts comments
   readPostComments ({ commit }) {
-    firebase.commentsCollection.limit(500).onSnapshot(snapshot => {
+    firebase.commentsCollection.onSnapshot(snapshot => {
       const comments = []
 
       snapshot.forEach((c) => {
@@ -81,7 +81,7 @@ export default {
   },
   // Read posts links
   readPostLinks ({ commit }) {
-    firebase.linksCollection.limit(250).onSnapshot(snapshot => {
+    firebase.linksCollection.limit(50).onSnapshot(snapshot => {
       const links = []
 
       snapshot.forEach((l) => {
@@ -96,12 +96,13 @@ export default {
 
   // POST CRUD OPERATIONS
   // Creates post in db collection - ML
-  async createPost ({ commit }, post) {
+  async createPost ({ commit, state }, post) {
+    const createdOn = new Date()
     await firebase.postsCollection.add({
       title: post.title,
       text: post.text,
-      createdOn: post.createdOn,
-      userName: post.userName,
+      createdOn: createdOn,
+      userName: firebase.auth.currentUser.displayName,
       userId: firebase.auth.currentUser.uid
     })
   },

@@ -7,6 +7,9 @@ export default {
   setUserProfile (state, data) {
     state.userProfile.displayName = data
   },
+  showPostForm (state) {
+    state.showPostForm = !state.showPostForm
+  },
   updatePosts (state, data) {
     state.posts = data
   },

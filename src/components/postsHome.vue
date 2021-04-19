@@ -3,7 +3,7 @@
   b-container.mt-4
 
     //- Create Post Form ============
-    b-col.card.col-12.ml-0(v-if="showCreatePost")
+    b-col.card.col-12.ml-0(v-if="showPostForm")
       .pt-1.pl-2.pr-2
         b-row.justify-content-between.mb-1
           b-col.p-0.text-left
@@ -13,7 +13,7 @@
         b-row
           b-col.p-0.mb-0
             b-form(
-              @submit.prevent="newPost"
+              @submit.prevent="submit"
               v-bind:class="errorObject"
             )
               b-form-textarea(
@@ -34,7 +34,7 @@
         b-row
           b-col.p-0.mt-1
             b-form(
-              @submit.prevent="newPost"
+              @submit.prevent="submit"
               v-bind:class="errorObject"
             )
 
@@ -44,7 +44,7 @@
                 max-rows="6"
                 v-model="newPostData.text"
                 @keyup="validateCharCount()"
-                @keydown.enter.prevent="newPost"
+                @keydown.enter.prevent="submit"
               )
               //- ------ New post validation ------
               b-row.justify-content-between
@@ -63,10 +63,10 @@
       )
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'posts',
-  props: ['formValidation', 'showCreatePost'],
+  props: ['formValidation'],
   components: {
     postComponent: () => import('../components/post/postComponent'),
     IconBase: () => import('./IconBase'),
@@ -78,16 +78,14 @@ export default {
         title: '',
         text: ''
       },
-      updateProfileData: {
-        displayName: null
-      },
       isError: false
     }
   },
   computed: {
     ...mapState([
       'userProfile',
-      'posts'
+      'posts',
+      'showPostForm'
     ]),
     errorObject: function () {
       return {
@@ -96,30 +94,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'createPost'
-    ]),
-    updateProfile () {
-      this.userProfile.updateProfile({
-        displayName: this.updateProfileData.displayName
-      })
-    },
     validateCharCount () {
       this.isError = this.newPostData.title.length > this.formValidation.titleLimit || this.newPostData.text.length > this.formValidation.charLimit ? true : null
     },
 
-    newPost () {
-      const { title, text } = this.newPostData
-      const createdOn = new Date()
-      const userName = this.userProfile.displayName
-      const post = {
-        title,
-        text,
-        createdOn,
-        userName
-      }
+    submit () {
+      const post = { ...this.newPostData }
       if (!this.isError) {
-        this.createPost(post)
+        this.$store.dispatch('createPost', post)
         this.resetForm()
       }
     },
@@ -130,10 +112,6 @@ export default {
         text: ''
       }
       this.$emit('hideForm')
-    },
-
-    toggleCreatePost () {
-      this.showCreatePost = !this.showCreatePost
     }
   }
 }

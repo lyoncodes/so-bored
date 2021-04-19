@@ -1,10 +1,15 @@
 <template lang="pug">
   #app
+    <TheNavbar />
     <router-view />
 </template>
 
 <script>
+import TheNavbar from './components/TheNavbar'
 export default {
+  components: {
+    TheNavbar
+  }
 }
 </script>
 <style lang="scss">
