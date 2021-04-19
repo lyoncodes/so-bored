@@ -105,6 +105,7 @@ export default {
       userName: firebase.auth.currentUser.displayName,
       userId: firebase.auth.currentUser.uid
     })
+    commit('showPostForm')
   },
   // Updates post in db collection - ML
   async updatePost ({ commit }, postUpdateData) {

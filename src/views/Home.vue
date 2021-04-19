@@ -6,7 +6,6 @@
       //- Posts
       postsHome(
         :formValidation="formValidation"
-        @hideForm="toggleCreatePost"
       )
 </template>
 
