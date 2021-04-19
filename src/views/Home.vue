@@ -1,16 +1,11 @@
 <template lang="pug">
   div
-    //- Navbar
-    navBar(
-      v-on:toggleCreatePost="toggleCreatePost()")
 
     b-col.col-12.p-0
 
       //- Posts
       postsHome(
         :formValidation="formValidation"
-        :showCreatePost="showCreatePost"
-        @hideForm="toggleCreatePost"
       )
 </template>
 
@@ -18,7 +13,6 @@
 export default {
   data () {
     return {
-      showCreatePost: false,
 
       formValidation: {
         titleLimit: 140,
@@ -32,13 +26,8 @@ export default {
     this.$store.dispatch('readPosts') // fetch posts when Home is created - ML
   },
   components: {
-    navBar: () => import('../components/navBar'),
+    TheNavbar: () => import('../components/TheNavbar'),
     postsHome: () => import('../components/postsHome')
-  },
-  methods: {
-    toggleCreatePost () {
-      this.showCreatePost = !this.showCreatePost
-    }
   }
 }
 </script>
