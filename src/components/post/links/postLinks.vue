@@ -9,7 +9,7 @@ b-row
 
         button.tab-button.square-pad-button(
           @click="remove(link)"
-          v-if="user===link.userName")
+          v-if="userProfile.displayName === link.userName")
           IconBase(
             icon-name="delete"
             iconColor="rgb(252, 56, 172)"
@@ -22,18 +22,14 @@ b-row
 </template>
 <script>
 import { linksCollection } from '../../../../firebase'
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'link-box',
-  props: ['post', 'postList', 'postLinks', 'user', 'validation'],
+  props: ['post', 'postList', 'postLinks', 'validation'],
   components: {
     createLink: () => import('./createLink'),
     IconBase: () => import('../../IconBase'),
     IconDelete: () => import('../../icons/IconDelete')
-  },
-  async mounted () {
-    const user = this.user
-    this.user = user
   },
   data () {
     return {
@@ -44,37 +40,22 @@ export default {
     }
   },
   computed: {
-    errorObject: function () {
-      return {
-        error: this.linkData.linkText.length > this.validation.commentLimit ? true : null
-      }
-    },
-    flipThis: function () {
-      return {
-        flip: !this.postList.displayLinkForm
-      }
-    }
+    ...mapState([
+      'userProfile'
+    ])
   },
   methods: {
     ...mapActions([
       'createLink'
     ]),
 
-    appendLink (linkData) {
-      const link = {
-        ...linkData.linkData,
-        reference: this.$props.post.id,
-        userName: this.$props.user
-      }
+    appendLink (link) {
+      link.reference = this.$props.post.id
+      link.createdOn = new Date()
       if (link.linkText.length && link.linkURL.length) {
         this.postLinks.push(link)
-
         this.createLink(link)
         this.getLinkId(link)
-      }
-      this.linkData = {
-        linkText: '',
-        linkURL: ''
       }
     },
 

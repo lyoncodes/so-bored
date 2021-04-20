@@ -45,14 +45,11 @@ export default {
       'createComment'
     ]),
 
-    async appendComment (commentData) {
-      const comment = {
-        ...commentData.comment,
-        reference: this.$props.post.id,
-        userName: this.$props.user
-      }
-      this.postComments.push(comment)
+    appendComment (comment) {
+      comment.reference = this.$props.post.id
+      comment.createdOn = new Date()
 
+      this.postComments.push(comment)
       this.createComment(comment)
       this.getCommentId(comment)
     },

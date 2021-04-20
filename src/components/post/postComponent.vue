@@ -89,12 +89,12 @@
           ) edit
 
   //- Post navigation -----------
+  //- Refactor this using getters so that there's a length property available for postComments and postList
   postNavigation(
     :post="post"
     :postList="postList"
     :postComments="getPostComments"
     :postLinks="getPostLinks"
-    :user="userProfile.displayName"
   )
 
   //- Comments section -----------
@@ -109,6 +109,7 @@
   //- Links section -----------
   div(v-if="postList.displayLinks && !postList.displayComments")
     postLinks(
+      :id="post.id"
       :post="post"
       :postList="postList"
       :postLinks="getPostLinks"

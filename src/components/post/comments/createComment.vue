@@ -46,12 +46,7 @@ export default {
 
   methods: {
     append () {
-      const createdOn = new Date()
-      const text = this.comment.text
-      const comment = {
-        createdOn,
-        text
-      }
+      const comment = this.comment
       if (!this.isError) {
         this.$emit('append', { comment })
         this.clearComment()
