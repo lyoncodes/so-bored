@@ -26,11 +26,14 @@ b-col.col-12.p-0.mt-2
 
 </template>
 <script>
-import { linksCollection } from '../../../../firebase'
-import { mapActions } from 'vuex'
 export default {
-  name: 'link-box',
-  props: ['validation'],
+  name: 'CreateLink',
+  props: {
+    validation: {
+      type: Object,
+      required: true
+    }
+  },
   components: {
     postLinks: () => import('./postLinks')
   },
@@ -50,32 +53,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'createLink'
-    ]),
-
     append () {
-      const createdOn = new Date()
-      const { linkText, linkURL } = this.link
-      const linkData = {
-        createdOn,
-        linkText,
-        linkURL
-      }
-      if (this.link.linkText.length && this.link.linkURL.length) {
-        this.$emit('append', { linkData })
-      }
+      const link = { ...this.link }
+      this.$emit('append', link)
       this.link = {
         linkText: '',
         linkURL: ''
       }
-    },
-
-    async getLinkId (link) {
-      const linksRef = await linksCollection.where('createdOn', '==', link.createdOn).get()
-      linksRef.forEach((l) => {
-        link.id = l.id
-      })
     },
 
     redirect (link) {

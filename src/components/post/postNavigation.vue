@@ -3,7 +3,7 @@
 
     //- handle update post data & cancel form update
     button.square-pad-button.pt-1(
-      v-if="user === post.userName"
+      v-if="userProfile.displayName === post.userName"
       @click="toggleUpdateForm(post)"
     )
       IconBase(
@@ -13,7 +13,7 @@
 
     //- sets postList.displayComments & displays comment component
     button.square-pad-button(
-      @click="toggleCommentComponent(post)"
+      @click="toggleCommentComponent()"
       :disabled="postList.updating"
     )
       IconBase(
@@ -26,7 +26,7 @@
 
     //- sets postList.showLinks & displays link component
     button.square-pad-button(
-      @click="toggleLinkForm(post)"
+      @click="toggleLinkForm()"
       :disabled="postList.updating"
     )
       IconBase(
@@ -38,14 +38,20 @@
       span.caption.pl-1.pr-1 {{postLinks.length}}
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'postNav',
-  props: ['post', 'user', 'postList', 'postComments', 'postLinks'],
+  props: ['post', 'postList', 'postComments', 'postLinks'],
   components: {
     IconBase: () => import('../IconBase'),
     IconEdit: () => import('../icons/IconEdit'),
     IconComment: () => import('../icons/IconComment'),
     IconLink: () => import('../icons/IconLink')
+  },
+  computed: {
+    ...mapState([
+      'userProfile'
+    ])
   },
   methods: {
     // Display / hide post editing form fields
@@ -55,13 +61,13 @@ export default {
       this.postList.updating = !this.postList.updating
     },
     // Display / Hide post comments
-    toggleCommentComponent (post) {
+    toggleCommentComponent () {
       this.postList.displayComments = !this.postList.displayComments
       this.postList.displayCommentForm = true
       this.postList.displayLinks = false
     },
     // Display / Hide Link Section
-    toggleLinkForm (post) {
+    toggleLinkForm () {
       this.postList.displayComments = false
       this.postList.displayLinks = !this.postList.displayLinks
     }

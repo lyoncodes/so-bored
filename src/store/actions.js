@@ -128,7 +128,7 @@ export default {
     await firebase.commentsCollection.add({
       createdOn: comment.createdOn,
       text: comment.text,
-      userName: comment.userName,
+      userName: firebase.auth.currentUser.displayName,
       reference: comment.reference
     })
   },
@@ -138,7 +138,7 @@ export default {
       createdOn: link.createdOn,
       linkText: link.linkText,
       linkURL: link.linkURL,
-      userName: link.userName,
+      userName: firebase.auth.currentUser.displayName,
       reference: link.reference
     })
   }

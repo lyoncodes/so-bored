@@ -33,10 +33,7 @@ export default {
       'logout'
     ]),
     toggleCreatePost () {
-      // dispatch a mutation that flips the showPostForm boolean
       this.$store.commit('showPostForm')
-      // this.showCreatePost = !this.showCreatePost
-      // this.$emit('toggleCreatePost', this.showCreatePost)
     }
   }
 }
